@@ -1,0 +1,148 @@
+/* index.css */
+/* WebKit Scrollbar Styling */
+.main-container {
+  margin: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-height: calc(100vh - 40px); /* Adjust according to your layout needs */
+  overflow-y: auto; /* Enable vertical scrolling if needed */
+}
+
+/* Scrollbar styling */
+.main-container::-webkit-scrollbar {
+  width: 12px; /* Width of the scrollbar */
+}
+
+.main-container::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Color of the scrollbar track */
+  border-radius: 10px; /* Rounded corners for the track */
+  border-radius: 10px; /* Rounded corners for the thumb */margin-top: 6.5rem;
+
+}
+
+.main-container::-webkit-scrollbar-thumb {
+  background: #d6d32b; /* Color of the scrollbar thumb */
+  border-radius: 10px; /* Rounded corners for the thumb */margin-top: 6.5rem;
+}
+
+.main-container::-webkit-scrollbar-thumb:hover {
+  background: #fdfa27; /* Color of the scrollbar thumb on hover */
+  border-radius: 10px; /* Rounded corners for the thumb */margin-top: 6.5rem;
+  
+}
+
+/* Main container styling */
+.main {
+  display: flex;
+  flex-direction: row;
+  padding: 20px;
+  background-color: #f8f9fa;
+  min-height: 100vh; /* Ensure it covers the full height of the screen */
+}
+
+/* Ensure the form and sections container grows and allows scrolling */
+.main-container {
+  margin: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-height: calc(100vh - 40px); /* Adjust according to your layout needs */
+  overflow-y: auto; /* Enable vertical scrolling if needed */
+}
+
+/* Section header and add button */
+.main .gap-2.mb-3.align-items-center {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.main h1 {
+  font-size: 2rem;
+  color: #333;
+}
+
+.main .btn.btn-primary {
+  background-color: #007bff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.main .btn.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+/* Card styling */
+.main-container .cardd {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+/* Section list styling */
+.post-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.list-item {
+  display: flex;
+  align-items: flex-start;
+  padding: 15px;
+  background-color: #faf9f9;
+  border-radius: 8px;
+}
+
+.list-item .rounded {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.list-item h1 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.list-item p {
+  font-size: 1rem;
+  color: #666;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .d-flex.main {
+      flex-direction: column;
+  }
+
+  .post-list {
+      gap: 15px;
+  }
+
+  .list-item {
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .list-item .rounded {
+      width: 80px;
+      height: 80px;
+  }
+
+  .list-item h1 {
+      font-size: 1.25rem;
+  }
+
+  .list-item p {
+      font-size: 0.9rem;
+  }
+}

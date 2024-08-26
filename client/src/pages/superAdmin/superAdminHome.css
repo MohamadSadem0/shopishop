@@ -1,0 +1,74 @@
+/* Card container styles */
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(30%, 1fr)); /* Cards take 30% of the container width, with auto-fit to handle responsiveness */
+  gap: 20px; /* Space between cards */
+  height: calc(100vh - 50px); /* Adjust height to fill vertical space, accounting for margins or headers */
+  width: 95%; /* Full width */
+  padding: 20px;
+  box-sizing: border-box; /* Ensure padding is included in the width/height calculation */
+}
+
+/* Individual card styles */
+.card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center content horizontally */
+  text-align: center;
+  height: 100%; /* Make card fill the grid cell */
+  box-sizing: border-box;
+  width: 90%;
+}
+
+.card p {
+  margin: 10px;
+}
+
+.card-link {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.card-img {
+  width: 240px;
+  height: 180px; /* Adjust as needed */
+  margin-bottom: 10px; /* Space between image and heading */
+}
+
+.card-link h5 {
+  margin: 0;
+  background: rgb(249, 218, 42);
+  padding: 15px;
+  border-radius: 20px;
+  text-align: center;
+  color: black !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.arrow-icon {
+  margin-left: 10px;
+  transition: transform 0.3s ease;
+}
+
+.card-link:hover .arrow-icon {
+  transform: translateX(10px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .card-container {
+    grid-template-columns: 1fr; /* 1 card per row on smaller screens */
+  }
+}

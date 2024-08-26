@@ -1,0 +1,75 @@
+
+  
+  /* Style the input fields */
+  input, textarea, select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  input[type="file"] {
+    padding: 10px 0;
+  }
+  
+  /* Add some visual feedback on focus */
+  input:focus, textarea:focus, select:focus {
+    border-color: #aaa;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Style the labels */
+  label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* Style the button */
+  button[type="submit"] {
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #3e8e41;
+  }
+  
+  /* Add some space between the fields */
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  /* Make the select field look nicer */
+  select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><path fill='#333' d='M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z'/></svg>");
+    background-position: right 10px top 50%;
+    background-repeat: no-repeat;
+    padding-right: 30px;
+  }
+  
+  /* Make the textarea look nicer */
+  textarea {
+    height: 100px;
+    resize: vertical;
+  }
+  
+  /* Add some responsive design */
+  @media (max-width: 768px) {
+
+    input, textarea, select {
+      padding: 5px;
+    }
+    button[type="submit"] {
+      padding: 5px 10px;
+    }
+  }
