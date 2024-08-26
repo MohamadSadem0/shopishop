@@ -164,7 +164,7 @@ const SuperAdminHome = () => {
     }
   };
 
-
+console.log(location)
 
 
 
