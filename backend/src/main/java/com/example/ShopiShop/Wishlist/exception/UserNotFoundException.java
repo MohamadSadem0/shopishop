@@ -1,4 +1,4 @@
-package com.example.ShopiShop.User.exception;
+package com.example.ShopiShop.Wishlist.exception;
 
 public class UserNotFoundException {
 }

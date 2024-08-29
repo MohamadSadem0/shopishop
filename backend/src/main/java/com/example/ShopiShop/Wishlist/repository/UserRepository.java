@@ -1,4 +1,4 @@
-package com.example.ShopiShop.User.repository;
+package com.example.ShopiShop.Wishlist.repository;
 
 public class UserRepository {
 }

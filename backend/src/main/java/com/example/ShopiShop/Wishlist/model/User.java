@@ -1,4 +1,4 @@
-package com.example.ShopiShop.User.model;
+package com.example.ShopiShop.Wishlist.model;
 
 public class User {
 }

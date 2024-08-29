@@ -1,4 +1,4 @@
-package com.example.ShopiShop.User.dto;
+package com.example.ShopiShop.Wishlist.dto;
 
 public class UserDTO {
 }

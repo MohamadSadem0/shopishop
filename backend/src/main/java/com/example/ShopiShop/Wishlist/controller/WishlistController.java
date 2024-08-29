@@ -1,4 +1,4 @@
-package com.example.ShopiShop.User.controller;
+package com.example.ShopiShop.Wishlist.controller;
 
-public class UserController {
+public class WishlistController {
 }

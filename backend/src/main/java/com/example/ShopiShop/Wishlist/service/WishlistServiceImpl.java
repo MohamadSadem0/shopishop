@@ -1,4 +1,4 @@
 package com.example.ShopiShop.Wishlist.service;
 
-public class UserServiceImpl {
+public class WishlistServiceImpl {
 }
