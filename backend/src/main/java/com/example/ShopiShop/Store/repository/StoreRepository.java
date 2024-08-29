@@ -1,2 +1,4 @@
-package com.example.ShopiShop.Store.repository;public class StoreRepository {
+package com.example.ShopiShop.Store.repository;
+
+public class StoreRepository {
 }

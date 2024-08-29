@@ -1,2 +1,4 @@
-package com.example.ShopiShop.Store.model;public class Store {
+package com.example.ShopiShop.Store.model;
+
+public class Store {
 }

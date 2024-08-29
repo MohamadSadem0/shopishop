@@ -1,2 +1,4 @@
-package com.example.ShopiShop.Store.controller;public class StoreController {
+package com.example.ShopiShop.Store.controller;
+
+public class StoreController {
 }

@@ -1,2 +1,4 @@
-package com.example.ShopiShop.Store.websocket;public class StoreApprovalNotifier {
+package com.example.ShopiShop.Store.websocket;
+
+public class StoreApprovalNotifier {
 }

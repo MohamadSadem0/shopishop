@@ -1,2 +1,4 @@
-package com.example.ShopiShop.Store.service;public class StoreServiceImpl {
+package com.example.ShopiShop.Store.service;
+
+public class StoreServiceImpl {
 }

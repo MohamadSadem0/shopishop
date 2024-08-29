@@ -1,2 +1,4 @@
-package com.example.ShopiShop.Store.controller;public class StoreWebSocketController {
+package com.example.ShopiShop.Store.controller;
+
+public class StoreWebSocketController {
 }
