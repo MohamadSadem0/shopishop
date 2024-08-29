@@ -1,6 +1,6 @@
 package com.example.ShopiShop.enums;
 
-public enum userRoleEnum {
+public enum UserRoleEnum {
     SUPER_ADMIN,
     CUSTOMER,
     SELLER
