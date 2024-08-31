@@ -3,19 +3,16 @@ import axiosInstance from '../utils/axiosInstance';
 /**
  * Handles user login.
  * @param {Object} credentials - User credentials { email, password }
- * @returns {Object} User data and token
+ * @returns {Object} User data
  */
 export const login = async (credentials) => {
   try {
     const response = await axiosInstance.post('/auth/login', credentials);
     
-   
-    const { token, user } = response.data;
+    // The token is now managed by the server in an HTTP-only cookie
+    const { user } = response.data; // No need to handle token in the client-side
 
-    // Save token in secure storage
-    localStorage.setItem('token', token); // Replace with secure storage solution
-
-    return { token, user };
+    return user;
   } catch (error) {
     console.error('Login failed:', error);
     throw error;
@@ -23,18 +20,18 @@ export const login = async (credentials) => {
 };
 
 /**
- * @param {Object} userDetails 
- * @returns {Object} 
+ * Handles user signup.
+ * @param {Object} userDetails - User details { name, email, password, ... }
+ * @returns {Object} User data
  */
 export const signup = async (userDetails) => {
   try {
     const response = await axiosInstance.post('/auth/signup', userDetails);
     
-    
-    const { token, user } = response.data;
+    // The token is now managed by the server in an HTTP-only cookie
+    const { user } = response.data;
 
-    localStorage.setItem('token', token); 
-    return { token, user };
+    return user;
   } catch (error) {
     console.error('Signup failed:', error);
     throw error;
@@ -44,6 +41,10 @@ export const signup = async (userDetails) => {
 /**
  * Handles user logout.
  */
-export const logout = () => {
-  localStorage.removeItem('token'); // Clear token from secure storage
+export const logout = async () => {
+  try {
+    await axiosInstance.post('/auth/logout'); // Trigger server-side logout to clear cookies
+  } catch (error) {
+    console.error('Logout failed:', error);
+  }
 };
