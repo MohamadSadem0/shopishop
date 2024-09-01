@@ -32,7 +32,7 @@ const Login = () => {
   };
 
   return (
-    <div className="w-full h-screen relative overflow-hidden flex items-center">
+    <div className="w-full h-screen relative overflow-hidden flex items-center pl-10 ">
       {/* Background Image */}
       <img
         src={backgroundImage}
