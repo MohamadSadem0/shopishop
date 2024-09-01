@@ -22,6 +22,20 @@ export const login = async (credentials) => {
 };
 
 /**
+ * Fetches service categories.
+ * @returns {Array} List of service categories
+ */
+export const fetchServiceCategories = async () => {
+  try {
+    const response = await axiosInstance.get('/service/categories');
+    return response.data.categories; // Adjust based on the actual API response
+  } catch (error) {
+    console.error('Failed to fetch service categories:', error);
+    throw error;
+  }
+};
+
+/**
  * Handles user signup.
  * @param {Object} userDetails - User details { name, email, password, ... }
  * @returns {Object} User data

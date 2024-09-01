@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { login } from '../services/authService';
-import Spinner from '../components/common/Spinner';
-import GoogleSignInButton from '../components/common/GoogleSignInButton';
-import Input from '../components/common/Input';
-import Button from '../components/common/Button';
-import logo from '../assets/images/logo.svg'; 
-import backgroundImage from '../assets/images/loginBackground.png';
+import { login } from '../../../services/authService';
+import Spinner from '../../../components/common/Spinner';
+import GoogleSignInButton from '../../../components/common/GoogleSignInButton';
+import Input from '../../../components/common/Input';
+import Button from '../../../components/common/Button';
+import logo from '../../../assets/images/logo.svg'; 
+import backgroundImage from "../../../assets/images/loginBackground.png";
 import { Link } from 'react-router-dom';
-import "../styles/login.css"
+import "./login.css"
 
 const Login = () => {
   const [email, setEmail] = useState('');
