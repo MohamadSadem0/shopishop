@@ -7,12 +7,14 @@ import axiosInstance from '../utils/axiosInstance';
  */
 export const login = async (credentials) => {
   try {
-    const response = await axiosInstance.post('/auth/login', credentials);
-    
-    // The token is now managed by the server in an HTTP-only cookie
-    const { user } = response.data; // No need to handle token in the client-side
+    const response = await axiosInstance.post('/user/login', credentials, {
+      withCredentials: true, 
+    });
 
-    return user;
+    const { user } = response;
+
+    return response;
+
   } catch (error) {
     console.error('Login failed:', error);
     throw error;
@@ -26,9 +28,10 @@ export const login = async (credentials) => {
  */
 export const signup = async (userDetails) => {
   try {
-    const response = await axiosInstance.post('/auth/signup', userDetails);
-    
-    // The token is now managed by the server in an HTTP-only cookie
+    const response = await axiosInstance.post('/user/save', userDetails, {
+      withCredentials: true, // Ensure cookies are sent with requests
+    });
+
     const { user } = response.data;
 
     return user;
@@ -43,7 +46,9 @@ export const signup = async (userDetails) => {
  */
 export const logout = async () => {
   try {
-    await axiosInstance.post('/auth/logout'); // Trigger server-side logout to clear cookies
+    await axiosInstance.post('/api/user/logout', {}, {
+      withCredentials: true, // Ensure cookies are sent with requests
+    });
   } catch (error) {
     console.error('Logout failed:', error);
   }
