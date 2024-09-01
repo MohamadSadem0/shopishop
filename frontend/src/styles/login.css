@@ -1,0 +1,32 @@
+/* Mobile Styles */
+@media (max-width: 768px) {
+    .LoginContainer {
+      padding: 16px; /* Adjust padding for smaller screens */
+    }
+  
+    .LoginLogo {
+      width: 50%; /* Increase logo size for mobile */
+    }
+  
+    .LoginHeading {
+      font-size: 2.5rem; /* Smaller heading size */
+    }
+  
+    .LoginSubheading {
+      font-size: 1.5rem; /* Smaller subheading size */
+    }
+  
+    .LoginButton {
+      font-size: 1.2rem; /* Larger button text */
+      padding: 12px; /* Adjust button padding */
+    }
+  
+    .InputField {
+      width: 100%; /* Full width input fields */
+    }
+  
+    .SignUpLink {
+      font-size: 0.9rem; /* Smaller link text */
+    }
+  }
+  

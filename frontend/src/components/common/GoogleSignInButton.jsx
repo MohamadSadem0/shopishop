@@ -1,4 +1,5 @@
 import React from 'react';
+import logo from "../../assets/images/google logo.svg"
 
 const GoogleSignInButton = () => {
   const handleGoogleSignIn = () => {
@@ -6,13 +7,16 @@ const GoogleSignInButton = () => {
   };
 
   return (
+    <div className='flex flex-row'>
+      <img src={logo}></img>
     <button
       onClick={handleGoogleSignIn}
-      className="w-full bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 mt-4"
+      className="w-full  text-white py-2 px-4 rounded "
     >
       Sign in with Google
     </button>
-  );
+ 
+    </div> );
 };
 
 export default GoogleSignInButton;
