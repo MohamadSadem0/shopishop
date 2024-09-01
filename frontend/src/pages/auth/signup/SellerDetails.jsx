@@ -7,18 +7,18 @@ import Spinner from '../../../components/common/Spinner';
 const SellerDetails = ({ serviceName, setServiceName, serviceCategory, setServiceCategory, location, setLocation, currency, setCurrency, categories, error, handleSignup, handleBack, loading }) => (
   <form onSubmit={handleSignup} className="flex flex-col text-white w-full">
     <h1 className="text-white text-4xl mb-4">Enter Seller Details</h1>
-    <Input label="Service Name" value={serviceName} onChange={(e) => setServiceName(e.target.value)} required className="mb-4" />
-    <div className="mb-4">
+    <Input label="Service Name" value={serviceName} onChange={(e) => setServiceName(e.target.value)} required className="mb-4 text-black" />
+    <div className="mb-4 text-black">
       <label className="block text-white mb-2">Service Category</label>
       <select className="w-full p-2 border rounded" value={serviceCategory} onChange={(e) => setServiceCategory(e.target.value)} required>
         <option value="">Select Category</option>
-        {categories.map((category, index) => <option key={index} value={category}>{category}</option>)}
+        {categories.map((category, index) => <option key={index} className='text-black' value={category}>{category}</option>)}
       </select>
     </div>
-    <Input label="Location" value={location} onChange={(e) => setLocation(e.target.value)} required className="mb-4" />
+    <Input label="Location" value={location} onChange={(e) => setLocation(e.target.value)} required className="mb-4 text-black" />
     <div className="mb-4">
       <label className="block text-white mb-2">Currency</label>
-      <select className="w-full p-2 border rounded" value={currency} onChange={(e) => setCurrency(e.target.value)} required>
+      <select className="w-full text-black p-2 border rounded" value={currency} onChange={(e) => setCurrency(e.target.value)} required>
         <option value="USD">USD ($)</option>
         <option value="LBP">LBP (ل.ل)</option>
       </select>

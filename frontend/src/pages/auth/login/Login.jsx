@@ -59,7 +59,7 @@ const Login = () => {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="mb-4 w-full text-white"
+            className="mb-4 w-full text-black"
             required
           />
           <Input
@@ -67,7 +67,7 @@ const Login = () => {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="mb-4 w-full"
+            className="mb-4 w-full text-black"
             required
           />
           

@@ -8,7 +8,7 @@ const RoleSelection = ({ userType, setUserType, handleNext }) => (
     <div className="flex space-x-4 mb-6">
       <button
         onClick={() => setUserType('Customer')}
-        className={`w-1/2 py-2 rounded ${userType === 'Customer' ? 'bg-[#4A525C] text-[#EDB502]' : 'bg-gray-200 text-gray-700'}`}
+        className={`w-1/2 py-2 rounded ${userType === 'Customer' ? 'bg-[#4A525C] text-[#EDB502]' : 'bg-gray-200 text-gray-700 '}`}
       >
         Customer
       </button>
