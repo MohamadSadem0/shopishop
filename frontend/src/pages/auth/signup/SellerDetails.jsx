@@ -12,6 +12,7 @@ const SellerDetails = ({ serviceName, setServiceName, serviceCategory, setServic
       <label className="block text-white mb-2">Service Category</label>
       <select className="w-full p-2 border rounded" value={serviceCategory} onChange={(e) => setServiceCategory(e.target.value)} required>
         <option value="">Select Category</option>
+        {/* {categories.map((category, index) => <option key={index} className='text-black' value={category}>{category}</option>)} */}
         {categories.map((category, index) => <option key={index} className='text-black' value={category}>{category}</option>)}
       </select>
     </div>

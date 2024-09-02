@@ -2,7 +2,7 @@ import React from 'react';
 import Input from '../../../components/common/Input';
 import Button from '../../../components/common/Button';
 
-const CommonDetails = ({ username, setUsername, email, setEmail, password, setPassword, confirmPassword, setConfirmPassword, error, handleNext, handleBack, userType }) => (
+const CommonDetails = ({ username, setUsername, email, setEmail, password, setPassword, confirmPassword, setConfirmPassword, error, handleNext, handleBack, userType,handleSignup }) => (
   <form onSubmit={handleNext} className="flex flex-col text-white w-full">
     <h1 className="text-white text-4xl mb-4">Enter Your Details</h1>
     <Input
@@ -45,8 +45,9 @@ const CommonDetails = ({ username, setUsername, email, setEmail, password, setPa
       />
       {userType === 'Customer' ? (
         <Button
-          label="Create Account"
+          label="Signup"
           type="submit"
+          onClick={handleSignup}
           className="bg-[#FEDE02] text-black text-xl py-2 rounded hover:bg-yellow-400"
         />
       ) : (
