@@ -1,6 +1,7 @@
 package com.example.ShopiShop.security;
 
 
+import com.example.ShopiShop.core.User.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,13 +13,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 @RequiredArgsConstructor
 public class ApplicationConfig {
 
+    private final UserRepository userRepository;
+
     @Bean
     public UserDetailsService userDetailsService(){
-        return new UserDetailsService() {
-            @Override
-            public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-                return null;
-            }
-        }
+        return username -> (UserDetails) userRepository.findByEmail(username)
+                .orElseThrow(()-> new UsernameNotFoundException("user not found"));
     }
 }
