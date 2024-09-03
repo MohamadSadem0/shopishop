@@ -1,0 +1,76 @@
+Folder PATH listing
+Volume serial number is 2480-7C2C
+C:.
+|   App.css
+|   App.js
+|   folder_structure.txt
+|   index.css
+|   index.js
+|   
++---assets
+|   +---icons
+|   |       logo.svg
+|   |       Map_duotone_line.svg
+|   |       Search_alt_light.svg
+|   |       
+|   \---images
+|       |   couriers-deliver-online-goods-to-customers-vector 1.png
+|       |   google logo.svg
+|       |   loginBackground.png
+|       |   Logo.png
+|       |   logo.svg
+|       |   pngtree-delivery-man-with-yellow-scooter-and-location-icon-vector-illustration-png-image_6468357 1.png
+|       |   
+|       \---dummy
+|               SellerDetailsForm.jsx
+|               SignupForm.jsx
+|               
++---components
+|   |   NavBar.jsx
+|   |   
+|   \---common
+|           Button.jsx
+|           GoogleSignInButton.jsx
+|           Input.jsx
+|           Modal.jsx
+|           Spinner.jsx
+|           
++---context
++---pages
+|   |   LandingPage.jsx
+|   |   
+|   \---auth
+|       |   login.css
+|       |   
+|       +---login
+|       |       Desktop.png
+|       |       Login.jsx
+|       |       
+|       \---signup
+|               CommonDetails.jsx
+|               RoleSelection.jsx
+|               SellerDetails.jsx
+|               Signup.jsx
+|               
++---redux
+|   |   authSlice.js
+|   |   store.js
+|   |   
+|   +---actions
+|   |       actionTypes.js
+|   |       authActions.js
+|   |       
+|   +---reducers
+|   |       authReducer.js
+|   |       rootReducer.js
+|   |       
+|   \---selectors
+|           authSelectors.js
+|           
++---services
+|       authService.js
+|       
++---styles
+\---utils
+        axiosInstance.js
+        
