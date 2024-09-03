@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 import Logo from '../assets/images/Logo.png';
 import SearchIcon from '../assets/icons/Search_alt_light.svg';
 import MapIcon from '../assets/icons/Map_duotone_line.svg';
+import { Link, useNavigate } from 'react-router-dom';
+
 
 const Navbar = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const navigate =useNavigate();
 
   const handleSearchToggle = () => {
     setIsSearchOpen(!isSearchOpen);
@@ -14,6 +17,10 @@ const Navbar = () => {
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
   };
+
+  const handleSignUpButton = ()=>{
+navigate("/signup");  
+  }
 
   return (
     <nav className="w-[95%] bg-[#585649] h-auto p-2 rounded-2xl shadow-lg fixed top-0 left-1/2 transform -translate-x-1/2 z-50 mt-5">
@@ -87,9 +94,9 @@ const Navbar = () => {
             </div>
 
             {/* Sign In */}
-            <a href="#" className="text-white text-lg hover:text-[#fede00] transition-colors duration-300">
+            <button onClick={handleSignUpButton} className="text-white text-lg hover:text-[#fede00] transition-colors duration-300">
               Sign In
-            </a>
+            </button>
           </div>
         </div>
       </div>
