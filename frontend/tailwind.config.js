@@ -5,9 +5,7 @@ module.exports = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        'login-bg': "url('/path/to/your/background-image.jpg')", // Replace with the actual path to your image
-      },
+
     },
   },
   plugins: [],

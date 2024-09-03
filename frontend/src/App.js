@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 import Login from './pages/auth/login/Login';
 import Signup from './pages/auth/signup/Signup';
+import LandingPage from './pages/LandingPage';
 
 const App = () => {
   return (
@@ -12,7 +13,8 @@ const App = () => {
         <div className="app-container">
           {/* Define Routes for the application */}
           <Routes>
-            <Route path="/" element={<Login />} />
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
 
           </Routes>
