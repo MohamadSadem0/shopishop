@@ -33,7 +33,7 @@ const Section2 = () => {
   // }, []);
 
   return (
-    <div className='pt-[200px] relative w-full h-dvh flex flex-wrap justify-center gap-6 p-4 bg-[#fff8c0]'>
+    <div className='pt-[200px] relative w-full  flex flex-wrap justify-center gap-6 p-4 bg-[#fff8c0]'>
       
         <ClickableCard src={Img1} to={"/"} style=" w-full h-full object-cover" />
         <ClickableCard src={Img2} to={"/"} style=" w-full h-full object-cover"/>

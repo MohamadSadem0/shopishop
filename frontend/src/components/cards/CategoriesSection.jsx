@@ -27,10 +27,10 @@
 // };
 
 // export default CategoriesSection;
-
 import React, { useRef } from 'react';
 import CategoryCard from './CategoryCard';
 import categoriesData from './categoriesData';
+import "../../styles/CategorySection.css"
 
 const CategoriesSection = () => {
   const containerRef = useRef(null);
@@ -56,9 +56,9 @@ const CategoriesSection = () => {
   };
 
   return (
-    <div className="relative w-full h-full p-4">
+    <div className="relative w-full h-[274px]">
       {/* Background Rectangle */}
-      <div className="absolute inset-0 bg-[#585749] rounded-[30px]"></div>
+      <div className="absolute w-full h-[274px] bg-[#585749] rounded-[30px]"></div>
 
       {/* Title Text */}
       <div className="absolute top-4 left-7 flex text-white text-[32px] font-roboto font-bold leading-[48px] sm:text-[24px] sm:leading-[36px]">
@@ -69,13 +69,13 @@ const CategoriesSection = () => {
       {/* Categories Container */}
       <div
         ref={containerRef}
-        className="absolute left-7 right-7 top-[92px] bottom-7 overflow-hidden flex items-center scroll-container"
+        className="absolute left-7 top-[92px] h-[130px] overflow-hidden flex items-center scroll-container"
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
         onMouseLeave={handleMouseUp}
         onMouseMove={handleMouseMove}
       >
-        <div className="flex flex-row gap-6 sm:gap-4">
+        <div className="flex flex-row gap-[123px]">
           {categoriesData.map((category, index) => (
             <CategoryCard key={index} title={category.title} src={category.src} />
           ))}

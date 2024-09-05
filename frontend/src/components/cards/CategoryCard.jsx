@@ -26,9 +26,13 @@ import React from 'react';
 
 const CategoryCard = ({ title, src }) => {
   return (
-    <div className="flex flex-col items-center justify-center w-[90px] h-[90px] bg-white rounded-full shadow-md p-2">
-      <img className="w-full h-full object-cover rounded-full" src={src} alt={title} />
-      <span className="text-xs font-semibold text-gray-700 mt-2 text-center">{title}</span>
+    <div className="relative w-[117px] h-[132px] bg-[#EFECD6] rounded-[20px] flex flex-col items-center justify-center">
+      <div className="relative w-[90px] h-[120px] flex flex-col items-center justify-center">
+        <img className="w-[90px] h-[90px] rounded-[35.56px] border-[0.10px] border-black" src={src} alt={title} />
+        <div className="absolute bottom-0 text-black text-[18px] font-roboto font-normal leading-[27px]">
+          {title}
+        </div>
+      </div>
     </div>
   );
 };
