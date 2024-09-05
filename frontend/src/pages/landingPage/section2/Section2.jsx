@@ -4,9 +4,9 @@ import { ScrollTrigger, ScrollToPlugin } from 'gsap/all';
 import PopularItemsSection from './PopularItemsSection';
 import CategoriesSection from '../../../components/cards/CategoriesSection';
 import ClickableCard from '../../../components/cards/ClickableCard';
-import Img1 from "../../../assets/images/landing page/section2-images/images.jpg"
-import Img2 from "../../../assets/images/landing page/section2-images/restaurant-food-combo-offers.jpg"
-import Img3 from "../../../assets/images/landing page/section2-images/WhatsApp-Image-2020-10-18-at-1.27.54-PM.jpg"
+
+import Button from "../../../components/common/Button"
+import OffersSection from './OffersSection';
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
@@ -33,12 +33,12 @@ const Section2 = () => {
   // }, []);
 
   return (
-    <div className='pt-[200px] relative w-full  flex flex-wrap justify-center gap-6 p-4 bg-[#fff8c0]'>
+    <div className='pt-[200px] relative w-full   justify-center gap-6 p-4 bg-[#fff8c0]'>
       
-        <ClickableCard src={Img1} to={"/"} style=" w-full h-full object-cover" />
-        <ClickableCard src={Img2} to={"/"} style=" w-full h-full object-cover"/>
-        <ClickableCard src={Img3} to={"/"} style=" w-full h-full object-cover"/>
+<OffersSection/>
+        <Button className='  pl-auto pr-auto'/>
         
+
         <CategoriesSection/>
     
      {/* <PopularItemsSection/> */}

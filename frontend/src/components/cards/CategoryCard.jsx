@@ -28,7 +28,7 @@ const CategoryCard = ({ title, src }) => {
   return (
     <div className="relative w-[117px] h-[132px] bg-[#EFECD6] rounded-[20px] flex flex-col items-center justify-center">
       <div className="relative w-[90px] h-[120px] flex flex-col items-center justify-center">
-        <img className="w-[90px] h-[90px] rounded-[35.56px] border-[0.10px] border-black" src={src} alt={title} />
+        <img className="w-[90px] h-[90px] rounded-[35.56px] border-[0.10px] border-black mb-4" src={src} alt={title} />
         <div className="absolute bottom-0 text-black text-[18px] font-roboto font-normal leading-[27px]">
           {title}
         </div>

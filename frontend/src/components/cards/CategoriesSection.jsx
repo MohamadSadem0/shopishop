@@ -26,7 +26,7 @@
 //   );
 // };
 
-// export default CategoriesSection;
+// export default CategoriesSection;import React, { useRef } from 'react';
 import React, { useRef } from 'react';
 import CategoryCard from './CategoryCard';
 import categoriesData from './categoriesData';
@@ -42,23 +42,31 @@ const CategoriesSection = () => {
     isMouseDown.current = true;
     startX.current = e.pageX - containerRef.current.offsetLeft;
     scrollLeft.current = containerRef.current.scrollLeft;
+    containerRef.current.classList.add('cursor-grabbing');
   };
 
   const handleMouseUp = () => {
     isMouseDown.current = false;
+    containerRef.current.classList.remove('cursor-grabbing');
+  };
+
+  const handleMouseLeave = () => {
+    if (isMouseDown.current) {
+      handleMouseUp();
+    }
   };
 
   const handleMouseMove = (e) => {
     if (!isMouseDown.current) return;
     const x = e.pageX - containerRef.current.offsetLeft;
-    const walk = (x - startX.current) * 2; // Scroll-fast speed
+    const walk = (x - startX.current) * 2; // Scroll speed
     containerRef.current.scrollLeft = scrollLeft.current - walk;
   };
 
   return (
-    <div className="relative w-full h-[274px]">
+    <div className="relative w-full h-[274px] overflow-hidden">
       {/* Background Rectangle */}
-      <div className="absolute w-full h-[274px] bg-[#585749] rounded-[30px]"></div>
+      <div className="absolute inset-0 bg-[#585749] rounded-[30px]"></div>
 
       {/* Title Text */}
       <div className="absolute top-4 left-7 flex text-white text-[32px] font-roboto font-bold leading-[48px] sm:text-[24px] sm:leading-[36px]">
@@ -69,13 +77,13 @@ const CategoriesSection = () => {
       {/* Categories Container */}
       <div
         ref={containerRef}
-        className="absolute left-7 top-[92px] h-[130px] overflow-hidden flex items-center scroll-container"
+        className="absolute left-7 top-[92px] right-7 h-[130px] overflow-x-auto flex items-center scroll-container"
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
-        onMouseLeave={handleMouseUp}
+        onMouseLeave={handleMouseLeave}
         onMouseMove={handleMouseMove}
       >
-        <div className="flex flex-row gap-[123px]">
+        <div className="flex flex-row gap-4">
           {categoriesData.map((category, index) => (
             <CategoryCard key={index} title={category.title} src={category.src} />
           ))}
@@ -86,3 +94,4 @@ const CategoriesSection = () => {
 };
 
 export default CategoriesSection;
+
