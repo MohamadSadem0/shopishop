@@ -15,3 +15,23 @@
   cursor: grabbing;
 }
 
+/* CategorySection.css */
+
+/* Hide the scrollbar but still enable scrolling */
+.no-scrollbar::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari, and Opera */
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;  /* For Internet Explorer and Edge */
+  scrollbar-width: none;  /* For Firefox */
+}
+
+/* Cursor styles for drag effect */
+.cursor-grab {
+  cursor: grab;
+}
+
+.cursor-grabbing {
+  cursor: grabbing;
+}

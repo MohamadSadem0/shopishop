@@ -1,0 +1,7 @@
+/* Default styles for desktop (if not using Tailwind for desktop-specific styles) */
+
+/* Mobile Styles */
+@media (max-width: 640px) { /* Tailwind's 'sm' breakpoint is 640px */
+   
+  }
+  

@@ -1,0 +1,51 @@
+/* Default styles for desktop (if not using Tailwind for desktop-specific styles) */
+
+/* Mobile Styles */
+@media (max-width: 640px) { /* Tailwind's 'sm' breakpoint is 640px */
+    .item-card {
+      /* Card Background */
+      background-color: #878472;
+      border-radius: 20px;
+      
+      /* Adjust size */
+      width: 100%;
+      height: 250px;
+      margin-bottom: 1rem; /* Space between items */
+    }
+  
+    .item-card-image {
+      /* Item Image */
+      left: 10px;
+      top: 10px;
+      width: 80px;
+      height: 80px;
+      border-radius: 15px;
+    }
+  
+    .item-card-title,
+    .item-card-price {
+      /* Item Title and Price */
+      left: 10px;
+      font-size: 10px;
+      line-height: 14px;
+    }
+  
+    .item-card-price {
+      top: 60px;
+    }
+  
+    .item-card-title {
+      top: 20px;
+    }
+  
+    .item-card-button {
+      /* Add to Cart Button */
+      left: 10px;
+      bottom: 10px;
+      width: 50px;
+      height: 20px;
+      font-size: 8px;
+      line-height: 12px;
+    }
+  }
+  

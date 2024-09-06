@@ -14,3 +14,20 @@ body {
     display: none; /* Chrome, Safari, and Opera */
   }
   
+  body {
+    background-color: #fff8c0;
+  }
+
+   @media (max-width: 640px) { /* Tailwind's 'sm' breakpoint is 640px */
+   
+
+  
+  /* .landingpage{
+
+    padding: 0;
+  }
+  .item-card{
+
+  } */
+  }
+  

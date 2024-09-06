@@ -1,32 +1,39 @@
-// PopularItemsSection.jsx
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/all';
 import ItemCard from '../../../components/cards/ItemCard';
+import itemsData from '../../../data/itemsData'; // Adjust the path as needed
+
+gsap.registerPlugin(ScrollTrigger);
 
 const PopularItemsSection = () => {
-  const items = [
-    { title: 'Item 1', price: '7.99', imageSrc: 'https://via.placeholder.com/144x159' },
-    { title: 'Item 2', price: '5.99', imageSrc: 'https://via.placeholder.com/144x159' },
-    { title: 'Item 3', price: '3.99', imageSrc: 'https://via.placeholder.com/144x159' },
-    { title: 'Item 4', price: '9.99', imageSrc: 'https://via.placeholder.com/144x159' },
-    { title: 'Item 5', price: '6.99', imageSrc: 'https://via.placeholder.com/144x159' },
-    { title: 'Item 6', price: '4.99', imageSrc: 'https://via.placeholder.com/144x159' },
-  ];
+  const itemsRef = useRef(null);
+
+ 
 
   return (
-    <div className="relative w-full h-full p-4">
+    <div className="relative w-full min-h-[400px] p-4">
       {/* Background Rectangle */}
-      <div className="absolute w-full h-[720px] bg-[#585749] rounded-[30px]"></div>
+      <div className="bg-[#585749] rounded-[30px] w-full h-full absolute inset-0"></div>
 
-      {/* Title Text */}
-      <div className="absolute left-10 top-7 text-white text-[32px] font-roboto font-bold leading-[48px] sm:text-[24px] sm:leading-[36px]">
-        Popular Items
-      </div>
+      {/* Container for Title and Items */}
+      <div className="relative z-10 flex flex-col w-full h-full">
+        {/* Title Text */}
+        <h2 className="text-white text-[24px] sm:text-[20px] md:text-[32px] font-roboto font-bold leading-[36px] md:leading-[48px] mb-4 sm:mb-3 md:mb-6">
+          Popular Items
+        </h2>
 
-      {/* Items Container */}
-      <div className="absolute left-10 top-[110px] flex flex-wrap gap-6 sm:gap-4">
-        {items.map((item, index) => (
-          <ItemCard key={index} title={item.title} price={item.price} imageSrc={item.imageSrc} />
-        ))}
+        {/* Items Container */}
+        <div ref={itemsRef} className="flex flex-wrap gap-4 md:gap-6 justify-center w-full">
+          {itemsData.map((item, index) => (
+            <ItemCard
+              key={index}
+              title={item.title}
+              price={item.price}
+              imageSrc={item.imageSrc}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

@@ -1,37 +1,34 @@
-// import React from 'react';
-
-// const CategoryCard = ({ title, src }) => {
-//   return (
-//     <div className="relative w-[117px] h-[132px] sm:w-[90px] sm:h-[115px]">
-//       {/* Category Background */}
-//       <div className="absolute w-full h-full bg-[#EFECD6] rounded-[20px]"></div>
-//       {/* Category Image */}
-//       <div className="absolute left-3 top-1 w-[90px] h-[90px] rounded-full border-[0.1px] border-black overflow-hidden">
-//         <img src={src} alt={title} className="object-cover w-full h-full" />
-//       </div>
-//       {/* Category Title */}
-//       <div className="absolute top-[95px] left-0 w-full text-center text-black text-[18px] font-roboto font-normal leading-[27px] sm:top-[85px]">
-//         {title}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default CategoryCard;
-
-// CategoryCard.jsx
-// CategoryCard.jsx
-// CategoryCard.jsx
-import React from 'react';
+import React, { useState } from 'react';
 
 const CategoryCard = ({ title, src }) => {
+  const [isSelected, setIsSelected] = useState(false);
+
+  const handleCardClick = () => {
+    setIsSelected(!isSelected); // Toggle the selected state
+  };
+
   return (
-    <div className="relative w-[117px] h-[132px] bg-[#EFECD6] rounded-[20px] flex flex-col items-center justify-center">
-      <div className="relative w-[90px] h-[120px] flex flex-col items-center justify-center">
-        <img className="w-[90px] h-[90px] rounded-[35.56px] border-[0.10px] border-black mb-4" src={src} alt={title} />
-        <div className="absolute bottom-0 text-black text-[18px] font-roboto font-normal leading-[27px]">
-          {title}
-        </div>
+    <div
+      onClick={handleCardClick}
+      className={`relative w-[100px] h-[120px] sm:w-[110px] sm:h-[130px] md:w-[120px] md:h-[140px] rounded-[20px] flex flex-col items-center justify-center cursor-pointer transition-transform duration-300 ${
+        isSelected ? 'bg-[#DD5838] scale-105' : 'bg-[#EFECD6]'
+      }`}
+    >
+      {/* Category Background */}
+      <div className="absolute inset-0 rounded-[20px]"></div>
+
+      {/* Category Image */}
+      <div className="relative w-[70px] h-[70px] sm:w-[80px] sm:h-[80px] md:w-[90px] md:h-[90px] rounded-full border-[0.5px] border-black overflow-hidden mb-2">
+        <img src={src} alt={title} className="w-full h-full object-cover" />
+      </div>
+
+      {/* Category Title */}
+      <div
+        className={`text-[12px] sm:text-[14px] md:text-[16px] text-center font-roboto font-normal leading-[16px] sm:leading-[18px] md:leading-[20px] ${
+          isSelected ? 'text-white' : 'text-black'
+        }`}
+      >
+        {title}
       </div>
     </div>
   );
