@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/all';
-import CategoryCard from './CategoryCard';
-import categoriesData from '../../data/categoriesData';
-import '../../styles/CategorySection.css';
+import CategoryCard from '../../cards/CategoryCard';
+import categoriesData from '../../../data/categoriesData';
+import '../../../styles/CategorySection.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -14,24 +14,7 @@ const CategoriesSection = () => {
   const [scrollLeft, setScrollLeft] = useState(0);
   const [isClickPrevented, setIsClickPrevented] = useState(false);
 
-  // useEffect(() => {
-  //   gsap.fromTo(
-  //     containerRef.current.children,
-  //     { x: -50, opacity: 0 },
-  //     {
-  //       x: 0,
-  //       opacity: 1,
-  //       duration: 1,
-  //       stagger: 0.2,
-  //       scrollTrigger: {
-  //         trigger: containerRef.current,
-  //         start: 'top 80%',
-  //         end: 'bottom top',
-  //         scrub: true,
-  //       },
-  //     }
-  //   );
-  // }, []);
+  
 
   const handleMouseDown = (e) => {
     setIsDragging(true);
@@ -91,10 +74,10 @@ const CategoriesSection = () => {
   return (
     <div className="relative w-full sm:max-h-[250px] h-[250px] sm:h-[350px] overflow-hidden">
       {/* Background Rectangle */}
-      <div className="absolute inset-0 bg-[#585749] sm:bg-[#5B2F13] rounded-[30px]"></div>
+      <div className="absolute inset-0 bg-[#585749] sm:bg-[#5B2F13] sm:bg-transparent rounded-[30px]"></div>
 
       {/* Title Text */}
-      <div className="absolute top-4 left-6 flex text-white text-[28px] sm:text-[20px]  font-roboto font-bold leading-[36px] sm:leading-[48px]">
+      <div className="absolute top-4 left-6 flex sm:hidden  text-white text-[28px] sm:text-[20px]  font-roboto font-bold leading-[36px] sm:leading-[48px]">
         <span>Categories at a </span>
         <span className="text-[#DD5838]">Glance</span>
       </div>

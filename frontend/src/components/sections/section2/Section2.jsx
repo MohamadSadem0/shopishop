@@ -1,9 +1,8 @@
 // Section2.jsx
 import React from 'react';
 import OffersSection from './OffersSection';
-import CategoriesSection from '../../../components/cards/CategoriesSection';
-import PopularItemsSection from "../section2/PopularItemsSection"
-import Button from '../../../components/common/Button';
+import CategoriesSection from '../section2/CategoriesSection';
+import PopularItemsSection from "./PopularItemsSection"
 
 
 const Section2 = () => {

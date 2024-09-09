@@ -1,7 +1,7 @@
 import React from 'react';
-import Truck from "../../../assets/images/landing page/section3-icons/Truck.svg";
-import Star from "../../../assets/images/landing page/section3-icons/Star.svg";
-import healthy from "../../../assets/images/landing page/section3-icons/healthy icon.svg";
+import Truck from "../../assets/images/landing page/section3-icons/Truck.svg";
+import Star from "../../assets/images/landing page/section3-icons/Star.svg";
+import healthy from "../../assets/images/landing page/section3-icons/healthy icon.svg";
 
 const Section3 = () => {
   return (
@@ -17,7 +17,7 @@ const Section3 = () => {
       </div>
 
       {/* Responsive Cards */}
-      <div className="flex flex-row md:flex-row justify-center items-center md:items-start gap-8 md:gap-12 w-full">
+      <div className="flex flex-row md:flex-row sm:flex-col justify-center items-center md:items-start gap-8 md:gap-12 w-full">
         {/* Card: Fast Delivery */}
         <div className="relative flex flex-col justify-center items-center w-72 md:w-80 h-72 md:h-80">
           <div className="absolute inset-0 bg-black bg-opacity-70 shadow-lg rounded-[45px] backdrop-blur-[27.9px]" />

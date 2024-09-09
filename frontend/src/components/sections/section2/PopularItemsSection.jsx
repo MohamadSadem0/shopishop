@@ -1,10 +1,7 @@
-import React, { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/all';
-import ItemCard from '../../../components/cards/ItemCard';
-import itemsData from '../../../data/itemsData'; // Adjust the path as needed
+import React, {  useRef } from 'react';
 
-gsap.registerPlugin(ScrollTrigger);
+import ItemCard from '../../../components/cards/ItemCard';
+import itemsData from '../../../data/itemsData'; 
 
 const PopularItemsSection = () => {
   const itemsRef = useRef(null);

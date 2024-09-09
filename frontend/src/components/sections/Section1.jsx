@@ -17,10 +17,10 @@ const Section1 = () => {
         <div className="text-left w-[526px] sm:w-[300px] flex justify-center items-center text-black text-5xl font-normal leading-[60px]">
           Your Trusted Partner for Swift Deliveries.
         </div>
-        <img className="top-image w-[656px] h-[498px] object-contain" src={Img1} alt="Top Right Image" />
+        <img className="top-image w-[656px] h-[428px] object-contain" src={Img1} alt="Top Right Image" />
       </div>
-      <div className="lg:relative sm:flex-col sm:p-0 sm:m-0 flex laptop:justify-center sm:justify-center sm:items-center laptop:items-center laptop:w-full sm:max-w-[300px] max-w-7xl px-4 md:px-16 mt-20">
-        <img className="bottom-image w-[721px] h-[389px] laptop:object-contain" src={Img2} alt="Bottom Left Image" />
+      <div className="lg:relative sm:flex-col sm:p-0 sm:m-0 flex laptop:justify-center sm:justify-center sm:items-center laptop:items-center laptop:w-full sm:max-w-[300px] max-w-7xl px-4 md:px-16 mt-10 sm:mt-0">
+        <img className="bottom-image w-[721px] h-[389px] sm:h-[250px] laptop:object-contain" src={Img2} alt="Bottom Left Image" />
         <img className="arrow-image sm:-rotate-90 sm:max-w-[90px] laptop:w-[251px] h-[81px] sm:h-[200px] object-contain mx-10" src={Img3} alt="Arrow Image" />
         
         <div className='flex items-center justify-center flex-col'>

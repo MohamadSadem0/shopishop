@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import Logo from '../assets/images/Logo.png';
-import SearchIcon from '../assets/icons/Search_alt_light.svg';
-import MapIcon from '../assets/icons/Map_duotone_line.svg';
+import Logo from '../../assets/images/Logo.png';
+import SearchIcon from '../../assets/icons/Search_alt_light.svg';
+import MapIcon from '../../assets/icons/Map_duotone_line.svg';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaBars, FaTimes } from 'react-icons/fa';
 

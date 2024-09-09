@@ -1,9 +1,9 @@
 // LandingPage.jsx
 import React from 'react';
-import Navbar from '../../components/NavBar';
-import Section1 from './Section1';
-import Section2 from './section2/Section2';
-import Section3 from './section3/Section3';
+import Navbar from '../../components/layout/NavBar';
+import Section1 from '../../components/sections/Section1';
+import Section2 from '../../components/sections/section2/Section2';
+import Section3 from '../../components/sections/Section3';
 
 const LandingPage = () => {
   return (

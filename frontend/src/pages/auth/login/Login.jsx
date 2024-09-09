@@ -156,7 +156,7 @@ const Login = () => {
   };
 
   return (
-    <div className="w-full h-screen relative overflow-hidden flex items-center pl-10">
+    <div className="laptop:w-full sm:w-7/12 sm:pl-6 h-screen  overflow-hidden flex items-center laptop:pl-10">
       {/* Background Image */}
       <img
         src={backgroundImage}
@@ -165,10 +165,10 @@ const Login = () => {
       />
 
       {/* Left Aligned Content */}
-      <div className="flex flex-col items-start h-full w-full max-w-md p-8">
+      <div className="flex flex-col items-start h-full   w-full max-w-md laptop:p-8">
         {/* Logo */}
         <img
-          className="w-[50] max-w-[150px] mb-8"
+          className="w-[50] max-w-[150px] laptop:mb-8"
           src={logo}
           alt="Logo"
         />
@@ -183,7 +183,7 @@ const Login = () => {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="mb-4 w-full text-black"
+            className="mb-4 laptop:w-full text-black"
             required
           />
           <Input

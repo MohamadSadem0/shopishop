@@ -3,9 +3,9 @@ import "../../styles/itemCard.css"; // Ensure this is used for custom styles if 
 
 const ItemCard = ({ title, price, imageSrc }) => {
   return (
-    <div className="item-card bg-[#878472] max-w-[250px] sm:max-h-[150px] rounded-[20px] sm:h-auto flex flex-col sm:flex-row items-center sm:items-start p-4 md:h-[208px] w-full sm:w-[48%] md:w-[30%] lg:w-[22%] flex-shrink-0">
+    <div className="item-card bg-[#878472] max-w-[300px] sm:max-h-[150px] rounded-[20px] sm:h-auto flex flex-row sm:flex-row items-center sm:items-start p-4 md:h-[208px] w-full sm:w-[48%] md:w-[30%] lg:w-[22%] flex-shrink-0">
       {/* Item Image */}
-      <div className="item-image flex-shrink-0 w-[100px] h-[100px] sm:w-[120px] sm:h-[120px] md:w-[144px] md:h-[159px] rounded-[15px] overflow-hidden">
+      <div className="item-image flex-shrink-0 w-[150px] h-[150px] sm:w-[120px] sm:h-[120px] md:w-[144px] md:h-[159px] rounded-[15px] overflow-hidden">
         <img src={imageSrc} alt={title} className="w-full h-full object-cover" />
       </div>
 
