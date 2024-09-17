@@ -5,6 +5,7 @@ import store from './redux/store';
 import Login from './pages/auth/login/Login';
 import Signup from './pages/auth/signup/Signup';
 import LandingPage from './pages/landingPage/LandingPage';
+import Dashboardpage from './pages/dashboard/Dashboardpage';
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
             <Route path="/" element={<LandingPage  />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/d" element={<Dashboardpage />} />
 
           </Routes>
         </div>

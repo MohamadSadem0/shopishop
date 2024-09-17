@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "order")
+@Table(name = "customer_order")
 
 public class Order {
 

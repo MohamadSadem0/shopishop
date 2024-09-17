@@ -1,7 +1,7 @@
 package com.example.ShopiShop.core.Product.model;
 
 import com.example.ShopiShop.core.Store.model.Store;
-import com.example.ShopiShop.modules.ServiceCategory.model.ServiceCategory;
+import com.example.ShopiShop.modules.Section.model.Section;
 import com.example.ShopiShop.modules.Review.model.Review;
 import jakarta.persistence.*;
 import lombok.*;
@@ -40,7 +40,7 @@ public class Product {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", referencedColumnName = "id", nullable = false)
-    private ServiceCategory category;
+    private Section category;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviews;

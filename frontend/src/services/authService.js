@@ -1,4 +1,5 @@
 import axiosInstance from '../utils/axiosInstance';
+import data from "../data/categoriesData"
 
 /**
  * Handles user login.
@@ -7,11 +8,11 @@ import axiosInstance from '../utils/axiosInstance';
  */
 export const login = async (credentials) => {
   try {
-    const response = await axiosInstance.post('/user/login', credentials, {
+    const response = await axiosInstance.post('auth/login', credentials, {
       withCredentials: true, 
     });
 
-    const { user } = response;
+    const { user } = response.data;
 
     return response;
 
@@ -25,6 +26,15 @@ export const login = async (credentials) => {
  * Fetches service categories.
  * @returns {Array} List of service categories
  */
+// export const fetchServiceCategories = async () => {
+//   try {
+//     const response = await axiosInstance.get('/service/categories');
+//     return response.data.categories; // Adjust based on the actual API response
+//   } catch (error) {
+//     console.error('Failed to fetch service categories:', error);
+//     throw error;
+//   }
+// };
 export const fetchServiceCategories = async () => {
   try {
     const response = await axiosInstance.get('/service/categories');
@@ -42,18 +52,24 @@ export const fetchServiceCategories = async () => {
  */
 export const signup = async (userDetails) => {
   try {
-    const response = await axiosInstance.post('/user/save', userDetails, {
+    const response = await axiosInstance.post('/auth/signup', userDetails, {
       withCredentials: true, // Ensure cookies are sent with requests
     });
 
+    // Ensure the response has the expected structure
     const { user } = response.data;
+    
+    return user;  // Return user data
 
-    return user;
   } catch (error) {
     console.error('Signup failed:', error);
-    throw error;
+    if (error.response) {
+      console.error('Server responded with', error.response.status, error.response.data);
+    }
+    throw error;  // Rethrow error for the caller to handle
   }
 };
+
 
 /**
  * Handles user logout.

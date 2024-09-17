@@ -60,6 +60,7 @@ const Signup = () => {
 
     try {
       const user = await signup({ username, email, password, userType, serviceName, serviceCategory, location, currency });
+      console.log(user)
       dispatch(loginAction({ user }));
 
       // Redirect to login page with success message
