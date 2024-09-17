@@ -24,21 +24,22 @@ public class DataLoader implements CommandLineRunner {
     public void run(String... args) throws Exception {
         // Predefined sections with images
         Map<String, String> sections = new HashMap<>();
-        sections.put("Food", "https://example.com/images/food.jpg");
-        sections.put("Fresh Flowers", "https://example.com/images/flowers.jpg");
-        sections.put("Laundry", "https://example.com/images/laundry.jpg");
-        sections.put("Market", "https://example.com/images/market.jpg");
-        sections.put("Butler", "https://example.com/images/butler.jpg");
-        sections.put("Selfcare", "https://example.com/images/selfcare.jpg");
-        sections.put("Car Service", "https://example.com/images/carservice.jpg");
-        sections.put("Cleaning", "https://example.com/images/cleaning.jpg");
-        sections.put("Gas", "https://example.com/images/gas.jpg");
-        sections.put("Health", "https://example.com/images/health.jpg");
+        sections.put("Food", "");
+        sections.put("Fresh", "https://i.imgur.com/2Rmisnj.png");
+        sections.put("Flowers", "https://i.imgur.com/t9KWxcq");
+        sections.put("Laundry", "https://i.imgur.com/ZyBBIuF");
+        sections.put("Market", "https://i.imgur.com/3K5xYYm");
+        sections.put("Butler", "https://i.imgur.com/t9KWxcq");
+        sections.put("Selfcare", "https://i.imgur.com/t9KWxcq");
+        sections.put("Car Service", "https://i.imgur.com/t9KWxcq");
+        sections.put("Cleaning", "https://i.imgur.com/t9KWxcq");
+        sections.put("Gas", "https://i.imgur.com/t9KWxcq");
+        sections.put("Health", "https://i.imgur.com/t9KWxcq");
 
         // Predefined categories for each section
         Map<String, List<String>> sectionCategories = new HashMap<>();
         sectionCategories.put("Food", Arrays.asList("American", "Bakeries", "Burgers", "Pizza", "Sushi", "Chinese", "Indian"));
-        sectionCategories.put("Fresh Flowers", Arrays.asList("Roses", "Tulips", "Lilies", "Orchids"));
+        sectionCategories.put("Flowers", Arrays.asList("Roses", "Tulips", "Lilies", "Orchids")); // Changed from "Fresh Flowers" to "Flowers"
         sectionCategories.put("Laundry", Arrays.asList("Dry Cleaning", "Wash & Fold", "Ironing", "Pickup & Delivery"));
         sectionCategories.put("Market", Arrays.asList("Groceries", "Vegetables", "Fruits", "Dairy Products"));
         sectionCategories.put("Butler", Arrays.asList("Housekeeping", "Errands", "Personal Assistant"));
@@ -64,13 +65,18 @@ public class DataLoader implements CommandLineRunner {
                     .orElseGet(() -> sectionRepository.save(new Section(null, sectionName, sectionImageUrl, null)));
 
             // Get the categories for the current section and add them if they don't exist
-            sectionCategories.get(sectionName).forEach(categoryName -> {
-                if (categoryRepository.findAll().stream().noneMatch(cat -> cat.getName().equals(categoryName))) {
-                    String categoryImageUrl = categoryImages.getOrDefault(categoryName, "https://example.com/images/default.jpg");
-                    Category category = new Category(null, categoryName, categoryImageUrl, section);
-                    categoryRepository.save(category);
-                }
-            });
+            List<String> categories = sectionCategories.get(sectionName);
+            if (categories != null) {  // Check to avoid null pointer exception
+                categories.forEach(categoryName -> {
+                    if (categoryRepository.findAll().stream().noneMatch(cat -> cat.getName().equals(categoryName))) {
+                        String categoryImageUrl = categoryImages.getOrDefault(categoryName, "https://example.com/images/default.jpg");
+                        Category category = new Category(null, categoryName, categoryImageUrl, section);
+                        categoryRepository.save(category);
+                    }
+                });
+            } else {
+                System.out.println("No categories found for section: " + sectionName);
+            }
         });
 
         System.out.println("Default sections and categories with images added to the database!");

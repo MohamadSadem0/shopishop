@@ -1,7 +1,7 @@
 // Section2.jsx
 import React from 'react';
 import OffersSection from './OffersSection';
-import CategoriesSection from '../section2/CategoriesSection';
+import CategoriesSection from '../section2/SectionsSection';
 import PopularItemsSection from "./PopularItemsSection"
 
 

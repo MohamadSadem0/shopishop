@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const CategoryCard = ({ title, src }) => {
+const SetcionCard = ({ title, src }) => {
   const [isSelected, setIsSelected] = useState(false);
 
   const handleCardClick = () => {
@@ -34,4 +34,4 @@ const CategoryCard = ({ title, src }) => {
   );
 };
 
-export default CategoryCard;
+export default SetcionCard;

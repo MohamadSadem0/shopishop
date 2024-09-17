@@ -6,7 +6,7 @@ import Img5 from "../assets/images/landing page/section2-images/category-section
 import Img6 from "../assets/images/landing page/section2-images/category-section-section2/6.png"
 import Img7 from "../assets/images/landing page/section2-images/category-section-section2/7.png"
 
-const categoriesData = [
+const sectionsData = [
     { title: 'Dairy', src: Img1 },
     { title: 'Snacks', src: Img2 },
     { title: 'Fast food', src: Img3 },
@@ -30,5 +30,5 @@ const categoriesData = [
     { title: 'Bakery', src: Img7 },
   ];
   
-  export default categoriesData;
+  export default sectionsData;
   

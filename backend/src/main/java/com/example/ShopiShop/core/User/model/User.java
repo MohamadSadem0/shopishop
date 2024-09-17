@@ -6,15 +6,18 @@ import com.example.ShopiShop.modules.Notification.model.Notification;
 import com.example.ShopiShop.modules.Review.model.Review;
 
 import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Table;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.*;
+import org.hibernate.type.SqlTypes;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -23,10 +26,12 @@ import java.util.List;
 @Table(name = "user")
 public class User implements UserDetails {
 
+
     @Id
+    @Column( name = "id" )
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
+
 
     @Column(name = "name", nullable = false)
     private String userName;
@@ -59,10 +64,9 @@ public class User implements UserDetails {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    // Make sure this returns the user's authorities or roles (you can return null or an empty list for now)
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(() -> userRole.name()); // You can customize this to return actual role-based authorities
+        return List.of(() -> userRole.name());
     }
 
     @Override
@@ -72,7 +76,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.email; // Use email as the username
+        return this.email;
     }
 
     @Override
@@ -92,6 +96,6 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true; // You can add a field to manage this if needed
+        return true;
     }
 }

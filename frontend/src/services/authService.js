@@ -1,5 +1,5 @@
 import axiosInstance from '../utils/axiosInstance';
-import data from "../data/categoriesData"
+import data from "../data/sectionData"
 
 /**
  * Handles user login.
