@@ -11,7 +11,7 @@ const GoogleSignInButton = () => {
       <img src={logo}></img>
     <button
       onClick={handleGoogleSignIn}
-      className="w-full  text-white py-2 px-4 rounded text-sm "
+      className="w-full  text-black py-2 px-4 rounded text-sm "
     >
       Sign in with Google
     </button>

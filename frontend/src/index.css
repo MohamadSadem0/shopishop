@@ -4,7 +4,15 @@
 
 body {
     font-family: 'Roboto', sans-serif;
+    background-color: #fff8c0;
+
 }
+  
+   #login{
+    background-image: "./assets/images/loginBackground.png";
+  } 
+
+
 .scroll-container {
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* Internet Explorer and Edge */
@@ -14,9 +22,7 @@ body {
     display: none; /* Chrome, Safari, and Opera */
   }
   
-  body {
-    background-color: #fff8c0;
-  }
+
 
    @media (max-width: 640px) { /* Tailwind's 'sm' breakpoint is 640px */
    
@@ -30,4 +36,4 @@ body {
 
   } */
   }
-  
+

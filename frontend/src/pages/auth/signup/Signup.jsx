@@ -78,7 +78,7 @@ const Signup = () => {
   };
 
   return (
-    <div className="w-full h-screen relative overflow-hidden flex pl-10">
+    <div className="w-full h-screen relative  flex pl-10">
       <img src={backgroundImage} alt="Background" className="absolute top-0 left-0 w-full h-full object-cover -z-10" />
       <div className="flex flex-col items-start h-full w-full max-w-lg">
         <img src={logo} alt="Logo" className="w-36 h-36 mb-8" />
