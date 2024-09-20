@@ -18,7 +18,7 @@ const SetcionCard = ({ title, src }) => {
       <div className="absolute inset-0 rounded-[20px]"></div>
 
       {/* Category Image */}
-      <div className="relative w-[70px] h-[70px] sm:w-[80px] sm:h-[80px] md:w-[90px] md:h-[90px] rounded-full border-[0.5px] border-black overflow-hidden mb-2">
+      <div className="relative w-[70px] h-[70px] sm:w-[80px] sm:h-[80px] md:w-[90px] md:h-[90px] rounded-full  border-black overflow-hidden mb-2">
         <img src={src} alt={title} className="w-full h-full object-cover" />
       </div>
 

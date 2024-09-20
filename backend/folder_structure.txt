@@ -1,0 +1,700 @@
+Folder PATH listing
+Volume serial number is 2480-7C2C
+C:.
+|   .gitignore
+|   docker-compose.yml
+|   Dockerfile
+|   folder_structure.txt
+|   mvnw
+|   mvnw.cmd
+|   pom.xml
+|   ShopiShop.iml
+|   
++---.idea
+|       .gitignore
+|       compiler.xml
+|       encodings.xml
+|       jarRepositories.xml
+|       misc.xml
+|       modules.xml
+|       uiDesigner.xml
+|       vcs.xml
+|       workspace.xml
+|       
++---.mvn
+|   \---wrapper
+|           maven-wrapper.properties
+|           
++---src
+|   +---main
+|   |   +---java
+|   |   |   \---com
+|   |   |       \---example
+|   |   |           \---ShopiShop
+|   |   |               |   ShopiShopApplication.java
+|   |   |               |   
+|   |   |               +---core
+|   |   |               |   +---Order
+|   |   |               |   |   +---controller
+|   |   |               |   |   |       OrderController.java
+|   |   |               |   |   |       
+|   |   |               |   |   +---dto
+|   |   |               |   |   |       Order.java
+|   |   |               |   |   |       
+|   |   |               |   |   +---exception
+|   |   |               |   |   |       OrderNotFoundException.java
+|   |   |               |   |   |       
+|   |   |               |   |   +---model
+|   |   |               |   |   |       Order.java
+|   |   |               |   |   |       
+|   |   |               |   |   +---repository
+|   |   |               |   |   |       OrderRepository.java
+|   |   |               |   |   |       
+|   |   |               |   |   \---service
+|   |   |               |   |           OrderService.java
+|   |   |               |   |           OrderServiceImpl.java
+|   |   |               |   |           
+|   |   |               |   +---Product
+|   |   |               |   |   +---controller
+|   |   |               |   |   |       ProductController.java
+|   |   |               |   |   |       
+|   |   |               |   |   +---dto
+|   |   |               |   |   |       ProductDTO.java
+|   |   |               |   |   |       
+|   |   |               |   |   +---exception
+|   |   |               |   |   |       ProductNotFoundException.java
+|   |   |               |   |   |       
+|   |   |               |   |   +---model
+|   |   |               |   |   |       Product.java
+|   |   |               |   |   |       
+|   |   |               |   |   +---repository
+|   |   |               |   |   |       ProductRepository.java
+|   |   |               |   |   |       
+|   |   |               |   |   \---service
+|   |   |               |   |           ProductService.java
+|   |   |               |   |           ProductServiceImpl.java
+|   |   |               |   |           
+|   |   |               |   +---Store
+|   |   |               |   |   +---controller
+|   |   |               |   |   |       StoreController.java
+|   |   |               |   |   |       StoreWebSocketController.java
+|   |   |               |   |   |       
+|   |   |               |   |   +---dto
+|   |   |               |   |   |       StoreApprovalRequestDTO.java
+|   |   |               |   |   |       StoreDTO.java
+|   |   |               |   |   |       
+|   |   |               |   |   +---exception
+|   |   |               |   |   |       StoreNotFoundException.java
+|   |   |               |   |   |       
+|   |   |               |   |   +---model
+|   |   |               |   |   |       Store.java
+|   |   |               |   |   |       
+|   |   |               |   |   +---repository
+|   |   |               |   |   |       StoreRepository.java
+|   |   |               |   |   |       
+|   |   |               |   |   +---service
+|   |   |               |   |   |       StoreService.java
+|   |   |               |   |   |       StoreServiceImpl.java
+|   |   |               |   |   |       
+|   |   |               |   |   \---websocket
+|   |   |               |   |           StoreApprovalEvent.java
+|   |   |               |   |           StoreApprovalNotifier.java
+|   |   |               |   |           
+|   |   |               |   \---User
+|   |   |               |       +---controller
+|   |   |               |       |       AuthenticationController.java
+|   |   |               |       |       
+|   |   |               |       +---dto
+|   |   |               |       |       UserDTO.java
+|   |   |               |       |       UserLoginRequestDTO.java
+|   |   |               |       |       UserLoginResponseDTO.java
+|   |   |               |       |       UserMapper.java
+|   |   |               |       |       UserSignupRequestDTO.java
+|   |   |               |       |       UserSignupResponseDTO.java
+|   |   |               |       |       
+|   |   |               |       +---exception
+|   |   |               |       |       GlobalExceptionHandler.java
+|   |   |               |       |       InvalidCredentialsException.java
+|   |   |               |       |       UserAlreadyExistsException.java
+|   |   |               |       |       UserNotFoundException.java
+|   |   |               |       |       
+|   |   |               |       +---model
+|   |   |               |       |       User.java
+|   |   |               |       |       
+|   |   |               |       +---repository
+|   |   |               |       |       UserRepository.java
+|   |   |               |       |       
+|   |   |               |       \---service
+|   |   |               |               UserService.java
+|   |   |               |               UserServiceImpl.java
+|   |   |               |               
+|   |   |               +---data
+|   |   |               |       DataLoader.java
+|   |   |               |       
+|   |   |               +---enums
+|   |   |               |       DeliveryStatusEnum.java
+|   |   |               |       OrderStatusEnum.java
+|   |   |               |       PaymentMethodEnum.java
+|   |   |               |       PaymentStatusEnum.java
+|   |   |               |       UserRoleEnum.java
+|   |   |               |       
+|   |   |               +---modules
+|   |   |               |   +---CartItem
+|   |   |               |   |   +---controller
+|   |   |               |   |   |       CartItemController.java
+|   |   |               |   |   |       
+|   |   |               |   |   +---dto
+|   |   |               |   |   |       DeliveryDTO.java
+|   |   |               |   |   |       
+|   |   |               |   |   +---exception
+|   |   |               |   |   |       DeliveryNotFoundException.java
+|   |   |               |   |   |       
+|   |   |               |   |   +---model
+|   |   |               |   |   |       Delivery.java
+|   |   |               |   |   |       
+|   |   |               |   |   +---repository
+|   |   |               |   |   |       DeliveryRepository.java
+|   |   |               |   |   |       
+|   |   |               |   |   \---service
+|   |   |               |   |           DeliveryService.java
+|   |   |               |   |           DeliveryServiceImpl.java
+|   |   |               |   |           
+|   |   |               |   +---Category
+|   |   |               |   |   +---controller
+|   |   |               |   |   |       CategoryController.java
+|   |   |               |   |   |       
+|   |   |               |   |   +---dto
+|   |   |               |   |   |       CategoryDTO.java
+|   |   |               |   |   |       
+|   |   |               |   |   +---exception
+|   |   |               |   |   |       CategoryNotFoundException.java
+|   |   |               |   |   |       
+|   |   |               |   |   +---model
+|   |   |               |   |   |       Category.java
+|   |   |               |   |   |       
+|   |   |               |   |   +---repository
+|   |   |               |   |   |       CategoryRepository.java
+|   |   |               |   |   |       
+|   |   |               |   |   \---service
+|   |   |               |   |           CategoryServiceImpl.java
+|   |   |               |   |           StoreCategoryService.java
+|   |   |               |   |           
+|   |   |               |   +---Delivery
+|   |   |               |   |   +---controller
+|   |   |               |   |   |       DeliveryController.java
+|   |   |               |   |   |       
+|   |   |               |   |   +---dto
+|   |   |               |   |   |       DeliveryDTO.java
+|   |   |               |   |   |       
+|   |   |               |   |   +---exception
+|   |   |               |   |   |       DeliveryNotFoundException.java
+|   |   |               |   |   |       
+|   |   |               |   |   +---model
+|   |   |               |   |   |       Delivery.java
+|   |   |               |   |   |       
+|   |   |               |   |   +---repository
+|   |   |               |   |   |       DeliveryRepository.java
+|   |   |               |   |   |       
+|   |   |               |   |   \---service
+|   |   |               |   |           DeliveryService.java
+|   |   |               |   |           DeliveryServiceImpl.java
+|   |   |               |   |           
+|   |   |               |   +---Location
+|   |   |               |   |   +---controller
+|   |   |               |   |   |       LocationController.java
+|   |   |               |   |   |       
+|   |   |               |   |   +---dto
+|   |   |               |   |   |       LocationDTO.java
+|   |   |               |   |   |       
+|   |   |               |   |   +---exception
+|   |   |               |   |   |       LocationNotFoundException.java
+|   |   |               |   |   |       
+|   |   |               |   |   +---model
+|   |   |               |   |   |       Location.java
+|   |   |               |   |   |       
+|   |   |               |   |   +---repository
+|   |   |               |   |   |       LocationRepository.java
+|   |   |               |   |   |       
+|   |   |               |   |   \---service
+|   |   |               |   |           LocationService.java
+|   |   |               |   |           LocationServiceImpl.java
+|   |   |               |   |           
+|   |   |               |   +---Notification
+|   |   |               |   |   +---controller
+|   |   |               |   |   |       NotificationController.java
+|   |   |               |   |   |       
+|   |   |               |   |   +---dto
+|   |   |               |   |   |       NotificationDTO.java
+|   |   |               |   |   |       
+|   |   |               |   |   +---exception
+|   |   |               |   |   |       NotificationNotFoundException.java
+|   |   |               |   |   |       
+|   |   |               |   |   +---model
+|   |   |               |   |   |       Notification.java
+|   |   |               |   |   |       
+|   |   |               |   |   +---repository
+|   |   |               |   |   |       NotificationRepository.java
+|   |   |               |   |   |       
+|   |   |               |   |   \---service
+|   |   |               |   |           NotificationService.java
+|   |   |               |   |           NotificationServiceImpl.java
+|   |   |               |   |           
+|   |   |               |   +---Payment
+|   |   |               |   |   +---controller
+|   |   |               |   |   |       PaymentController.java
+|   |   |               |   |   |       
+|   |   |               |   |   +---dto
+|   |   |               |   |   |       PaymentDTO.java
+|   |   |               |   |   |       
+|   |   |               |   |   +---exception
+|   |   |               |   |   |       PaymentNotFoundException.java
+|   |   |               |   |   |       
+|   |   |               |   |   +---model
+|   |   |               |   |   |       Payment.java
+|   |   |               |   |   |       
+|   |   |               |   |   +---repository
+|   |   |               |   |   |       PaymentRepository.java
+|   |   |               |   |   |       
+|   |   |               |   |   \---service
+|   |   |               |   |           PaymentService.java
+|   |   |               |   |           PaymentServiceImpl.java
+|   |   |               |   |           
+|   |   |               |   +---Review
+|   |   |               |   |   +---controller
+|   |   |               |   |   |       ReviewController.java
+|   |   |               |   |   |       
+|   |   |               |   |   +---dto
+|   |   |               |   |   |       ReviewDTO.java
+|   |   |               |   |   |       
+|   |   |               |   |   +---exception
+|   |   |               |   |   |       ReviewNotFoundException.java
+|   |   |               |   |   |       
+|   |   |               |   |   +---model
+|   |   |               |   |   |       Review.java
+|   |   |               |   |   |       
+|   |   |               |   |   +---repository
+|   |   |               |   |   |       ReviewRepository.java
+|   |   |               |   |   |       
+|   |   |               |   |   \---service
+|   |   |               |   |           ReviewService.java
+|   |   |               |   |           ReviewServiceImpl.java
+|   |   |               |   |           
+|   |   |               |   +---Section
+|   |   |               |   |   +---controller
+|   |   |               |   |   |       SectionController.java
+|   |   |               |   |   |       
+|   |   |               |   |   +---dto
+|   |   |               |   |   |       SectionMapper.java
+|   |   |               |   |   |       SectionRequestDTO.java
+|   |   |               |   |   |       SectionResponseDTO.java
+|   |   |               |   |   |       
+|   |   |               |   |   +---exception
+|   |   |               |   |   |       ServiceCategoryNotFoundException.java
+|   |   |               |   |   |       
+|   |   |               |   |   +---model
+|   |   |               |   |   |       Section.java
+|   |   |               |   |   |       
+|   |   |               |   |   +---repository
+|   |   |               |   |   |       SectionRepository.java
+|   |   |               |   |   |       
+|   |   |               |   |   \---service
+|   |   |               |   |           ServiceCategoryService.java
+|   |   |               |   |           ServiceCategoryServiceImpl.java
+|   |   |               |   |           
+|   |   |               |   \---Wishlist
+|   |   |               |       +---controller
+|   |   |               |       |       WishlistController.java
+|   |   |               |       |       
+|   |   |               |       +---dto
+|   |   |               |       |       WishlistDTO.java
+|   |   |               |       |       
+|   |   |               |       +---exception
+|   |   |               |       |       WishlistNotFoundException.java
+|   |   |               |       |       
+|   |   |               |       +---model
+|   |   |               |       |       Wishlist.java
+|   |   |               |       |       
+|   |   |               |       +---repository
+|   |   |               |       |       WishlistRepository.java
+|   |   |               |       |       
+|   |   |               |       \---service
+|   |   |               |               WishlistService.java
+|   |   |               |               WishlistServiceImpl.java
+|   |   |               |               
+|   |   |               +---security
+|   |   |               |       ApplicationConfig.java
+|   |   |               |       JwtAuthenticationFilter.java
+|   |   |               |       JwtService.java
+|   |   |               |       SecurityConfiguration.java
+|   |   |               |       
+|   |   |               \---Test
+|   |   \---resources
+|   |       |   application.properties
+|   |       |   
+|   |       +---i18n
+|   |       |       messages.properties
+|   |       |       
+|   |       +---static
+|   |       \---templates
+|   \---test
+|       \---java
+|           \---com
+|               \---example
+|                   \---ShopiShop
+|                       |   ShopiShopApplicationTests.java
+|                       |   
+|                       +---core
+|                       |   \---User
+|                       |       \---controller
+|                       \---Test
+|                               AuthenticationControllerTest.java
+|                               
+\---target
+    +---classes
+    |   |   application.properties
+    |   |   
+    |   +---com
+    |   |   \---example
+    |   |       \---ShopiShop
+    |   |           |   ShopiShopApplication.class
+    |   |           |   
+    |   |           +---core
+    |   |           |   +---Order
+    |   |           |   |   +---controller
+    |   |           |   |   |       OrderController.class
+    |   |           |   |   |       
+    |   |           |   |   +---dto
+    |   |           |   |   |       Order.class
+    |   |           |   |   |       
+    |   |           |   |   +---exception
+    |   |           |   |   |       OrderNotFoundException.class
+    |   |           |   |   |       
+    |   |           |   |   +---model
+    |   |           |   |   |       Order$OrderBuilder.class
+    |   |           |   |   |       Order.class
+    |   |           |   |   |       
+    |   |           |   |   +---repository
+    |   |           |   |   |       OrderRepository.class
+    |   |           |   |   |       
+    |   |           |   |   \---service
+    |   |           |   |           OrderService.class
+    |   |           |   |           OrderServiceImpl.class
+    |   |           |   |           
+    |   |           |   +---Product
+    |   |           |   |   +---controller
+    |   |           |   |   |       ProductController.class
+    |   |           |   |   |       
+    |   |           |   |   +---dto
+    |   |           |   |   |       ProductDTO.class
+    |   |           |   |   |       
+    |   |           |   |   +---exception
+    |   |           |   |   |       ProductNotFoundException.class
+    |   |           |   |   |       
+    |   |           |   |   +---model
+    |   |           |   |   |       Product$ProductBuilder.class
+    |   |           |   |   |       Product.class
+    |   |           |   |   |       
+    |   |           |   |   +---repository
+    |   |           |   |   |       ProductRepository.class
+    |   |           |   |   |       
+    |   |           |   |   \---service
+    |   |           |   |           ProductService.class
+    |   |           |   |           ProductServiceImpl.class
+    |   |           |   |           
+    |   |           |   +---Store
+    |   |           |   |   +---controller
+    |   |           |   |   |       StoreController.class
+    |   |           |   |   |       StoreWebSocketController.class
+    |   |           |   |   |       
+    |   |           |   |   +---dto
+    |   |           |   |   |       StoreApprovalRequestDTO.class
+    |   |           |   |   |       StoreDTO.class
+    |   |           |   |   |       
+    |   |           |   |   +---exception
+    |   |           |   |   |       StoreNotFoundException.class
+    |   |           |   |   |       
+    |   |           |   |   +---model
+    |   |           |   |   |       Store$StoreBuilder.class
+    |   |           |   |   |       Store.class
+    |   |           |   |   |       
+    |   |           |   |   +---repository
+    |   |           |   |   |       StoreRepository.class
+    |   |           |   |   |       
+    |   |           |   |   +---service
+    |   |           |   |   |       StoreService.class
+    |   |           |   |   |       StoreServiceImpl.class
+    |   |           |   |   |       
+    |   |           |   |   \---websocket
+    |   |           |   |           StoreApprovalEvent.class
+    |   |           |   |           StoreApprovalNotifier.class
+    |   |           |   |           
+    |   |           |   \---User
+    |   |           |       +---controller
+    |   |           |       |       AuthenticationController.class
+    |   |           |       |       
+    |   |           |       +---dto
+    |   |           |       |       UserDTO.class
+    |   |           |       |       UserLoginRequestDTO.class
+    |   |           |       |       UserLoginResponseDTO$UserLoginResponseDTOBuilder.class
+    |   |           |       |       UserLoginResponseDTO.class
+    |   |           |       |       UserMapper.class
+    |   |           |       |       UserSignupRequestDTO.class
+    |   |           |       |       UserSignupResponseDTO.class
+    |   |           |       |       
+    |   |           |       +---exception
+    |   |           |       |       GlobalExceptionHandler.class
+    |   |           |       |       InvalidCredentialsException.class
+    |   |           |       |       UserAlreadyExistsException.class
+    |   |           |       |       UserNotFoundException.class
+    |   |           |       |       
+    |   |           |       +---model
+    |   |           |       |       User$UserBuilder.class
+    |   |           |       |       User.class
+    |   |           |       |       
+    |   |           |       +---repository
+    |   |           |       |       UserRepository.class
+    |   |           |       |       
+    |   |           |       \---service
+    |   |           |               UserService.class
+    |   |           |               
+    |   |           +---data
+    |   |           |       DataLoader.class
+    |   |           |       
+    |   |           +---enums
+    |   |           |       DeliveryStatusEnum.class
+    |   |           |       OrderStatusEnum.class
+    |   |           |       PaymentMethodEnum.class
+    |   |           |       PaymentStatusEnum.class
+    |   |           |       UserRoleEnum.class
+    |   |           |       
+    |   |           +---modules
+    |   |           |   +---CartItem
+    |   |           |   |   +---controller
+    |   |           |   |   |       CartItemController.class
+    |   |           |   |   |       
+    |   |           |   |   +---dto
+    |   |           |   |   |       DeliveryDTO.class
+    |   |           |   |   |       
+    |   |           |   |   +---exception
+    |   |           |   |   |       DeliveryNotFoundException.class
+    |   |           |   |   |       
+    |   |           |   |   +---model
+    |   |           |   |   |       Delivery.class
+    |   |           |   |   |       
+    |   |           |   |   +---repository
+    |   |           |   |   |       DeliveryRepository.class
+    |   |           |   |   |       
+    |   |           |   |   \---service
+    |   |           |   |           DeliveryService.class
+    |   |           |   |           DeliveryServiceImpl.class
+    |   |           |   |           
+    |   |           |   +---Category
+    |   |           |   |   +---controller
+    |   |           |   |   |       CategoryController.class
+    |   |           |   |   |       
+    |   |           |   |   +---dto
+    |   |           |   |   |       CategoryDTO.class
+    |   |           |   |   |       
+    |   |           |   |   +---exception
+    |   |           |   |   |       CategoryNotFoundException.class
+    |   |           |   |   |       
+    |   |           |   |   +---model
+    |   |           |   |   |       Category$CategoryBuilder.class
+    |   |           |   |   |       Category.class
+    |   |           |   |   |       
+    |   |           |   |   +---repository
+    |   |           |   |   |       CategoryRepository.class
+    |   |           |   |   |       
+    |   |           |   |   \---service
+    |   |           |   |           CategoryServiceImpl.class
+    |   |           |   |           
+    |   |           |   +---Delivery
+    |   |           |   |   +---controller
+    |   |           |   |   |       DeliveryController.class
+    |   |           |   |   |       
+    |   |           |   |   +---dto
+    |   |           |   |   |       DeliveryDTO.class
+    |   |           |   |   |       
+    |   |           |   |   +---exception
+    |   |           |   |   |       DeliveryNotFoundException.class
+    |   |           |   |   |       
+    |   |           |   |   +---model
+    |   |           |   |   |       Delivery.class
+    |   |           |   |   |       
+    |   |           |   |   +---repository
+    |   |           |   |   |       DeliveryRepository.class
+    |   |           |   |   |       
+    |   |           |   |   \---service
+    |   |           |   |           DeliveryService.class
+    |   |           |   |           DeliveryServiceImpl.class
+    |   |           |   |           
+    |   |           |   +---Location
+    |   |           |   |   +---controller
+    |   |           |   |   |       LocationController.class
+    |   |           |   |   |       
+    |   |           |   |   +---dto
+    |   |           |   |   |       LocationDTO.class
+    |   |           |   |   |       
+    |   |           |   |   +---exception
+    |   |           |   |   |       LocationNotFoundException.class
+    |   |           |   |   |       
+    |   |           |   |   +---model
+    |   |           |   |   |       Location$LocationBuilder.class
+    |   |           |   |   |       Location.class
+    |   |           |   |   |       
+    |   |           |   |   +---repository
+    |   |           |   |   |       LocationRepository.class
+    |   |           |   |   |       
+    |   |           |   |   \---service
+    |   |           |   |           LocationServiceImpl.class
+    |   |           |   |           
+    |   |           |   +---Notification
+    |   |           |   |   +---controller
+    |   |           |   |   |       NotificationController.class
+    |   |           |   |   |       
+    |   |           |   |   +---dto
+    |   |           |   |   |       NotificationDTO.class
+    |   |           |   |   |       
+    |   |           |   |   +---exception
+    |   |           |   |   |       NotificationNotFoundException.class
+    |   |           |   |   |       
+    |   |           |   |   +---model
+    |   |           |   |   |       Notification$NotificationBuilder.class
+    |   |           |   |   |       Notification.class
+    |   |           |   |   |       
+    |   |           |   |   +---repository
+    |   |           |   |   |       NotificationRepository.class
+    |   |           |   |   |       
+    |   |           |   |   \---service
+    |   |           |   |           NotificationService.class
+    |   |           |   |           NotificationServiceImpl.class
+    |   |           |   |           
+    |   |           |   +---Payment
+    |   |           |   |   +---controller
+    |   |           |   |   |       PaymentController.class
+    |   |           |   |   |       
+    |   |           |   |   +---dto
+    |   |           |   |   |       PaymentDTO.class
+    |   |           |   |   |       
+    |   |           |   |   +---exception
+    |   |           |   |   |       PaymentNotFoundException.class
+    |   |           |   |   |       
+    |   |           |   |   +---model
+    |   |           |   |   |       Payment$PaymentBuilder.class
+    |   |           |   |   |       Payment.class
+    |   |           |   |   |       
+    |   |           |   |   +---repository
+    |   |           |   |   |       PaymentRepository.class
+    |   |           |   |   |       
+    |   |           |   |   \---service
+    |   |           |   |           PaymentService.class
+    |   |           |   |           PaymentServiceImpl.class
+    |   |           |   |           
+    |   |           |   +---Review
+    |   |           |   |   +---controller
+    |   |           |   |   |       ReviewController.class
+    |   |           |   |   |       
+    |   |           |   |   +---dto
+    |   |           |   |   |       ReviewDTO.class
+    |   |           |   |   |       
+    |   |           |   |   +---exception
+    |   |           |   |   |       ReviewNotFoundException.class
+    |   |           |   |   |       
+    |   |           |   |   +---model
+    |   |           |   |   |       Review$ReviewBuilder.class
+    |   |           |   |   |       Review.class
+    |   |           |   |   |       
+    |   |           |   |   +---repository
+    |   |           |   |   |       ReviewRepository.class
+    |   |           |   |   |       
+    |   |           |   |   \---service
+    |   |           |   |           ReviewService.class
+    |   |           |   |           ReviewServiceImpl.class
+    |   |           |   |           
+    |   |           |   +---Section
+    |   |           |   |   +---controller
+    |   |           |   |   |       SectionController.class
+    |   |           |   |   |       
+    |   |           |   |   +---dto
+    |   |           |   |   |       SectionMapper.class
+    |   |           |   |   |       SectionRequestDTO.class
+    |   |           |   |   |       SectionResponseDTO$SectionResponseDTOBuilder.class
+    |   |           |   |   |       SectionResponseDTO.class
+    |   |           |   |   |       
+    |   |           |   |   +---exception
+    |   |           |   |   |       ServiceCategoryNotFoundException.class
+    |   |           |   |   |       
+    |   |           |   |   +---model
+    |   |           |   |   |       Section.class
+    |   |           |   |   |       
+    |   |           |   |   +---repository
+    |   |           |   |   |       SectionRepository.class
+    |   |           |   |   |       
+    |   |           |   |   \---service
+    |   |           |   |           ServiceCategoryService.class
+    |   |           |   |           ServiceCategoryServiceImpl.class
+    |   |           |   |           
+    |   |           |   \---Wishlist
+    |   |           |       +---controller
+    |   |           |       |       WishlistController.class
+    |   |           |       |       
+    |   |           |       +---dto
+    |   |           |       |       WishlistDTO.class
+    |   |           |       |       
+    |   |           |       +---exception
+    |   |           |       |       WishlistNotFoundException.class
+    |   |           |       |       
+    |   |           |       +---model
+    |   |           |       |       Wishlist.class
+    |   |           |       |       
+    |   |           |       +---repository
+    |   |           |       |       WishlistRepository.class
+    |   |           |       |       
+    |   |           |       \---service
+    |   |           |               WishlistService.class
+    |   |           |               WishlistServiceImpl.class
+    |   |           |               
+    |   |           +---security
+    |   |           |       ApplicationConfig.class
+    |   |           |       JwtAuthenticationFilter.class
+    |   |           |       JwtService.class
+    |   |           |       SecurityConfiguration.class
+    |   |           |       
+    |   |           \---Test
+    |   \---i18n
+    |           messages.properties
+    |           
+    +---generated-sources
+    |   \---annotations
+    +---generated-test-sources
+    |   \---test-annotations
+    +---maven-status
+    |   \---maven-compiler-plugin
+    |       +---compile
+    |       |   \---default-compile
+    |       |           createdFiles.lst
+    |       |           inputFiles.lst
+    |       |           
+    |       \---testCompile
+    |           \---default-testCompile
+    |                   createdFiles.lst
+    |                   inputFiles.lst
+    |                   
+    +---surefire-reports
+    |       com.example.ShopiShop.ShopiShopApplicationTests.txt
+    |       com.example.ShopiShop.Test.AuthenticationControllerTest.txt
+    |       TEST-com.example.ShopiShop.ShopiShopApplicationTests.xml
+    |       TEST-com.example.ShopiShop.Test.AuthenticationControllerTest.xml
+    |       
+    \---test-classes
+        \---com
+            \---example
+                \---ShopiShop
+                    |   ShopiShopApplicationTests.class
+                    |   
+                    +---core
+                    |   \---User
+                    |       \---controller
+                    \---Test
+                            AuthenticationControllerTest.class
+                            
