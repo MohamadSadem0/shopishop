@@ -1,0 +1,30 @@
+version: '3'
+services:
+  # MySQL Service
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: mydatabase
+      MYSQL_USER: root
+      MYSQL_PASSWORD: rootpassword
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  # Spring Boot Service
+  app:
+    build:
+      context: ./  # Path to your Spring Boot Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql  # Wait for MySQL to start
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/mydatabase
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: rootpassword
+
+volumes:
+  mysql_data:

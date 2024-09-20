@@ -2,8 +2,11 @@ package com.example.ShopiShop.core.User.service;
 
 import com.example.ShopiShop.core.User.dto.UserLoginRequestDTO;
 import com.example.ShopiShop.core.User.dto.UserLoginResponseDTO;
+import com.example.ShopiShop.core.User.dto.UserMapper;
 import com.example.ShopiShop.core.User.dto.UserSignupRequestDTO;
-import com.example.ShopiShop.core.User.dto.UserSignupResponseDTO;
+import com.example.ShopiShop.core.User.exception.InvalidCredentialsException;
+import com.example.ShopiShop.core.User.exception.UserAlreadyExistsException;
+import com.example.ShopiShop.core.User.exception.UserNotFoundException;
 import com.example.ShopiShop.core.User.model.User;
 import com.example.ShopiShop.core.User.repository.UserRepository;
 import com.example.ShopiShop.security.JwtService;
@@ -21,54 +24,21 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
+    private final UserMapper userMapper;
 
-    /**
-     * Handles user registration.
-     */
-    public UserSignupResponseDTO register(UserSignupRequestDTO request) {
-        // Check if a user with the provided email already exists
+    public User register(UserSignupRequestDTO request) {
         if (userRepository.findByEmail(request.getEmail()).isPresent()) {
-            return new UserSignupResponseDTO("User with email " + request.getEmail() + " already exists.", null);
+            throw new UserAlreadyExistsException("User with email " + request.getEmail() + " already exists.");
         }
 
-        // Create a new user and encode the password
-        User user = User.builder()
-                .userName(request.getName())
-                .email(request.getEmail())
-                .password(passwordEncoder.encode(request.getPassword()))
-                .userRole(request.getRole())
-                .build();
-
-        // Save the new user in the database
+        User user = userMapper.toEntity(request);
+        user.setPassword(passwordEncoder.encode(user.getPassword())); // encode password
         userRepository.save(user);
 
-        return new UserSignupResponseDTO("User registered successfully", String.valueOf(user.getId()));
+        return user;
     }
 
-    /**
-     * Handles user login and JWT token generation.
-     */
-    public UserLoginResponseDTO login(UserLoginRequestDTO request) {
-        // Find the user by email
-        User user = userRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
-
-        // Validate the provided password
-        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-            throw new IllegalArgumentException("Invalid credentials");
-        }
-
-        // Generate JWT token using the user's details
-        String token = jwtService.generateToken(user);
-
-        return new UserLoginResponseDTO(token);
-    }
-
-    /**
-     * Handles authentication with the AuthenticationManager.
-     */
     public UserLoginResponseDTO authenticate(UserLoginRequestDTO request) {
-        // Authenticate the user using AuthenticationManager
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
@@ -76,15 +46,10 @@ public class UserService {
                 )
         );
 
-        // After authentication, find the user and generate the JWT token
         User user = userRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
 
-        // Generate the token
         String jwtToken = jwtService.generateToken(user);
-
-        return UserLoginResponseDTO.builder()
-                .token(jwtToken)
-                .build();
+        return new UserLoginResponseDTO(jwtToken, user.getEmail(), user.getUserRole().toString(), user.getUsername() );
     }
 }

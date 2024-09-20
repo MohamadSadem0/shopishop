@@ -1,2 +1,7 @@
-package com.example.ShopiShop.core.User.exception;public class UserAlreadyExistsException {
+package com.example.ShopiShop.core.User.exception;
+
+public class UserAlreadyExistsException extends RuntimeException {
+    public UserAlreadyExistsException(String message) {
+        super(message);
+    }
 }

@@ -1,5 +1,4 @@
 import axiosInstance from '../utils/axiosInstance';
-import data from "../data/sectionData"
 
 /**
  * Handles user login.
@@ -59,7 +58,8 @@ export const signup = async (userDetails) => {
     // Ensure the response has the expected structure
     const { user } = response.data;
     
-    return user;  // Return user data
+    return {user}; 
+    console.log(user.message) // Return user data
 
   } catch (error) {
     console.error('Signup failed:', error);

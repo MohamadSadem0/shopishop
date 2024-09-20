@@ -1,9 +1,6 @@
 package com.example.ShopiShop.core.User.controller;
 
-import com.example.ShopiShop.core.User.dto.UserLoginRequestDTO;
-import com.example.ShopiShop.core.User.dto.UserLoginResponseDTO;
-import com.example.ShopiShop.core.User.dto.UserSignupRequestDTO;
-import com.example.ShopiShop.core.User.dto.UserSignupResponseDTO;
+import com.example.ShopiShop.core.User.dto.*;
 import com.example.ShopiShop.core.User.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,11 +14,14 @@ import org.springframework.web.bind.annotation.*;
 public class AuthenticationController {
 
     private final UserService userService;
+    private final UserMapper userMapper;
 
     @PostMapping("/signup")
     public ResponseEntity<UserSignupResponseDTO> signup(@RequestBody UserSignupRequestDTO request) {
         try {
-            UserSignupResponseDTO response = userService.register(request);
+            // Use the mapper to register the user and create a response
+            UserSignupResponseDTO response = userMapper.toSignupResponse(
+                    userService.register(request), "User registered successfully");
             return ResponseEntity.ok(response);
         } catch (IllegalArgumentException e) {
             // Return a 409 Conflict if the user already exists
@@ -30,15 +30,9 @@ public class AuthenticationController {
         }
     }
 
-
-//    @PostMapping("/login")
-//    public ResponseEntity<UserLoginResponseDTO> login(@RequestBody UserLoginRequestDTO request) {
-//        String response = userService.authenticate(request);
-//        return ResponseEntity.ok(response);
-//    }
-
     @PostMapping("/login")
     public ResponseEntity<UserLoginResponseDTO> login(@RequestBody UserLoginRequestDTO request) {
+        // Use the service to authenticate the user
         UserLoginResponseDTO response = userService.authenticate(request);
         return ResponseEntity.ok(response);
     }

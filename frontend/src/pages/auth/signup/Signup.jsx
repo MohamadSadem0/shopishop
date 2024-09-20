@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux'; // Import hooks from Redux
 import { login as loginAction } from '../../../redux/authSlice';
+import { fetchSections } from '../../../redux/serviceSectionsSlice'; // Import the thunk for fetching sections
 import RoleSelection from './RoleSelection';
 import CommonDetails from './CommonDetails';
 import SellerDetails from './SellerDetails';
 import GoogleSignInButton from '../../../components/common/GoogleSignInButton';
 import Button from '../../../components/common/Button';
-import { signup, fetchServiceCategories } from '../../../services/authService';
+// import { signup } from '../../../services/authService';
+import { signup } from '../../../services/authService';
 import logo from '../../../assets/icons/logo.svg';
-import backgroundImage from '../../../assets/images/loginBackground.png';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Signup = () => {
@@ -19,20 +20,22 @@ const Signup = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [serviceName, setServiceName] = useState('');
-  const [serviceSection, setServiceSection] = useState(''); // Changed from serviceCategory to serviceSection
+  const [serviceSection, setServiceSection] = useState(''); 
   const [location, setLocation] = useState('');
   const [currency, setCurrency] = useState('USD');
-  const [sections, setSections] = useState([]); // Changed from categories to sections
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  
   const dispatch = useDispatch();
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
+
+  // Access sections and loading state from Redux store
+  const { sections, loading } = useSelector((state) => state.serviceSections);
 
   useEffect(() => {
-    if (userType === 'Seller' && currentStep === 3) {
-      fetchServiceCategories().then(setSections); // Changed categories to sections
+    if (userType === 'Seller' && currentStep === 3 && sections.length === 0) {
+      dispatch(fetchSections()); // Fetch sections only if not already in Redux store
     }
-  }, [userType, currentStep]);
+  }, [userType, currentStep, sections.length, dispatch]);
 
   const handleNext = () => {
     if (currentStep === 1 && (userType === 'Customer' || userType === 'Seller')) {
@@ -48,55 +51,44 @@ const Signup = () => {
 
   const handleSignup = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    setError('');
-
+    setError("");
+  
     if (password !== confirmPassword) {
-        setError('Passwords do not match');
-        setLoading(false);
-        return;
+      setError("Passwords do not match");
+      return;
     }
-
+  
     try {
-        // Creating the payload for the signup request
-        const userPayload = {
-            name: username,
-            password: password,
-            email: email,
-            role: userType === 'Customer' ? 'CUSTOMER' : 'SELLER',  // Set role based on user type
-            ...(userType === 'Seller' && {
-                serviceName,
-                serviceSection,
-                location,
-                currency,
-            })
-        };
-
-        // Sending the signup request
-        const user = await signup(userPayload);
-        console.log(user);
-        dispatch(loginAction({ user }));
-
-        // Redirect to login page with success message
-        navigate('/login', { state: { message: 'Signup successful' } });
-
+      const userPayload = {
+        name: username,
+        password,
+        email,
+        role: userType === "Customer" ? "CUSTOMER" : "SELLER",
+        ...(userType === "Seller" && { serviceName, serviceSection, location, currency })
+      };
+  
+      const response = await signup(userPayload);
+  
+      if (response && response.message === "User registered successfully") {
+        dispatch(loginAction({ user: response.userId }));
+        navigate("/login", { state: { message: "Signup successful" } });
+      }
     } catch (err) {
-        setError('Failed to sign up. Please try again.');
-    } finally {
-        setLoading(false);
+      if (err.response && err.response.status === 409) {
+        setError("User with this email already exists.");
+      } else {
+        setError("Failed to sign up. Please try again.");
+      }
     }
-};
-
+  };
+  
 
   const handleBackToWebsite = () => {
     navigate('/');
   };
 
   return (
-    <div
-      id="signup"
-      className="min-h-screen flex items-center justify-center relative bg-white"
-    >
+    <div id="signup" className="min-h-screen flex items-center justify-center relative bg-white">
       {/* Background Overlay */}
       <div className="absolute inset-0 bg-black opacity-50 z-0"></div>
 
@@ -130,17 +122,17 @@ const Signup = () => {
           <SellerDetails
             serviceName={serviceName}
             setServiceName={setServiceName}
-            serviceSection={serviceSection} // Changed category to section
-            setServiceSection={setServiceSection} // Changed setServiceCategory to setServiceSection
+            serviceSection={serviceSection}
+            setServiceSection={setServiceSection}
             location={location}
             setLocation={setLocation}
             currency={currency}
             setCurrency={setCurrency}
-            sections={sections} // Changed categories to sections
+            sections={sections}
+            loading={loading}
             error={error}
             handleSignup={handleSignup}
             handleBack={handleBack}
-            loading={loading}
           />
         )}
 
@@ -151,7 +143,7 @@ const Signup = () => {
 
         {currentStep < 3 && (
           <p className="mt-6 text-center text-gray-700">
-            Already have an account?{" "}
+            Already have an account?{' '}
             <Link to="/login" className="text-blue-500 hover:underline">
               Login
             </Link>
