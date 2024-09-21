@@ -9,6 +9,7 @@ import jakarta.persistence.*;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Table;
 import lombok.*;
+import org.antlr.v4.runtime.misc.NotNull;
 import org.hibernate.annotations.*;
 import org.hibernate.type.SqlTypes;
 import org.springframework.security.core.GrantedAuthority;
@@ -44,11 +45,13 @@ public class User implements UserDetails {
     private String email;
 
     @Column(name = "password", nullable = false)
+//    @NotNull(message = "Password is required")
     private String password;
 
     @OneToOne(cascade = CascadeType.ALL, optional = true)
     @JoinColumn(name = "location_id", referencedColumnName = "id", nullable = true)
     private Location location;
+
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviews;

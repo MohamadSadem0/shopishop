@@ -4,6 +4,7 @@ import DashboardItemCard from '../cards/DashboardItemCard ';
 import dummy from "../../assets/images/back2.jpg"
 import { useState,useEffect } from 'react';
 import CryptoJS from "crypto-js";
+import MapComponent from './MapComponent';
 
 const Content = () => {
 
@@ -66,10 +67,13 @@ const Content = () => {
         </div>
 
         {/* Right side */}
-        <div className="w-1/3 mt-16 h-full">
+        <div className="w-1/3  h-full">
           {/* Content for the right side */}
-          <div className="flex flex-col space-y-4 mb-8">
-            <div className="w-full p-4 mt-5 bg-white rounded-[15px] shadow-md h-[238px]">Website Detail 1</div>
+          <div className="flex flex-col space-y-4 ">
+            
+            <div className="w-full p-4 mt-5 bg-white rounded-[15px] shadow-md h-[238px]">
+              <MapComponent className="h-full w-full"/>
+            </div>
             <div className="w-full p-4 rounded-[15px] bg-white shadow-md h-auto">
               <div>Website Detail 1</div>
           <DashboardItemCard  name={"hello"} rating={3} image={dummy}/>

@@ -31,8 +31,6 @@ public class Product {
     @Column(name = "price", nullable = false)
     private BigDecimal price;
 
-    @Column(name = "stock_quantity", nullable = false)
-    private int stockQuantity;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id", referencedColumnName = "id", nullable = false)

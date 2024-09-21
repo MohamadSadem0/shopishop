@@ -2,6 +2,7 @@ package com.example.ShopiShop.core.User.controller;
 
 import com.example.ShopiShop.core.User.dto.*;
 import com.example.ShopiShop.core.User.service.UserService;
+import com.example.ShopiShop.enums.UserRoleEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,9 @@ public class AuthenticationController {
 
     @PostMapping("/signup")
     public ResponseEntity<UserSignupResponseDTO> signup(@RequestBody UserSignupRequestDTO request) {
+        if (request.getRole() == UserRoleEnum.SUPER_ADMIN) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new UserSignupResponseDTO("Cannot sign up as SUPER_ADMIN", null));
+        }
         try {
             // Use the mapper to register the user and create a response
             UserSignupResponseDTO response = userMapper.toSignupResponse(

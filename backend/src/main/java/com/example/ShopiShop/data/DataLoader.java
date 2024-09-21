@@ -1,11 +1,15 @@
 package com.example.ShopiShop.data;
 
+import com.example.ShopiShop.core.User.model.User;
+import com.example.ShopiShop.core.User.repository.UserRepository;
+import com.example.ShopiShop.enums.UserRoleEnum;
 import com.example.ShopiShop.modules.Category.model.Category;
 import com.example.ShopiShop.modules.Category.repository.CategoryRepository;
 import com.example.ShopiShop.modules.Section.model.Section;
 import com.example.ShopiShop.modules.Section.repository.SectionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -19,9 +23,22 @@ public class DataLoader implements CommandLineRunner {
 
     private final SectionRepository sectionRepository;
     private final CategoryRepository categoryRepository;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public void run(String... args) throws Exception {
+
+
+        if (userRepository.findByEmail("superadmin@example.com").isEmpty()) {
+            User superAdmin = User.builder()
+                    .userName("Super Admin")
+                    .email("superadmin@example.com")
+                    .password(passwordEncoder.encode("SuperSecurePassword"))  // Set a secure password
+                    .userRole(UserRoleEnum.SUPER_ADMIN)  // Add SUPER_ADMIN role
+                    .build();
+            userRepository.save(superAdmin);
+        }
         // Predefined sections with images
         Map<String, String> sections = new HashMap<>();
         sections.put("Food", "");

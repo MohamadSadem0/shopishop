@@ -1,6 +1,7 @@
 package com.example.ShopiShop.core.Store.model;
 
 import com.example.ShopiShop.core.User.model.User;
+import com.example.ShopiShop.modules.Location.model.Location;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,13 +21,17 @@ public class Store {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "location", nullable = false)
-    private String location;
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id", referencedColumnName = "id", nullable = false)
     private User owner;
 
-    @Column(name = "is_approved", nullable = false)
-    private boolean isApproved;
+    @OneToOne(cascade = CascadeType.ALL, optional = true)
+    @JoinColumn(name = "location_id", referencedColumnName = "id", nullable = true)
+    private Location location;
+
+
+    @Column(name = "is_approved",  nullable = false)
+    private boolean isApproved =false;
 }

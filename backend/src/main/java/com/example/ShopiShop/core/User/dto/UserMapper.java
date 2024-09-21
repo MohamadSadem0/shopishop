@@ -11,7 +11,7 @@ public class UserMapper {
         return User.builder()
                 .userName(dto.getName())
                 .email(dto.getEmail())
-                .password(dto.getPassword())  // Encoding handled in the service
+                .password(dto.getPassword())
                 .userRole(dto.getRole())
                 .build();
     }
