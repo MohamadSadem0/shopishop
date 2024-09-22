@@ -1,6 +1,7 @@
 package com.example.ShopiShop.core.Product.model;
 
 import com.example.ShopiShop.core.Store.model.Store;
+import com.example.ShopiShop.modules.Category.model.Category;
 import com.example.ShopiShop.modules.Section.model.Section;
 import com.example.ShopiShop.modules.Review.model.Review;
 import jakarta.persistence.*;
@@ -31,14 +32,16 @@ public class Product {
     @Column(name = "price", nullable = false)
     private BigDecimal price;
 
+    @Column(name = "image", nullable = false)
+    private String imageUrl;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "store_id", referencedColumnName = "id", nullable = false)
     private Store store;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id", referencedColumnName = "id", nullable = false)
-    private Section category;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviews;

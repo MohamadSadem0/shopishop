@@ -203,8 +203,7 @@ const SectionsSection = () => {
 
       {/* Title Text */}
       <div className="absolute top-4 left-6 flex sm:hidden  text-white text-[28px] sm:text-[20px]  font-roboto font-bold leading-[36px] sm:leading-[48px]">
-        <span>Sections at a </span>
-        <span className="text-[#DD5838]">Glance</span>
+        <span>Sections  </span>
       </div>
 
       {/* Categories Container */}

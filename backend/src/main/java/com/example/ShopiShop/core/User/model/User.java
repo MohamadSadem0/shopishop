@@ -53,6 +53,10 @@ public class User implements UserDetails {
     private Location location;
 
 
+    @Column(name = "phoneNumber", nullable = true)
+
+    private String phoneNumber;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviews;
 

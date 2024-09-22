@@ -2,6 +2,7 @@ package com.example.ShopiShop.core.Store.model;
 
 import com.example.ShopiShop.core.User.model.User;
 import com.example.ShopiShop.modules.Location.model.Location;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,6 +25,7 @@ public class Store {
 
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     @JoinColumn(name = "owner_id", referencedColumnName = "id", nullable = false)
     private User owner;
 

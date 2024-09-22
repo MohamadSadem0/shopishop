@@ -30,27 +30,22 @@ public class UserService {
     private final AuthenticationManager authenticationManager;
     private final UserMapper userMapper;
     private final StoreRepository storeRepository;
-    private final LocationRepository locationRepository; // Make sure you have this repository
+    private final LocationRepository locationRepository;
 
     public User register(UserSignupRequestDTO request) {
-        // Prevent signing up with SUPER_ADMIN role
         if (request.getRole() == UserRoleEnum.SUPER_ADMIN) {
             throw new IllegalArgumentException("Cannot sign up with SUPER_ADMIN role");
         }
 
-        // Check if user already exists
         if (userRepository.findByEmail(request.getEmail()).isPresent()) {
             throw new UserAlreadyExistsException("User with email " + request.getEmail() + " already exists.");
         }
 
-        // Map DTO to User entity
         User user = userMapper.toEntity(request);
-        user.setPassword(passwordEncoder.encode(user.getPassword())); // encode password
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        // Save the user first before creating any dependent entities like Store
         User savedUser = userRepository.save(user);
 
-        // Create a Location entity based on request data
         Location location = Location.builder()
                 .latitude(request.getLatitude())
                 .longitude(request.getLongitude())
@@ -61,26 +56,20 @@ public class UserService {
                 .country(request.getCountry())
                 .build();
 
-        // Save the location entity first
         Location savedLocation = locationRepository.save(location);
 
-        // For merchants, create a new store
         if (request.getRole() == UserRoleEnum.MERCHANT) {
             Store store = Store.builder()
                     .name(request.getBusinessName() != null ? request.getBusinessName() : (request.getName() + "'s Store"))
-                    .location(savedLocation)  // Associate the saved location with the store
-                    .owner(savedUser)          // Associate the saved user with the store
-                    .isApproved(false)         // Store approval logic
+                    .location(savedLocation)
+                    .owner(savedUser)
+                    .isApproved(false)
                     .build();
 
-            // Save the store after saving the user and location
             storeRepository.save(store);
-
-            // Optionally, set the same location for the user
             savedUser.setLocation(savedLocation);
-            userRepository.save(savedUser); // Update user with location
+            userRepository.save(savedUser);
         } else {
-            // For customers, associate the location directly with the user
             savedUser.setLocation(savedLocation);
             userRepository.save(savedUser);
         }
@@ -89,7 +78,6 @@ public class UserService {
     }
 
     public UserLoginResponseDTO authenticate(UserLoginRequestDTO request) {
-        // Authenticate the user
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
@@ -97,14 +85,31 @@ public class UserService {
                 )
         );
 
-        // Find the user by email
         User user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new UserNotFoundException("User not found"));
 
-        // Generate a JWT token
         String jwtToken = jwtService.generateToken(user);
 
-        // Return the login response with token
-        return new UserLoginResponseDTO(jwtToken, user.getEmail(), user.getUserRole().toString(), user.getUsername());
+        UserLoginResponseDTO.LocationDTO locationDTO = null;
+        if (user.getLocation() != null) {
+            locationDTO = new UserLoginResponseDTO.LocationDTO(
+                    user.getLocation().getAddressLine(),
+                    user.getLocation().getCity(),
+                    user.getLocation().getState(),
+                    user.getLocation().getZipCode(),
+                    user.getLocation().getCountry(),
+                    user.getLocation().getLatitude(),
+                    user.getLocation().getLongitude()
+            );
+        }
+
+        return new UserLoginResponseDTO(
+                jwtToken,
+                user.getEmail(),
+                user.getUserRole().toString(),
+                user.getUsername(),
+                user.getPhoneNumber(),  // Add phone number to response
+                locationDTO // Add location to response
+        );
     }
 }
