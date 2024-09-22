@@ -139,13 +139,38 @@ public class DataLoader implements CommandLineRunner {
         // Check if a user with the given email already exists
         String email = "merchant@example.com";
         Optional<User> existingUserOpt = userRepository.findByEmail(email);
+//         Create a superadmin if it does not exist
+        if (userRepository.findByEmail("superadmin@example.com").isEmpty()) {
+            User superAdmin = User.builder()
+                    .userName("Super Admin")
+                    .email("superadmin@example.com")
+                    .phoneNumber("71123456")
+                    .password(passwordEncoder.encode("SuperSecurePassword"))  // Set a secure password
+                    .userRole(UserRoleEnum.SUPER_ADMIN)  // Add SUPER_ADMIN role
+                    .build();
+            userRepository.save(superAdmin);
 
+            storeService.createStore(StoreRequestDTO.builder()
+                    .name("Merchant's Store")
+                    .ownerId(superAdmin.getId())
+                    .longitude(-122.4194)
+                    .latitude(37.7749)
+                    .addressLine("456 Commerce Street")
+                    .country("USA")
+                    .zipCode("94103")
+                    .state("CA")
+                    .city("San Francisco")
+                    .build());
+
+            System.out.println("superadmin Store has been created successfully.");
+        }
         User user;
         if (existingUserOpt.isEmpty()) {
             // If the user doesn't exist, create a new user
             user = User.builder()
                     .userName("Merchant User")
                     .email(email)
+                    .phoneNumber("7687687686787")
                     .password(passwordEncoder.encode("MerchantSecurePassword"))
                     .userRole(UserRoleEnum.MERCHANT)
                     .build();
