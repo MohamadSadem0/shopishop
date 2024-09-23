@@ -33,8 +33,8 @@ public class UserService {
     private final LocationRepository locationRepository;
 
     public User register(UserSignupRequestDTO request) {
-        if (request.getRole() == UserRoleEnum.SUPER_ADMIN) {
-            throw new IllegalArgumentException("Cannot sign up with SUPER_ADMIN role");
+        if (request.getRole() == UserRoleEnum.SUPERADMIN) {
+            throw new IllegalArgumentException("Cannot sign up with SUPERADMIN role");
         }
 
         if (userRepository.findByEmail(request.getEmail()).isPresent()) {

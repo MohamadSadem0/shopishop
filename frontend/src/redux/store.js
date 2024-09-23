@@ -8,7 +8,7 @@ import serviceSectionsReducer from './serviceSectionsSlice'; // Import the new s
 const store = configureStore({
   reducer: {
     auth: authReducer,
-    serviceSections: serviceSectionsReducer, // Add the new reducer here
+    serviceSections: serviceSectionsReducer, 
   },
   devTools: composeWithDevTools(),
 });

@@ -19,7 +19,7 @@ public class AuthenticationController {
 
     @PostMapping("/signup")
     public ResponseEntity<UserSignupResponseDTO> signup(@RequestBody UserSignupRequestDTO request) {
-        if (request.getRole() == UserRoleEnum.SUPER_ADMIN) {
+        if (request.getRole() == UserRoleEnum.SUPERADMIN) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new UserSignupResponseDTO("Cannot sign up as SUPER_ADMIN", null));
         }
         try {

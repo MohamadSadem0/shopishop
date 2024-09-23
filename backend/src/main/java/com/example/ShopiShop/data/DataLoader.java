@@ -146,7 +146,7 @@ public class DataLoader implements CommandLineRunner {
                     .email("superadmin@example.com")
                     .phoneNumber("71123456")
                     .password(passwordEncoder.encode("SuperSecurePassword"))  // Set a secure password
-                    .userRole(UserRoleEnum.SUPER_ADMIN)  // Add SUPER_ADMIN role
+                    .userRole(UserRoleEnum.SUPERADMIN)  // Add SUPER_ADMIN role
                     .build();
             userRepository.save(superAdmin);
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'; // Import hooks from Redux
-import { login as loginAction } from '../../../redux/authSlice';
+import { loginSuccess  as loginAction } from '../../../redux/authSlice';
 import { fetchSections } from '../../../redux/serviceSectionsSlice'; // Import the thunk for fetching sections
 import RoleSelection from './RoleSelection';
 import CommonDetails from './CommonDetails';
