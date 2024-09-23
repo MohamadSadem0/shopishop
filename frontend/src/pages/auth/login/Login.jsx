@@ -1,5 +1,3 @@
-// src/pages/auth/login/Login.js
-
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { login } from "../../../services/authService";
@@ -29,7 +27,6 @@ const Login = () => {
 
     try {
       const response = await login({ email, password });
-
       const { token, email: userEmail, userName, role, phoneNumber, location } = response.data;
 
       // Normalize the role to lowercase
@@ -59,7 +56,8 @@ const Login = () => {
           token: token,
         })
       );
-
+      
+    
       // Navigate based on role
       if (normalizedRole === "superadmin" || normalizedRole === "merchant") {
         navigate("/dashboard");
@@ -153,73 +151,3 @@ const Login = () => {
 };
 
 export default Login;
-
-
-
-
-
-
-// const Login = () => {
-//   const [email, setEmail] = useState("");
-//   const [password, setPassword] = useState("");
-//   const [loading, setLoading] = useState(false);
-//   const [error, setError] = useState("");
-//   const navigate = useNavigate();
-//   const dispatch = useDispatch();
-
-
-//   const encryptionKey = process.env.REACT_APP_ENCRYPTION_KEY;
-
-  // const handleLogin = async (e) => {
-  //   e.preventDefault();
-  //   setLoading(true);
-  //   setError("");
-
-  //   try {
-  //     const response = await login({ email, password });
-
-  //     // Extract data from the response
-  //     const { token, email: userEmail, userName, role, phoneNumber, location } = response.data;
-
-  //     // Encrypt the token and user details if the encryption key is valid
-  //     if (encryptionKey) {
-  //       const encryptedToken = CryptoJS.AES.encrypt(token, encryptionKey).toString();
-  //       const encryptedUserEmail = CryptoJS.AES.encrypt(userEmail, encryptionKey).toString();
-  //       const encryptedUserName = CryptoJS.AES.encrypt(userName, encryptionKey).toString();
-  //       const encryptedUserRole = CryptoJS.AES.encrypt(role, encryptionKey).toString();
-  //       const encryptedPhoneNumber = CryptoJS.AES.encrypt(phoneNumber, encryptionKey).toString();
-
-  //       // Optionally encrypt location details
-  //       const encryptedLocation = location
-  //         ? CryptoJS.AES.encrypt(JSON.stringify(location), encryptionKey).toString()
-  //         : null;
-
-  //       // Store encrypted data in sessionStorage
-  //       sessionStorage.setItem("authToken", encryptedToken);
-  //       sessionStorage.setItem("userEmail", encryptedUserEmail);
-  //       sessionStorage.setItem("userName", encryptedUserName);
-  //       sessionStorage.setItem("userRole", encryptedUserRole);
-  //       sessionStorage.setItem("phoneNumber", encryptedPhoneNumber);
-
-  //       if (encryptedLocation) {
-  //         sessionStorage.setItem("location", encryptedLocation);
-  //       }
-  //     } else {
-  //       console.error("Encryption key is missing.");
-  //     }
-
-  //     // Redirect to the dashboard or home page based on role
-  //     if (role === "superadmin" || role === "merchant") {
-  //       navigate("/dashboard");
-  //     } else if (role === "customer") {
-  //       navigate("/profile");
-  //     } else {
-  //       navigate("/unauthorized");
-  //     }
-  //   } catch (err) {
-  //     console.error("Login error:", err.response || err.message);
-  //     setError("Failed to login. Please check your credentials.");
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
