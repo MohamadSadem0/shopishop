@@ -1,4 +1,4 @@
-package com.example.ShopiShop.modules.Review.service;
+package com.example.ShopiShop.services.service;
 
 public class ReviewServiceImpl {
 }

@@ -1,7 +1,7 @@
 package com.example.ShopiShop.security;
 
 
-import com.example.ShopiShop.core.User.repository.UserRepository;
+import com.example.ShopiShop.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

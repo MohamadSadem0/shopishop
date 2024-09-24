@@ -1,7 +1,7 @@
-package com.example.ShopiShop.core.Store.model;
+package com.example.ShopiShop.models;
 
-import com.example.ShopiShop.core.User.model.User;
-import com.example.ShopiShop.modules.Location.model.Location;
+import com.example.ShopiShop.models.User;
+import com.example.ShopiShop.models.Location;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;

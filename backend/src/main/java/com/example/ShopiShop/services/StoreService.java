@@ -1,8 +1,4 @@
-package com.example.ShopiShop.core.Store.service;
-
-
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+package com.example.ShopiShop.services;
 
 
 public interface StoreService {

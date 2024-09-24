@@ -1,4 +1,4 @@
-package com.example.ShopiShop.modules.Section.dto;
+package com.example.ShopiShop.models.dto;
 
 public class SectionRequestDTO {
 }

@@ -3,7 +3,7 @@ import logo from "../../assets/images/google logo.svg"
 
 const GoogleSignInButton = () => {
   const handleGoogleSignIn = () => {
-    window.location.href = 'https://your-api-url.com/api/auth/google'; 
+    window.location.href = 'localhost:8080'; 
   };
 
   return (

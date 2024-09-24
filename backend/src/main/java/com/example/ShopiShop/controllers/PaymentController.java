@@ -1,4 +1,4 @@
-package com.example.ShopiShop.modules.Payment.controller;
+package com.example.ShopiShop.controllers;
 
 public class PaymentController {
 }

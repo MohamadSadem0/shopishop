@@ -17,10 +17,10 @@ const RoleSelection = ({ userType, setUserType, handleNext }) => (
         Customer
       </button>
       <button
-        onClick={() => setUserType('Seller')}
-        className={`w-1/2 py-2 rounded ${userType === 'Seller' ? 'bg-[#EDB502] text-black' : 'bg-gray-200 text-gray-700'}`}
+        onClick={() => setUserType('Merchant')}
+        className={`w-1/2 py-2 rounded ${userType === 'Merchant' ? 'bg-[#EDB502] text-black' : 'bg-gray-200 text-gray-700'}`}
       >
-        Seller
+          Merchant
       </button>
     </div>
     <Button

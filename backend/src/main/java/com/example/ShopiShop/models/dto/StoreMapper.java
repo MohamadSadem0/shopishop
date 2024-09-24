@@ -1,4 +1,4 @@
-package com.example.ShopiShop.models.dto.dto;
+package com.example.ShopiShop.models.dto;
 import com.example.ShopiShop.models.Store;
 import com.example.ShopiShop.models.User;
 import com.example.ShopiShop.models.Location;

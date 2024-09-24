@@ -1,4 +1,4 @@
-package com.example.ShopiShop.modules.Notification.exception;
+package com.example.ShopiShop.exceptions;
 
 public class NotificationNotFoundException {
 }

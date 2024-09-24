@@ -1,14 +1,12 @@
-package com.example.ShopiShop.modules.Section.controller;
+package com.example.ShopiShop.controllers;
 
-import com.example.ShopiShop.core.Product.dto.ProductRequestDTO;
-import com.example.ShopiShop.core.Product.model.Product;
-import com.example.ShopiShop.core.Product.service.ProductService;
-import com.example.ShopiShop.core.Product.service.ProductServiceImpl;
-import com.example.ShopiShop.modules.Category.service.CategoryServiceImpl;
-import com.example.ShopiShop.modules.Section.model.Section;
-import com.example.ShopiShop.modules.Section.service.SectionService;
-import com.example.ShopiShop.modules.Category.model.Category;
-import com.example.ShopiShop.modules.Category.service.CategoryService;
+import com.example.ShopiShop.models.dto.ProductRequestDTO;
+import com.example.ShopiShop.models.Product;
+import com.example.ShopiShop.services.IMPL.ProductServiceImpl;
+import com.example.ShopiShop.services.IMPL.CategoryServiceImpl;
+import com.example.ShopiShop.models.Section;
+import com.example.ShopiShop.services.SectionService;
+import com.example.ShopiShop.models.Category;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

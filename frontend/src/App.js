@@ -36,10 +36,10 @@
   import { Provider } from 'react-redux';
   import store from './redux/store';
   import Login from './pages/auth/login/Login';
-  // import Signup from './pages/auth/signup/Signup';
-  // import LandingPage from './pages/landingPage/LandingPage';
+  import Signup from './pages/auth/signup/Signup';
+  import LandingPage from './pages/landingPage/LandingPage';
   import Dashboardpage from './pages/dashboard/Dashboardpage';
-  // import UnauthorizedPage from './pages/UnauthorizedPage';
+  import UnauthorizedPage from './pages/UnauthorizedPage';
   import Profile from './pages/profile/Profile';
   import ProtectedRoute from './components/ProtectedRoute';
   import { useEffect } from 'react';
@@ -57,6 +57,8 @@
       <Router>
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/" element={<LandingPage />} />
           <Route
             path="/dashboard"
             element={<ProtectedRoute allowedRoles={['superadmin', 'merchant']} component={Dashboardpage} />}

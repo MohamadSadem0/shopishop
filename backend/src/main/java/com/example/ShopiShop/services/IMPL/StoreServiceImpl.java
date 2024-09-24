@@ -1,7 +1,7 @@
-package com.example.ShopiShop.core.Store.service;
+package com.example.ShopiShop.services.IMPL;
 
-import com.example.ShopiShop.core.Store.dto.StoreRequestDTO;
-import com.example.ShopiShop.core.Store.dto.StoreMapper;
+import com.example.ShopiShop.models.dto.StoreRequestDTO;
+import com.example.ShopiShop.models.dto.StoreMapper;
 import com.example.ShopiShop.models.Store;
 import com.example.ShopiShop.repositories.StoreRepository;
 import com.example.ShopiShop.models.User;

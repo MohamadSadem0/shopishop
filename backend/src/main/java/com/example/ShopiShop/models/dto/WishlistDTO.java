@@ -1,4 +1,4 @@
-package com.example.ShopiShop.modules.Wishlist.dto;
+package com.example.ShopiShop.models.dto;
 
 public class WishlistDTO {
 }

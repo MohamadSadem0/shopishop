@@ -1,6 +1,6 @@
-package com.example.ShopiShop.modules.Location.repository;
+package com.example.ShopiShop.repositories;
 
-import com.example.ShopiShop.modules.Location.model.Location;
+import com.example.ShopiShop.models.Location;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

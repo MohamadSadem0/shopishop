@@ -1,4 +1,4 @@
-package com.example.ShopiShop.core.Product.exception;
+package com.example.ShopiShop.exceptions;
 
 public class ProductNotFoundException {
 }

@@ -1,14 +1,15 @@
-package com.example.ShopiShop.core.Product.service;
+package com.example.ShopiShop.services.IMPL;
 
-import com.example.ShopiShop.core.Product.dto.ProductMapper;
-import com.example.ShopiShop.core.Product.dto.ProductRequestDTO;
-import com.example.ShopiShop.core.Product.dto.ProductResponseDTO;
+import com.example.ShopiShop.models.dto.ProductMapper;
+import com.example.ShopiShop.models.dto.ProductRequestDTO;
+import com.example.ShopiShop.models.dto.ProductResponseDTO;
 import com.example.ShopiShop.models.Product;
 import com.example.ShopiShop.repositories.ProductRepository;
 import com.example.ShopiShop.models.Store;
 import com.example.ShopiShop.repositories.StoreRepository;
 import com.example.ShopiShop.models.Category;
 import com.example.ShopiShop.repositories.CategoryRepository;
+import com.example.ShopiShop.services.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

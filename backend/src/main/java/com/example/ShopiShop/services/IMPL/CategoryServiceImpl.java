@@ -1,9 +1,10 @@
-package com.example.ShopiShop.modules.Category.service;
+package com.example.ShopiShop.services.IMPL;
 
 import com.example.ShopiShop.models.Category;
 import com.example.ShopiShop.repositories.CategoryRepository;
 import com.example.ShopiShop.models.Section;
 import com.example.ShopiShop.repositories.SectionRepository;
+import com.example.ShopiShop.services.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

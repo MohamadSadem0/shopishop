@@ -1,4 +1,4 @@
-package com.example.ShopiShop.modules.Wishlist.model;
+package com.example.ShopiShop.models;
 
 public class Wishlist {
 }

@@ -1,7 +1,6 @@
-package com.example.ShopiShop.core.Store.repository;
+package com.example.ShopiShop.repositories;
 
-import com.example.ShopiShop.core.Store.model.Store;
-import com.example.ShopiShop.core.User.model.User;
+import com.example.ShopiShop.models.Store;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

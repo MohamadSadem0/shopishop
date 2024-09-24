@@ -1,7 +1,7 @@
 package com.example.ShopiShop.security;
 
-import com.example.ShopiShop.core.User.model.User;
-import com.example.ShopiShop.core.User.repository.UserRepository;
+import com.example.ShopiShop.models.User;
+import com.example.ShopiShop.repositories.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

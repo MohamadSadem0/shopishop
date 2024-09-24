@@ -1,9 +1,8 @@
-package com.example.ShopiShop.core.Product.model;
+package com.example.ShopiShop.models;
 
-import com.example.ShopiShop.core.Store.model.Store;
-import com.example.ShopiShop.modules.Category.model.Category;
-import com.example.ShopiShop.modules.Section.model.Section;
-import com.example.ShopiShop.modules.Review.model.Review;
+import com.example.ShopiShop.models.Store;
+import com.example.ShopiShop.models.Category;
+import com.example.ShopiShop.models.Review;
 import jakarta.persistence.*;
 import lombok.*;
 

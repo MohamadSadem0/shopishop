@@ -1,17 +1,15 @@
-package com.example.ShopiShop.core.User.model;
+package com.example.ShopiShop.models;
 
 import com.example.ShopiShop.enums.UserRoleEnum;
-import com.example.ShopiShop.modules.Location.model.Location;
-import com.example.ShopiShop.modules.Notification.model.Notification;
-import com.example.ShopiShop.modules.Review.model.Review;
+import com.example.ShopiShop.models.Location;
+import com.example.ShopiShop.models.Notification;
+import com.example.ShopiShop.models.Review;
 
 import jakarta.persistence.*;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Table;
 import lombok.*;
-import org.antlr.v4.runtime.misc.NotNull;
 import org.hibernate.annotations.*;
-import org.hibernate.type.SqlTypes;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

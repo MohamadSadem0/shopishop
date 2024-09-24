@@ -1,4 +1,4 @@
-package com.example.ShopiShop.core.Store.controller;
+package com.example.ShopiShop.controllers;
 
 public class StoreController {
 }

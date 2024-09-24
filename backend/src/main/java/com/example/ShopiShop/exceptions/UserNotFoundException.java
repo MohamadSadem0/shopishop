@@ -1,4 +1,4 @@
-package com.example.ShopiShop.core.User.exception;
+package com.example.ShopiShop.exceptions;
 
 public class UserNotFoundException extends RuntimeException {
     public UserNotFoundException(String message) {

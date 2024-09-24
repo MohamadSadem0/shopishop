@@ -1,7 +1,7 @@
-package com.example.ShopiShop.modules.Category.repository;
+package com.example.ShopiShop.repositories;
 
 
-import com.example.ShopiShop.modules.Category.model.Category;
+import com.example.ShopiShop.models.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,4 +1,4 @@
-package com.example.ShopiShop.modules.Delivery.repository;
+package com.example.ShopiShop.repositories;
 
 public class DeliveryRepository {
 }

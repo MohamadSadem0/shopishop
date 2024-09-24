@@ -1,4 +1,4 @@
-package com.example.ShopiShop.modules.Payment.service;
+package com.example.ShopiShop.services;
 
 public interface PaymentService {
 }

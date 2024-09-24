@@ -1,4 +1,4 @@
-package com.example.ShopiShop.modules.Category.service;
+package com.example.ShopiShop.services;
 
 import com.example.ShopiShop.models.Category;
 import java.util.List;

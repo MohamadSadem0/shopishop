@@ -1,4 +1,4 @@
-package com.example.ShopiShop.modules.Notification.service;
+package com.example.ShopiShop.services.IMPL;
 
 public class NotificationServiceImpl {
 }

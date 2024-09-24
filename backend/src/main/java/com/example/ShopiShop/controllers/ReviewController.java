@@ -1,4 +1,4 @@
-package com.example.ShopiShop.modules.Review.controller;
+package com.example.ShopiShop.controllers;
 
 public class ReviewController {
 }

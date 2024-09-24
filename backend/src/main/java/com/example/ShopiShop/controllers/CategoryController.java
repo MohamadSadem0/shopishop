@@ -1,11 +1,10 @@
-package com.example.ShopiShop.modules.Category.controller;
+package com.example.ShopiShop.controllers;
 
-import com.example.ShopiShop.modules.Category.model.Category;
-import com.example.ShopiShop.modules.Category.repository.CategoryRepository;
-import com.example.ShopiShop.modules.Category.service.CategoryService;
-import com.example.ShopiShop.modules.Category.service.CategoryServiceImpl;
-import com.example.ShopiShop.modules.Section.model.Section;
-import com.example.ShopiShop.modules.Section.repository.SectionRepository;
+import com.example.ShopiShop.models.Category;
+import com.example.ShopiShop.repositories.CategoryRepository;
+import com.example.ShopiShop.services.IMPL.CategoryServiceImpl;
+import com.example.ShopiShop.models.Section;
+import com.example.ShopiShop.repositories.SectionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

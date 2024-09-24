@@ -1,4 +1,4 @@
-package com.example.ShopiShop.modules.Review.exception;
+package com.example.ShopiShop.exceptions;
 
 public class ReviewNotFoundException {
 }

@@ -1,4 +1,4 @@
-package com.example.ShopiShop.modules.Location.exception;
+package com.example.ShopiShop.exceptions;
 
 public class LocationNotFoundException {
 }

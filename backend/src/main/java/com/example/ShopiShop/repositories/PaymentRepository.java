@@ -1,4 +1,4 @@
-package com.example.ShopiShop.modules.Payment.repository;
+package com.example.ShopiShop.repositories;
 
 public class PaymentRepository {
 }

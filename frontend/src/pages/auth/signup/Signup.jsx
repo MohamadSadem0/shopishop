@@ -4,7 +4,7 @@ import { loginSuccess  as loginAction } from '../../../redux/authSlice';
 import { fetchSections } from '../../../redux/serviceSectionsSlice'; // Import the thunk for fetching sections
 import RoleSelection from './RoleSelection';
 import CommonDetails from './CommonDetails';
-import SellerDetails from './SellerDetails';
+import MerchantDetails from './MerchantDetails';
 import GoogleSignInButton from '../../../components/common/GoogleSignInButton';
 import Button from '../../../components/common/Button';
 // import { signup } from '../../../services/authService';
@@ -32,13 +32,13 @@ const Signup = () => {
   const { sections, loading } = useSelector((state) => state.serviceSections);
 
   useEffect(() => {
-    if (userType === 'Seller' && currentStep === 3 && sections.length === 0) {
+    if (userType === 'Merchant' && currentStep === 3 && sections.length === 0) {
       dispatch(fetchSections()); // Fetch sections only if not already in Redux store
     }
   }, [userType, currentStep, sections.length, dispatch]);
 
   const handleNext = () => {
-    if (currentStep === 1 && (userType === 'Customer' || userType === 'Seller')) {
+    if (currentStep === 1 && (userType === 'Customer' || userType === 'Merchant')) {
       setCurrentStep(2);
     } else if (currentStep === 2) {
       setCurrentStep(3);
@@ -63,8 +63,8 @@ const Signup = () => {
         name: username,
         password,
         email,
-        role: userType === "Customer" ? "CUSTOMER" : "SELLER",
-        ...(userType === "Seller" && { serviceName, serviceSection, location, currency })
+        role: userType === "Customer" ? "CUSTOMER" : "Merchant",
+        ...(userType === "Merchant" && { serviceName, serviceSection, location, currency })
       };
   
       const response = await signup(userPayload);
@@ -118,8 +118,8 @@ const Signup = () => {
             userType={userType}
           />
         )}
-        {currentStep === 3 && userType === 'Seller' && (
-          <SellerDetails
+        {currentStep === 3 && userType === 'Merchant' && (
+          <MerchantDetails
             serviceName={serviceName}
             setServiceName={setServiceName}
             serviceSection={serviceSection}

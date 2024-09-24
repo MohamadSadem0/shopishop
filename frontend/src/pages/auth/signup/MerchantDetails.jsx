@@ -4,7 +4,7 @@ import Button from '../../../components/common/Button';
 import Spinner from '../../../components/common/Spinner';
 import { fetchSections } from '../../../services/sectionService'; // Assuming this is where the API call is located
 
-const SellerDetails = ({
+const MerchantDetails = ({
   serviceName,
   setServiceName,
   serviceSection, // The current selected section
@@ -37,7 +37,7 @@ const SellerDetails = ({
   return (
     <form onSubmit={handleSignup} className="flex flex-col w-full">
       <h1 className="text-black text-3xl sm:text-4xl font-bold mb-4 text-center">
-        Enter Seller Details
+        Enter Merchant Details
       </h1>
       <Input
         label="Service Name"
@@ -98,4 +98,4 @@ const SellerDetails = ({
   );
 };
 
-export default SellerDetails;
+export default MerchantDetails;

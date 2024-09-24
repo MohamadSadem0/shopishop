@@ -1,4 +1,4 @@
-package com.example.ShopiShop.core.Order.repository;
+package com.example.ShopiShop.repositories;
 
 public class OrderRepository {
 }

@@ -1,4 +1,4 @@
-package com.example.ShopiShop.modules.Delivery.model;
+package com.example.ShopiShop.models;
 
 public class Delivery {
 }

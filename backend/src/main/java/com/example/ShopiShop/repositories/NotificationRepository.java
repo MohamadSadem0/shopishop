@@ -1,4 +1,4 @@
-package com.example.ShopiShop.modules.Notification.repository;
+package com.example.ShopiShop.repositories;
 
 public class NotificationRepository {
 }

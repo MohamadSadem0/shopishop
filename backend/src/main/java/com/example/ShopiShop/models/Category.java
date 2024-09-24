@@ -1,7 +1,5 @@
-package com.example.ShopiShop.modules.Category.model;
+package com.example.ShopiShop.models;
 
-import com.example.ShopiShop.core.Product.model.Product;
-import com.example.ShopiShop.modules.Section.model.Section;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,12 +1,12 @@
 //package com.example.ShopiShop.data;
 //
-//import com.example.ShopiShop.core.User.model.User;
-//import com.example.ShopiShop.core.User.repository.UserRepository;
+//import com.example.ShopiShop.models.User;
+//import com.example.ShopiShop.repositories.UserRepository;
 //import com.example.ShopiShop.enums.UserRoleEnum;
-//import com.example.ShopiShop.modules.Category.model.Category;
-//import com.example.ShopiShop.modules.Category.repository.CategoryRepository;
-//import com.example.ShopiShop.modules.Section.model.Section;
-//import com.example.ShopiShop.modules.Section.repository.SectionRepository;
+//import com.example.ShopiShop.models.Category;
+//import com.example.ShopiShop.repositories.CategoryRepository;
+//import com.example.ShopiShop.models.Section;
+//import com.example.ShopiShop.repositories.SectionRepository;
 //import lombok.RequiredArgsConstructor;
 //import org.springframework.boot.CommandLineRunner;
 //import org.springframework.security.crypto.password.PasswordEncoder;
@@ -107,15 +107,15 @@
 //}
 package com.example.ShopiShop.data;
 
-import com.example.ShopiShop.core.Store.dto.StoreRequestDTO;
-import com.example.ShopiShop.core.Store.service.StoreServiceImpl;
-import com.example.ShopiShop.core.User.model.User;
-import com.example.ShopiShop.core.User.repository.UserRepository;
+import com.example.ShopiShop.models.dto.StoreRequestDTO;
+import com.example.ShopiShop.services.IMPL.StoreServiceImpl;
+import com.example.ShopiShop.models.User;
+import com.example.ShopiShop.repositories.UserRepository;
 import com.example.ShopiShop.enums.UserRoleEnum;
-import com.example.ShopiShop.modules.Category.model.Category;
-import com.example.ShopiShop.modules.Category.repository.CategoryRepository;
-import com.example.ShopiShop.modules.Section.model.Section;
-import com.example.ShopiShop.modules.Section.repository.SectionRepository;
+import com.example.ShopiShop.models.Category;
+import com.example.ShopiShop.repositories.CategoryRepository;
+import com.example.ShopiShop.models.Section;
+import com.example.ShopiShop.repositories.SectionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;

@@ -1,4 +1,4 @@
-package com.example.ShopiShop.models.dto.dto;
+package com.example.ShopiShop.models.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,4 +1,4 @@
-package com.example.ShopiShop.modules.Section.service;
+package com.example.ShopiShop.services;
 
 
 import com.example.ShopiShop.models.Section;

@@ -1,7 +1,5 @@
-package com.example.ShopiShop.modules.Review.model;
+package com.example.ShopiShop.models;
 
-import com.example.ShopiShop.core.User.model.User;
-import com.example.ShopiShop.core.Product.model.Product;
 import jakarta.persistence.*;
 import lombok.*;
 

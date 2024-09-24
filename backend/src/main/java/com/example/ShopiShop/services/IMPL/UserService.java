@@ -1,11 +1,11 @@
-package com.example.ShopiShop.core.User.service;
+package com.example.ShopiShop.services.IMPL;
 
 import com.example.ShopiShop.models.Store;
 import com.example.ShopiShop.repositories.StoreRepository;
-import com.example.ShopiShop.core.User.dto.UserLoginRequestDTO;
-import com.example.ShopiShop.core.User.dto.UserLoginResponseDTO;
-import com.example.ShopiShop.core.User.dto.UserMapper;
-import com.example.ShopiShop.core.User.dto.UserSignupRequestDTO;
+import com.example.ShopiShop.models.dto.UserLoginRequestDTO;
+import com.example.ShopiShop.models.dto.UserLoginResponseDTO;
+import com.example.ShopiShop.models.dto.UserMapper;
+import com.example.ShopiShop.models.dto.UserSignupRequestDTO;
 import com.example.ShopiShop.exceptions.UserAlreadyExistsException;
 import com.example.ShopiShop.exceptions.UserNotFoundException;
 import com.example.ShopiShop.models.User;

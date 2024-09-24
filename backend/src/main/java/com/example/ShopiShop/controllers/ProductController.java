@@ -1,11 +1,11 @@
 //package com.example.ShopiShop.core.Product.controller;
 //
-//import com.example.ShopiShop.core.Product.model.Product;
-//import com.example.ShopiShop.core.Product.repository.ProductRepository;
-//import com.example.ShopiShop.modules.Category.model.Category;
-//import com.example.ShopiShop.modules.Category.repository.CategoryRepository;
-//import com.example.ShopiShop.core.Store.model.Store;
-//import com.example.ShopiShop.core.Store.repository.StoreRepository;
+//import com.example.ShopiShop.models.Product;
+//import com.example.ShopiShop.repositories.ProductRepository;
+//import com.example.ShopiShop.models.Category;
+//import com.example.ShopiShop.repositories.CategoryRepository;
+//import com.example.ShopiShop.models.Store;
+//import com.example.ShopiShop.repositories.StoreRepository;
 //import lombok.RequiredArgsConstructor;
 //import org.springframework.http.ResponseEntity;
 //import org.springframework.web.bind.annotation.*;
@@ -36,25 +36,22 @@
 //}
 
 
-package com.example.ShopiShop.core.Product.controller;
+package com.example.ShopiShop.controllers;
 
-import com.example.ShopiShop.core.Product.dto.ProductMapper;
-import com.example.ShopiShop.core.Product.dto.ProductRequestDTO;
-import com.example.ShopiShop.core.Product.dto.ProductResponseDTO;
-import com.example.ShopiShop.core.Product.model.Product;
-import com.example.ShopiShop.core.Product.repository.ProductRepository;
-import com.example.ShopiShop.core.Product.service.ProductService;
-import com.example.ShopiShop.core.Product.service.ProductServiceImpl;
-import com.example.ShopiShop.modules.Category.model.Category;
-import com.example.ShopiShop.modules.Category.repository.CategoryRepository;
-import com.example.ShopiShop.core.Store.model.Store;
-import com.example.ShopiShop.core.Store.repository.StoreRepository;
+import com.example.ShopiShop.models.dto.ProductMapper;
+import com.example.ShopiShop.models.dto.ProductRequestDTO;
+import com.example.ShopiShop.models.dto.ProductResponseDTO;
+import com.example.ShopiShop.models.Product;
+import com.example.ShopiShop.repositories.ProductRepository;
+import com.example.ShopiShop.services.IMPL.ProductServiceImpl;
+import com.example.ShopiShop.models.Category;
+import com.example.ShopiShop.repositories.CategoryRepository;
+import com.example.ShopiShop.repositories.StoreRepository;
 import lombok.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 

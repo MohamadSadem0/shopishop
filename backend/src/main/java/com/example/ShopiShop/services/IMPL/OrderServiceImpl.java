@@ -1,4 +1,4 @@
-package com.example.ShopiShop.core.Order.service;
+package com.example.ShopiShop.services.IMPL;
 
 public class OrderServiceImpl {
 }

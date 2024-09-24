@@ -1,4 +1,4 @@
-package com.example.ShopiShop.modules.Delivery.controller;
+package com.example.ShopiShop.controllers;
 
 public class DeliveryController {
 }

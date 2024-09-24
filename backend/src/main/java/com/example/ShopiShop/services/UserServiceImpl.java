@@ -1,4 +1,4 @@
-//package com.example.ShopiShop.core.User.service;
+//package com.example.ShopiShop.services.service.service;
 //import com.example.ShopiShop.models.User;
 //import com.example.ShopiShop.repositories.UserRepository;
 //import com.example.ShopiShop.enums.UserRoleEnum;

@@ -1,6 +1,5 @@
-package com.example.ShopiShop.modules.Notification.model;
+package com.example.ShopiShop.models;
 
-import com.example.ShopiShop.core.User.model.User;
 import jakarta.persistence.*;
 import lombok.*;
 

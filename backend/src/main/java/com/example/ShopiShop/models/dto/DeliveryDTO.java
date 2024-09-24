@@ -1,4 +1,4 @@
-package com.example.ShopiShop.modules.Delivery.dto;
+package com.example.ShopiShop.models.dto;
 
 public class DeliveryDTO {
 }

@@ -1,4 +1,4 @@
-package com.example.ShopiShop.modules.Location.service;
+package com.example.ShopiShop.services.IMPL;
 
 public class LocationServiceImpl {
 }

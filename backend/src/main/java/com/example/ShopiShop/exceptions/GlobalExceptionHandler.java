@@ -1,4 +1,4 @@
-package com.example.ShopiShop.core.User.exception;
+package com.example.ShopiShop.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

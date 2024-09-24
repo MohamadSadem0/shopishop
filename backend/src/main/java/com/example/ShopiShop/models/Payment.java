@@ -1,4 +1,4 @@
-package com.example.ShopiShop.modules.Payment.model;
+package com.example.ShopiShop.models;
 
 import jakarta.persistence.*;
 import lombok.*;

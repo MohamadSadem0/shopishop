@@ -1,4 +1,4 @@
-package com.example.ShopiShop.modules.CartItem.controller;
+package com.example.ShopiShop.controllers;
 
 public class CartItemController {
 }

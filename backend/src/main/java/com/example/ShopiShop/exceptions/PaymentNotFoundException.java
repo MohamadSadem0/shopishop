@@ -1,4 +1,4 @@
-package com.example.ShopiShop.modules.Payment.exception;
+package com.example.ShopiShop.exceptions;
 
 public class PaymentNotFoundException {
 }

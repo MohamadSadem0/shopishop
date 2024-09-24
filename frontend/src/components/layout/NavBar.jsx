@@ -21,7 +21,7 @@ const Navbar = () => {
   };
 
   const handleSignUpButton = () => {
-    navigate('/signup');
+    navigate('/login');
   };
 
   const handleMenuToggle = () => {
@@ -120,7 +120,7 @@ const Navbar = () => {
                 onClick={handleSignUpButton}
                 className="text-white text-lg hover:text-[#fede00] transition-colors duration-300"
               >
-                Sign In
+                Login
               </button>
             </div>
           </div>

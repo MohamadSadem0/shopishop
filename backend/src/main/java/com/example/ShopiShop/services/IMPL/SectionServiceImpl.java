@@ -1,7 +1,8 @@
-package com.example.ShopiShop.modules.Section.service;
+package com.example.ShopiShop.services.IMPL;
 
 import com.example.ShopiShop.models.Section;
 import com.example.ShopiShop.repositories.SectionRepository;
+import com.example.ShopiShop.services.SectionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

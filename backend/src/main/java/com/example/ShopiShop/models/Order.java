@@ -1,11 +1,8 @@
-package com.example.ShopiShop.core.Order.model;
+package com.example.ShopiShop.models;
 
-import com.example.ShopiShop.core.User.model.User;
+import com.example.ShopiShop.models.User;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.math.BigDecimal;
-import java.util.List;
 
 @Entity
 @Data

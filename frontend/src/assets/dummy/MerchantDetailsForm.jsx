@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const SellerDetailsForm = ({ username, email, password }) => {
+const MerchantDetailsForm = ({ username, email, password }) => {
   const [serviceName, setServiceName] = useState('');
   const [serviceCategory, setServiceCategory] = useState('');
   const [location, setLocation] = useState('');
@@ -13,18 +13,6 @@ const SellerDetailsForm = ({ username, email, password }) => {
     setLoading(true);
     setError('');
 
-    // Implement the signup call for sellers
-    // Example:
-    // try {
-    //   const response = await signupSeller({
-    //     username, email, password, serviceName, serviceCategory, location, currency
-    //   });
-    //   // Handle success
-    // } catch (err) {
-    //   setError('Failed to complete seller registration. Please try again.');
-    // } finally {
-    //   setLoading(false);
-    // }
   };
 
   return (
@@ -84,4 +72,4 @@ const SellerDetailsForm = ({ username, email, password }) => {
   );
 };
 
-export default SellerDetailsForm;
+export default MerchantDetailsForm;

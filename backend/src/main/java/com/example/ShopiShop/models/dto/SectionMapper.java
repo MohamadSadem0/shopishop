@@ -1,4 +1,4 @@
-package com.example.ShopiShop.modules.Section.dto;
+package com.example.ShopiShop.models.dto;
 
 import com.example.ShopiShop.models.Section;
 import org.springframework.stereotype.Component;
