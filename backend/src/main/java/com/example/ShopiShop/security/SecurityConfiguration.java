@@ -24,10 +24,10 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(authorize -> authorize
                         // Allow unauthenticated access to auth endpoints
                         .requestMatchers("/api/**").permitAll()  // Your login and signup endpoints
-//                        .requestMatchers("/oauth2/**").permitAll()    // Allow Google OAuth2 flow
+                        .requestMatchers("/oauth2/**").permitAll()    // Allow Google OAuth2 flow
                         .anyRequest().authenticated()                 // All other requests require authentication
                 )
-                .oauth2Login(Customizer.withDefaults())  // Enables Google OAuth2 login with default settings
+//                .oauth2Login(Customizer.withDefaults())  // Enables Google OAuth2 login with default settings
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))  // Stateless sessions since you're using JWT
                 .authenticationProvider(authenticationProvider)  // Use your custom authentication provider
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);  // Add JWT filter to validate JWT tokens
