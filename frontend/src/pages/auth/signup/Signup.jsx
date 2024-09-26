@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'; // Import hooks from Redux
-import { loginSuccess  as loginAction } from '../../../redux/authSlice';
+import { loginSuccess as loginAction } from '../../../redux/authSlice';
 import { fetchSections } from '../../../redux/serviceSectionsSlice'; // Import the thunk for fetching sections
 import RoleSelection from './RoleSelection';
 import CommonDetails from './CommonDetails';
 import MerchantDetails from './MerchantDetails';
 import GoogleSignInButton from '../../../components/common/GoogleSignInButton';
 import Button from '../../../components/common/Button';
-// import { signup } from '../../../services/authService';
 import { signup } from '../../../services/authService';
 import logo from '../../../assets/icons/logo.svg';
 import { Link, useNavigate } from 'react-router-dom';
@@ -24,7 +23,16 @@ const Signup = () => {
   const [location, setLocation] = useState('');
   const [currency, setCurrency] = useState('USD');
   const [error, setError] = useState('');
-  
+
+  // New location-related fields
+  const [latitude, setLatitude] = useState(40.712776);
+  const [longitude, setLongitude] = useState(-74.005974);
+  const [addressLine, setAddressLine] = useState('');
+  const [city, setCity] = useState('');
+  const [state, setState] = useState('');
+  const [zipCode, setZipCode] = useState('');
+  const [country, setCountry] = useState('USA');
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -32,10 +40,10 @@ const Signup = () => {
   const { sections, loading } = useSelector((state) => state.serviceSections);
 
   useEffect(() => {
-    if (userType === 'Merchant' && currentStep === 3 && sections.length === 0) {
+    if (userType === 'Merchant' && currentStep === 3) {
       dispatch(fetchSections()); // Fetch sections only if not already in Redux store
     }
-  }, [userType, currentStep, sections.length, dispatch]);
+  }, [userType, currentStep, dispatch]);
 
   const handleNext = () => {
     if (currentStep === 1 && (userType === 'Customer' || userType === 'Merchant')) {
@@ -52,23 +60,35 @@ const Signup = () => {
   const handleSignup = async (e) => {
     e.preventDefault();
     setError("");
-  
+
     if (password !== confirmPassword) {
       setError("Passwords do not match");
       return;
     }
-  
+
     try {
       const userPayload = {
         name: username,
-        password,
         email,
-        role: userType === "Customer" ? "CUSTOMER" : "Merchant",
-        ...(userType === "Merchant" && { serviceName, serviceSection, location, currency })
+        password,
+        role: userType === "Customer" ? "CUSTOMER" : "MERCHANT",
+        latitude: parseFloat(latitude),
+        longitude: parseFloat(longitude),
+        addressLine,
+        city,
+        state,
+        zipCode,
+        country,
+        ...(userType === "Merchant" && { 
+          SectionId: serviceSection,  // Assuming serviceSection holds the SectionId
+          businessName: serviceName,  // Assuming serviceName holds the merchant business name
+          location, 
+          currency 
+        })
       };
-  
+
       const response = await signup(userPayload);
-  
+
       if (response && response.message === "User registered successfully") {
         dispatch(loginAction({ user: response.userId }));
         navigate("/login", { state: { message: "Signup successful" } });
@@ -81,7 +101,6 @@ const Signup = () => {
       }
     }
   };
-  
 
   const handleBackToWebsite = () => {
     navigate('/');
@@ -89,12 +108,8 @@ const Signup = () => {
 
   return (
     <div id="signup" className="min-h-screen flex items-center justify-center relative bg-white">
-      {/* Background Overlay */}
       <div className="absolute inset-0 bg-black opacity-50 z-0"></div>
-
-      {/* Scrollable Content */}
       <div className="relative z-10 w-full max-w-lg bg-white bg-opacity-90 rounded-lg p-6 sm:p-10">
-        {/* Logo */}
         <div className="flex justify-center mb-6">
           <img className="w-20 sm:w-24" src={logo} alt="Logo" />
         </div>
@@ -116,6 +131,20 @@ const Signup = () => {
             handleBack={handleBack}
             handleSignup={handleSignup}
             userType={userType}
+            latitude={latitude}
+            setLatitude={setLatitude}
+            longitude={longitude}
+            setLongitude={setLongitude}
+            addressLine={addressLine}
+            setAddressLine={setAddressLine}
+            city={city}
+            setCity={setCity}
+            state={state}
+            setState={setState}
+            zipCode={zipCode}
+            setZipCode={setZipCode}
+            country={country}
+            setCountry={setCountry}
           />
         )}
         {currentStep === 3 && userType === 'Merchant' && (
@@ -133,10 +162,23 @@ const Signup = () => {
             error={error}
             handleSignup={handleSignup}
             handleBack={handleBack}
+            latitude={latitude}
+            setLatitude={setLatitude}
+            longitude={longitude}
+            setLongitude={setLongitude}
+            addressLine={addressLine}
+            setAddressLine={setAddressLine}
+            city={city}
+            setCity={setCity}
+            state={state}
+            setState={setState}
+            zipCode={zipCode}
+            setZipCode={setZipCode}
+            country={country}
+            setCountry={setCountry}
           />
         )}
 
-        {/* Google Sign-In Button */}
         <div className="flex mt-4 w-full">
           <GoogleSignInButton />
         </div>
@@ -150,7 +192,6 @@ const Signup = () => {
           </p>
         )}
 
-        {/* Go Back to Website Button */}
         <div className="mt-4 flex justify-center">
           <Button
             label="Go Back to Website"

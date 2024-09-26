@@ -10,5 +10,6 @@ import java.util.UUID;
 @Repository
 public interface SectionRepository extends JpaRepository<Section, UUID> {
     Optional<Section> findByName(String name);
+    Optional<Section> findById(UUID id);
 }
 

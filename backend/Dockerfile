@@ -1,5 +1,5 @@
 # Use an official OpenJDK runtime as the base image
-FROM openjdk:17-jdk-alpine
+FROM openjdk:17-jdk-slim
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -12,3 +12,5 @@ EXPOSE 8080
 
 # Define the command to run your Spring Boot application
 ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+ARG JAR_FILE=target/ShopiShop-0.0.1-SNAPSHOT.jar
+COPY ${JAR_FILE} app.jar

@@ -137,67 +137,7 @@ public class DataLoader implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         // Check if a user with the given email already exists
-        String email = "merchant@example.com";
-        Optional<User> existingUserOpt = userRepository.findByEmail(email);
-//         Create a superadmin if it does not exist
-        if (userRepository.findByEmail("superadmin@example.com").isEmpty()) {
-            User superAdmin = User.builder()
-                    .userName("Super Admin")
-                    .email("superadmin@example.com")
-                    .phoneNumber("71123456")
-                    .password(passwordEncoder.encode("SuperSecurePassword"))  // Set a secure password
-                    .userRole(UserRoleEnum.SUPERADMIN)  // Add SUPER_ADMIN role
-                    .build();
-            userRepository.save(superAdmin);
 
-            storeService.createStore(StoreRequestDTO.builder()
-                    .name("Merchant's Store")
-                    .ownerId(superAdmin.getId())
-                    .longitude(-122.4194)
-                    .latitude(37.7749)
-                    .addressLine("456 Commerce Street")
-                    .country("USA")
-                    .zipCode("94103")
-                    .state("CA")
-                    .city("San Francisco")
-                    .build());
-
-            System.out.println("superadmin Store has been created successfully.");
-        }
-        User user;
-        if (existingUserOpt.isEmpty()) {
-            // If the user doesn't exist, create a new user
-            user = User.builder()
-                    .userName("Merchant User")
-                    .email(email)
-                    .phoneNumber("7687687686787")
-                    .password(passwordEncoder.encode("MerchantSecurePassword"))
-                    .userRole(UserRoleEnum.MERCHANT)
-                    .build();
-
-            // Save the new user to the database
-            user = userRepository.save(user);
-            System.out.println("New Merchant User has been created.");
-        } else {
-            // If the user already exists, use the existing user
-            user = existingUserOpt.get();
-            System.out.println("Merchant User already exists.");
-        }
-
-        // Now create and associate the store with the user
-        storeService.createStore(StoreRequestDTO.builder()
-                .name("Merchant's Store")
-                .ownerId(user.getId())
-                .longitude(-122.4194)
-                .latitude(37.7749)
-                .addressLine("456 Commerce Street")
-                .country("USA")
-                .zipCode("94103")
-                .state("CA")
-                .city("San Francisco")
-                .build());
-
-        System.out.println("Merchant Store has been created successfully.");
 
         // Predefined sections with images
         Map<String, String> sections = new HashMap<>();
@@ -261,5 +201,74 @@ public class DataLoader implements CommandLineRunner {
         });
 
         System.out.println("Default sections and categories with images added to the database!");
+
+        String email = "merchant@example.com";
+        Optional<User> existingUserOpt = userRepository.findByEmail(email);
+//         Create a superadmin if it does not exist
+        if (userRepository.findByEmail("superadmin@example.com").isEmpty()) {
+            User superAdmin = User.builder()
+                    .userName("Super Admin")
+                    .email("superadmin@example.com")
+                    .phoneNumber("71123456")
+                    .password(passwordEncoder.encode("SuperSecurePassword"))  // Set a secure password
+                    .userRole(UserRoleEnum.SUPERADMIN)  // Add SUPER_ADMIN role
+                    .build();
+            userRepository.save(superAdmin);
+            Section section=sectionRepository.findByName("Laundry")
+                    .orElseThrow(() -> new RuntimeException("Owner not found"));
+
+            storeService.createStore(StoreRequestDTO.builder()
+                    .name("Merchant's Store")
+                    .ownerId(superAdmin.getId())
+                    .longitude(-122.4194)
+                    .latitude(37.7749)
+                    .addressLine("456 Commerce Street")
+                    .country("USA")
+                    .SectionId(section.getId().toString())
+                    .zipCode("94103")
+                    .state("CA")
+                    .city("San Francisco")
+                    .build());
+
+            System.out.println("superadmin Store has been created successfully.");
+        }
+        User user;
+        if (existingUserOpt.isEmpty()) {
+            // If the user doesn't exist, create a new user
+            user = User.builder()
+                    .userName("Merchant User")
+                    .email(email)
+//                    .location()
+                    .phoneNumber("7687687686787")
+                    .password(passwordEncoder.encode("MerchantSecurePassword"))
+                    .userRole(UserRoleEnum.MERCHANT)
+                    .build();
+
+            // Save the new user to the database
+            user = userRepository.save(user);
+            System.out.println("New Merchant User has been created.");
+        } else {
+            // If the user already exists, use the existing user
+            user = existingUserOpt.get();
+            System.out.println("Merchant User already exists.");
+        }
+        Section section=sectionRepository.findByName("Laundry")
+                .orElseThrow(() -> new RuntimeException("Owner not found"));
+
+        // Now create and associate the store with the user
+        storeService.createStore(StoreRequestDTO.builder()
+                .name("Merchant's Store")
+                .ownerId(user.getId())
+                .longitude(-122.4194)
+                .latitude(37.7749)
+                .SectionId(section.getId().toString())
+                .addressLine("456 Commerce Street")
+                .country("USA")
+                .zipCode("94103")
+                .state("CA")
+                .city("San Francisco")
+                .build());
+
+        System.out.println("Merchant Store has been created successfully.");
     }
 }

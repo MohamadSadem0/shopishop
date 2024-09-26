@@ -20,4 +20,6 @@ public class StoreRequestDTO {
     private String country;
     private Double latitude;
     private Double longitude;
+    private String SectionId;
+    private String businessName;
 }

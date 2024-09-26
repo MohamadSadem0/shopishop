@@ -5,6 +5,7 @@ import com.example.ShopiShop.repositories.CategoryRepository;
 import com.example.ShopiShop.services.IMPL.CategoryServiceImpl;
 import com.example.ShopiShop.models.Section;
 import com.example.ShopiShop.repositories.SectionRepository;
+import com.example.ShopiShop.services.SectionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,6 +23,8 @@ public class CategoryController {
     private final CategoryRepository categoryRepository;
     private final SectionRepository sectionRepository;
     private final CategoryServiceImpl categoryService;
+    private final SectionService sectionService;
+
 
     // Get all categories
     @GetMapping
@@ -54,4 +57,12 @@ public class CategoryController {
         List<Category> categories = section.getCategories();
         return ResponseEntity.ok(categories);
     }
+
+
+    @GetMapping("/{sectionId}/categories")
+    public ResponseEntity<List<Category>> getCategoriesBySection(@PathVariable UUID sectionId) {
+        Section section = sectionService.getSectionById(sectionId);
+        return ResponseEntity.ok(section.getCategories());
+    }
+
 }

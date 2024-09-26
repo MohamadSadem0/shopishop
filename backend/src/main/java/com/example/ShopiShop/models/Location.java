@@ -40,11 +40,9 @@ public class Location {
 
     // Relationship to User (Optional for Customers)
     @OneToOne(mappedBy = "location")
-
     private User user;
 
     // Relationship to Store (Optional for Merchants)
     @OneToOne(mappedBy = "location")
-
     private Store store;
 }

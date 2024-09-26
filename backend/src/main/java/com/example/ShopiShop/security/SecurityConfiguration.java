@@ -23,8 +23,8 @@ public class SecurityConfiguration {
                 .csrf(csrf -> csrf.disable())  // Disable CSRF since you are using JWT
                 .authorizeHttpRequests(authorize -> authorize
                         // Allow unauthenticated access to auth endpoints
-                        .requestMatchers("/api/auth/**").permitAll()  // Your login and signup endpoints
-                        .requestMatchers("/oauth2/**").permitAll()    // Allow Google OAuth2 flow
+                        .requestMatchers("/api/**").permitAll()  // Your login and signup endpoints
+//                        .requestMatchers("/oauth2/**").permitAll()    // Allow Google OAuth2 flow
                         .anyRequest().authenticated()                 // All other requests require authentication
                 )
                 .oauth2Login(Customizer.withDefaults())  // Enables Google OAuth2 login with default settings

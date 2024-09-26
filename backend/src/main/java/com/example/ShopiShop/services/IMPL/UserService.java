@@ -1,6 +1,8 @@
 package com.example.ShopiShop.services.IMPL;
 
+import com.example.ShopiShop.models.Section;
 import com.example.ShopiShop.models.Store;
+import com.example.ShopiShop.repositories.SectionRepository;
 import com.example.ShopiShop.repositories.StoreRepository;
 import com.example.ShopiShop.models.dto.UserLoginRequestDTO;
 import com.example.ShopiShop.models.dto.UserLoginResponseDTO;
@@ -20,6 +22,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -31,10 +35,13 @@ public class UserService {
     private final UserMapper userMapper;
     private final StoreRepository storeRepository;
     private final LocationRepository locationRepository;
+    private final SectionRepository sectionRepository;
 
     public User register(UserSignupRequestDTO request) {
+
+
         if (request.getRole() == UserRoleEnum.SUPERADMIN) {
-            throw new IllegalArgumentException("Cannot sign up with SUPEwekdnfuyweg 9RADMIN role");
+            throw new IllegalArgumentException("Cannot sign up with SUPER ADMIN role");
         }
 
         if (userRepository.findByEmail(request.getEmail()).isPresent()) {
@@ -57,12 +64,20 @@ public class UserService {
                 .build();
 
         Location savedLocation = locationRepository.save(location);
+        UUID id = convertToUUID(request.getSectionId());
+        if (id == null) {
+            throw new IllegalArgumentException("SectionId cannot be null");
+        }
+
+        Section section = sectionRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Section not found"));
 
         if (request.getRole() == UserRoleEnum.MERCHANT) {
             Store store = Store.builder()
                     .name(request.getBusinessName() != null ? request.getBusinessName() : (request.getName() + "'s Store"))
                     .location(savedLocation)
                     .owner(savedUser)
+                    .section(section)
                     .isApproved(false)
                     .build();
 
@@ -112,4 +127,29 @@ public class UserService {
                 locationDTO // Add location to response
         );
     }
+    public UUID convertToUUID(String hexString) {
+        if (hexString == null || hexString.isEmpty()) {
+            throw new IllegalArgumentException("SectionId is null or empty");
+        }
+
+        // Remove the "0x" prefix if it exists
+        if (hexString.startsWith("0x")) {
+            hexString = hexString.substring(2);
+        }
+
+        // Reformat the string to match the UUID format
+        if (!hexString.matches("[0-9A-Fa-f]{32}")) {
+            throw new IllegalArgumentException("Invalid SectionId format");
+        }
+
+        String formattedUUID = hexString.replaceFirst(
+                "(\\w{8})(\\w{4})(\\w{4})(\\w{4})(\\w+)",
+                "$1-$2-$3-$4-$5"
+        );
+
+        // Convert to UUID
+        return UUID.fromString(formattedUUID);
+    }
+
+
 }

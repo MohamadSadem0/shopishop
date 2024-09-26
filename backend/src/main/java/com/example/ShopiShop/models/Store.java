@@ -22,8 +22,6 @@ public class Store {
     @Column(name = "name", nullable = false)
     private String name;
 
-
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
     @JoinColumn(name = "owner_id", referencedColumnName = "id", nullable = false)
@@ -33,6 +31,9 @@ public class Store {
     @JoinColumn(name = "location_id", referencedColumnName = "id", nullable = true)
     private Location location;
 
+    @ManyToOne(fetch = FetchType.LAZY ,optional = true)
+    @JoinColumn(name = "section_id", nullable = true)
+    private Section section;
 
     @Column(name = "is_approved",  nullable = false)
     private boolean isApproved =false;

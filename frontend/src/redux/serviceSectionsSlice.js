@@ -1,11 +1,11 @@
 // src/redux/serviceSectionsSlice.js
 
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { fetchServiceCategories } from '../services/authService';
+import { fetchServiceSections } from '../services/authService';
 
 // Async thunk to fetch sections
 export const fetchSections = createAsyncThunk('serviceSections/fetchSections', async () => {
-  const response = await fetchServiceCategories();
+  const response = await fetchServiceSections();
   return response;
 });
 

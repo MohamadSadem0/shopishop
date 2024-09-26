@@ -15,7 +15,21 @@ const CommonDetails = ({
   handleNext,
   handleBack,
   userType,
-  handleSignup
+  handleSignup,
+  latitude,
+  setLatitude,
+  longitude,
+  setLongitude,
+  addressLine,
+  setAddressLine,
+  city,
+  setCity,
+  state,
+  setState,
+  zipCode,
+  setZipCode,
+  country,
+  setCountry,
 }) => (
   <form onSubmit={handleNext} className="flex flex-col w-full">
     <h1 className="text-black text-3xl sm:text-4xl font-bold mb-4 text-center">
@@ -49,6 +63,55 @@ const CommonDetails = ({
       type="password"
       value={confirmPassword}
       onChange={(e) => setConfirmPassword(e.target.value)}
+      required
+      className="mb-4 w-full"
+    />
+    <Input
+      label="Latitude"
+      value={latitude}
+      onChange={(e) => setLatitude(e.target.value)}
+      required
+      className="mb-4 w-full"
+    />
+    <Input
+      label="Longitude"
+      value={longitude}
+      onChange={(e) => setLongitude(e.target.value)}
+      required
+      className="mb-4 w-full"
+    />
+    <Input
+      label="Address Line"
+      value={addressLine}
+      onChange={(e) => setAddressLine(e.target.value)}
+      required
+      className="mb-4 w-full"
+    />
+    <Input
+      label="City"
+      value={city}
+      onChange={(e) => setCity(e.target.value)}
+      required
+      className="mb-4 w-full"
+    />
+    <Input
+      label="State"
+      value={state}
+      onChange={(e) => setState(e.target.value)}
+      required
+      className="mb-4 w-full"
+    />
+    <Input
+      label="Zip Code"
+      value={zipCode}
+      onChange={(e) => setZipCode(e.target.value)}
+      required
+      className="mb-4 w-full"
+    />
+    <Input
+      label="Country"
+      value={country}
+      onChange={(e) => setCountry(e.target.value)}
       required
       className="mb-4 w-full"
     />
