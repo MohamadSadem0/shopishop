@@ -1,0 +1,6 @@
+build:
+  docker:
+    web: Dockerfile
+release:
+  command:
+    - echo "Release phase complete"
