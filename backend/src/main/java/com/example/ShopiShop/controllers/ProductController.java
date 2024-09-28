@@ -57,7 +57,7 @@ import java.util.UUID;
 
 
 
-@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")  // Allow requests from your frontend origin
+@CrossOrigin(origins = "https://dry-temple-95599-6b8f54712ec8.herokuapp.com", allowCredentials = "true")  // Allow requests from your frontend origin
 @RestController
 @RequestMapping("/api/merchant/products")
 @RequiredArgsConstructor
