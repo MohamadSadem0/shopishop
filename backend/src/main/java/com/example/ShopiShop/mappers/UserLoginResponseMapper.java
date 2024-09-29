@@ -1,13 +1,15 @@
 package com.example.ShopiShop.mappers;
 
 
+import com.example.ShopiShop.models.Store;
+import com.example.ShopiShop.models.dto.StoreResponseDTO;
 import com.example.ShopiShop.models.dto.UserLoginResponseDTO;
 import com.example.ShopiShop.models.User;
 import com.example.ShopiShop.models.Location;
 
 public class UserLoginResponseMapper {
 
-    public static UserLoginResponseDTO toDto(User user, String token, String storeId) {
+    public static UserLoginResponseDTO toDto(User user, String token, StoreResponseDTO store) {
         return UserLoginResponseDTO.builder()
                 .token(token)
                 .email(user.getEmail())
@@ -15,7 +17,7 @@ public class UserLoginResponseMapper {
                 .userName(user.getUsername())
                 .phoneNumber(user.getPhoneNumber())
                 .location(toLocationDTO(user.getLocation())) // Mapping Location
-                .storeId(storeId)
+                .store(store)
                 .build();
     }
 

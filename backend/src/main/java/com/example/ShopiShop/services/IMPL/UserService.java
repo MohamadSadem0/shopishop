@@ -1,13 +1,11 @@
 package com.example.ShopiShop.services.IMPL;
 
+import com.example.ShopiShop.mappers.StoreMapper;
 import com.example.ShopiShop.models.Section;
 import com.example.ShopiShop.models.Store;
+import com.example.ShopiShop.models.dto.*;
 import com.example.ShopiShop.repositories.SectionRepository;
 import com.example.ShopiShop.repositories.StoreRepository;
-import com.example.ShopiShop.models.dto.UserLoginRequestDTO;
-import com.example.ShopiShop.models.dto.UserLoginResponseDTO;
-import com.example.ShopiShop.models.dto.UserMapper;
-import com.example.ShopiShop.models.dto.UserSignupRequestDTO;
 import com.example.ShopiShop.exceptions.UserAlreadyExistsException;
 import com.example.ShopiShop.exceptions.UserNotFoundException;
 import com.example.ShopiShop.models.User;
@@ -35,6 +33,7 @@ public class UserService {
     private final UserMapper userMapper;
     private final LocationServiceImpl locationService;
     private final StoreServiceImpl storeService;
+
 
     public User register(UserSignupRequestDTO request) {
         validateSignupRequest(request);
@@ -121,6 +120,7 @@ public class UserService {
                 user.getPhoneNumber(),
                 locationDTO,
                 null
+
         );
     }
 
@@ -142,8 +142,9 @@ public class UserService {
                         location.getCountry(),
                         location.getLatitude(),
                         location.getLongitude()
+
                 ),
-                store.getId().toString()
+                StoreMapper.toDTO(store)
 
         );
     }

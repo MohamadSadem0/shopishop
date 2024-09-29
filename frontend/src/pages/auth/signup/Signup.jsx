@@ -9,9 +9,8 @@ import LocationDetails from './LocationDetails';
 import MerchantDetails from './MerchantDetails';
 import GoogleSignInButton from '../../../components/common/GoogleSignInButton';
 import Button from '../../../components/common/Button';
-import { useNavigate, Link} from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import logo from '../../../assets/icons/logo.svg';
-
 
 const Signup = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -21,7 +20,7 @@ const Signup = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [serviceName, setServiceName] = useState('');
-  const [serviceSection, setServiceSection] = useState('');
+  const [serviceSection, setServiceSection] = useState(''); // Store the sectionId here
   const [currency, setCurrency] = useState('USD');
   const [error, setError] = useState('');
 
@@ -95,7 +94,7 @@ const Signup = () => {
         country,
         ...(userType === 'Merchant' && {
           businessName: serviceName,
-          SectionId: serviceSection,
+          sectionId: serviceSection, // Use sectionId when the user is a Merchant
           currency,
         }),
       };
@@ -173,7 +172,7 @@ const Signup = () => {
             serviceName={serviceName}
             setServiceName={setServiceName}
             serviceSection={serviceSection}
-            setServiceSection={setServiceSection}
+            setServiceSection={setServiceSection} // Store the selected sectionId
             currency={currency}
             setCurrency={setCurrency}
             sections={sections}

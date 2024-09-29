@@ -32,7 +32,7 @@ const MerchantDetails = ({
         <select
           className="w-full p-2 border rounded"
           value={serviceSection}
-          onChange={(e) => setServiceSection(e.target.value)}
+          onChange={(e) => setServiceSection(e.target.value)} // Get the selected section's ID
           required
         >
           <option value="">Choose a Section</option>
