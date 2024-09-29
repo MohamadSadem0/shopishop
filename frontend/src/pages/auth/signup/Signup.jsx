@@ -71,13 +71,13 @@ const Signup = () => {
   const handleSignup = async (e) => {
     e.preventDefault();
     setError('');
-
+  
     // Check if passwords match
     if (password !== confirmPassword) {
       setError('Passwords do not match');
       return;
     }
-
+  
     try {
       // Create the payload based on whether the user is a merchant or customer
       const userDetails = {
@@ -93,15 +93,15 @@ const Signup = () => {
         zipCode,
         country,
         ...(userType === 'Merchant' && {
-          businessName: serviceName,
-          sectionId: serviceSection, // Use sectionId when the user is a Merchant
-          currency,
+          businessName: serviceName, // Only include this field if it's a merchant
+          sectionId: serviceSection, // Only include this field if it's a merchant
+          currency, // Only include this field if it's a merchant
         }),
       };
-
+  console.log(userDetails)
       // Send the signup request to the backend using Axios
       const response = await signup(userDetails);
-
+  
       if (response && response.message === 'User registered successfully') {
         // If signup is successful, dispatch the loginSuccess action
         dispatch(loginAction({ user: response.userId }));
@@ -116,6 +116,7 @@ const Signup = () => {
       }
     }
   };
+  
 
   const handleBackToWebsite = () => {
     navigate('/');
@@ -147,32 +148,34 @@ const Signup = () => {
           />
         )}
         {currentStep === 3 && (
-          <LocationDetails
-            latitude={latitude}
-            setLatitude={setLatitude}
-            longitude={longitude}
-            setLongitude={setLongitude}
-            addressLine={addressLine}
-            setAddressLine={setAddressLine}
-            city={city}
-            setCity={setCity}
-            state={state}
-            setState={setState}
-            zipCode={zipCode}
-            setZipCode={setZipCode}
-            country={country}
-            setCountry={setCountry}
-            handleNext={userType === 'Merchant' ? () => setCurrentStep(4) : handleSignup}
-            handleBack={() => setCurrentStep(2)}
-            userType={userType}
-          />
-        )}
+  <LocationDetails
+    latitude={latitude}
+    setLatitude={setLatitude}
+    longitude={longitude}
+    setLongitude={setLongitude}
+    addressLine={addressLine}
+    setAddressLine={setAddressLine}
+    city={city}
+    setCity={setCity}
+    state={state}
+    setState={setState}
+    zipCode={zipCode}
+    setZipCode={setZipCode}
+    country={country}
+    setCountry={setCountry}
+    handleNext={userType === 'Merchant' ? () => setCurrentStep(4) : null} // Only pass handleNext for merchants
+    handleSignup={userType === 'Customer' ? handleSignup : null} // Pass handleSignup for customers
+    handleBack={() => setCurrentStep(2)}
+    userType={userType}
+  />
+)}
+
         {currentStep === 4 && userType === 'Merchant' && (
           <MerchantDetails
             serviceName={serviceName}
             setServiceName={setServiceName}
             serviceSection={serviceSection}
-            setServiceSection={setServiceSection} // Store the selected sectionId
+            setServiceSection={setServiceSection}
             currency={currency}
             setCurrency={setCurrency}
             sections={sections}
