@@ -11,7 +11,9 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@ToString
 @Table(name = "store")
+
 public class Store {
 
     @Id

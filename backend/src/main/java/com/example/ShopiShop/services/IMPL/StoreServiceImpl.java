@@ -1,13 +1,16 @@
 package com.example.ShopiShop.services.IMPL;
 
+import com.example.ShopiShop.models.Location;
 import com.example.ShopiShop.models.Section;
 import com.example.ShopiShop.models.dto.StoreRequestDTO;
 import com.example.ShopiShop.models.dto.StoreMapper;
 import com.example.ShopiShop.models.Store;
+import com.example.ShopiShop.models.dto.UserSignupRequestDTO;
 import com.example.ShopiShop.repositories.SectionRepository;
 import com.example.ShopiShop.repositories.StoreRepository;
 import com.example.ShopiShop.models.User;
 import com.example.ShopiShop.repositories.UserRepository;
+import com.example.ShopiShop.utils.UUIDconvertor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,42 +18,43 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
+
 @RequiredArgsConstructor
 public class StoreServiceImpl {
 
     private final StoreRepository storeRepository;
     private final UserRepository userRepository;
     private final SectionRepository sectionRepository;
+    private  UUIDconvertor uuiDconvertor;
 
 
-    public UUID convertToUUID(String hexString) {
-        // Return null if hexString is null or empty
-        if (hexString == null || hexString.isEmpty()) {
-            return null;
-        }
 
-        // Remove the "0x" prefix if it exists
-        if (hexString.startsWith("0x")) {
-            hexString = hexString.substring(2);
-        }
+    void createStore(UserSignupRequestDTO request, User user, Location location) {
+        System.out.println("-----------------------------------------------------------1");
+        System.out.println("THIS IS USER . UUID"+request.getSectionId());
 
-        // Reformat the string to match the UUID format
-        String formattedUUID = hexString.replaceFirst(
-                "(\\w{8})(\\w{4})(\\w{4})(\\w{4})(\\w+)",
-                "$1-$2-$3-$4-$5"
-        );
+        System.out.println("-----------------------------------------------------------2");
+        Section section = sectionRepository.findById(uuiDconvertor.convertToUUID(request.getSectionId()))
+                .orElseThrow(() -> new IllegalArgumentException("Section not found"));
 
-        // Convert to UUID
-        return UUID.fromString(formattedUUID);
+
+
+        Store store = Store.builder()
+                .name(request.getBusinessName() != null ? request.getBusinessName() : (request.getName() + "'s Store"))
+                .location(location)
+                .owner(user)
+                .section(section)
+                .isApproved(false)
+                .build();
+
+        storeRepository.save(store);
     }
-
-
     public Store createStore(StoreRequestDTO storeRequestDTO  ) {
 
 
-        UUID id =convertToUUID(storeRequestDTO.getSectionId());
+        UUID id =uuiDconvertor.convertToUUID(storeRequestDTO.getSectionId());
         Section section = sectionRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Owner not found"));
+                .orElseThrow(() -> new RuntimeException("section not found"));
 
 
         // Find the user by ownerId
@@ -64,7 +68,12 @@ public class StoreServiceImpl {
         return storeRepository.save(store);
     }
 
-
+public Store getStoreById(Long id){
+        return storeRepository.findById(id).orElseThrow(()->new RuntimeException("store not found with id"+id));
+}
+public Store getStoreByOwnerEmail(String email){
+        return storeRepository.findByOwnerEmail(email).orElseThrow(()->new RuntimeException("store not found with id"+email));
+}
 
 
 }

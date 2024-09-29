@@ -10,6 +10,7 @@ import com.example.ShopiShop.repositories.StoreRepository;
 import com.example.ShopiShop.models.Category;
 import com.example.ShopiShop.repositories.CategoryRepository;
 import com.example.ShopiShop.services.ProductService;
+import com.example.ShopiShop.utils.UUIDconvertor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -25,30 +26,16 @@ public class ProductServiceImpl implements ProductService {
     private final StoreRepository storeRepository;
     private final CategoryRepository categoryRepository;
     private final ProductMapper productMapper;
+    private UUIDconvertor uuiDconvertor;
 
 
-    public UUID convertToUUID(String hexString) {
-        // Remove the "0x" prefix if it exists
-        if (hexString.startsWith("0x")) {
-            hexString = hexString.substring(2);
-        }
-
-        // Reformat the string to match the UUID format
-        String formattedUUID = hexString.replaceFirst(
-                "(\\w{8})(\\w{4})(\\w{4})(\\w{4})(\\w+)",
-                "$1-$2-$3-$4-$5"
-        );
-
-        // Convert to UUID
-        return UUID.fromString(formattedUUID);
-    }
 
     @Override
     public Product createProduct(ProductRequestDTO productRequestDTO) {
         // Fetch the Store and Category by their IDs from the request DTO
         Store store = storeRepository.findById(productRequestDTO.getStoreId())
                 .orElseThrow(() -> new RuntimeException("Store not found"));
-        Category category = categoryRepository.findById(convertToUUID(productRequestDTO.getCategoryId()))
+        Category category = categoryRepository.findById(uuiDconvertor.convertToUUID(productRequestDTO.getCategoryId()))
                 .orElseThrow(() -> new RuntimeException("Category not found"));
 
         // Map DTO to entity

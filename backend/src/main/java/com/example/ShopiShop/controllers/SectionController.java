@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@CrossOrigin(origins = "https://dry-temple-95599-6b8f54712ec8.herokuapp.com", allowCredentials = "true")  // Allow requests from your frontend origin
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")  // Allow requests from your frontend origin
 @RequestMapping("/api/sections")
 @RequiredArgsConstructor
 public class SectionController {

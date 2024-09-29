@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux'; // Import hooks from Redux
+import { useDispatch } from 'react-redux';
 import { loginSuccess as loginAction } from '../../../redux/authSlice';
-import { fetchSections } from '../../../redux/serviceSectionsSlice'; // Import the thunk for fetching sections
+import { signup } from '../../../services/authService';
+import { fetchSections } from '../../../services/sectionService'; // Import the section fetching service
 import RoleSelection from './RoleSelection';
 import CommonDetails from './CommonDetails';
+import LocationDetails from './LocationDetails';
 import MerchantDetails from './MerchantDetails';
 import GoogleSignInButton from '../../../components/common/GoogleSignInButton';
 import Button from '../../../components/common/Button';
-import { signup } from '../../../services/authService';
+import { useNavigate, Link} from 'react-router-dom';
 import logo from '../../../assets/icons/logo.svg';
-import { Link, useNavigate } from 'react-router-dom';
+
 
 const Signup = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -19,12 +21,11 @@ const Signup = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [serviceName, setServiceName] = useState('');
-  const [serviceSection, setServiceSection] = useState(''); 
-  const [location, setLocation] = useState('');
+  const [serviceSection, setServiceSection] = useState('');
   const [currency, setCurrency] = useState('USD');
   const [error, setError] = useState('');
 
-  // New location-related fields
+  // Location-related fields
   const [latitude, setLatitude] = useState(40.712776);
   const [longitude, setLongitude] = useState(-74.005974);
   const [addressLine, setAddressLine] = useState('');
@@ -32,24 +33,35 @@ const Signup = () => {
   const [state, setState] = useState('');
   const [zipCode, setZipCode] = useState('');
   const [country, setCountry] = useState('USA');
+  const [sections, setSections] = useState([]); // State to store fetched sections
+  const [loadingSections, setLoadingSections] = useState(false); // Loading state for sections
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // Access sections and loading state from Redux store
-  const { sections, loading } = useSelector((state) => state.serviceSections);
-
+  // Fetch sections when merchant reaches Step 4 (business details)
   useEffect(() => {
-    if (userType === 'Merchant' && currentStep === 3) {
-      dispatch(fetchSections()); // Fetch sections only if not already in Redux store
+    if (userType === 'Merchant' && currentStep === 4) {
+      setLoadingSections(true);
+      fetchSections()
+        .then((data) => {
+          setSections(data); // Store the fetched sections
+          setLoadingSections(false);
+        })
+        .catch((error) => {
+          console.error('Failed to fetch sections:', error);
+          setLoadingSections(false);
+        });
     }
-  }, [userType, currentStep, dispatch]);
+  }, [userType, currentStep]);
 
   const handleNext = () => {
     if (currentStep === 1 && (userType === 'Customer' || userType === 'Merchant')) {
       setCurrentStep(2);
     } else if (currentStep === 2) {
       setCurrentStep(3);
+    } else if (currentStep === 3 && userType === 'Merchant') {
+      setCurrentStep(4); // Go to business details for merchants
     }
   };
 
@@ -59,19 +71,21 @@ const Signup = () => {
 
   const handleSignup = async (e) => {
     e.preventDefault();
-    setError("");
+    setError('');
 
+    // Check if passwords match
     if (password !== confirmPassword) {
-      setError("Passwords do not match");
+      setError('Passwords do not match');
       return;
     }
 
     try {
-      const userPayload = {
+      // Create the payload based on whether the user is a merchant or customer
+      const userDetails = {
         name: username,
         email,
         password,
-        role: userType === "Customer" ? "CUSTOMER" : "MERCHANT",
+        role: userType === 'Customer' ? 'CUSTOMER' : 'MERCHANT',
         latitude: parseFloat(latitude),
         longitude: parseFloat(longitude),
         addressLine,
@@ -79,25 +93,27 @@ const Signup = () => {
         state,
         zipCode,
         country,
-        ...(userType === "Merchant" && { 
-          SectionId: serviceSection,  // Assuming serviceSection holds the SectionId
-          businessName: serviceName,  // Assuming serviceName holds the merchant business name
-          location, 
-          currency 
-        })
+        ...(userType === 'Merchant' && {
+          businessName: serviceName,
+          SectionId: serviceSection,
+          currency,
+        }),
       };
 
-      const response = await signup(userPayload);
+      // Send the signup request to the backend using Axios
+      const response = await signup(userDetails);
 
-      if (response && response.message === "User registered successfully") {
+      if (response && response.message === 'User registered successfully') {
+        // If signup is successful, dispatch the loginSuccess action
         dispatch(loginAction({ user: response.userId }));
-        navigate("/login", { state: { message: "Signup successful" } });
+        navigate('/login', { state: { message: 'Signup successful' } });
       }
     } catch (err) {
+      // Handle errors during signup
       if (err.response && err.response.status === 409) {
-        setError("User with this email already exists.");
+        setError('User with this email already exists.');
       } else {
-        setError("Failed to sign up. Please try again.");
+        setError('Failed to sign up. Please try again.');
       }
     }
   };
@@ -115,7 +131,7 @@ const Signup = () => {
         </div>
 
         {/* Conditional Step Rendering */}
-        {currentStep === 1 && <RoleSelection userType={userType} setUserType={setUserType} handleNext={handleNext} />}
+        {currentStep === 1 && <RoleSelection userType={userType} setUserType={setUserType} handleNext={() => setCurrentStep(2)} />}
         {currentStep === 2 && (
           <CommonDetails
             username={username}
@@ -127,10 +143,12 @@ const Signup = () => {
             confirmPassword={confirmPassword}
             setConfirmPassword={setConfirmPassword}
             error={error}
-            handleNext={handleNext}
-            handleBack={handleBack}
-            handleSignup={handleSignup}
-            userType={userType}
+            handleNext={() => setCurrentStep(3)}
+            handleBack={() => setCurrentStep(1)}
+          />
+        )}
+        {currentStep === 3 && (
+          <LocationDetails
             latitude={latitude}
             setLatitude={setLatitude}
             longitude={longitude}
@@ -145,37 +163,23 @@ const Signup = () => {
             setZipCode={setZipCode}
             country={country}
             setCountry={setCountry}
+            handleNext={userType === 'Merchant' ? () => setCurrentStep(4) : handleSignup}
+            handleBack={() => setCurrentStep(2)}
+            userType={userType}
           />
         )}
-        {currentStep === 3 && userType === 'Merchant' && (
+        {currentStep === 4 && userType === 'Merchant' && (
           <MerchantDetails
             serviceName={serviceName}
             setServiceName={setServiceName}
             serviceSection={serviceSection}
             setServiceSection={setServiceSection}
-            location={location}
-            setLocation={setLocation}
             currency={currency}
             setCurrency={setCurrency}
             sections={sections}
-            loading={loading}
-            error={error}
+            loading={loadingSections}
             handleSignup={handleSignup}
-            handleBack={handleBack}
-            latitude={latitude}
-            setLatitude={setLatitude}
-            longitude={longitude}
-            setLongitude={setLongitude}
-            addressLine={addressLine}
-            setAddressLine={setAddressLine}
-            city={city}
-            setCity={setCity}
-            state={state}
-            setState={setState}
-            zipCode={zipCode}
-            setZipCode={setZipCode}
-            country={country}
-            setCountry={setCountry}
+            error={error}
           />
         )}
 
@@ -183,7 +187,7 @@ const Signup = () => {
           <GoogleSignInButton />
         </div>
 
-        {currentStep < 3 && (
+        {currentStep < 4 && (
           <p className="mt-6 text-center text-gray-700">
             Already have an account?{' '}
             <Link to="/login" className="text-blue-500 hover:underline">

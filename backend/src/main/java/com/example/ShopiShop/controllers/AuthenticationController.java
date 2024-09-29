@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = "https://dry-temple-95599-6b8f54712ec8.herokuapp.com", allowCredentials = "true")  // Allow requests from your frontend origin
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")  // Allow requests from your frontend origin
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
@@ -18,7 +18,7 @@ public class AuthenticationController {
     private final UserMapper userMapper;
 
     @PostMapping("/signup")
-    public ResponseEntity<UserSignupResponseDTO> signup(@RequestBody UserSignupRequestDTO request) {
+    public ResponseEntity<UserSignupResponseDTO> signup(@RequestBody UserSignupRequestDTO request ) {
         if (request.getRole() == UserRoleEnum.SUPERADMIN) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new UserSignupResponseDTO("Cannot sign up as SUPER_ADMIN", null));
         }
@@ -36,6 +36,7 @@ public class AuthenticationController {
 
     @PostMapping("/login")
     public ResponseEntity<UserLoginResponseDTO> login(@RequestBody UserLoginRequestDTO request) {
+
         // Use the service to authenticate the user
         UserLoginResponseDTO response = userService.authenticate(request);
         return ResponseEntity.ok(response);

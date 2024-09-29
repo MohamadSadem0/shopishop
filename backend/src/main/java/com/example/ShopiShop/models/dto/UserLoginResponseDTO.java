@@ -1,5 +1,6 @@
 package com.example.ShopiShop.models.dto;
 
+import com.example.ShopiShop.enums.UserRoleEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,10 +13,11 @@ import lombok.NoArgsConstructor;
 public class UserLoginResponseDTO {
     private String token;
     private String email;
-    private String role;
+    private UserRoleEnum role;
     private String userName;
     private String phoneNumber; // New field for the phone number
     private LocationDTO location; // New field for the location details
+    private String storeId; // store id if the user is a merchant
 
     @Data
     @AllArgsConstructor

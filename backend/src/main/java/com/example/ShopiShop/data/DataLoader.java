@@ -108,14 +108,12 @@
 package com.example.ShopiShop.data;
 
 import com.example.ShopiShop.models.dto.StoreRequestDTO;
+import com.example.ShopiShop.repositories.*;
 import com.example.ShopiShop.services.IMPL.StoreServiceImpl;
 import com.example.ShopiShop.models.User;
-import com.example.ShopiShop.repositories.UserRepository;
 import com.example.ShopiShop.enums.UserRoleEnum;
 import com.example.ShopiShop.models.Category;
-import com.example.ShopiShop.repositories.CategoryRepository;
 import com.example.ShopiShop.models.Section;
-import com.example.ShopiShop.repositories.SectionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -130,8 +128,10 @@ public class DataLoader implements CommandLineRunner {
     private final SectionRepository sectionRepository;
     private final CategoryRepository categoryRepository;
     private final UserRepository userRepository;
+    private final StoreRepository storeRepository;
     private final StoreServiceImpl storeService;
     private final PasswordEncoder passwordEncoder;
+    private final LocationRepository locationRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -217,6 +217,7 @@ public class DataLoader implements CommandLineRunner {
             Section section=sectionRepository.findByName("Laundry")
                     .orElseThrow(() -> new RuntimeException("Owner not found"));
 
+
             storeService.createStore(StoreRequestDTO.builder()
                     .name("Merchant's Store")
                     .ownerId(superAdmin.getId())
@@ -238,7 +239,6 @@ public class DataLoader implements CommandLineRunner {
             user = User.builder()
                     .userName("Merchant User")
                     .email(email)
-//                    .location()
                     .phoneNumber("7687687686787")
                     .password(passwordEncoder.encode("MerchantSecurePassword"))
                     .userRole(UserRoleEnum.MERCHANT)
@@ -255,7 +255,10 @@ public class DataLoader implements CommandLineRunner {
         Section section=sectionRepository.findByName("Laundry")
                 .orElseThrow(() -> new RuntimeException("Owner not found"));
 
+
+
         // Now create and associate the store with the user
+        if(!storeRepository.findByOwnerEmail(user.getEmail()).isPresent()){
         storeService.createStore(StoreRequestDTO.builder()
                 .name("Merchant's Store")
                 .ownerId(user.getId())
@@ -269,6 +272,8 @@ public class DataLoader implements CommandLineRunner {
                 .city("San Francisco")
                 .build());
 
-        System.out.println("Merchant Store has been created successfully.");
+        System.out.println("Merchant Store has been created successfully.");}
     }
+
+
 }
