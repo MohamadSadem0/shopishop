@@ -1,7 +1,12 @@
 package com.example.ShopiShop.controllers;
 
-import com.example.ShopiShop.models.dto.*;
-import com.example.ShopiShop.services.IMPL.UserService;
+
+import com.example.ShopiShop.dto.request.UserLoginRequestDTO;
+import com.example.ShopiShop.dto.request.UserSignupRequestDTO;
+import com.example.ShopiShop.dto.response.UserLoginResponseDTO;
+import com.example.ShopiShop.dto.response.UserSignupResponseDTO;
+import com.example.ShopiShop.mappers.UserMapper;
+import com.example.ShopiShop.servicesIMPL.UserService;
 import com.example.ShopiShop.enums.UserRoleEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

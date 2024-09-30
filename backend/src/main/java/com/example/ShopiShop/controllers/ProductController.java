@@ -38,12 +38,12 @@
 
 package com.example.ShopiShop.controllers;
 
-import com.example.ShopiShop.models.dto.ProductMapper;
-import com.example.ShopiShop.models.dto.ProductRequestDTO;
-import com.example.ShopiShop.models.dto.ProductResponseDTO;
+import com.example.ShopiShop.mappers.ProductMapper;
+import com.example.ShopiShop.dto.request.ProductRequestDTO;
+import com.example.ShopiShop.dto.response.ProductResponseDTO;
 import com.example.ShopiShop.models.Product;
 import com.example.ShopiShop.repositories.ProductRepository;
-import com.example.ShopiShop.services.IMPL.ProductServiceImpl;
+import com.example.ShopiShop.servicesIMPL.ProductServiceImpl;
 import com.example.ShopiShop.models.Category;
 import com.example.ShopiShop.repositories.CategoryRepository;
 import com.example.ShopiShop.repositories.StoreRepository;
@@ -111,4 +111,5 @@ private final ProductServiceImpl productService;
         List<ProductResponseDTO> products = productService.getProductsByStoreId(storeId);
         return ResponseEntity.ok(products);
     }
+
 }

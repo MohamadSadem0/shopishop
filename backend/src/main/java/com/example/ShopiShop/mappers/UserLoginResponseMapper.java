@@ -1,9 +1,8 @@
 package com.example.ShopiShop.mappers;
 
 
-import com.example.ShopiShop.models.Store;
-import com.example.ShopiShop.models.dto.StoreResponseDTO;
-import com.example.ShopiShop.models.dto.UserLoginResponseDTO;
+import com.example.ShopiShop.dto.response.StoreResponseDTO;
+import com.example.ShopiShop.dto.response.UserLoginResponseDTO;
 import com.example.ShopiShop.models.User;
 import com.example.ShopiShop.models.Location;
 

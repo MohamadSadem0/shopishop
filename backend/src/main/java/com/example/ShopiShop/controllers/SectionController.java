@@ -1,13 +1,12 @@
 package com.example.ShopiShop.controllers;
 
-import com.example.ShopiShop.models.dto.ProductRequestDTO;
+import com.example.ShopiShop.dto.request.ProductRequestDTO;
 import com.example.ShopiShop.models.Product;
-import com.example.ShopiShop.models.dto.SectionResponseDTO;
-import com.example.ShopiShop.services.IMPL.ProductServiceImpl;
-import com.example.ShopiShop.services.IMPL.CategoryServiceImpl;
+import com.example.ShopiShop.dto.response.SectionResponseDTO;
+import com.example.ShopiShop.servicesIMPL.ProductServiceImpl;
+import com.example.ShopiShop.servicesIMPL.CategoryServiceImpl;
 import com.example.ShopiShop.models.Section;
-import com.example.ShopiShop.services.IMPL.SectionServiceImpl;
-import com.example.ShopiShop.services.SectionService;
+import com.example.ShopiShop.servicesIMPL.SectionServiceImpl;
 import com.example.ShopiShop.models.Category;
 
 import lombok.RequiredArgsConstructor;

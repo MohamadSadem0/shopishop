@@ -11,4 +11,5 @@ import java.util.Optional;
 public interface StoreRepository extends JpaRepository<Store,Long>{
     Optional<Store> findByOwnerEmail(String email); // Assuming "owner" is the User associated with the store
 
+
 }

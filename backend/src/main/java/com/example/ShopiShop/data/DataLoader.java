@@ -107,9 +107,9 @@
 //}
 package com.example.ShopiShop.data;
 
-import com.example.ShopiShop.models.dto.StoreRequestDTO;
+import com.example.ShopiShop.dto.request.StoreRequestDTO;
 import com.example.ShopiShop.repositories.*;
-import com.example.ShopiShop.services.IMPL.StoreServiceImpl;
+import com.example.ShopiShop.servicesIMPL.StoreServiceImpl;
 import com.example.ShopiShop.models.User;
 import com.example.ShopiShop.enums.UserRoleEnum;
 import com.example.ShopiShop.models.Category;

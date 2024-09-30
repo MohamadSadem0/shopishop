@@ -1,9 +1,7 @@
 package com.example.ShopiShop.mappers;
 
 import com.example.ShopiShop.models.Store;
-import com.example.ShopiShop.models.dto.StoreResponseDTO;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import com.example.ShopiShop.dto.response.StoreResponseDTO;
 
 
 public class StoreMapper {
