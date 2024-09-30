@@ -5,7 +5,7 @@ const MapPicker = ({ latitude, longitude, setLatitude, setLongitude, onClose }) 
   const [markerPosition, setMarkerPosition] = useState({ lat: latitude, lng: longitude });
   const [mapRef, setMapRef] = useState(null); // Reference to the map instance
 
-  // Function to handle map click and place a marker
+  // Handle map clicks to set marker
   const handleMapClick = (event) => {
     const newLat = event.latLng.lat();
     const newLng = event.latLng.lng();
@@ -14,7 +14,7 @@ const MapPicker = ({ latitude, longitude, setLatitude, setLongitude, onClose }) 
     setLongitude(newLng);
   };
 
-  // Automatically center the map on the user's current location
+  // Function to detect and center the user's current location
   const centerOnUserLocation = useCallback(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -25,7 +25,7 @@ const MapPicker = ({ latitude, longitude, setLatitude, setLongitude, onClose }) 
           setLongitude(userLng);
           setMarkerPosition(newCenter);
           if (mapRef) {
-            mapRef.panTo(newCenter); // Center the map on the user's location
+            mapRef.panTo(newCenter); // Pan the map to the user's location
           }
         },
         (error) => {
@@ -37,17 +37,7 @@ const MapPicker = ({ latitude, longitude, setLatitude, setLongitude, onClose }) 
     }
   }, [mapRef, setLatitude, setLongitude]);
 
-  // Map options: Ensure the default UI is enabled and geolocation controls are visible
-  const mapOptions = {
-    zoomControl: true,
-    fullscreenControl: false,
-    streetViewControl: false,
-    mapTypeControl: false,
-    disableDefaultUI: false, // Enable the default Google Maps UI (which includes the My Location button)
-    clickableIcons: false, // Disable clickable POIs
-  };
-
-  // Automatically center the map on the user's location when the map loads
+  // Automatically center on user location on load
   useEffect(() => {
     centerOnUserLocation();
   }, [centerOnUserLocation]);
@@ -58,16 +48,26 @@ const MapPicker = ({ latitude, longitude, setLatitude, setLongitude, onClose }) 
     height: '400px',
   };
 
+  // Map options: enable zoom control, and enable geolocation UI control
+  const mapOptions = {
+    zoomControl: true,
+    fullscreenControl: false,
+    streetViewControl: false,
+    mapTypeControl: false,
+    disableDefaultUI: false, // Ensure the default UI is enabled (which includes the My Location button)
+  };
+
   return (
     <div className="map-container">
+      {/* Load Google Maps Script */}
       <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}>
         <GoogleMap
           mapContainerStyle={containerStyle}
-          center={markerPosition} // Set the initial center of the map
+          center={markerPosition} // Set center of the map to the marker's position
           zoom={12}
-          onClick={handleMapClick} // Allow placing a marker on map click
+          onClick={handleMapClick}
           options={mapOptions}
-          onLoad={(map) => setMapRef(map)} // Save the map reference for future use
+          onLoad={(map) => setMapRef(map)} // Save the reference to the map instance
         >
           <Marker position={markerPosition} />
         </GoogleMap>

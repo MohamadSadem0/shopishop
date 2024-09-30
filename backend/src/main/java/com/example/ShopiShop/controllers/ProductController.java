@@ -73,9 +73,9 @@ public class ProductController {
 private final ProductServiceImpl productService;
 
     @PostMapping
-    public ResponseEntity<Product> createProduct(@RequestBody ProductRequestDTO productRequestDTO) {
+    public ResponseEntity<String> createProduct(@RequestBody ProductRequestDTO productRequestDTO) {
         Product createdProduct = productService.createProduct(productRequestDTO);
-        return new ResponseEntity<>(createdProduct, HttpStatus.CREATED);
+        return new ResponseEntity<>("product created successfully \n" +createdProduct.getId().toString(), HttpStatus.CREATED);
     }
     // Get all products for a specific category
     @GetMapping("/category/{categoryId}")
