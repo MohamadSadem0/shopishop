@@ -70,8 +70,8 @@ const Signup = () => {
 
   const handleSignup = async (e) => {
     e.preventDefault();
-    setError('');
-  
+    setError(''); // Clear any previous error messages
+    
     // Check if passwords match
     if (password !== confirmPassword) {
       setError('Passwords do not match');
@@ -98,24 +98,43 @@ const Signup = () => {
           currency, // Only include this field if it's a merchant
         }),
       };
-  console.log(userDetails)
+  
+      console.log(userDetails); // Logging userDetails to verify payload
+  
       // Send the signup request to the backend using Axios
       const response = await signup(userDetails);
   
       if (response && response.message === 'User registered successfully') {
         // If signup is successful, dispatch the loginSuccess action
         dispatch(loginAction({ user: response.userId }));
-        navigate('/login', { state: { message: 'Signup successful' } });
+  
+        // Redirect based on user role
+        if (userType === 'Merchant') {
+          navigate('/dashboard'); // Redirect merchant to the dashboard
+        } else {
+          navigate('/'); // Redirect customer to the home page
+        }
       }
     } catch (err) {
       // Handle errors during signup
-      if (err.response && err.response.status === 409) {
-        setError('User with this email already exists.');
+      if (err.response) {
+        if (err.response.status === 409) {
+          // User already exists
+          setError('User with this email already exists.');
+        } else if (err.response.status >= 400 && err.response.status < 500) {
+          // Handle client-side errors (4xx)
+          setError('Failed to sign up. Please check your details.');
+        } else if (err.response.status >= 500) {
+          // Handle server-side errors (5xx)
+          setError('Server error. Please try again later.');
+        }
       } else {
-        setError('Failed to sign up. Please try again.');
+        // Handle any other errors (e.g., network errors)
+        setError('Failed to sign up. Please check your internet connection.');
       }
     }
   };
+  
   
 
   const handleBackToWebsite = () => {
