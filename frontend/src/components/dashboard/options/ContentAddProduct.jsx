@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import CryptoJS from 'crypto-js'; // Import CryptoJS for decryption
 import { fetchCategoriesByStoreId, addProduct } from '../../../services/productService'; // Import the service functions
 import Button from '../../../components/common/Button';
-import Input from '../../../components/common/Input';
+import Input from '../../../components/common/Input'; // Use the new Input component
 import Spinner from '../../../components/common/Spinner';
 
 // Your encryption key from environment variables
@@ -14,7 +14,6 @@ const ContentAddProduct = () => {
     description: '',
     price: '',
     imageUrl: '',
-    storeId: '',
     categoryId: ''
   });
   const [categories, setCategories] = useState([]);
@@ -55,8 +54,25 @@ const ContentAddProduct = () => {
 
   // Handle form field changes
   const handleChange = (e) => {
-    setProduct({ ...product, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    
+    // Log the input field's name and value
+    console.log(`Field Name: ${name}, Field Value: ${value}`);
+    
+    // Log the state before updating
+    console.log('Before update:', product);
+  
+    setProduct((prevProduct) => ({
+      ...prevProduct,
+      [name]: value,
+    }));
+  
+    // Log the state after the update
+    setTimeout(() => {
+      console.log('After update:', product);
+    }, 100);  // Use a timeout to allow the state to update asynchronously
   };
+  
 
   // Handle form submission
   const handleSubmit = async (e) => {
@@ -70,7 +86,7 @@ const ContentAddProduct = () => {
         ...product,
         price: parseFloat(product.price),
         storeId: storeId,
-        categoryId: parseInt(product.categoryId),
+        categoryId: product.categoryId
       };
 
       await addProduct(payload);
@@ -82,7 +98,6 @@ const ContentAddProduct = () => {
         description: '',
         price: '',
         imageUrl: '',
-        storeId: storeId, // Keep storeId
         categoryId: ''
       });
     } catch (error) {
@@ -99,72 +114,73 @@ const ContentAddProduct = () => {
       {loading && <Spinner />}
 
       <form onSubmit={handleSubmit} className="space-y-6">
-        <Input
-          label="Product Name"
-          name="name"
-          value={product.name}
-          onChange={handleChange}
-          placeholder="Enter the product name"
-          required
-        />
+  <Input
+    label="Product Name"
+    name="name" // Set the name attribute
+    value={product.name}
+    onChange={handleChange}
+    placeholder="Enter the product name"
+    required
+  />
 
-        <Input
-          label="Product Description"
-          name="description"
-          value={product.description}
-          onChange={handleChange}
-          placeholder="Enter product description"
-          required
-        />
+  <Input
+    label="Product Description"
+    name="description" // Set the name attribute
+    value={product.description}
+    onChange={handleChange}
+    placeholder="Enter product description"
+    required
+  />
 
-        <Input
-          label="Price"
-          name="price"
-          value={product.price}
-          onChange={handleChange}
-          placeholder="Enter product price"
-          type="number"
-          required
-        />
+  <Input
+    label="Price"
+    name="price" // Set the name attribute
+    value={product.price}
+    onChange={handleChange}
+    placeholder="Enter product price"
+    type="number"
+    required
+  />
 
-        <Input
-          label="Image URL"
-          name="imageUrl"
-          value={product.imageUrl}
-          onChange={handleChange}
-          placeholder="Enter image URL"
-          type="url"
-        />
+  <Input
+    label="Image URL"
+    name="imageUrl" // Set the name attribute
+    value={product.imageUrl}
+    onChange={handleChange}
+    placeholder="Enter image URL"
+    type="url"
+  />
 
-        <div>
-          <label className="block text-gray-700 text-sm font-bold mb-2">Category</label>
-          <select
-            name="categoryId"
-            value={product.categoryId}
-            onChange={handleChange}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight"
-            required
-          >
-            <option value="">Select a Category</option>
-            {categories.length > 0
-              ? categories.map((category) => (
-                  <option key={category.id} value={category.id}>
-                    {category.name}
-                  </option>
-                ))
-              : <option disabled>No categories available</option>}
-          </select>
-        </div>
+  <div>
+    <label className="block text-gray-700 text-sm font-bold mb-2">Category</label>
+    <select
+      name="categoryId" // Set the name attribute
+      value={product.categoryId}
+      onChange={handleChange}
+      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight"
+      required
+    >
+      <option value="">Select a Category</option>
+      {categories.length > 0
+        ? categories.map((category) => (
+            <option key={category.id} value={category.id}>
+              {category.name}
+            </option>
+          ))
+        : <option disabled>No categories available</option>}
+    </select>
+  </div>
 
-        {error && <p className="text-red-500">{error}</p>}
-        {success && <p className="text-green-500">{success}</p>}
+  {error && <p className="text-red-500">{error}</p>}
+  {success && <p className="text-green-500">{success}</p>}
 
-        <Button
-          type="submit"
-          label={loading ? 'Submitting...' : 'Add Product'}
-          disabled={loading}
-        />
-      </form>
+  <Button
+    type="submit"
+    label={loading ? 'Submitting...' : 'Add Product'}
+    disabled={loading}
+  />
+</form>
+
     </div>
   );
 };
