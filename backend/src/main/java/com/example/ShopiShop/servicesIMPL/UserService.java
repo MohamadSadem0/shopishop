@@ -1,6 +1,5 @@
 package com.example.ShopiShop.servicesIMPL;
 
-import com.example.ShopiShop.controllers.NotificationWebSocketController;
 import com.example.ShopiShop.dto.request.UserLoginRequestDTO;
 import com.example.ShopiShop.dto.response.UserLoginResponseDTO;
 import com.example.ShopiShop.dto.response.UserResponseDTO;
@@ -20,7 +19,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,7 +33,7 @@ public class UserService {
     private final UserMapper userMapper;
     private final LocationServiceImpl locationService;
     private final StoreServiceImpl storeService;
-    private final   NotificationWebSocketController notificationWebSocketController; // Inject WebSocket controller
+    private final NotificationServiceImpl notificationService; // Inject NotificationService
 
 
     public List<UserResponseDTO> retrieveAllUsers() {
@@ -47,29 +45,25 @@ public class UserService {
                 .map(UserMapper::toDTO) // Using the UserMapper to convert User to UserResponseDTO
                 .collect(Collectors.toList());
     }
+
     public User register(UserSignupRequestDTO request) {
         validateSignupRequest(request);
 
-        if (request.getRole()==UserRoleEnum.CUSTOMER) {
+        if (request.getRole() == UserRoleEnum.CUSTOMER) {
             User user = createUser(request);
             Location location = locationService.createLocation(request);
             user.setLocation(location);
             return userRepository.save(user);
 
         } else if (request.getRole() == UserRoleEnum.MERCHANT) {
-
             User user = createUser(request);
-            System.out.println(request);
-
             Location location = locationService.createLocation(request);
-            Store store= storeService.createStore(request, user, location);
+            Store store = storeService.createStore(request, user, location);
 
-
-
+            // Send notification for store creation
             String notificationMessage = "A new store '" + store.getName() + "' has been created by merchant '"
                     + user.getUsername() + "'. Approval is needed.";
-
-            notificationWebSocketController.sendNotificationToSuperAdmin(notificationMessage);
+            notificationService.sendNotificationToSuperAdmin(notificationMessage);
 
             return userRepository.save(user);
         }
@@ -92,10 +86,6 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
-
-
-
-
 
     public UserLoginResponseDTO authenticate(UserLoginRequestDTO request) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
@@ -139,13 +129,12 @@ public class UserService {
                 user.getPhoneNumber(),
                 locationDTO,
                 null
-
         );
     }
 
     private UserLoginResponseDTO buildMerchantLoginResponse(String jwtToken, User user) {
-        Store store =storeService.getStoreByOwnerEmail(user.getEmail());
-        Location location =store.getLocation();
+        Store store = storeService.getStoreByOwnerEmail(user.getEmail());
+        Location location = store.getLocation();
 
         return new UserLoginResponseDTO(
                 jwtToken,
@@ -161,11 +150,8 @@ public class UserService {
                         location.getCountry(),
                         location.getLatitude(),
                         location.getLongitude()
-
                 ),
                 StoreMapper.toDTO(store)
-
         );
     }
-
 }

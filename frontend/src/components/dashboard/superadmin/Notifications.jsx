@@ -12,14 +12,17 @@ const Notifications = () => {
 
     // Connect to WebSocket server
     stompClient.connect({}, (frame) => {
-      console.log('Connected: ' + frame);
-
-      // Subscribe to the topic for SuperAdmin notifications
+      console.log('Connected to WebSocket:', frame);  // Log WebSocket connection
+  
+      // Subscribe to the notifications topic
       stompClient.subscribe('/topic/superadmin-notifications', (message) => {
-        showNotification(message.body);
+          console.log('Received notification:', message.body);  // Log received messages
+          const notification = message.body;
+  
+          // Dispatch the notification to the Redux store
+          store.dispatch(addNotification(notification));
       });
-    });
-
+  });
     // Cleanup function to disconnect from the WebSocket when component unmounts
     return () => {
       if (stompClient) {

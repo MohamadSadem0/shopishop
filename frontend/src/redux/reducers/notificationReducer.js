@@ -1,7 +1,5 @@
-// src/redux/reducers/notificationReducer.js
-
 const initialState = {
-    notifications: [],
+    notifications: [],  // Initial state for notifications
 };
 
 const notificationReducer = (state = initialState, action) => {

@@ -1,52 +1,87 @@
-// src/App.js
-
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { connectWebSocket, disconnectWebSocket } from './redux/actions/notificationActions';
-import store from './redux/store';
+import { useSelector } from 'react-redux';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import websocketService from './services/websocketService'; 
 import Login from './pages/auth/login/Login';
 import Signup from './pages/auth/signup/Signup';
 import LandingPage from './pages/landingPage/LandingPage';
 import Dashboardpage from './pages/dashboard/Dashboardpage';
 import Profile from './pages/profile/Profile';
 import ProtectedRoute from './components/ProtectedRoute';
+import CryptoJS from 'crypto-js'; // Import CryptoJS for decryption
 
 const App = () => {
-    const dispatch = useDispatch();
-    const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+    const notifications = useSelector((state) => state.notifications.notifications);
+    const [userRole, setUserRole] = useState(null); // State to store decrypted user role
+
+    const encryptionKey = process.env.REACT_APP_ENCRYPTION_KEY; // Encryption key
+
+    // Decrypt user role from sessionStorage
+    const decryptRole = (encryptedRole) => {
+        if (!encryptedRole || !encryptionKey) return null;
+        try {
+            const bytes = CryptoJS.AES.decrypt(encryptedRole, encryptionKey);
+            return bytes.toString(CryptoJS.enc.Utf8); // Decrypted role as plain text
+        } catch (error) {
+            console.error("Error decrypting role:", error);
+            return null;
+        }
+    };
 
     useEffect(() => {
-        if (isAuthenticated) {
-            // Connect to WebSocket when authenticated
-            dispatch(connectWebSocket());
-        } else {
-            // Disconnect from WebSocket when logged out
-            dispatch(disconnectWebSocket());
+        // Get encrypted role from sessionStorage and decrypt it
+        const encryptedRole = sessionStorage.getItem('userRole'); // Assuming the role is encrypted in sessionStorage
+        const decryptedRole = decryptRole(encryptedRole); // Decrypt the role
+        setUserRole(decryptedRole); // Set the decrypted role
+        console.log("Decrypted Role: " + decryptedRole); // Log the decrypted role
+
+        // Only connect to WebSocket if the user is a superadmin
+        if (decryptedRole === 'superadmin') {
+            websocketService.connectWebSocket();
         }
 
         // Cleanup WebSocket connection on unmount
         return () => {
-            dispatch(disconnectWebSocket());
+            websocketService.disconnectWebSocket();
         };
-    }, [isAuthenticated, dispatch]);
+    }, []);  // Runs once on component mount
+
+    useEffect(() => {
+        if (userRole === 'superadmin' && notifications.length > 0) {
+            const latestNotification = notifications[notifications.length - 1];
+            console.log('Displaying notification:', latestNotification);
+
+            // Show toast notification for the latest message
+            toast.info(`New Notification: ${latestNotification}`, {
+                position: 'top-right',
+                autoClose: 5000,
+            });
+        }
+    }, [notifications, userRole]);  // Only runs when notifications or userRole changes
 
     return (
-        <Router>
-            <Routes>
-                <Route path="/login" element={<Login />} />
-                <Route path="/signup" element={<Signup />} />
-                <Route path="/" element={<LandingPage />} />
-                <Route
-                    path="/dashboard"
-                    element={<ProtectedRoute allowedRoles={['superadmin', 'merchant']} component={Dashboardpage} />}
-                />
-                <Route
-                    path="/profile"
-                    element={<ProtectedRoute allowedRoles={['customer']} component={Profile} />}
-                />
-            </Routes>
-        </Router>
+        <>
+            <Router>
+                <Routes>
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/signup" element={<Signup />} />
+                    <Route path="/" element={<LandingPage />} />
+                    <Route
+                        path="/dashboard"
+                        element={<ProtectedRoute allowedRoles={['superadmin', 'merchant']} component={Dashboardpage} />}
+                    />
+                    <Route
+                        path="/profile"
+                        element={<ProtectedRoute allowedRoles={['customer']} component={Profile} />}
+                    />
+                </Routes>
+            </Router>
+
+            {/* Toast Notification Container */}
+            <ToastContainer />
+        </>
     );
 };
 

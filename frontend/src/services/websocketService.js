@@ -1,32 +1,38 @@
-// src/services/websocketService.js
-
 import SockJS from 'sockjs-client';
 import { Stomp } from '@stomp/stompjs';
+import store from '../redux/store';
+import { addNotification } from '../redux/actions/notificationActions';
 
 let stompClient = null;
 
-const connect = (onMessageReceived) => {
-    const socket = new SockJS('http://localhost:5000/ws'); // Your Spring Boot WebSocket endpoint
-    stompClient = Stomp.over(socket);
+const connectWebSocket = () => {
+    const socket = new SockJS('http://localhost:5000/ws');  // Ensure this is the correct backend WebSocket URL
+    stompClient = Stomp.over(() => socket);  // Use factory function for SockJS
 
     stompClient.connect({}, (frame) => {
-        console.log('Connected: ' + frame);
+        console.log('Connected to WebSocket:', frame);  // Log connection success
 
-        // Subscribe to the SuperAdmin notifications topic
+        // Subscribe to a topic
         stompClient.subscribe('/topic/superadmin-notifications', (message) => {
-            onMessageReceived(message.body);
+            console.log('Received WebSocket message:', message.body);  // Log received message
+            const notification = message.body;
+
+            // Dispatch the notification to Redux or handle it
+            store.dispatch(addNotification(notification));
         });
+    }, (error) => {
+        console.error('WebSocket connection error:', error);  // Log any connection errors
     });
 };
 
-const disconnect = () => {
+const disconnectWebSocket = () => {
     if (stompClient !== null) {
         stompClient.disconnect();
-        console.log("Disconnected");
+        console.log('Disconnected from WebSocket');
     }
 };
 
 export default {
-    connect,
-    disconnect
+    connectWebSocket,
+    disconnectWebSocket
 };

@@ -1,16 +1,20 @@
-// src/redux/store.js
-
 import { configureStore } from '@reduxjs/toolkit';
-import { composeWithDevTools } from '@redux-devtools/extension';
 import authReducer from './authSlice';
-import serviceSectionsReducer from './serviceSectionsSlice'; // Import the new slice
+import serviceSectionsReducer from './serviceSectionsSlice';
+import notificationReducer from './reducers/notificationReducer';  // Import notification reducer
+import { combineReducers } from 'redux';
 
-const store = configureStore({
-  reducer: {
+// Combine all your reducers
+const rootReducer = combineReducers({
     auth: authReducer,
-    serviceSections: serviceSectionsReducer, 
-  },
-  devTools: composeWithDevTools(),
+    serviceSections: serviceSectionsReducer,
+    notifications: notificationReducer,  // Include the notification reducer
+});
+
+// Configure the store with the rootReducer
+const store = configureStore({
+    reducer: rootReducer,
+    devTools: process.env.NODE_ENV !== 'production', // Enable DevTools in non-production environments
 });
 
 export default store;
