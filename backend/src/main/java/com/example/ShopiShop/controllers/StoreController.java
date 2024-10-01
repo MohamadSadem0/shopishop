@@ -1,10 +1,12 @@
 package com.example.ShopiShop.controllers;
 
 import com.example.ShopiShop.dto.response.CategoryResponseDTO;
+import com.example.ShopiShop.dto.response.StoreResponseDTO;
 import com.example.ShopiShop.models.Store;
 import com.example.ShopiShop.services.CategoryService;
 import com.example.ShopiShop.servicesIMPL.StoreServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/merchant/stores")
-@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")  // Allow requests from your frontend origin
 @RequiredArgsConstructor
 public class StoreController {
 
@@ -33,5 +35,18 @@ public class StoreController {
         List<CategoryResponseDTO> categories = categoryService.getCategoriesBySection(store.getSection());
 
         return ResponseEntity.ok(categories);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<StoreResponseDTO>> getAllStores(){
+    return new ResponseEntity<>(storeService.getAllStores(), HttpStatus.OK);
+    }
+
+    //todo:delete this api
+    @GetMapping("delete-all")
+    public ResponseEntity<String> deleteAllStores(){
+        storeService.deleteAllStores();
+        return new ResponseEntity<>("all stores deleted", HttpStatus.OK);
+
     }
 }

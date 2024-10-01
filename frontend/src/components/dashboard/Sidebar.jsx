@@ -1,217 +1,48 @@
-// import React, { useState } from 'react';
-// import { useNavigate } from 'react-router-dom'; // Import for navigation
-// import Logo from "../../assets/images/Logo.png";
-// import DashboardIcon from "../../assets/icons/darhboard_alt.svg";
-// import AnalyticIcon from "../../assets/icons/analys icon.svg";
-// import OrderIcon from "../../assets/icons/Basket_alt_3_duotone.svg";
-// import ReviewIcon from "../../assets/icons/Review.svg";
-// import ProductIcon from "../../assets/icons/User_alt.svg";
-// import SettingIcon from "../../assets/icons/Setting_alt_line.svg";
-// import AddProductIcon from "../../assets/icons/add_product.svg"; // Add appropriate icons
-// import SeeAllProductsIcon from "../../assets/icons/see_all_products.svg"; // Add appropriate icons
-// import ExitIcon from "../../assets/icons/exit_icon.svg"; // Add an icon for Exit
-
-// const Sidebar = () => {
-//   const [isProductOpen, setIsProductOpen] = useState(false); // To toggle product options
-//   const [activeButton, setActiveButton] = useState(''); // To track the active button
-//   const navigate = useNavigate(); // Hook for navigation
-
-//   // Function to handle button click
-//   const handleButtonClick = (buttonName) => {
-//     setActiveButton(buttonName); // Set the clicked button as active
-//     if (buttonName === 'dashboard') {
-//       navigate('/dashboard');
-//     } else if (buttonName === 'analytics') {
-//       navigate('/analytics');
-//     } else if (buttonName === 'orders') {
-//       navigate('/orders');
-//     } else if (buttonName === 'review') {
-//       navigate('/review');
-//     } else if (buttonName === 'settings') {
-//       navigate('/settings');
-//     }
-//   };
-
-//   // Toggle Product Menu
-//   const toggleProductMenu = () => {
-//     setIsProductOpen(!isProductOpen);
-//     setActiveButton('products'); // When "Products" is clicked, highlight it
-//   };
-
-//   // Handle submenu option click (Add Product or See All Products)
-//   const handleProductOptionClick = (optionName) => {
-//     setActiveButton(optionName); // Highlight the submenu option
-//   };
-
-//   // Handle Exit button click
-//   const handleExit = () => {
-//     navigate('/'); // Redirect to the landing page
-//   };
-
-//   return (
-//     <div className="w-auto min-h-screen bg-white px-6 top-0 left-0">
-//       <div className="p-4">
-//         <img
-//           src={Logo}
-//           alt="logo"
-//           className="max-w-[225.86px] max-h-[158px]"
-//         />
-//       </div>
-//       <div className="flex flex-col items-center space-y-6 mt-8">
-
-//         {/* Dashboard Button */}
-//         <button
-//           onClick={() => handleButtonClick('dashboard')}
-//           className={`w-full p-4 rounded flex flex-row justify-start items-center ${
-//             activeButton === 'dashboard' ? 'bg-yellow-400' : ''
-//           }`}
-//         >
-//           <img src={DashboardIcon} alt="" className='w-[30px] h-[30px]' />
-//           <span className="text-lg">Dashboard</span>
-//         </button>
-
-//         {/* Analytics Button */}
-//         <button
-//           onClick={() => handleButtonClick('analytics')}
-//           className={`w-full p-4 rounded flex flex-row justify-start items-center ${
-//             activeButton === 'analytics' ? 'bg-yellow-400' : ''
-//           }`}
-//         >
-//           <img src={AnalyticIcon} alt="" className='w-[30px] h-[30px]' />
-//           <span className="text-lg">Analytics</span>
-//         </button>
-
-//         {/* Orders Button */}
-//         <button
-//           onClick={() => handleButtonClick('orders')}
-//           className={`w-full p-4 rounded flex flex-row justify-start items-center ${
-//             activeButton === 'orders' ? 'bg-yellow-400' : ''
-//           }`}
-//         >
-//           <img src={OrderIcon} alt="" className='w-[30px] h-[30px]' />
-//           <span className="text-lg">Orders</span>
-//         </button>
-
-//         {/* Review Button */}
-//         <button
-//           onClick={() => handleButtonClick('review')}
-//           className={`w-full p-4 rounded flex flex-row justify-start items-center ${
-//             activeButton === 'review' ? 'bg-yellow-400' : ''
-//           }`}
-//         >
-//           <img src={ReviewIcon} alt="" className='w-[30px] h-[30px]' />
-//           <span className="text-lg">Review</span>
-//         </button>
-
-//         {/* Products Button */}
-//         <div className="w-full">
-//           <button
-//             onClick={toggleProductMenu}
-//             className={`w-full p-4 rounded flex flex-row justify-start items-center ${
-//               activeButton === 'products' && !isProductOpen ? 'bg-yellow-400' : ''
-//             }`}
-//           >
-//             <img src={ProductIcon} alt="" className='w-[30px] h-[30px]' />
-//             <span className="text-lg">Products</span>
-//           </button>
-
-//           {/* Products Submenu */}
-//           {isProductOpen && (
-//             <div className="flex flex-col pl-8 space-y-2 mt-2">
-//               <button
-//                 onClick={() => handleProductOptionClick('addProduct')}
-//                 className={`w-full p-4 rounded flex flex-row justify-start items-center ${
-//                   activeButton === 'addProduct' ? 'bg-yellow-400' : ''
-//                 }`}
-//               >
-//                 <img src={AddProductIcon} alt="" className='w-[20px] h-[20px]' />
-//                 <span className="text-md ml-2">Add Product</span>
-//               </button>
-//               <button
-//                 onClick={() => handleProductOptionClick('seeAllProducts')}
-//                 className={`w-full p-4 rounded flex flex-row justify-start items-center ${
-//                   activeButton === 'seeAllProducts' ? 'bg-yellow-400' : ''
-//                 }`}
-//               >
-//                 <img src={SeeAllProductsIcon} alt="" className='w-[20px] h-[20px]' />
-//                 <span className="text-md ml-2">See All Products</span>
-//               </button>
-//             </div>
-//           )}
-//         </div>
-
-//         {/* Settings Button */}
-//         <button
-//           onClick={() => handleButtonClick('settings')}
-//           className={`w-full p-4 rounded flex flex-row justify-start items-center ${
-//             activeButton === 'settings' ? 'bg-yellow-400' : ''
-//           }`}
-//         >
-//           <img src={SettingIcon} alt="" className='w-[30px] h-[30px]' />
-//           <span className="text-lg">Settings</span>
-//         </button>
-
-//         {/* Exit Button */}
-//         <button
-//           onClick={handleExit}
-//           className="w-full p-4 mt-6 bg-red-400 text-white rounded flex flex-row justify-start items-center"
-//         >
-//           <img src={ExitIcon} alt="Exit Icon" className="w-[30px] h-[30px]" />
-//           <span className="text-lg ml-2">Exit</span>
-//         </button>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Sidebar;
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUsers, faStore, faThLarge, faBoxes, faSignOutAlt, faCog } from '@fortawesome/free-solid-svg-icons';
+
+// Merchant Custom Icons
 import Logo from "../../assets/images/Logo.png";
 import DashboardIcon from "../../assets/icons/darhboard_alt.svg";
 import AnalyticIcon from "../../assets/icons/analys icon.svg";
 import OrderIcon from "../../assets/icons/Basket_alt_3_duotone.svg";
 import ReviewIcon from "../../assets/icons/Review.svg";
 import ProductIcon from "../../assets/icons/User_alt.svg";
-import SettingIcon from "../../assets/icons/Setting_alt_line.svg";
-import AddProductIcon from "../../assets/icons/add_product.svg"; 
-import SeeAllProductsIcon from "../../assets/icons/see_all_products.svg"; 
-import ExitIcon from "../../assets/icons/exit_icon.svg"; 
+import AddProductIcon from "../../assets/icons/add_product.svg";
+import SeeAllProductsIcon from "../../assets/icons/see_all_products.svg";
 
-const Sidebar = ({ setActiveTab }) => {
-  const [isProductOpen, setIsProductOpen] = useState(false); // To toggle product options
+const Sidebar = ({ setActiveTab, role }) => {
+  const [isProductOpen, setIsProductOpen] = useState(false);
   const [activeButton, setActiveButton] = useState('');
-  const [activeSubOption, setActiveSubOption] = useState(''); // To track the active sub-option
+  const [activeSubOption, setActiveSubOption] = useState('');
   const navigate = useNavigate();
 
+  // Handle main menu button click
   const handleButtonClick = (buttonName) => {
     setActiveButton(buttonName);
-    setActiveTab(buttonName); // Pass the selected tab to the parent component
+    setActiveTab(buttonName);
   };
 
-  // Toggle Product Menu
+  // Toggle Product submenu for merchant
   const toggleProductMenu = () => {
-    setIsProductOpen(!isProductOpen); // Toggle submenu visibility
-    setActiveButton('products'); // Set "Products" as the active button
+    setIsProductOpen(!isProductOpen);
+    setActiveButton('products');
   };
 
-  // Handle submenu option click (Add Product or See All Products)
+  // Handle submenu options click for Products
   const handleProductOptionClick = (optionName) => {
-    setActiveSubOption(optionName); // Set the active submenu option
-    setActiveTab(optionName); // Update the active tab in the parent
+    setActiveSubOption(optionName);
+    setActiveTab(optionName);
   };
 
   return (
     <div className="w-auto min-h-screen bg-white px-6 top-0 left-0">
       <div className="p-4">
-        <img
-          src={Logo}
-          alt="logo"
-          className="max-w-[225.86px] max-h-[158px]"
-        />
+        <img src={Logo} alt="logo" className="max-w-[225.86px] max-h-[158px]" />
       </div>
       <div className="flex flex-col items-center space-y-6 mt-8">
-
         {/* Dashboard Button */}
         <button
           onClick={() => handleButtonClick('dashboard')}
@@ -219,79 +50,130 @@ const Sidebar = ({ setActiveTab }) => {
             activeButton === 'dashboard' ? 'bg-yellow-400' : ''
           }`}
         >
-          <img src={DashboardIcon} alt="" className='w-[30px] h-[30px]' />
-          <span className="text-lg">Dashboard</span>
+          <img src={DashboardIcon} alt="Dashboard Icon" className="w-[30px] h-[30px]" />
+          <span className="text-lg ml-2">Dashboard</span>
         </button>
 
-        {/* Analytics Button */}
-        <button
-          onClick={() => handleButtonClick('analytics')}
-          className={`w-full p-4 rounded flex flex-row justify-start items-center ${
-            activeButton === 'analytics' ? 'bg-yellow-400' : ''
-          }`}
-        >
-          <img src={AnalyticIcon} alt="" className='w-[30px] h-[30px]' />
-          <span className="text-lg">Analytics</span>
-        </button>
+        {/* Merchant-Only Options */}
+        {role === 'merchant' && (
+          <>
+            {/* Analytics Button */}
+            <button
+              onClick={() => handleButtonClick('analytics')}
+              className={`w-full p-4 rounded flex flex-row justify-start items-center ${
+                activeButton === 'analytics' ? 'bg-yellow-400' : ''
+              }`}
+            >
+              <img src={AnalyticIcon} alt="Analytics Icon" className="w-[30px] h-[30px]" />
+              <span className="text-lg ml-2">Analytics</span>
+            </button>
 
-        {/* Orders Button */}
-        <button
-          onClick={() => handleButtonClick('orders')}
-          className={`w-full p-4 rounded flex flex-row justify-start items-center ${
-            activeButton === 'orders' ? 'bg-yellow-400' : ''
-          }`}
-        >
-          <img src={OrderIcon} alt="" className='w-[30px] h-[30px]' />
-          <span className="text-lg">Orders</span>
-        </button>
+            {/* Orders Button */}
+            <button
+              onClick={() => handleButtonClick('orders')}
+              className={`w-full p-4 rounded flex flex-row justify-start items-center ${
+                activeButton === 'orders' ? 'bg-yellow-400' : ''
+              }`}
+            >
+              <img src={OrderIcon} alt="Orders Icon" className="w-[30px] h-[30px]" />
+              <span className="text-lg ml-2">Orders</span>
+            </button>
 
-        {/* Review Button */}
-        <button
-          onClick={() => handleButtonClick('review')}
-          className={`w-full p-4 rounded flex flex-row justify-start items-center ${
-            activeButton === 'review' ? 'bg-yellow-400' : ''
-          }`}
-        >
-          <img src={ReviewIcon} alt="" className='w-[30px] h-[30px]' />
-          <span className="text-lg">Review</span>
-        </button>
+            {/* Review Button */}
+            <button
+              onClick={() => handleButtonClick('review')}
+              className={`w-full p-4 rounded flex flex-row justify-start items-center ${
+                activeButton === 'review' ? 'bg-yellow-400' : ''
+              }`}
+            >
+              <img src={ReviewIcon} alt="Review Icon" className="w-[30px] h-[30px]" />
+              <span className="text-lg ml-2">Review</span>
+            </button>
 
-        {/* Products Button with Submenu */}
-        <div className="w-full">
-          <button
-            onClick={toggleProductMenu}
-            className={`w-full p-4 rounded flex flex-row justify-start items-center ${
-              activeButton === 'products' && !isProductOpen ? 'bg-yellow-400' : ''
-            }`}
-          >
-            <img src={ProductIcon} alt="" className='w-[30px] h-[30px]' />
-            <span className="text-lg">Products</span>
-          </button>
-
-          {/* Products Submenu */}
-          {isProductOpen && (
-            <div className="flex flex-col pl-8 space-y-2 mt-2">
+            {/* Products Button with Submenu */}
+            <div className="w-full">
               <button
-                onClick={() => handleProductOptionClick('addProduct')}
+                onClick={toggleProductMenu}
                 className={`w-full p-4 rounded flex flex-row justify-start items-center ${
-                  activeSubOption === 'addProduct' ? 'bg-yellow-400' : ''
+                  activeButton === 'products' && !isProductOpen ? 'bg-yellow-400' : ''
                 }`}
               >
-                <img src={AddProductIcon} alt="" className='w-[20px] h-[20px]' />
-                <span className="text-md ml-2">Add Product</span>
+                <img src={ProductIcon} alt="Products Icon" className="w-[30px] h-[30px]" />
+                <span className="text-lg ml-2">Products</span>
               </button>
-              <button
-                onClick={() => handleProductOptionClick('seeAllProducts')}
-                className={`w-full p-4 rounded flex flex-row justify-start items-center ${
-                  activeSubOption === 'seeAllProducts' ? 'bg-yellow-400' : ''
-                }`}
-              >
-                <img src={SeeAllProductsIcon} alt="" className='w-[20px] h-[20px]' />
-                <span className="text-md ml-2">See All Products</span>
-              </button>
+
+              {/* Products Submenu */}
+              {isProductOpen && (
+                <div className="flex flex-col pl-8 space-y-2 mt-2">
+                  <button
+                    onClick={() => handleProductOptionClick('addProduct')}
+                    className={`w-full p-4 rounded flex flex-row justify-start items-center ${
+                      activeSubOption === 'addProduct' ? 'bg-yellow-400' : ''
+                    }`}
+                  >
+                    <img src={AddProductIcon} alt="Add Product Icon" className="w-[20px] h-[20px]" />
+                    <span className="text-md ml-2">Add Product</span>
+                  </button>
+
+                  <button
+                    onClick={() => handleProductOptionClick('seeAllProducts')}
+                    className={`w-full p-4 rounded flex flex-row justify-start items-center ${
+                      activeSubOption === 'seeAllProducts' ? 'bg-yellow-400' : ''
+                    }`}
+                  >
+                    <img src={SeeAllProductsIcon} alt="See All Products Icon" className="w-[20px] h-[20px]" />
+                    <span className="text-md ml-2">See All Products</span>
+                  </button>
+                </div>
+              )}
             </div>
-          )}
-        </div>
+          </>
+        )}
+
+        {/* Superadmin-Only Options */}
+        {role === 'superadmin' && (
+          <>
+            <button
+              onClick={() => handleButtonClick('seeAllUsers')}
+              className={`w-full p-4 rounded flex flex-row justify-start items-center ${
+                activeButton === 'seeAllUsers' ? 'bg-yellow-400' : ''
+              }`}
+            >
+              <FontAwesomeIcon icon={faUsers} className="w-[30px] h-[30px]" />
+              <span className="text-lg ml-2">See All Users</span>
+            </button>
+
+            <button
+              onClick={() => handleButtonClick('seeAllStores')}
+              className={`w-full p-4 rounded flex flex-row justify-start items-center ${
+                activeButton === 'seeAllStores' ? 'bg-yellow-400' : ''
+              }`}
+            >
+              <FontAwesomeIcon icon={faStore} className="w-[30px] h-[30px]" />
+              <span className="text-lg ml-2">See All Stores</span>
+            </button>
+
+            <button
+              onClick={() => handleButtonClick('categories')}
+              className={`w-full p-4 rounded flex flex-row justify-start items-center ${
+                activeButton === 'categories' ? 'bg-yellow-400' : ''
+              }`}
+            >
+              <FontAwesomeIcon icon={faBoxes} className="w-[30px] h-[30px]" />
+              <span className="text-lg ml-2">Categories</span>
+            </button>
+
+            <button
+              onClick={() => handleButtonClick('sections')}
+              className={`w-full p-4 rounded flex flex-row justify-start items-center ${
+                activeButton === 'sections' ? 'bg-yellow-400' : ''
+              }`}
+            >
+              <FontAwesomeIcon icon={faThLarge} className="w-[30px] h-[30px]" />
+              <span className="text-lg ml-2">Sections</span>
+            </button>
+          </>
+        )}
 
         {/* Settings Button */}
         <button
@@ -300,8 +182,8 @@ const Sidebar = ({ setActiveTab }) => {
             activeButton === 'settings' ? 'bg-yellow-400' : ''
           }`}
         >
-          <img src={SettingIcon} alt="" className='w-[30px] h-[30px]' />
-          <span className="text-lg">Settings</span>
+          <FontAwesomeIcon icon={faCog} className="w-[30px] h-[30px]" />
+          <span className="text-lg ml-2">Settings</span>
         </button>
 
         {/* Exit Button */}
@@ -309,7 +191,7 @@ const Sidebar = ({ setActiveTab }) => {
           onClick={() => navigate('/')}
           className="w-full p-4 mt-6 bg-red-400 text-white rounded flex flex-row justify-start items-center"
         >
-          <img src={ExitIcon} alt="Exit Icon" className="w-[30px] h-[30px]" />
+          <FontAwesomeIcon icon={faSignOutAlt} className="w-[30px] h-[30px]" />
           <span className="text-lg ml-2">Exit</span>
         </button>
       </div>

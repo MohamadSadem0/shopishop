@@ -14,6 +14,7 @@ public class ProductResponseDTO {
 
     private Long id;
     private String name;
-    private BigDecimal
-            price;}
+    private BigDecimal price;
+    private String description;
+}
 

@@ -1,5 +1,6 @@
 package com.example.ShopiShop.servicesIMPL;
 
+import com.example.ShopiShop.dto.response.StoreResponseDTO;
 import com.example.ShopiShop.models.Location;
 import com.example.ShopiShop.models.Section;
 import com.example.ShopiShop.dto.request.StoreRequestDTO;
@@ -14,7 +15,9 @@ import com.example.ShopiShop.utils.UUIDconvertor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 
@@ -24,11 +27,12 @@ public class StoreServiceImpl {
     private final StoreRepository storeRepository;
     private final UserRepository userRepository;
     private final SectionRepository sectionRepository;
-    private  UUIDconvertor uuiDconvertor;
+    private  StoreMapper storeMapper;
+    private UUIDconvertor uuiDconvertor;
 
 
 
-    void createStore(UserSignupRequestDTO request, User user, Location location) {
+    Store createStore(UserSignupRequestDTO request, User user, Location location) {
         System.out.println("-----------------------------------------------------------1");
         System.out.println("THIS IS USER . UUID"+request.getSectionId());
 
@@ -46,7 +50,7 @@ public class StoreServiceImpl {
                 .isApproved(false)
                 .build();
 
-        storeRepository.save(store);
+        return storeRepository.save(store);
     }
 
     public Store createStore(StoreRequestDTO storeRequestDTO  ) {
@@ -74,6 +78,20 @@ public Store getStoreById(Long id){
 public Store getStoreByOwnerEmail(String email){
         return storeRepository.findByOwnerEmail(email).orElseThrow(()->new RuntimeException("store not found with id"+email));
 }
+
+    public List<StoreResponseDTO> getAllStores() {
+        // Retrieve all stores from the repository
+        List<Store> stores = storeRepository.findAll();
+
+        // Map each Store entity to StoreResponseDTO
+        return stores.stream()
+                .map(StoreMapper::toDTO) // Using the StoreMapper to convert Store to StoreResponseDTO
+                .collect(Collectors.toList());
+    }
+
+    public void deleteAllStores() {
+        storeRepository.deleteAll();
+    }
 
 
 }

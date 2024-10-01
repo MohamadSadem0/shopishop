@@ -1,7 +1,9 @@
 package com.example.ShopiShop.servicesIMPL;
 
+import com.example.ShopiShop.controllers.NotificationWebSocketController;
 import com.example.ShopiShop.dto.request.UserLoginRequestDTO;
 import com.example.ShopiShop.dto.response.UserLoginResponseDTO;
+import com.example.ShopiShop.dto.response.UserResponseDTO;
 import com.example.ShopiShop.mappers.UserMapper;
 import com.example.ShopiShop.dto.request.UserSignupRequestDTO;
 import com.example.ShopiShop.mappers.StoreMapper;
@@ -19,6 +21,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -30,8 +35,18 @@ public class UserService {
     private final UserMapper userMapper;
     private final LocationServiceImpl locationService;
     private final StoreServiceImpl storeService;
+    private final   NotificationWebSocketController notificationWebSocketController; // Inject WebSocket controller
 
 
+    public List<UserResponseDTO> retrieveAllUsers() {
+        // Retrieve all users from the repository
+        List<User> users = userRepository.findAll();
+
+        // Map each User entity to UserResponseDTO
+        return users.stream()
+                .map(UserMapper::toDTO) // Using the UserMapper to convert User to UserResponseDTO
+                .collect(Collectors.toList());
+    }
     public User register(UserSignupRequestDTO request) {
         validateSignupRequest(request);
 
@@ -47,10 +62,16 @@ public class UserService {
             System.out.println(request);
 
             Location location = locationService.createLocation(request);
-            storeService.createStore(request, user, location);
-            System.out.println(request);
-            return userRepository.save(user);
+            Store store= storeService.createStore(request, user, location);
 
+
+
+            String notificationMessage = "A new store '" + store.getName() + "' has been created by merchant '"
+                    + user.getUsername() + "'. Approval is needed.";
+
+            notificationWebSocketController.sendNotificationToSuperAdmin(notificationMessage);
+
+            return userRepository.save(user);
         }
 
         return null;
@@ -71,6 +92,7 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
+
 
 
 

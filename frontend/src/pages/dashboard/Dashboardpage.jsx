@@ -10,6 +10,8 @@ import ContentSeeAllProducts from '../../components/dashboard/options/ContentSee
 // Superadmin components
 import ContentSeeAllUsers from '../../components/dashboard/superadmin/ContentSeeAllUsers.jsx';
 import ContentSeeAllStores from '../../components/dashboard/superadmin/ContentSeeAllStores.jsx';
+import ContentCategories from '../../components/dashboard/superadmin/ContentCategories.jsx'; // New Component for Categories
+import ContentSections from '../../components/dashboard/superadmin/ContentSections.jsx'; // New Component for Sections
 
 // Your encryption key from environment variables
 const encryptionKey = process.env.REACT_APP_ENCRYPTION_KEY;
@@ -57,10 +59,14 @@ const Dashboardpage = () => {
 
   const renderSuperAdminContent = () => {
     switch (activeTab) {
-      case 'seeAllUsers': // New case for superadmin to see all users
+      case 'seeAllUsers':
         return <ContentSeeAllUsers />;
-      case 'seeAllStores': // New case for superadmin to see and approve stores
+      case 'seeAllStores':
         return <ContentSeeAllStores />;
+      case 'categories':
+        return <ContentCategories />; // New categories content
+      case 'sections':
+        return <ContentSections />; // New sections content
       case 'dashboard':
         return <ContentDashboard />; // Shared component for both roles
       default:
@@ -70,8 +76,7 @@ const Dashboardpage = () => {
 
   return (
     <div className="flex flex-row min-h-screen w-full">
-      <Sidebar setActiveTab={setActiveTab} /> {/* Pass setActiveTab */}
-
+      <Sidebar setActiveTab={setActiveTab} role={role} /> {/* Pass role to the Sidebar */}
       {/* Conditionally render content based on decrypted user role */}
       {role === 'merchant' && renderMerchantContent()}
       {role === 'superadmin' && renderSuperAdminContent()}

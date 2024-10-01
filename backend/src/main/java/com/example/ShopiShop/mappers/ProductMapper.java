@@ -43,7 +43,8 @@ public class ProductMapper {
             return new ProductResponseDTO(
                     product.getId(),
                     product.getName(),
-                    product.getPrice()
+                    product.getPrice(),
+                    product.getDescription()
             );
         }
 
