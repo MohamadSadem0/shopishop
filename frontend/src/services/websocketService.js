@@ -6,22 +6,25 @@ import { addNotification } from '../redux/actions/notificationActions';
 let stompClient = null;
 
 const connectWebSocket = () => {
-    const socket = new SockJS('http://localhost:5000/ws');  // Ensure this is the correct backend WebSocket URL
-    stompClient = Stomp.over(() => socket);  // Use factory function for SockJS
+    const socket = new SockJS('http://localhost:5000/ws');
+    stompClient = Stomp.over(socket);
 
     stompClient.connect({}, (frame) => {
-        console.log('Connected to WebSocket:', frame);  // Log connection success
+        console.log('Connected to WebSocket:', frame);
 
-        // Subscribe to a topic
         stompClient.subscribe('/topic/superadmin-notifications', (message) => {
-            console.log('Received WebSocket message:', message.body);  // Log received message
-            const notification = message.body;
-
-            // Dispatch the notification to Redux or handle it
-            store.dispatch(addNotification(notification));
+            console.log('Received WebSocket notification:', message.body);
+            // Dispatch notification to Redux or handle it
+            // Example: store.dispatch(addNotification(message.body));
         });
     }, (error) => {
-        console.error('WebSocket connection error:', error);  // Log any connection errors
+        console.error('WebSocket connection error:', error); // Log detailed error
+        if (error.headers) {
+            console.error('Error headers:', error.headers);
+        }
+        if (error.body) {
+            console.error('Error body:', error.body);
+        }
     });
 };
 

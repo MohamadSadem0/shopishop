@@ -15,12 +15,14 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")  // Allow requests from your frontend origin
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/public/auth")
 @RequiredArgsConstructor
 public class AuthenticationController {
 
     private final UserService userService;
     private final UserMapper userMapper;
+
+//    @RequestMapping("/")
 
     @PostMapping("/signup")
     public ResponseEntity<UserSignupResponseDTO> signup(@RequestBody UserSignupRequestDTO request ) {

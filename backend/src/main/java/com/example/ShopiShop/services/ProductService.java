@@ -2,16 +2,22 @@ package com.example.ShopiShop.services;
 
 import com.example.ShopiShop.dto.request.ProductRequestDTO;
 import com.example.ShopiShop.dto.response.ProductResponseDTO;
-import com.example.ShopiShop.models.Product;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface ProductService {
-    Product createProduct(ProductRequestDTO productRequestDTO);
+    ProductResponseDTO createProduct(ProductRequestDTO productRequestDTO ,UUID CategoryId);
 
-    public List<ProductResponseDTO> getProductsByStoreId(Long storeId);
+    List<ProductResponseDTO> getAllProducts();
 
+    ProductResponseDTO getProductById(UUID productId);
 
+    List<ProductResponseDTO> getProductsByCategoryId(UUID categoryId);
 
-    // Add more methods if needed, like findProduct, deleteProduct, etc.
+    List<ProductResponseDTO> getProductsByStoreId(Long storeId);
+
+    void deleteProduct(UUID productId);
+
+    ProductResponseDTO updateProduct(UUID productId, ProductRequestDTO productRequestDTO,UUID categoryId);
 }

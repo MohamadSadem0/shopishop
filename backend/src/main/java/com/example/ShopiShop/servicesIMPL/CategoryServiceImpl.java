@@ -1,10 +1,12 @@
 package com.example.ShopiShop.servicesIMPL;
 
+import com.example.ShopiShop.dto.request.CategoryRequestDTO;
 import com.example.ShopiShop.dto.response.CategoryResponseDTO;
+import com.example.ShopiShop.mappers.CategoryMapper;
 import com.example.ShopiShop.models.Category;
+import com.example.ShopiShop.models.Section;
 import com.example.ShopiShop.models.Store;
 import com.example.ShopiShop.repositories.CategoryRepository;
-import com.example.ShopiShop.models.Section;
 import com.example.ShopiShop.repositories.SectionRepository;
 import com.example.ShopiShop.services.CategoryService;
 import lombok.RequiredArgsConstructor;
@@ -19,41 +21,76 @@ import java.util.stream.Collectors;
 public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryRepository categoryRepository;
-    private final SectionRepository sectionRepository;
-    final SectionRepository storeRepository;
+    private final SectionServiceImpl sectionService;
+    private final CategoryMapper categoryMapper; // Inject CategoryMapper
+    private final StoreServiceImpl storeService;
+
+
 
 
     @Override
-    public Category createCategory(UUID sectionId, Category category) {
-        Section section = sectionRepository.findById(sectionId)
-                .orElseThrow(() -> new IllegalArgumentException("Section not found"));
-        category.setSection(section); // Set the section
-        return categoryRepository.save(category);
+    public CategoryResponseDTO createCategory(UUID sectionId, CategoryRequestDTO categoryRequest) {
+        Section section = sectionService.getSectionById(sectionId);
+        Category category = categoryMapper.toEntity(categoryRequest, section);
+        Category savedCategory = categoryRepository.save(category);
+        return categoryMapper.toResponseDTO(savedCategory);
     }
 
     @Override
-    public List<Category> getAllCategories() {
-        return categoryRepository.findAll();
+    public List<CategoryResponseDTO> getAllCategories() {
+        return categoryRepository.findAll().stream()
+                .map(categoryMapper::toResponseDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public Category getCategoryById(UUID id) {
-        return categoryRepository.findById(id)
+    public CategoryResponseDTO getCategoryById(UUID id) {
+        Category category = categoryRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Category not found"));
+        return categoryMapper.toResponseDTO(category);
     }
+    @Override
+    public List<CategoryResponseDTO> getCategoriesByStoreId(Long storeId) {
+
+
+        // Fetch the sections associated with the store
+        Section section = sectionService.getSectionByStoreId(storeId);
+
+        // Collect categories from all sections
+        List<Category> categories = section.getCategories();
+
+        // Convert Category entities to CategoryResponseDTO using the mapper
+        return categories.stream()
+                .map(categoryMapper::toResponseDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<CategoryResponseDTO> getCategoriesBySectionId(UUID sectionId) {
+        Section section = sectionService.getSectionById(sectionId);
+        return section.getCategories().stream()
+                .map(categoryMapper::toResponseDTO)
+                .collect(Collectors.toList());
+    }
+
     @Override
     public List<CategoryResponseDTO> getCategoriesBySection(Section section) {
-        List<Category> categories = categoryRepository.findBySection(section);
-
-        // Convert Category entities to DTOs
-        return categories.stream()
-                .map(category -> new CategoryResponseDTO(
-                        category.getId().toString(),
-                        category.getName(),
-                        category.getImageUrl(),
-                        category.getSection().getName() // Only get the section name
-                ))
+        return categoryRepository.findBySection(section).stream()
+                .map(categoryMapper::toResponseDTO)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public CategoryResponseDTO updateCategory(UUID id, CategoryRequestDTO categoryRequest) {
+        Category existingCategory = categoryRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Category not found"));
+
+        // Update fields from request DTO
+        existingCategory.setName(categoryRequest.getName());
+        existingCategory.setImageUrl(categoryRequest.getImageUrl());
+
+        Category updatedCategory = categoryRepository.save(existingCategory);
+        return categoryMapper.toResponseDTO(updatedCategory);
     }
 
     @Override

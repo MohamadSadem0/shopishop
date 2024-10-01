@@ -6,7 +6,7 @@ import axiosInstance from '../utils/axiosInstance';
  */
 export const fetchSections = async () => {
   try {
-    const response = await axiosInstance.get('sections');
+    const response = await axiosInstance.get('public/sections');
     return response.data; // Adjust based on actual API response structure
   } catch (error) {
     console.error('Failed to fetch sections:', error);

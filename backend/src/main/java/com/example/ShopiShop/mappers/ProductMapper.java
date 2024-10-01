@@ -23,29 +23,13 @@ public class ProductMapper {
                 .build();
     }
 
-    // Method to map Product entity to ProductRequestDTO
-
-
-    public ProductRequestDTO toDTO(Product product) {
-        return ProductRequestDTO.builder()
-                .name(product.getName())
-                .description(product.getDescription())
-                .price(product.getPrice())
-                .imageUrl(product.getImageUrl())
-                .storeId(product.getStore().getId())       // Store ID extracted
-                .categoryId(product.getCategory().getId().toString()) // Category ID extracted
-                .build();
+    // Method to map Product entity to ProductResponseDTO
+    public ProductResponseDTO toResponseDTO(Product product) {
+        return new ProductResponseDTO(
+                product.getId(),
+                product.getName(),
+                product.getPrice(),
+                product.getDescription()
+        );
     }
-
-
-
-        public ProductResponseDTO toResponseDTO(Product product) {
-            return new ProductResponseDTO(
-                    product.getId(),
-                    product.getName(),
-                    product.getPrice(),
-                    product.getDescription()
-            );
-        }
-
 }

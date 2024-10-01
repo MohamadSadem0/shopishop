@@ -8,7 +8,7 @@ import Button from "../../../components/common/Button";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../../assets/icons/logo.svg";
 import CryptoJS from "crypto-js";
-import { loginSuccess } from "../../../redux/authSlice"; // Corrected import
+import { loginSuccess } from "../../../redux/authSlice";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -24,7 +24,7 @@ const Login = () => {
     e.preventDefault();
     setLoading(true);
     setError("");
-  
+
     try {
       const response = await login({ email, password });
       const {
@@ -34,12 +34,12 @@ const Login = () => {
         role,
         phoneNumber,
         location, // Location object (available for all users)
-        store // Store object (only available for MERCHANT users)
+        store,    // Store object (only available for MERCHANT users)
       } = response.data;
-  
+
       // Normalize the role to lowercase
       const normalizedRole = role.toLowerCase();
-  
+
       // Encrypt the data and store in sessionStorage
       if (encryptionKey) {
         const encryptedToken = CryptoJS.AES.encrypt(token, encryptionKey).toString();
@@ -49,13 +49,13 @@ const Login = () => {
         const encryptedPhoneNumber = phoneNumber
           ? CryptoJS.AES.encrypt(phoneNumber, encryptionKey).toString()
           : null;
-  
+
         // Encrypt and store the location object
         const encryptedLocation = CryptoJS.AES.encrypt(
           JSON.stringify(location),
           encryptionKey
         ).toString();
-  
+
         // Store encrypted user data in sessionStorage
         sessionStorage.setItem("authToken", encryptedToken);
         sessionStorage.setItem("userEmail", encryptedUserEmail);
@@ -63,7 +63,7 @@ const Login = () => {
         sessionStorage.setItem("userRole", encryptedUserRole);
         sessionStorage.setItem("phoneNumber", encryptedPhoneNumber);
         sessionStorage.setItem("location", encryptedLocation);
-  
+
         // If the role is 'merchant', store the store-related details
         if (normalizedRole === "merchant" && store) {
           const encryptedStore = CryptoJS.AES.encrypt(
@@ -72,10 +72,14 @@ const Login = () => {
           ).toString();
           sessionStorage.setItem("store", encryptedStore);
         }
+
+        // Log stored values for debugging
+        console.log("Stored encrypted token:", sessionStorage.getItem("authToken"));
+        console.log("Stored encrypted userRole:", sessionStorage.getItem("userRole"));
       } else {
         console.error("Encryption key is missing.");
       }
-  
+
       // Dispatch login success action to update Redux state
       dispatch(
         loginSuccess({
@@ -85,12 +89,12 @@ const Login = () => {
             role: normalizedRole,
             phoneNumber,
             location,
-            store: normalizedRole === "merchant" ? store : null // Only include store if merchant
+            store: normalizedRole === "merchant" ? store : null, // Only include store if merchant
           },
           token: token,
         })
       );
-  
+
       // Navigate based on role
       if (normalizedRole === "superadmin" || normalizedRole === "merchant") {
         navigate("/dashboard");
@@ -106,7 +110,6 @@ const Login = () => {
       setLoading(false);
     }
   };
-  
 
   const handleBackToWebsite = () => {
     navigate("/");

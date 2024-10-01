@@ -10,7 +10,7 @@ const encryptionKey = process.env.REACT_APP_ENCRYPTION_KEY;
  */
 export const login = async (credentials) => {
   try {
-    const response = await axiosInstance.post('auth/login', credentials, {
+    const response = await axiosInstance.post('public/auth/login', credentials, {
       withCredentials: true,
     });
 

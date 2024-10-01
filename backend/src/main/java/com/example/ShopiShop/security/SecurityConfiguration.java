@@ -1,5 +1,6 @@
 package com.example.ShopiShop.security;
 
+import com.example.ShopiShop.enums.UserRoleEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,9 +27,11 @@ public class SecurityConfiguration {
                 .csrf(csrf -> csrf.disable())  // Disable CSRF since you are using JWT
                 .authorizeHttpRequests(authorize -> authorize
                         // Allow unauthenticated access to auth endpoints
-                        .requestMatchers("/api/**").permitAll()  // Your login and signup endpoints
+                        .requestMatchers("public/**").permitAll()  // Your login and signup endpoints
                         .requestMatchers("/oauth2/**").permitAll()    // Allow Google OAuth2 flow
                         .requestMatchers("/ws/**").permitAll()        // Allow WebSocket endpoints without authentication
+                        .requestMatchers("/superAdmin/**").hasAuthority(UserRoleEnum.SUPERADMIN.name()) // Using the enum superAdmin
+                        .requestMatchers("/merchant/**").hasAuthority(UserRoleEnum.MERCHANT.name()) // Using the enum Costumer
                         .anyRequest().authenticated()                 // All other requests require authentication
                 )
                 .cors(Customizer.withDefaults())  // Enable CORS

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axiosInstance from '../../../utils/axiosInstance';
 import CryptoJS from 'crypto-js'; // Assuming you use CryptoJS for decryption
+import { fetchProductsByStoreId } from '../../../services/productService'; // Import the service function
 
 // Your encryption key from environment variables
 const encryptionKey = process.env.REACT_APP_ENCRYPTION_KEY;
@@ -22,6 +22,17 @@ const ContentSeeAllProducts = () => {
     }
   };
 
+  // Helper function to decrypt the token
+  const decryptToken = (encryptedToken) => {
+    if (!encryptedToken || !encryptionKey) return null;
+    try {
+      return CryptoJS.AES.decrypt(encryptedToken, encryptionKey).toString(CryptoJS.enc.Utf8);
+    } catch (error) {
+      console.error("Error decrypting token:", error);
+      return null;
+    }
+  };
+
   // Fetch products when the component is mounted
   useEffect(() => {
     const fetchProducts = async () => {
@@ -33,15 +44,23 @@ const ContentSeeAllProducts = () => {
         const store = decryptStoreId(encryptedStore);
         const storeId = store?.id;
 
+        // Decrypt the JWT token from sessionStorage
+        const encryptedToken = sessionStorage.getItem('authToken');
+        // const token = decryptToken(encryptedToken);
+
         if (!storeId) {
           throw new Error("Store ID not found");
         }
+        // if (!token) {
+        //   throw new Error("JWT Token is missing or invalid");
+        // }
 
-        // Fetch products using the decrypted storeId
-        const response = await axiosInstance.get(`merchant/products/store/${storeId}`);
-        setProducts(response.data); // Assume the response contains an array of products
+        // Fetch products using the decrypted storeId and token
+        const productsData = await fetchProductsByStoreId(storeId);
+        setProducts(productsData); // Assume the response contains an array of products
       } catch (error) {
-        setError(error.response?.data?.message || 'Failed to fetch products');
+        setError(error.message || 'Failed to fetch products');
+        console.error("Error fetching products:", error);
       } finally {
         setLoading(false); // Stop loading
       }
