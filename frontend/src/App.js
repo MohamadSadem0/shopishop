@@ -8,7 +8,12 @@ import LandingPage from './pages/landingPage/LandingPage';
 import Dashboardpage from './pages/dashboard/Dashboardpage';
 import Profile from './pages/profile/Profile';
 import ProtectedRoute from './components/ProtectedRoute';
+import AllStoresPage from './pages/store/AllStoresPage'; // Import the AllStoresPage
+import StorePage from './pages/store/StorePage'; // Import the StorePage
+import ProductDetailsPage from './pages/store/ProductDetailsPage'; // Import ProductDetailsPage
 import CryptoJS from 'crypto-js'; // Import CryptoJS for decryption
+import NotificationPopup from './components/admin/NotificationPopup'; // Import reusable notification component
+import StoreDetailsPage from './pages/store/StoreDetailsPage';
 
 const App = () => {
     const notifications = useSelector((state) => state.notifications.notifications);
@@ -65,20 +70,10 @@ const App = () => {
         }
     }, [notifications]);
 
-    // Render the notification popups
     return (
         <>
-            {/* Tailwind-based notification for multiple messages */}
-            <div className="fixed top-5 right-5 space-y-2 z-50">
-                {visibleNotifications.map((notification, index) => (
-                    <div
-                        key={index}
-                        className="bg-blue-500 text-white p-4 rounded-lg shadow-lg transition-opacity duration-500"
-                    >
-                        <p>{notification}</p>
-                    </div>
-                ))}
-            </div>
+            {/* Render Notification Popups */}
+            <NotificationPopup notifications={visibleNotifications} />
 
             <Router>
                 <Routes>
@@ -93,6 +88,9 @@ const App = () => {
                         path="/profile"
                         element={<ProtectedRoute allowedRoles={['customer']} component={Profile} />}
                     />
+                    <Route path="/stores" element={<AllStoresPage />} /> {/* Add AllStoresPage route */}
+                    <Route path="/store/:storeId" element={<StoreDetailsPage />} /> {/* Add route for store details */}
+                    <Route path="/product/:productId" element={<ProductDetailsPage />} /> {/* Add ProductDetailsPage route */}
                 </Routes>
             </Router>
         </>

@@ -164,3 +164,34 @@ export const fetchProductsByStoreId = async (storeId) => {
     throw new Error(error.response?.data?.message || 'Error fetching products by store');
   }
 };
+
+
+/**
+ * Fetch all stores from the backend.
+ * @returns {Array} List of stores.
+ */
+export const fetchAllStores = async () => {
+  try {
+    const response = await axiosInstance.get('public/stores/all');
+    
+    return response.data; // Assuming response.data contains an array of stores
+  } catch (error) {
+    console.error('Failed to fetch stores:', error);
+    throw new Error('Error fetching stores');
+  }
+};
+
+/**
+ * Fetches a specific store by its ID.
+ * @param {number} storeId - The ID of the store to fetch.
+ * @returns {Object} The store data.
+ */
+export const fetchStoreById = async (storeId) => {
+  try {
+    const response = await axiosInstance.get(`/public/stores/${storeId}`);
+    return response.data; // Assuming response.data contains the store details
+  } catch (error) {
+    console.error('Failed to fetch store by ID:', error);
+    throw new Error(error.response?.data?.message || 'Error fetching store');
+  }
+};

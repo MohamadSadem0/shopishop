@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import CryptoJS from 'crypto-js'; // Assuming you use CryptoJS for decryption
-import { fetchProductsByStoreId } from '../../../services/productService'; // Import the service function
+import { fetchProductsByStoreId } from '../../../services/fetchingService'; // Import the service function
 
 // Your encryption key from environment variables
 const encryptionKey = process.env.REACT_APP_ENCRYPTION_KEY;

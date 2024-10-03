@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import CryptoJS from 'crypto-js'; // Import CryptoJS for decryption
-import { fetchCategoriesByStoreId, addProduct } from '../../../services/productService'; // Import the service functions
+import { fetchCategoriesByStoreId, addProduct } from '../../../services/fetchingService'; // Import the service functions
 import Button from '../../../components/common/Button';
 import Input from '../../../components/common/Input'; // Use the new Input component
 import Spinner from '../../../components/common/Spinner';
