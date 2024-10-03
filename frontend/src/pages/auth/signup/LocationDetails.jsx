@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import Input from '../../../components/common/Input';
 import Button from '../../../components/common/Button';
@@ -26,6 +26,7 @@ const LocationDetails = ({
   const [currentPosition, setCurrentPosition] = useState({ lat: 40.712776, lng: -74.005974 }); // Default to New York City
   const [markerPosition, setMarkerPosition] = useState(null); // State to control the marker position
   const [errorMessage, setErrorMessage] = useState(''); // State to store error messages
+  const [mapKey, setMapKey] = useState(0); // To force re-render of the map
 
   // Handle map click to update latitude, longitude, and marker position
   const handleMapClick = (event) => {
@@ -65,9 +66,12 @@ const LocationDetails = ({
 
   const mapCenter = currentPosition;
 
-  // Toggle the map modal visibility
+  // Toggle the map modal visibility and force re-render of the map
   const toggleMapModal = () => {
     setIsMapOpen(!isMapOpen);
+    if (!isMapOpen) {
+      setMapKey((prevKey) => prevKey + 1); // Change the key to force re-render of the map
+    }
   };
 
   return (
@@ -132,6 +136,7 @@ const LocationDetails = ({
           <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
             <div className="bg-white p-6 rounded-lg shadow-lg relative">
               <GoogleMap
+                key={mapKey} // Force re-render by changing the key
                 mapContainerStyle={containerStyle}
                 center={mapCenter}
                 zoom={12}

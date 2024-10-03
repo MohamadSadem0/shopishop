@@ -1,11 +1,9 @@
-// src/hooks/useForm.js
 import { useState } from 'react';
 
-export const useForm = (initialState = {}) => {
-  const [values, setValues] = useState(initialState);
-  const [step, setStep] = useState(1); // Step management
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+export const useForm = (initialState) => {
+  const [values, setValues] = useState(initialState);  // Form values
+  const [loading, setLoading] = useState(false);       // Loading state
+  const [error, setError] = useState('');              // Error state
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -15,21 +13,12 @@ export const useForm = (initialState = {}) => {
     });
   };
 
-  const nextStep = () => setStep(step + 1);
-  const prevStep = () => setStep(step - 1);
-  const resetForm = () => setValues(initialState);
-
   return {
     values,
-    setValues,
     handleChange,
-    nextStep,
-    prevStep,
-    resetForm,
-    step,
     loading,
-    setLoading,
+    setLoading,      // Ensure setLoading is returned
     error,
-    setError,
+    setError,        // Ensure setError is returned
   };
 };

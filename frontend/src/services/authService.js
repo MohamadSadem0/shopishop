@@ -44,7 +44,7 @@ export const fetchServiceSections = async () => {
  */
 export const signup = async (userDetails) => {
   try {
-    const response = await axiosInstance.post('auth/signup', userDetails, {
+    const response = await axiosInstance.post('public/auth/signup', userDetails, {
       withCredentials: true, // Ensure cookies are sent with requests
     });
 
