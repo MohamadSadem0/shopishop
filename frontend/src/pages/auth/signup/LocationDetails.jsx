@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import React, { useState } from 'react';
+import { GoogleMap, Marker } from '@react-google-maps/api';
 import Input from '../../../components/common/Input';
 import Button from '../../../components/common/Button';
 import { FaMapMarkerAlt } from 'react-icons/fa';
@@ -26,7 +26,6 @@ const LocationDetails = ({
   const [currentPosition, setCurrentPosition] = useState({ lat: 40.712776, lng: -74.005974 }); // Default to New York City
   const [markerPosition, setMarkerPosition] = useState(null); // State to control the marker position
   const [errorMessage, setErrorMessage] = useState(''); // State to store error messages
-  const [mapKey, setMapKey] = useState(0); // To force re-render of the map
 
   // Handle map click to update latitude, longitude, and marker position
   const handleMapClick = (event) => {
@@ -66,12 +65,9 @@ const LocationDetails = ({
 
   const mapCenter = currentPosition;
 
-  // Toggle the map modal visibility and force re-render of the map
+  // Toggle the map modal visibility
   const toggleMapModal = () => {
     setIsMapOpen(!isMapOpen);
-    if (!isMapOpen) {
-      setMapKey((prevKey) => prevKey + 1); // Change the key to force re-render of the map
-    }
   };
 
   return (
@@ -125,54 +121,46 @@ const LocationDetails = ({
         </Button>
       </div>
 
-      {/* Load Google Maps Script only once */}
-      <LoadScript
-        googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}
-        onLoad={() => console.log('Google Maps script loaded successfully!')}
-        onError={() => console.log('Failed to load Google Maps script!')}
-      >
-        {/* Map modal for picking the location */}
-        {isMapOpen && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
-            <div className="bg-white p-6 rounded-lg shadow-lg relative">
-              <GoogleMap
-                key={mapKey} // Force re-render by changing the key
-                mapContainerStyle={containerStyle}
-                center={mapCenter}
-                zoom={12}
-                onClick={handleMapClick} // Handle map clicks to place the marker
-                options={{
-                  fullscreenControl: false, // Disable fullscreen control
-                  mapTypeControl: false, // Disable map type control
-                  streetViewControl: false, // Disable street view control
-                  zoomControl: true, // Enable zoom control
-                }}
+      {/* Map modal for picking the location */}
+      {isMapOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+          <div className="bg-white p-6 rounded-lg shadow-lg relative">
+            <GoogleMap
+              mapContainerStyle={containerStyle}
+              center={mapCenter}
+              zoom={12}
+              onClick={handleMapClick} // Handle map clicks to place the marker
+              options={{
+                fullscreenControl: false, // Disable fullscreen control
+                mapTypeControl: false, // Disable map type control
+                streetViewControl: false, // Disable street view control
+                zoomControl: true, // Enable zoom control
+              }}
+            >
+              {/* Place a marker on the map at the selected location */}
+              {markerPosition && <Marker position={markerPosition} />}
+            </GoogleMap>
+            <div className="flex justify-between mt-4">
+              <button
+                type="button"
+                className="bg-gray-500 text-white px-4 py-2 rounded"
+                onClick={toggleMapModal}
               >
-                {/* Place a marker on the map at the selected location */}
-                {markerPosition && <Marker position={markerPosition} />}
-              </GoogleMap>
-              <div className="flex justify-between mt-4">
-                <button
-                  type="button"
-                  className="bg-gray-500 text-white px-4 py-2 rounded"
-                  onClick={toggleMapModal}
-                >
-                  Close Map
-                </button>
-                <button
-                  type="button"
-                  className="bg-yellow-500 text-white px-4 py-2 rounded"
-                  onClick={detectCurrentLocation} // Detect the user's current location
-                >
-                  Detect My Location
-                </button>
-              </div>
-              {/* Display any error message */}
-              {errorMessage && <p className="text-red-500 mt-4 text-center">{errorMessage}</p>}
+                Close Map
+              </button>
+              <button
+                type="button"
+                className="bg-yellow-500 text-white px-4 py-2 rounded"
+                onClick={detectCurrentLocation} // Detect the user's current location
+              >
+                Detect My Location
+              </button>
             </div>
+            {/* Display any error message */}
+            {errorMessage && <p className="text-red-500 mt-4 text-center">{errorMessage}</p>}
           </div>
-        )}
-      </LoadScript>
+        </div>
+      )}
 
       <div className="flex justify-between mt-4">
         <Button
