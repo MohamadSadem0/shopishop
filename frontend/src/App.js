@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import websocketService from './services/websocketService'; 
+import websocketService from './services/websocketService';
 import Login from './pages/auth/login/Login';
 import Signup from './pages/auth/signup/Signup';
 import LandingPage from './pages/landingPage/LandingPage';
@@ -15,6 +13,7 @@ import CryptoJS from 'crypto-js'; // Import CryptoJS for decryption
 const App = () => {
     const notifications = useSelector((state) => state.notifications.notifications);
     const [userRole, setUserRole] = useState(null); // State to store decrypted user role
+    const [visibleNotifications, setVisibleNotifications] = useState([]); // State to handle multiple notifications
 
     const encryptionKey = process.env.REACT_APP_ENCRYPTION_KEY; // Encryption key
 
@@ -39,7 +38,7 @@ const App = () => {
 
         // Only connect to WebSocket if the user is a superadmin
         if (decryptedRole === 'superadmin') {
-            websocketService.connectWebSocket();
+            websocketService.connectWebSocket();  // Connect WebSocket without passing handlers
         }
 
         // Cleanup WebSocket connection on unmount
@@ -48,21 +47,39 @@ const App = () => {
         };
     }, []);  // Runs once on component mount
 
+    // Watch for new notifications in Redux and add them to the visible notifications
     useEffect(() => {
-        if (userRole === 'superadmin' && notifications.length > 0) {
+        if (notifications.length > 0) {
             const latestNotification = notifications[notifications.length - 1];
             console.log('Displaying notification:', latestNotification);
 
-            // Show toast notification for the latest message
-            toast.info(`New Notification: ${latestNotification}`, {
-                position: 'top-right',
-                autoClose: 5000,
-            });
-        }
-    }, [notifications, userRole]);  // Only runs when notifications or userRole changes
+            // Add the new notification to the visible list
+            setVisibleNotifications((prevNotifications) => [...prevNotifications, latestNotification]);
 
+            // Remove the notification after 5 seconds
+            setTimeout(() => {
+                setVisibleNotifications((prevNotifications) =>
+                    prevNotifications.filter((n) => n !== latestNotification)
+                );
+            }, 5000);  // Remove after 5 seconds
+        }
+    }, [notifications]);
+
+    // Render the notification popups
     return (
         <>
+            {/* Tailwind-based notification for multiple messages */}
+            <div className="fixed top-5 right-5 space-y-2 z-50">
+                {visibleNotifications.map((notification, index) => (
+                    <div
+                        key={index}
+                        className="bg-blue-500 text-white p-4 rounded-lg shadow-lg transition-opacity duration-500"
+                    >
+                        <p>{notification}</p>
+                    </div>
+                ))}
+            </div>
+
             <Router>
                 <Routes>
                     <Route path="/login" element={<Login />} />
@@ -78,9 +95,6 @@ const App = () => {
                     />
                 </Routes>
             </Router>
-
-            {/* Toast Notification Container */}
-            <ToastContainer />
         </>
     );
 };

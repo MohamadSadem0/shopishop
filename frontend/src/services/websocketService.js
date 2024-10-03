@@ -12,10 +12,13 @@ const connectWebSocket = () => {
     stompClient.connect({}, (frame) => {
         console.log('Connected to WebSocket:', frame);
 
+        // Subscribe to the superadmin notifications topic
         stompClient.subscribe('/topic/superadmin-notifications', (message) => {
-            console.log('Received WebSocket notification:', message.body);
-            // Dispatch notification to Redux or handle it
-            // Example: store.dispatch(addNotification(message.body));
+            const notificationMessage = message.body;
+            console.log('Received WebSocket notification:', notificationMessage);
+
+            // Dispatch notification to Redux store
+            store.dispatch(addNotification(notificationMessage));
         });
     }, (error) => {
         console.error('WebSocket connection error:', error); // Log detailed error
