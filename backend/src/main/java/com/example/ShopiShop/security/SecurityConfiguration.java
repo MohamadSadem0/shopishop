@@ -30,7 +30,7 @@ public class SecurityConfiguration {
                         .requestMatchers("public/**").permitAll()  // Your login and signup endpoints
                         .requestMatchers("/oauth2/**").permitAll()    // Allow Google OAuth2 flow
                         .requestMatchers("/ws/**").permitAll()        // Allow WebSocket endpoints without authentication
-                        .requestMatchers("/superAdmin/**").hasAuthority(UserRoleEnum.SUPERADMIN.name()) // Using the enum superAdmin
+                        .requestMatchers("/admin/**").hasAuthority(UserRoleEnum.SUPERADMIN.name()) // Using the enum superAdmin
                         .requestMatchers("/merchant/**").hasAuthority(UserRoleEnum.MERCHANT.name()) // Using the enum Costumer
                         .anyRequest().authenticated()                 // All other requests require authentication
                 )

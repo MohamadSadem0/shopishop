@@ -132,11 +132,20 @@ public class DataLoader implements CommandLineRunner {
     private final StoreServiceImpl storeService;
     private final PasswordEncoder passwordEncoder;
     private final LocationRepository locationRepository;
+    private final ProductRepository productRepository;
+
 
     @Override
     public void run(String... args) throws Exception {
 
         // Check if a user with the given email already exists
+        storeRepository.deleteAll();
+        locationRepository.deleteAll();
+        categoryRepository.deleteAll();
+        sectionRepository.deleteAll();
+        userRepository.deleteAll();
+        productRepository.deleteAll();
+
 
 
         // Predefined sections with images

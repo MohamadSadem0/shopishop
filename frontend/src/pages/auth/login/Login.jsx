@@ -98,6 +98,7 @@ const Login = () => {
       // Navigate based on role
       if (normalizedRole === "superadmin" || normalizedRole === "merchant") {
         navigate("/dashboard");
+        
       } else if (normalizedRole === "customer") {
         navigate("/profile");
       } else {

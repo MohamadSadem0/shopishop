@@ -57,6 +57,8 @@ public class UserService {
 
         } else if (request.getRole() == UserRoleEnum.MERCHANT) {
             User user = createUser(request);
+
+            notificationService.sendNotificationToSuperAdmin("New merchant registered: " + request.getEmail());
             Location location = locationService.createLocation(request);
             Store store = storeService.createStore(request, user, location);
 
@@ -101,8 +103,7 @@ public class UserService {
 
         return switch (user.getUserRole()) {
             case CUSTOMER -> buildCustomerLoginResponse(jwtToken, user, locationDTO);
-            case MERCHANT -> buildMerchantLoginResponse(jwtToken, user);
-            case SUPERADMIN -> buildMerchantLoginResponse(jwtToken, user);
+            case MERCHANT, SUPERADMIN -> buildMerchantLoginResponse(jwtToken, user);
             default -> throw new IllegalArgumentException("Unsupported role: " + user.getUserRole());
         };
     }
@@ -133,25 +134,40 @@ public class UserService {
     }
 
     private UserLoginResponseDTO buildMerchantLoginResponse(String jwtToken, User user) {
-        Store store = storeService.getStoreByOwnerEmail(user.getEmail());
-        Location location = store.getLocation();
+        if (user.getUserRole() == UserRoleEnum.SUPERADMIN) {
+            // Superadmin doesn't need a store
+            return new UserLoginResponseDTO(
+                    jwtToken,
+                    user.getEmail(),
+                    user.getUserRole(),
+                    user.getUsername(),
+                    user.getPhoneNumber(),
+                    null,  // No location for superadmin
+                    null   // No store for superadmin
+            );
+        } else {
+            // Continue with merchant logic
+            Store store = storeService.getStoreByOwnerEmail(user.getEmail());
+            Location location = store.getLocation();
 
-        return new UserLoginResponseDTO(
-                jwtToken,
-                user.getEmail(),
-                user.getUserRole(),
-                user.getUsername(),
-                user.getPhoneNumber(),
-                new UserLoginResponseDTO.LocationDTO(
-                        location.getAddressLine(),
-                        location.getCity(),
-                        location.getState(),
-                        location.getZipCode(),
-                        location.getCountry(),
-                        location.getLatitude(),
-                        location.getLongitude()
-                ),
-                StoreMapper.toDTO(store)
-        );
+            return new UserLoginResponseDTO(
+                    jwtToken,
+                    user.getEmail(),
+                    user.getUserRole(),
+                    user.getUsername(),
+                    user.getPhoneNumber(),
+                    new UserLoginResponseDTO.LocationDTO(
+                            location.getAddressLine(),
+                            location.getCity(),
+                            location.getState(),
+                            location.getZipCode(),
+                            location.getCountry(),
+                            location.getLatitude(),
+                            location.getLongitude()
+                    ),
+                    StoreMapper.toDTO(store)
+            );
+        }
     }
+
 }
