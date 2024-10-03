@@ -95,7 +95,7 @@ const Login = () => {
         })
       );
 
-      // Navigate based on role
+      // Navigate based on role and reload the page
       if (normalizedRole === "superadmin" || normalizedRole === "merchant") {
         navigate("/dashboard");
         
@@ -104,6 +104,10 @@ const Login = () => {
       } else {
         navigate("/unauthorized");
       }
+
+      // Reload the page after successful login and navigation
+      window.location.reload();
+
     } catch (err) {
       console.error("Login error:", err.response || err.message);
       setError("Failed to login. Please check your credentials.");
@@ -111,6 +115,7 @@ const Login = () => {
       setLoading(false);
     }
   };
+
 
   const handleBackToWebsite = () => {
     navigate("/");

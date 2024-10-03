@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { subscribeToNotifications, disconnectSocket, connectSocket } from './services/socketService'; 
+import websocketService from './services/websocketService'; 
 import Login from './pages/auth/login/Login';
 import { io } from 'socket.io-client';
 
@@ -16,48 +16,68 @@ import CryptoJS from 'crypto-js'; // Import CryptoJS for decryption
 
 
 const App = () => {
-    const [notifications, setNotifications] = useState([]);
+    const notifications = useSelector((state) => state.notifications.notifications);
+    const [userRole, setUserRole] = useState(null); // State to store decrypted user role
 
-    // Retrieve the encryption key from environment variables
-    const encryptionKey = process.env.REACT_APP_ENCRYPTION_KEY;
+    const encryptionKey = process.env.REACT_APP_ENCRYPTION_KEY; // Encryption key
 
-    // Function to decrypt the token
-    const decryptToken = (encryptedToken) => {
-        const bytes = CryptoJS.AES.decrypt(encryptedToken, encryptionKey);  // Use the environment variable as the passphrase
-        return bytes.toString(CryptoJS.enc.Utf8);  // Convert the decrypted bytes to a UTF-8 string (the original JWT)
+    // Decrypt user role from sessionStorage
+    const decryptRole = (encryptedRole) => {
+        if (!encryptedRole || !encryptionKey) return null;
+        try {
+            const bytes = CryptoJS.AES.decrypt(encryptedRole, encryptionKey);
+            return bytes.toString(CryptoJS.enc.Utf8); // Decrypted role as plain text
+        } catch (error) {
+            console.error("Error decrypting role:", error);
+            return null;
+        }
     };
 
     useEffect(() => {
-        // Retrieve the encrypted token from sessionStorage
-        const encryptedToken = sessionStorage.getItem('authToken');
+        // Get encrypted role from sessionStorage and decrypt it
+        const encryptedRole = sessionStorage.getItem('userRole'); // Assuming the role is encrypted in sessionStorage
+        const decryptedRole = decryptRole(encryptedRole); // Decrypt the role
+        setUserRole(decryptedRole); // Set the decrypted role
+        console.log("Decrypted Role: " + decryptedRole); // Log the decrypted role
 
-        if (encryptedToken) {
-            // Decrypt the token
-            const decryptedToken = decryptToken(encryptedToken);
-
-            // Establish the WebSocket connection using the decrypted token
-            const socket = io("http://localhost:9094", {
-                auth: {
-                    token: decryptedToken  // Use the decrypted JWT token in the WebSocket handshake
-                }
-            });
-
-            // Listen for notifications from the server
-            socket.on('notification', (message) => {
-                setNotifications((prevNotifications) => [...prevNotifications, message]);
-                alert(`New merchant login: ${message}`);
-            });
-
-            // Clean up the socket connection when the component unmounts
-            return () => {
-                socket.off('notification');
-                socket.disconnect();
-            };
+        // Only connect to WebSocket if the user is a superadmin
+        if (decryptedRole === 'superadmin') {
+            websocketService.connectWebSocket();
         }
-    }, [encryptionKey]); 
+
+        // Cleanup WebSocket connection on unmount
+        return () => {
+            websocketService.disconnectWebSocket();
+        };
+    }, []);  // Runs once on component mount
+
+    useEffect(() => {
+        if (userRole === 'superadmin' && notifications.length > 0) {
+            const latestNotification = notifications[notifications.length - 1];
+            console.log('Displaying notification:', latestNotification);
+
+            // Show toast notification for the latest message
+            toast.info(`New Notification: ${latestNotification}`, {
+                position: 'top-right',
+                autoClose: 5000,
+            });
+        }
+    }, [notifications, userRole]);  // Only runs when notifications or userRole changes
 
     return (
         <>
+            {/* Tailwind-based notification for multiple messages */}
+            <div className="fixed top-5 right-5 space-y-2 z-50">
+                {visibleNotifications.map((notification, index) => (
+                    <div
+                        key={index}
+                        className="bg-blue-500 text-white p-4 rounded-lg shadow-lg transition-opacity duration-500"
+                    >
+                        <p>{notification}</p>
+                    </div>
+                ))}
+            </div>
+
             <Router>
                 <Routes>
                     <Route path="/login" element={<Login />} />
@@ -74,11 +94,8 @@ const App = () => {
                 </Routes>
             </Router>
 
-            <ul>
-                {notifications.map((notification, index) => (
-                    <li key={index}>{notification}</li>
-                ))}
-            </ul>
+            {/* Toast Notification Container */}
+            <ToastContainer />
         </>
     );
 };
