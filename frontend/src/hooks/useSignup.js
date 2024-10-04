@@ -1,37 +1,45 @@
-// src/hooks/useSignup.js
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { loginSuccess as loginAction } from '../redux/authSlice';
 import { signup } from '../services/authService';
-import { loginSuccess } from '../redux/authSlice';
+import { useNavigate } from 'react-router-dom';
 
 export const useSignup = () => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleSignup = async (values, setLoading, setError) => {
+  const handleSignup = async (userDetails) => {
     setLoading(true);
     setError('');
+    setSuccess(false);
 
     try {
-      const response = await signup(values);
-      const { token, email, username, role, phoneNumber, location, store } = response.data;
+      const response = await signup(userDetails);
+      if (response && response.message === 'User registered successfully') {
+        setSuccess(true);
+        dispatch(loginAction({ user: response.userId }));
 
-      dispatch(loginSuccess({ user: { email, username, role, phoneNumber, location, store }, token }));
-
-      if (role === 'merchant') {
-        navigate('/merchant-dashboard');
-      } else {
-        navigate('/profile');
+        setTimeout(() => navigate('/login'), 2000);
       }
-
-      window.location.reload();
     } catch (err) {
-      console.error('Signup error:', err.response || err.message);
-      setError('Signup failed. Please check your details.');
+      if (err.response) {
+        if (err.response.status === 409) {
+          setError('The email is already in use. Please try another one.');
+        } else if (err.response.status >= 400 && err.response.status < 500) {
+          setError('Failed to sign up. Please check your details.');
+        } else if (err.response.status >= 500) {
+          setError('Server error. Please try again later.');
+        }
+      } else {
+        setError('Failed to sign up. Please check your internet connection.');
+      }
     } finally {
       setLoading(false);
     }
   };
 
-  return { handleSignup };
+  return { handleSignup, loading, error, success };
 };

@@ -6,7 +6,7 @@ import { addNotification } from '../redux/actions/notificationActions';
 let stompClient = null;
 
 const connectWebSocket = () => {
-    const socket = new SockJS('http://localhost:5000/ws');
+    const socket = new SockJS(process.env.REACT_APP_WEBSOCKET_URL);
     stompClient = Stomp.over(socket);
 
     stompClient.connect({}, (frame) => {
