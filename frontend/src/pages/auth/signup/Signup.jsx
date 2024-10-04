@@ -235,7 +235,7 @@ import logo from '../../../assets/icons/logo.svg';
 
 const Signup = () => {
   const { handleSignup, loading, error, success } = useSignup();
-  const navigate = useNavigate();
+  const navigate = useNavigate(); 
 
   const [currentStep, setCurrentStep] = useState(1);
   const [userType, setUserType] = useState('Customer');

@@ -68,3 +68,14 @@ export const logout = async () => {
     throw new Error(errorMessage);
   }
 };
+
+export const handleGoogleAuth = async (payload) => {
+  try {
+    const response = await axiosInstance.post('/auth/google', payload); // Adjust the endpoint to match your backend
+    if (response.data.token) {
+      sessionStorage.setItem('token', response.data.token); // Store JWT for further authentication
+    }
+  } catch (error) {
+    console.error('Error during Google authentication', error);
+  }
+};
