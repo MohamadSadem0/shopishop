@@ -1,68 +1,60 @@
 import React, { useState, useEffect } from 'react';
-import axiosInstance from '../../../utils/axiosInstance';
+import { fetchAllStores, approveStore } from '../../../services/fetchingService'; // Import the API calls
+import StoreCard from '../cards/StoreCard'; // Import the store card component
 
 const ContentSeeAllStores = () => {
   const [stores, setStores] = useState([]);
   const [error, setError] = useState('');
 
-  useEffect(() => {
-    const fetchStores = async () => {
-      try {
-        const response = await axiosInstance.get('/superadmin/stores'); // Adjust API endpoint
-        setStores(response.data);
-      } catch (error) {
-        setError('Failed to fetch stores');
-      }
-    };
-
-    fetchStores();
-  }, []);
-
-  const approveStore = async (storeId) => {
+  // Fetch all stores from the backend
+  const fetchStores = async () => {
     try {
-      await axiosInstance.post(`/superadmin/stores/${storeId}/approve`);
-      // Re-fetch the stores after approval
-      setStores((prevStores) => prevStores.filter(store => store.id !== storeId));
-    } catch (error) {
-      console.error('Failed to approve store', error);
+      const fetchedStores = await fetchAllStores();
+      setStores(fetchedStores);
+    } catch (err) {
+      setError('Failed to fetch stores');
     }
   };
 
+  useEffect(() => {
+    fetchStores(); // Fetch stores when the component mounts
+  }, []);
+
+  // Handle approval of the store
+  const handleApproveStore = async (storeId) => {
+    try {
+      await approveStore(storeId); // Approve the store in the backend
+      fetchStores(); // Refetch the stores after approving to get updated status
+    } catch (err) {
+      setError('Failed to approve store');
+    }
+  };
+
+  const handleViewDetails = (storeId) => {
+    console.log(`View details for store ID: ${storeId}`);
+    // Handle viewing details of the store
+  };
+
   return (
-    <div className="p-8 w-full bg-gray-100">
+    <div className="p-8 w-full bg-[#F7F9EB]">
       <h2 className="text-2xl font-bold mb-8">All Stores</h2>
-      {error && <p className="text-red-500">{error}</p>}
-      {stores.length === 0 ? <p>No stores available.</p> : (
-        <table className="min-w-full bg-white rounded-lg shadow-md">
-          <thead>
-            <tr>
-              <th className="py-2 px-4 border-b">Store Name</th>
-              <th className="py-2 px-4 border-b">Owner</th>
-              <th className="py-2 px-4 border-b">Status</th>
-              <th className="py-2 px-4 border-b">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {stores.map((store) => (
-              <tr key={store.id}>
-                <td className="py-2 px-4 border-b">{store.name}</td>
-                <td className="py-2 px-4 border-b">{store.owner.username}</td>
-                <td className="py-2 px-4 border-b">{store.approved ? 'Approved' : 'Pending'}</td>
-                <td className="py-2 px-4 border-b">
-                  {!store.approved && (
-                    <button
-                      onClick={() => approveStore(store.id)}
-                      className="bg-green-500 text-white px-4 py-2 rounded"
-                    >
-                      Approve
-                    </button>
-                  )}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
+      {error && <p className="text-red-500 mb-4">{error}</p>}
+
+      <div className="flex flex-wrap">
+        {stores.length === 0 ? (
+          <p>No stores available.</p>
+        ) : (
+          stores.map((store) => (
+            <StoreCard
+              key={store.id}
+              store={store}
+              onViewDetails={handleViewDetails}
+              onApprove={handleApproveStore} // Pass the approval handler to StoreCard
+              
+            />
+          ))
+        )}
+      </div>
     </div>
   );
 };

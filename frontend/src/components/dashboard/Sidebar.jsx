@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+// Sidebar.jsx
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUsers, faStore, faThLarge, faBoxes, faSignOutAlt, faCog } from '@fortawesome/free-solid-svg-icons';
@@ -38,17 +39,16 @@ const Sidebar = ({ setActiveTab, role }) => {
   };
 
   return (
-    <div className="w-auto min-h-screen bg-white px-6 top-0 left-0">
+    <div className="w-64 fixed top-0 left-0 h-screen bg-white shadow-md px-6">
       <div className="p-4">
         <img src={Logo} alt="logo" className="max-w-[225.86px] max-h-[158px]" />
       </div>
-      <div className="flex flex-col items-center space-y-6 mt-8">
+      <div className="flex flex-col items-start space-y-6 mt-8">
         {/* Dashboard Button */}
         <button
           onClick={() => handleButtonClick('dashboard')}
-          className={`w-full p-4 rounded flex flex-row justify-start items-center ${
-            activeButton === 'dashboard' ? 'bg-yellow-400' : ''
-          }`}
+          className={`w-full p-4 rounded flex flex-row justify-start items-center ${activeButton === 'dashboard' ? 'bg-yellow-400' : ''
+            }`}
         >
           <img src={DashboardIcon} alt="Dashboard Icon" className="w-[30px] h-[30px]" />
           <span className="text-lg ml-2">Dashboard</span>
@@ -60,9 +60,8 @@ const Sidebar = ({ setActiveTab, role }) => {
             {/* Analytics Button */}
             <button
               onClick={() => handleButtonClick('analytics')}
-              className={`w-full p-4 rounded flex flex-row justify-start items-center ${
-                activeButton === 'analytics' ? 'bg-yellow-400' : ''
-              }`}
+              className={`w-full p-4 rounded flex flex-row justify-start items-center ${activeButton === 'analytics' ? 'bg-yellow-400' : ''
+                }`}
             >
               <img src={AnalyticIcon} alt="Analytics Icon" className="w-[30px] h-[30px]" />
               <span className="text-lg ml-2">Analytics</span>
@@ -71,32 +70,19 @@ const Sidebar = ({ setActiveTab, role }) => {
             {/* Orders Button */}
             <button
               onClick={() => handleButtonClick('orders')}
-              className={`w-full p-4 rounded flex flex-row justify-start items-center ${
-                activeButton === 'orders' ? 'bg-yellow-400' : ''
-              }`}
+              className={`w-full p-4 rounded flex flex-row justify-start items-center ${activeButton === 'orders' ? 'bg-yellow-400' : ''
+                }`}
             >
               <img src={OrderIcon} alt="Orders Icon" className="w-[30px] h-[30px]" />
               <span className="text-lg ml-2">Orders</span>
-            </button>
-
-            {/* Review Button */}
-            <button
-              onClick={() => handleButtonClick('review')}
-              className={`w-full p-4 rounded flex flex-row justify-start items-center ${
-                activeButton === 'review' ? 'bg-yellow-400' : ''
-              }`}
-            >
-              <img src={ReviewIcon} alt="Review Icon" className="w-[30px] h-[30px]" />
-              <span className="text-lg ml-2">Review</span>
             </button>
 
             {/* Products Button with Submenu */}
             <div className="w-full">
               <button
                 onClick={toggleProductMenu}
-                className={`w-full p-4 rounded flex flex-row justify-start items-center ${
-                  activeButton === 'products' && !isProductOpen ? 'bg-yellow-400' : ''
-                }`}
+                className={`w-full p-4 rounded flex flex-row justify-start items-center ${activeButton === 'products' && !isProductOpen ? 'bg-yellow-400' : ''
+                  }`}
               >
                 <img src={ProductIcon} alt="Products Icon" className="w-[30px] h-[30px]" />
                 <span className="text-lg ml-2">Products</span>
@@ -107,9 +93,8 @@ const Sidebar = ({ setActiveTab, role }) => {
                 <div className="flex flex-col pl-8 space-y-2 mt-2">
                   <button
                     onClick={() => handleProductOptionClick('addProduct')}
-                    className={`w-full p-4 rounded flex flex-row justify-start items-center ${
-                      activeSubOption === 'addProduct' ? 'bg-yellow-400' : ''
-                    }`}
+                    className={`w-full p-4 rounded flex flex-row justify-start items-center ${activeSubOption === 'addProduct' ? 'bg-yellow-400' : ''
+                      }`}
                   >
                     <img src={AddProductIcon} alt="Add Product Icon" className="w-[20px] h-[20px]" />
                     <span className="text-md ml-2">Add Product</span>
@@ -117,9 +102,8 @@ const Sidebar = ({ setActiveTab, role }) => {
 
                   <button
                     onClick={() => handleProductOptionClick('seeAllProducts')}
-                    className={`w-full p-4 rounded flex flex-row justify-start items-center ${
-                      activeSubOption === 'seeAllProducts' ? 'bg-yellow-400' : ''
-                    }`}
+                    className={`w-full p-4 rounded flex flex-row justify-start items-center ${activeSubOption === 'seeAllProducts' ? 'bg-yellow-400' : ''
+                      }`}
                   >
                     <img src={SeeAllProductsIcon} alt="See All Products Icon" className="w-[20px] h-[20px]" />
                     <span className="text-md ml-2">See All Products</span>
@@ -135,9 +119,8 @@ const Sidebar = ({ setActiveTab, role }) => {
           <>
             <button
               onClick={() => handleButtonClick('seeAllUsers')}
-              className={`w-full p-4 rounded flex flex-row justify-start items-center ${
-                activeButton === 'seeAllUsers' ? 'bg-yellow-400' : ''
-              }`}
+              className={`w-full p-4 rounded flex flex-row justify-start items-center ${activeButton === 'seeAllUsers' ? 'bg-yellow-400' : ''
+                }`}
             >
               <FontAwesomeIcon icon={faUsers} className="w-[30px] h-[30px]" />
               <span className="text-lg ml-2">See All Users</span>
@@ -145,9 +128,8 @@ const Sidebar = ({ setActiveTab, role }) => {
 
             <button
               onClick={() => handleButtonClick('seeAllStores')}
-              className={`w-full p-4 rounded flex flex-row justify-start items-center ${
-                activeButton === 'seeAllStores' ? 'bg-yellow-400' : ''
-              }`}
+              className={`w-full p-4 rounded flex flex-row justify-start items-center ${activeButton === 'seeAllStores' ? 'bg-yellow-400' : ''
+                }`}
             >
               <FontAwesomeIcon icon={faStore} className="w-[30px] h-[30px]" />
               <span className="text-lg ml-2">See All Stores</span>
@@ -155,9 +137,8 @@ const Sidebar = ({ setActiveTab, role }) => {
 
             <button
               onClick={() => handleButtonClick('categories')}
-              className={`w-full p-4 rounded flex flex-row justify-start items-center ${
-                activeButton === 'categories' ? 'bg-yellow-400' : ''
-              }`}
+              className={`w-full p-4 rounded flex flex-row justify-start items-center ${activeButton === 'categories' ? 'bg-yellow-400' : ''
+                }`}
             >
               <FontAwesomeIcon icon={faBoxes} className="w-[30px] h-[30px]" />
               <span className="text-lg ml-2">Categories</span>
@@ -165,9 +146,8 @@ const Sidebar = ({ setActiveTab, role }) => {
 
             <button
               onClick={() => handleButtonClick('sections')}
-              className={`w-full p-4 rounded flex flex-row justify-start items-center ${
-                activeButton === 'sections' ? 'bg-yellow-400' : ''
-              }`}
+              className={`w-full p-4 rounded flex flex-row justify-start items-center ${activeButton === 'sections' ? 'bg-yellow-400' : ''
+                }`}
             >
               <FontAwesomeIcon icon={faThLarge} className="w-[30px] h-[30px]" />
               <span className="text-lg ml-2">Sections</span>
@@ -178,9 +158,8 @@ const Sidebar = ({ setActiveTab, role }) => {
         {/* Settings Button */}
         <button
           onClick={() => handleButtonClick('settings')}
-          className={`w-full p-4 rounded flex flex-row justify-start items-center ${
-            activeButton === 'settings' ? 'bg-yellow-400' : ''
-          }`}
+          className={`w-full p-4 rounded flex flex-row justify-start items-center ${activeButton === 'settings' ? 'bg-yellow-400' : ''
+            }`}
         >
           <FontAwesomeIcon icon={faCog} className="w-[30px] h-[30px]" />
           <span className="text-lg ml-2">Settings</span>

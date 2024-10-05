@@ -1,3 +1,4 @@
+// Dashboardpage.jsx
 import React, { useState, useEffect } from 'react';
 import CryptoJS from 'crypto-js'; // Import CryptoJS for decryption
 import Sidebar from '../../components/dashboard/Sidebar';
@@ -75,11 +76,13 @@ const Dashboardpage = () => {
   };
 
   return (
-    <div className="flex flex-row min-h-screen w-full">
-      <Sidebar setActiveTab={setActiveTab} role={role} /> {/* Pass role to the Sidebar */}
-      {/* Conditionally render content based on decrypted user role */}
-      {role === 'merchant' && renderMerchantContent()}
-      {role === 'superadmin' && renderSuperAdminContent()}
+    <div className="flex">
+      <Sidebar setActiveTab={setActiveTab} role={role} /> {/* Fixed Sidebar */}
+      <div className="ml-64 w-full h-screen overflow-auto">
+        {/* Conditionally render content based on decrypted user role */}
+        {role === 'merchant' && renderMerchantContent()}
+        {role === 'superadmin' && renderSuperAdminContent()}
+      </div>
     </div>
   );
 };

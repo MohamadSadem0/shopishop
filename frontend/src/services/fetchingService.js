@@ -1,4 +1,6 @@
 import axiosInstance from '../utils/axiosInstance';
+import getDecryptedToken from '../utils/decryptToken'; // Import the token decryption function
+
 
 /**
  * Fetches categories for a specific store from the backend.
@@ -175,6 +177,7 @@ export const fetchAllStores = async () => {
     const response = await axiosInstance.get('public/stores/all');
     
     return response.data; // Assuming response.data contains an array of stores
+    
   } catch (error) {
     console.error('Failed to fetch stores:', error);
     throw new Error('Error fetching stores');
@@ -193,5 +196,28 @@ export const fetchStoreById = async (storeId) => {
   } catch (error) {
     console.error('Failed to fetch store by ID:', error);
     throw new Error(error.response?.data?.message || 'Error fetching store');
+  }
+};
+
+/**
+ * Approves a specific store by its ID.
+ * @param {number} storeId - The ID of the store to approve.
+ * @returns {string} Success message.
+ */
+export const approveStore = async (storeId) => {
+  try {
+    const token = getDecryptedToken(); // Decrypt the token
+    if (!token) throw new Error('No token found');
+
+    const response = await axiosInstance.post('/admin/approve', null, {
+      params: { storeId },
+      headers: {
+        Authorization: `Bearer ${token}`, // Add the JWT token to the request header
+      },
+    });
+    return response.data; // Assuming response.data contains a success message
+  } catch (error) {
+    console.error('Failed to approve store:', error);
+    throw new Error(error.response?.data?.message || 'Error approving store');
   }
 };
