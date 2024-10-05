@@ -50,7 +50,7 @@ export const addProduct = async (product, categoryId, token) => {
  */
 export const fetchAllCategories = async () => {
   try {
-    const response = await axiosInstance.get('/public');
+    const response = await axiosInstance.get('/public/allCategories');
     return response.data; // Assuming response.data contains an array of categories
   } catch (error) {
     console.error('Failed to fetch all categories:', error);
