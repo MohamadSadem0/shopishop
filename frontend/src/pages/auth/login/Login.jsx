@@ -70,7 +70,7 @@ const Login = () => {
         </form>
 
         <div className="flex mt-4 w-full">
-          <GoogleSignInButton />
+          {/* <GoogleSignInButton /> */}
         </div>
 
         <p className="mt-6 text-center text-gray-700">

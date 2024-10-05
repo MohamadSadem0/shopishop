@@ -101,7 +101,7 @@ const SignupForm = () => {
 
         {/* Google Sign-In Button */}
         <div className='flex mt-4 w-2/4 ml-auto mr-auto'>
-          <GoogleSignInButton />
+          {/* <GoogleSignInButton /> */}
         </div>
 
         {/* Login Link */}

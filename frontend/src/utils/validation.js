@@ -5,6 +5,7 @@ export const validateSignup = (values) => {
     if (!values.username) {
       errors.username = 'Username is required';
     }
+    
     if (!values.email) {
       errors.email = 'Email is required';
     } else if (!/\S+@\S+\.\S+/.test(values.email)) {
