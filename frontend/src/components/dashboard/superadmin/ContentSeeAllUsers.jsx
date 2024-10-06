@@ -19,7 +19,7 @@ const ContentSeeAllUsers = () => {
   }, []);
 
   return (
-    <div className="p-8 w-full bg-gray-100">
+    <div className="p-8 w-full ">
       <h2 className="text-2xl font-bold mb-8">All Users</h2>
       {error && <p className="text-red-500">{error}</p>}
       {users.length === 0 ? <p>No users available.</p> : (

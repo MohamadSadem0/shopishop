@@ -1,26 +1,3 @@
-// import React from 'react';
-
-// const DashboardNavbar = () => {
-//   return (
-//     <div className="w-[90%] h-16  bg-gray-100 flex justify-between items-center px-8 shadow-lg fixed top-0">
-//       <div className="relative">
-//         <input
-//           type="text"
-//           placeholder="Search..."
-//           className="px-4 py-2 rounded border border-gray-400"
-//         />
-//       </div>
-//       <div className="flex items-center space-x-8">
-//         <div className="relative">
-//           <div className="w-10 h-10 bg-gray-300 rounded-full"></div>
-//         </div>
-//         <span className="text-lg font-medium">John Doe</span>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default DashboardNavbar;
 
 import React, { useState, useEffect } from 'react';
 import { FiSun, FiBell } from 'react-icons/fi'; // Icons for light mode and notification

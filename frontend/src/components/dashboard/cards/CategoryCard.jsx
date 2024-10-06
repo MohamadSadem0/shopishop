@@ -1,6 +1,5 @@
-// components/dashboard/cards/CategoryCard.jsx
 import React, { useState } from 'react';
-import { deleteCategory, updateCategory } from '../../../services/categoryAPI'; // Make sure you have the API call for updateCategory
+import { deleteCategory, updateCategory } from '../../../services/categoryAPI'; // Ensure you have the API call for updateCategory
 
 const CategoryCard = ({ category, onDelete, onUpdate }) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -12,22 +11,18 @@ const CategoryCard = ({ category, onDelete, onUpdate }) => {
   });
   const [error, setError] = useState('');
 
-  // Open popup to view or edit category
   const openPopup = () => {
     setIsPopupOpen(true);
   };
 
-  // Close the popup
   const closePopup = () => {
     setIsPopupOpen(false);
     setIsEditing(false);
   };
 
-  // Save the edited category
   const handleSave = async () => {
     try {
-      const token = sessionStorage.getItem('token'); // Get the token from sessionStorage
-      await updateCategory(category.id, editedCategory, token);
+      await updateCategory(category.id, editedCategory);
       onUpdate({ ...category, ...editedCategory });
       closePopup();
     } catch (err) {
@@ -35,7 +30,6 @@ const CategoryCard = ({ category, onDelete, onUpdate }) => {
     }
   };
 
-  // Delete the category
   const handleDelete = async () => {
     if (window.confirm('Are you sure you want to delete this category?')) {
       try {
@@ -49,20 +43,20 @@ const CategoryCard = ({ category, onDelete, onUpdate }) => {
   };
 
   return (
-    <div className="bg-white shadow-md rounded-lg p-4 m-4 w-full md:w-1/3 lg:w-1/4">
+    <div className="bg-white shadow-md rounded-lg p-4 m-4 w-full sm:w-full md:w-1/3 lg:w-1/4">
       <h3 className="text-xl font-bold mb-2">{category.name}</h3>
       <p>{category.description}</p>
 
-      <div className="mt-4 flex justify-between">
+      <div className="mt-4 flex  sm:flex-row justify-between">
         <button
           onClick={openPopup}
-          className="bg-blue-500 text-white px-4 py-2 rounded"
+          className="bg-blue-500 text-white px-4 py-2 rounded mb-2 sm:mb-0 sm:flex-grow"
         >
           View
         </button>
         <button
           onClick={handleDelete}
-          className="bg-red-500 text-white px-4 py-2 rounded"
+          className="bg-red-500 text-white px-4 py-2 rounded sm:flex-grow"
         >
           Delete
         </button>
@@ -70,8 +64,8 @@ const CategoryCard = ({ category, onDelete, onUpdate }) => {
 
       {/* Popup for viewing and editing */}
       {isPopupOpen && (
-        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-3/4 max-w-lg">
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 px-4">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
             <h2 className="text-2xl font-bold mb-4">
               {isEditing ? 'Edit Category' : 'Category Details'}
             </h2>

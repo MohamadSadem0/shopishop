@@ -61,13 +61,13 @@ const Dashboardpage = () => {
   const renderSuperAdminContent = () => {
     switch (activeTab) {
       case 'seeAllUsers':
-        return <ContentSeeAllUsers />;
+        return <ContentSeeAllUsers  />;
       case 'seeAllStores':
         return <ContentSeeAllStores />;
       case 'categories':
         return <ContentCategories />; // New categories content
       case 'sections':
-        return <ContentSections />; // New sections content
+        return <ContentSections  />; // New sections content
       case 'dashboard':
         return <ContentDashboard />; // Shared component for both roles
       default:
@@ -76,9 +76,9 @@ const Dashboardpage = () => {
   };
 
   return (
-    <div className="flex">
+    <div className="flex ">
       <Sidebar setActiveTab={setActiveTab} role={role} /> {/* Fixed Sidebar */}
-      <div className="ml-64 w-full h-screen overflow-auto">
+      <div className="ml-64 w-full h-screen overflow-auto  bg-[#F7F9EB] ">
         {/* Conditionally render content based on decrypted user role */}
         {role === 'merchant' && renderMerchantContent()}
         {role === 'superadmin' && renderSuperAdminContent()}

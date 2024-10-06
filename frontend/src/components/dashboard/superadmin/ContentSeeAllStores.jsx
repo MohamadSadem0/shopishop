@@ -1,60 +1,62 @@
 import React, { useState, useEffect } from 'react';
-import { fetchAllStores, approveStore } from '../../../services/fetchingService'; // Import the API calls
-import StoreCard from '../cards/StoreCard'; // Import the store card component
+import { fetchAllStores, approveStore } from '../../../services/fetchingService';
+import StoreCard from '../cards/StoreCard';
+import ClipLoader from 'react-spinners/ClipLoader'; // Import ClipLoader from react-spinners
 
 const ContentSeeAllStores = () => {
   const [stores, setStores] = useState([]);
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false); // State to manage loading status
 
-  // Fetch all stores from the backend
   const fetchStores = async () => {
+    setLoading(true);
     try {
       const fetchedStores = await fetchAllStores();
       setStores(fetchedStores);
+      setLoading(false);
     } catch (err) {
       setError('Failed to fetch stores');
+      setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchStores(); // Fetch stores when the component mounts
+    fetchStores();
   }, []);
 
-  // Handle approval of the store
   const handleApproveStore = async (storeId) => {
     try {
-      await approveStore(storeId); // Approve the store in the backend
-      fetchStores(); // Refetch the stores after approving to get updated status
+      await approveStore(storeId);
+      fetchStores();
     } catch (err) {
       setError('Failed to approve store');
     }
-  };
-
-  const handleViewDetails = (storeId) => {
-    console.log(`View details for store ID: ${storeId}`);
-    // Handle viewing details of the store
   };
 
   return (
     <div className="p-8 w-full bg-[#F7F9EB]">
       <h2 className="text-2xl font-bold mb-8">All Stores</h2>
       {error && <p className="text-red-500 mb-4">{error}</p>}
-
-      <div className="flex flex-wrap">
-        {stores.length === 0 ? (
-          <p>No stores available.</p>
-        ) : (
-          stores.map((store) => (
-            <StoreCard
-              key={store.id}
-              store={store}
-              onViewDetails={handleViewDetails}
-              onApprove={handleApproveStore} // Pass the approval handler to StoreCard
-              
-            />
-          ))
-        )}
-      </div>
+      {loading ? (
+        <div className="flex justify-center items-center">
+          <ClipLoader color="#4A90E2" size={50} /> {/* Customize the color and size as needed */}
+        </div>
+      ) : (
+        <div className="flex flex-wrap">
+          {stores.length === 0 ? (
+            <p>No stores available.</p>
+          ) : (
+            stores.map((store) => (
+              <StoreCard
+                key={store.id}
+                store={store}
+                onViewDetails={() => {}}
+                onApprove={handleApproveStore}
+              />
+            ))
+          )}
+        </div>
+      )}
     </div>
   );
 };
