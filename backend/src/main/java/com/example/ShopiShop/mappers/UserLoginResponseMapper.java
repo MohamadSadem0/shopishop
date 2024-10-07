@@ -14,7 +14,7 @@ public class UserLoginResponseMapper {
                 .email(user.getEmail())
                 .role(user.getUserRole())
                 .userName(user.getUsername())
-                .phoneNumber(user.getPhoneNumber())
+//                .phoneNumber(user.getPhoneNumber())
                 .location(toLocationDTO(user.getLocation())) // Mapping Location
                 .store(store)
                 .build();

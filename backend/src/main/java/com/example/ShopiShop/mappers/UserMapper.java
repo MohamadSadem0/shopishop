@@ -33,7 +33,7 @@ public class UserMapper {
                 .id(user.getId())
                 .userName(user.getUsername())
                 .email(user.getEmail())
-                .phoneNumber(user.getPhoneNumber())
+//                .phoneNumber(user.getPhoneNumber())
                 .role(user.getUserRole().name())
                 .location(buildLocationDTO(user.getLocation()))
                 .build();

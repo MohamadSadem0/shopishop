@@ -10,6 +10,8 @@ import java.util.UUID;
 
 public interface    SectionService {
     Section createSection(Section section);
+    public SectionResponseDTO updateSection(UUID id, SectionRequestDTO sectionRequestDTO);
+    public void deleteSection(UUID id);
     List<SectionResponseDTO> getAllSections();
     SectionResponseDTO  getSectionResponseById(UUID id);
     Section  getSectionById(UUID id);

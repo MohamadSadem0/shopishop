@@ -12,7 +12,6 @@ import com.example.ShopiShop.dto.response.CategoryResponseDTO;
 
 @RestController
 @RequestMapping("")
-@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 @RequiredArgsConstructor
 public class CategoryController {
 

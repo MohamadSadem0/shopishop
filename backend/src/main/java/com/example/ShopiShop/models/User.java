@@ -52,9 +52,6 @@ public class User implements UserDetails {
     private Location location;
 
 
-    @Column(name = "phoneNumber", nullable = true)
-
-    private String phoneNumber;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviews;
@@ -65,6 +62,10 @@ public class User implements UserDetails {
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
+
+    private boolean enabled = false; // User activation status
+
+    private String confirmationToken;
 
     @UpdateTimestamp
     @Column(name = "updated_at")

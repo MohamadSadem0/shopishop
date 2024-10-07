@@ -30,8 +30,10 @@ public class SecurityConfiguration {
                         .requestMatchers("public/**").permitAll()  // Your login and signup endpoints
                         .requestMatchers("/oauth2/**").permitAll()    // Allow Google OAuth2 flow
                         .requestMatchers("/ws/**").permitAll()        // Allow WebSocket endpoints without authentication
-                        .requestMatchers("/superAdmin/**").hasAuthority(UserRoleEnum.SUPERADMIN.name()) // Using the enum superAdmin
+                        .requestMatchers("/confirm").permitAll()        // Allow WebSocket endpoints without authentication
+                        .requestMatchers("/admin/**").hasAuthority(UserRoleEnum.SUPERADMIN.name()) // Using the enum superAdmin
                         .requestMatchers("/merchant/**").hasAuthority(UserRoleEnum.MERCHANT.name()) // Using the enum Costumer
+
                         .anyRequest().authenticated()                 // All other requests require authentication
                 )
                 .cors(Customizer.withDefaults())  // Enable CORS
@@ -51,6 +53,7 @@ public class SecurityConfiguration {
         // Allow all origins, headers, and methods for testing; modify as needed
         config.setAllowCredentials(true);
         config.addAllowedOrigin("http://localhost:3000");  // Frontend origin
+        config.addAllowedOrigin("https://unique-gnome-289962.netlify.app");  // Frontend origin
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
 

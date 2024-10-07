@@ -1,5 +1,6 @@
 package com.example.ShopiShop.controllers;
 
+import com.example.ShopiShop.dto.StoreMapper;
 import com.example.ShopiShop.dto.response.CategoryResponseDTO;
 import com.example.ShopiShop.dto.response.StoreResponseDTO;
 import com.example.ShopiShop.models.Store;
@@ -13,13 +14,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/merchant/stores")
-@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")  // Allow requests from your frontend origin
+@RequestMapping("")
 @RequiredArgsConstructor
 public class StoreController {
 
     private final StoreServiceImpl storeService;
     private final CategoryService categoryService;
+    private StoreMapper storeMapper;
 
     // Get categories by store ID based on the section associated with the store
     @GetMapping("/{storeId}/section-categories")
@@ -31,15 +32,18 @@ public class StoreController {
             return ResponseEntity.badRequest().body(null); // Return a 400 if the store or section is not found
         }
 
-        // Step 2: Fetch the categories associated with the section using DTO
+        // Step 2: Fetch the categories associated with the section using DTOz
         List<CategoryResponseDTO> categories = categoryService.getCategoriesBySection(store.getSection());
 
         return ResponseEntity.ok(categories);
     }
 
-    @GetMapping("/all")
+    @GetMapping("public/stores/all")
     public ResponseEntity<List<StoreResponseDTO>> getAllStores(){
     return new ResponseEntity<>(storeService.getAllStores(), HttpStatus.OK);
+    }    @GetMapping("public/stores/{id}")
+    public ResponseEntity<StoreResponseDTO> getById(@PathVariable Long id){
+    return new ResponseEntity<>(StoreMapper.toDTO(storeService.getStoreById(id)), HttpStatus.OK);
     }
 
     //todo:delete this api
@@ -48,5 +52,11 @@ public class StoreController {
         storeService.deleteAllStores();
         return new ResponseEntity<>("all stores deleted", HttpStatus.OK);
 
+    }
+
+    @PostMapping("admin/approve")
+    public ResponseEntity<String> approveStore(@RequestParam Long storeId) {
+
+        return ResponseEntity.ok(storeService.approveStore(storeId));
     }
 }

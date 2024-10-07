@@ -132,11 +132,20 @@ public class DataLoader implements CommandLineRunner {
     private final StoreServiceImpl storeService;
     private final PasswordEncoder passwordEncoder;
     private final LocationRepository locationRepository;
+    private final ProductRepository productRepository;
+
 
     @Override
     public void run(String... args) throws Exception {
 
         // Check if a user with the given email already exists
+//        storeRepository.deleteAll();
+//        locationRepository.deleteAll();
+//        categoryRepository.deleteAll();
+//        sectionRepository.deleteAll();
+//        userRepository.deleteAll();
+//        productRepository.deleteAll();
+
 
 
         // Predefined sections with images
@@ -209,7 +218,7 @@ public class DataLoader implements CommandLineRunner {
             User superAdmin = User.builder()
                     .userName("Super Admin")
                     .email("superadmin@example.com")
-                    .phoneNumber("71123456")
+//                    .phoneNumber("71123456")
                     .password(passwordEncoder.encode("SuperSecurePassword"))  // Set a secure password
                     .userRole(UserRoleEnum.SUPERADMIN)  // Add SUPER_ADMIN role
                     .build();
@@ -239,7 +248,7 @@ public class DataLoader implements CommandLineRunner {
             user = User.builder()
                     .userName("Merchant User")
                     .email(email)
-                    .phoneNumber("7687687686787")
+//                    .phoneNumber("7687687686787")
                     .password(passwordEncoder.encode("MerchantSecurePassword"))
                     .userRole(UserRoleEnum.MERCHANT)
                     .build();
@@ -274,6 +283,10 @@ public class DataLoader implements CommandLineRunner {
 
         System.out.println("Merchant Store has been created successfully.");}
     }
+
+//    public void runData(){
+//
+//    }
 
 
 }

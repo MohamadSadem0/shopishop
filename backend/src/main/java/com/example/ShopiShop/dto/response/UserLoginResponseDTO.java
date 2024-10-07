@@ -15,7 +15,7 @@ public class UserLoginResponseDTO {
     private String email;
     private UserRoleEnum role;
     private String userName;
-    private String phoneNumber; // New field for the phone number
+//    private String phoneNumber; // New field for the phone number
     private LocationDTO location; // New field for the location details
     private StoreResponseDTO store;
     @Data
