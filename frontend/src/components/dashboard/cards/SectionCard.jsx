@@ -4,7 +4,7 @@ const SectionCard = ({ section, onEdit, onDelete }) => {
   console.log(section);
   
   return (
-    <div className="bg-white shadow-lg rounded-lg transition duration-200 ease-in-out transform hover:-translate-y-1 hover:shadow-xl p-7 mr-2 my-2 flex flex-col space-y-2">
+    <div className="bg-white w-auto shadow-lg rounded-lg transition duration-200 ease-in-out transform hover:-translate-y-1 hover:shadow-xl p-7 mr-2 my-2 flex flex-col space-y-2">
        {/* Render Image if imageUrl is available */}
        {section.url && (
         <div className="my-2 flex justify-center">
