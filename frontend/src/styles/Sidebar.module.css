@@ -1,0 +1,66 @@
+.sidebar {
+  width: 256px;
+  box-sizing: border-box; /* Make sure padding and borders are inside the width */
+  /* position: fixed; */
+  top: 0;
+  left: 0;
+  height: 100vh;
+  background-color: #fff;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+  padding: 20px;
+  transition: transform 0.3s ease-in-out;
+  transform: translateX(0);
+  flex-shrink: 0; /* Prevent flexbox from resizing it */
+}
+
+  
+  .burger {
+    display: none; /* Hide by default, only show on mobile */
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    font-size: 24px;
+    z-index: 1001; /* Above sidebar */
+  }
+  .active {
+    background-color: yellow; /* Yellow background for active tab */
+    color: black; /* Ensure text remains readable */
+  }
+  
+  @media (max-width: 768px) {
+    .burger {
+      display: block; /* Show burger icon only on small screens */
+    }
+  
+    .sidebar {
+      transform: translateX(-100%); /* Initially off-screen on mobile */
+    position: fixed;
+
+    }
+  
+    .sidebar.open {
+      transform: translateX(0); /* Slide in when open */
+    }
+  }
+  
+  .button, .subButton, .exitButton {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 8px;
+  }
+  
+  .button:hover, .subButton:hover, .exitButton:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .exitButton {
+    background-color: #f44336;
+    color: white;
+    margin-top: auto; /* Push to the bottom */
+  }
+  
+  .subButton {
+    margin-left: 20px;
+  }
+  

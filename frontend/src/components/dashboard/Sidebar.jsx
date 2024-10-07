@@ -1,180 +1,208 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUsers, faStore, faThLarge, faBoxes, faSignOutAlt, faCog } from '@fortawesome/free-solid-svg-icons';
+import { FiSun, FiBell } from 'react-icons/fi'; // Light mode and notification icons
+import {
+  faUsers, faStore, faThLarge, faBoxes, faSignOutAlt, faCog, faBars,
+} from '@fortawesome/free-solid-svg-icons';
 
-// Merchant Custom Icons
 import Logo from "../../assets/images/Logo.png";
 import DashboardIcon from "../../assets/icons/darhboard_alt.svg";
 import AnalyticIcon from "../../assets/icons/analys icon.svg";
 import OrderIcon from "../../assets/icons/Basket_alt_3_duotone.svg";
-import ReviewIcon from "../../assets/icons/Review.svg";
 import ProductIcon from "../../assets/icons/User_alt.svg";
 import AddProductIcon from "../../assets/icons/add_product.svg";
 import SeeAllProductsIcon from "../../assets/icons/see_all_products.svg";
+import ReviewIcon from "../../assets/icons/Review.svg";
 
-const Sidebar = ({ setActiveTab, role }) => {
+import styles from '../../styles/Sidebar.module.css'; // Ensure this path is correct
+import { useResponsiveDesign } from '../../hooks/useResponsiveDesign'; // Hook for screen size
+import {getDecryptedItem} from '../../utils/decryptToken'; // Import the utility function
+
+const Sidebar = ({ setActiveTab, activeTab, role, mobileView }) => { 
   const [isProductOpen, setIsProductOpen] = useState(false);
-  const [activeButton, setActiveButton] = useState('');
-  const [activeSubOption, setActiveSubOption] = useState('');
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Sidebar state for small screens
+  const [userData, setUserData] = useState({ email: "", name: "" });
   const navigate = useNavigate();
+  const { isMobile } = useResponsiveDesign(); // Use responsive design
 
-  // Handle main menu button click
-  const handleButtonClick = (buttonName) => {
-    setActiveButton(buttonName);
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
+  const handleButtonClick = (buttonName, hasSubMenu = false) => {
+    if (!hasSubMenu) {
+      setIsProductOpen(false);
+    }
     setActiveTab(buttonName);
+    if (mobileView) {
+      toggleSidebar(); // Close sidebar after selecting an item in mobile view
+    }
   };
 
-  // Toggle Product submenu for merchant
-  const toggleProductMenu = () => {
-    setIsProductOpen(!isProductOpen);
-    setActiveButton('products');
-  };
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 768) {
+        setIsSidebarOpen(true);
+      } else {
+        setIsSidebarOpen(false);
+      }
+    };
 
-  // Handle submenu options click for Products
-  const handleProductOptionClick = (optionName) => {
-    setActiveSubOption(optionName);
-    setActiveTab(optionName);
-  };
+    window.addEventListener('resize', handleResize);
+    handleResize(); // Set initial state
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  // Add decrypted user data for mobile profile display
+  useEffect(() => {
+    const decryptedUserName = getDecryptedItem('userName'); // Use the utility function to decrypt
+    if (decryptedUserName) {
+      setUserData({ name: decryptedUserName });
+    }
+  }, []);
 
   return (
-    <div className="w-64 fixed top-0 left-0 h-screen bg-white shadow-md px-4">
-      <div className="p-4">
-        <img src={Logo} alt="logo" className="w-full h-auto mb-6" />
-      </div>
-      <div className="flex flex-col items-start space-y-4 mt-8">
-        
-        {/* Dashboard Button */}
-        <button
-          onClick={() => handleButtonClick('dashboard')}
-          className={`w-full py-3 px-2 rounded flex flex-row justify-start items-center ${activeButton === 'dashboard' ? 'bg-yellow-400' : ''
-            }`}
-        >
-          <img src={DashboardIcon} alt="Dashboard Icon" className="w-[25px] h-[25px]" />
-          <span className="text-lg ml-4">Dashboard</span>
-        </button>
+    <>
+      {/* Burger icon for mobile screens */}
+      <FontAwesomeIcon icon={faBars} className={styles.burger} onClick={toggleSidebar} />
 
-        {/* Merchant-Only Options */}
-        {role === 'merchant' && (
-          <>
-            {/* Analytics Button */}
-            <button
-              onClick={() => handleButtonClick('analytics')}
-              className={`w-full py-3 px-2 rounded flex flex-row justify-start items-center ${activeButton === 'analytics' ? 'bg-yellow-400' : ''
-                }`}
-            >
-              <img src={AnalyticIcon} alt="Analytics Icon" className="w-[25px] h-[25px]" />
-              <span className="text-lg ml-4">Analytics</span>
-            </button>
+      {/* Sidebar container with conditional class for small screen */}
+      <div className={`${styles.sidebar} ${isSidebarOpen ? styles.open : ''} z-10 h-dvh`}>
+        <div className="p-4">
+          <img src={Logo} alt="logo" className="max-w-full h-auto" />
+        </div>
+        <div className="flex flex-col space-y-4 mt-4">
 
-            {/* Orders Button */}
-            <button
-              onClick={() => handleButtonClick('orders')}
-              className={`w-full py-3 px-2 rounded flex flex-row justify-start items-center ${activeButton === 'orders' ? 'bg-yellow-400' : ''
-                }`}
-            >
-              <img src={OrderIcon} alt="Orders Icon" className="w-[25px] h-[25px]" />
-              <span className="text-lg ml-4">Orders</span>
-            </button>
+          {/* Conditionally add navbar elements to sidebar on mobile view */}
+          {isMobile && (
+            <div className="mobile-navbar-items space-y-6 p-4 border-t border-gray-300">
+              {/* Search Input */}
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Search..."
+                  className="px-4 py-2 rounded-lg border border-gray-400 w-full"
+                />
+              </div>
 
-            {/* Products Button with Submenu */}
-            <div className="w-full">
-              <button
-                onClick={toggleProductMenu}
-                className={`w-full py-3 px-2 rounded flex flex-row justify-start items-center ${activeButton === 'products' ? 'bg-yellow-400' : ''
-                  }`}
-              >
-                <img src={ProductIcon} alt="Products Icon" className="w-[25px] h-[25px]" />
-                <span className="text-lg ml-4">Products</span>
-              </button>
+              {/* Light Mode and Notification Icons */}
+              <div className="flex items-center justify-between space-x-6">
+                <FiSun className="w-6 h-6 cursor-pointer" />
+                <FiBell className="w-6 h-6 cursor-pointer" />
+              </div>
 
-              {/* Products Submenu */}
-              {isProductOpen && (
-                <div className="flex flex-col pl-8 space-y-2 mt-2">
-                  <button
-                    onClick={() => handleProductOptionClick('addProduct')}
-                    className={`w-full py-2 rounded flex flex-row justify-start items-center ${activeSubOption === 'addProduct' ? 'bg-yellow-400' : ''
-                      }`}
-                  >
-                    <img src={AddProductIcon} alt="Add Product Icon" className="w-[20px] h-[20px]" />
-                    <span className="text-md ml-2">Add Product</span>
-                  </button>
-
-                  <button
-                    onClick={() => handleProductOptionClick('seeAllProducts')}
-                    className={`w-full py-2 rounded flex flex-row justify-start items-center ${activeSubOption === 'seeAllProducts' ? 'bg-yellow-400' : ''
-                      }`}
-                  >
-                    <img src={SeeAllProductsIcon} alt="See All Products Icon" className="w-[20px] h-[20px]" />
-                    <span className="text-md ml-2">See All Products</span>
-                  </button>
-                </div>
-              )}
+              {/* Profile Picture and Username */}
+              <div className="flex items-center space-x-4">
+                <span className="text-lg font-medium">{userData.name}</span>
+              </div>
             </div>
-          </>
-        )}
+          )}
 
-        {/* Superadmin-Only Options */}
-        {role === 'superadmin' && (
-          <>
-            <button
-              onClick={() => handleButtonClick('seeAllUsers')}
-              className={`w-full py-3 px-2 rounded flex flex-row justify-start items-center ${activeButton === 'seeAllUsers' ? 'bg-yellow-400' : ''
-                }`}
-            >
-              <FontAwesomeIcon icon={faUsers} className="w-[25px] h-[25px]" />
-              <span className="text-lg ml-4">See All Users</span>
-            </button>
+          <button
+            onClick={() => handleButtonClick('dashboard')}
+            className={`${styles.button} ${styles.dashboard} ${activeTab === 'dashboard' ? styles.active : ''}`}>
+            <img src={DashboardIcon} alt="Dashboard" />
+            Dashboard
+          </button>
 
-            <button
-              onClick={() => handleButtonClick('seeAllStores')}
-              className={`w-full py-3 px-2 rounded flex flex-row justify-start items-center ${activeButton === 'seeAllStores' ? 'bg-yellow-400' : ''
-                }`}
-            >
-              <FontAwesomeIcon icon={faStore} className="w-[25px] h-[25px]" />
-              <span className="text-lg ml-4">See All Stores</span>
-            </button>
+          {role === 'merchant' && (
+            <>
+              <button
+                onClick={() => handleButtonClick('analytics')}
+                className={`${styles.button} ${styles.analytics} ${activeTab === 'analytics' ? styles.active : ''}`}>
+                <img src={AnalyticIcon} alt="Analytics" />
+                Analytics
+              </button>
+              <button
+                onClick={() => handleButtonClick('orders')}
+                className={`${styles.button} ${styles.orders} ${activeTab === 'orders' ? styles.active : ''}`}>
+                <img src={OrderIcon} alt="Orders" />
+                Orders
+              </button>
+              <div>
+                <button
+                  onClick={() => setIsProductOpen(!isProductOpen)}
+                  className={`${styles.button} ${styles.products} ${activeTab === 'products' ? styles.active : ''}`}>
+                  <img src={ProductIcon} alt="Products" />
+                  Products
+                </button>
+                {isProductOpen && (
+                  <div className="pl-4">
+                    <button
+                      onClick={() => handleButtonClick('addProduct')}
+                      className={`${styles.subButton} ${activeTab === 'addProduct' ? styles.active : ''}`}>
+                      <img src={AddProductIcon} alt="Add Product" />
+                      Add Product
+                    </button>
+                    <button
+                      onClick={() => handleButtonClick('seeAllProducts')}
+                      className={`${styles.subButton} ${activeTab === 'seeAllProducts' ? styles.active : ''}`}>
+                      <img src={SeeAllProductsIcon} alt="See All Products" />
+                      See All Products
+                    </button>
+                  </div>
+                )}
+              </div>
+              <button
+                onClick={() => handleButtonClick('reviews')}
+                className={`${styles.button} ${styles.reviews} ${activeTab === 'reviews' ? styles.active : ''}`}>
+                <img src={ReviewIcon} alt="Reviews" />
+                Reviews
+              </button>
+            </>
+          )}
 
-            <button
-              onClick={() => handleButtonClick('categories')}
-              className={`w-full py-3 px-2 rounded flex flex-row justify-start items-center ${activeButton === 'categories' ? 'bg-yellow-400' : ''
-                }`}
-            >
-              <FontAwesomeIcon icon={faBoxes} className="w-[25px] h-[25px]" />
-              <span className="text-lg ml-4">Categories</span>
-            </button>
+          {role === 'superadmin' && (
+            <>
+              <button
+                onClick={() => handleButtonClick('seeAllUsers')}
+                className={`${styles.button} ${activeTab === 'seeAllUsers' ? styles.active : ''}`}>
+                <FontAwesomeIcon icon={faUsers} />
+                See All Users
+              </button>
+              <button
+                onClick={() => handleButtonClick('seeAllStores')}
+                className={`${styles.button} ${activeTab === 'seeAllStores' ? styles.active : ''}`}>
+                <FontAwesomeIcon icon={faStore} />
+                See All Stores
+              </button>
+              <button
+                onClick={() => handleButtonClick('categories')}
+                className={`${styles.button} ${activeTab === 'categories' ? styles.active : ''}`}>
+                <FontAwesomeIcon icon={faBoxes} />
+                Categories
+              </button>
+              <button
+                onClick={() => handleButtonClick('sections')}
+                className={`${styles.button} ${activeTab === 'sections' ? styles.active : ''}`}>
+                <FontAwesomeIcon icon={faThLarge} />
+                Sections
+              </button>
+            </>
+          )}
 
-            <button
-              onClick={() => handleButtonClick('sections')}
-              className={`w-full py-3 px-2 rounded flex flex-row justify-start items-center ${activeButton === 'sections' ? 'bg-yellow-400' : ''
-                }`}
-            >
-              <FontAwesomeIcon icon={faThLarge} className="w-[25px] h-[25px]" />
-              <span className="text-lg ml-4">Sections</span>
-            </button>
-          </>
-        )}
-
-        {/* Settings Button */}
-        <button
-          onClick={() => handleButtonClick('settings')}
-          className={`w-full py-3 px-2 rounded flex flex-row justify-start items-center ${activeButton === 'settings' ? 'bg-yellow-400' : ''
-            }`}
-        >
-          <FontAwesomeIcon icon={faCog} className="w-[25px] h-[25px]" />
-          <span className="text-lg ml-4">Settings</span>
-        </button>
-
-        {/* Exit Button */}
-        <button
-          onClick={() => navigate('/')}
-          className="w-full py-3 px-2 mt-6 bg-red-400 text-white rounded flex flex-row justify-start items-center"
-        >
-          <FontAwesomeIcon icon={faSignOutAlt} className="w-[25px] h-[25px]" />
-          <span className="text-lg ml-4">Exit</span>
-        </button>
+          <button
+            onClick={() => handleButtonClick('settings')}
+            className={`${styles.button} ${activeTab === 'settings' ? styles.active : ''}`}>
+            <FontAwesomeIcon icon={faCog} />
+            Settings
+          </button>
+          <button onClick={() => navigate('/')} className={styles.exitButton}>
+            <FontAwesomeIcon icon={faSignOutAlt} />
+            Exit
+          </button>
+        </div>
       </div>
-    </div>
+
+      {/* Overlay for mobile view (optional, to close sidebar when clicking outside) */}
+      {isSidebarOpen && mobileView && (
+        <div className={styles.overlay} onClick={toggleSidebar}></div>
+      )}
+    </>
   );
 };
 

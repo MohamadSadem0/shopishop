@@ -3,7 +3,7 @@ import { fetchAllStores, approveStore } from '../../../services/fetchingService'
 import StoreCard from '../cards/StoreCard';
 import ClipLoader from 'react-spinners/ClipLoader'; // Import ClipLoader from react-spinners
 
-const ContentSeeAllStores = () => {
+const ContentSeeAllStores = ({ searchQuery }) => { // Accept searchQuery as a prop
   const [stores, setStores] = useState([]);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false); // State to manage loading status
@@ -27,14 +27,27 @@ const ContentSeeAllStores = () => {
   const handleApproveStore = async (storeId) => {
     try {
       await approveStore(storeId);
-      fetchStores();
+      fetchStores(); // Refresh the list of stores after approving
     } catch (err) {
       setError('Failed to approve store');
     }
   };
 
+  // Filter stores based on the searchQuery
+  const filteredStores = stores.filter((store) => {
+    const name = store.name || ''; // Safely handle missing names
+    const description = store.description || ''; // Safely handle missing descriptions
+    const Owner=store.Owner || ""
+
+    // Match the store name or description with the search query
+    return (
+      name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      description.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  });
+
   return (
-    <div className="p-8 w-full bg-[#F7F9EB]">
+    <div className="p-8 w-full overflow-y-auto bg-[#F7F9EB]">
       <h2 className="text-2xl font-bold mb-8">All Stores</h2>
       {error && <p className="text-red-500 mb-4">{error}</p>}
       {loading ? (
@@ -43,10 +56,10 @@ const ContentSeeAllStores = () => {
         </div>
       ) : (
         <div className="flex flex-wrap">
-          {stores.length === 0 ? (
-            <p>No stores available.</p>
+          {filteredStores.length === 0 ? (
+            <p>No stores match the search query.</p>
           ) : (
-            stores.map((store) => (
+            filteredStores.map((store) => (
               <StoreCard
                 key={store.id}
                 store={store}

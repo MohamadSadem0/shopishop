@@ -1,65 +1,98 @@
 import React, { useState, useEffect } from 'react';
 import { fetchAllCategories } from '../../../services/fetchingService';
+import { fetchSections } from '../../../services/sectionService';
 import AddCategoryForm from '../forms/AddCategoryForm';
-import CategoryCard from '../cards/CategoryCard'; // Import the card component
-import ClipLoader from 'react-spinners/ClipLoader'; // Import the spinner
+import CategoryCard from '../cards/CategoryCard';
+import ClipLoader from 'react-spinners/ClipLoader';
 
-const ContentCategories = () => {
+const ContentCategories = ({ searchQuery }) => {  // Add searchQuery prop
   const [categories, setCategories] = useState([]);
+  const [sections, setSections] = useState([]);
+  const [selectedSection, setSelectedSection] = useState('All');
   const [isAddCategoryOpen, setIsAddCategoryOpen] = useState(false);
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false); // State to track loading
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchCategories = async () => {
-      setLoading(true); // Start loading
+    async function loadData() {
       try {
         const fetchedCategories = await fetchAllCategories();
+        const fetchedSections = await fetchSections();
         setCategories(fetchedCategories);
-        setLoading(false); // Stop loading after data is fetched
+        setSections(fetchedSections);
       } catch (err) {
-        setError('Failed to fetch categories');
-        setLoading(false); // Stop loading even if there is an error
+        setError(`Failed to load data: ${err.message}`);
+      } finally {
+        setLoading(false);
       }
-    };
-    fetchCategories();
+    }
+    loadData();
   }, []);
 
+  // Handlers for category operations
   const handleCategoryAdded = (newCategory) => {
-    setCategories([...categories, newCategory]);
+    setCategories((prev) => [...prev, newCategory]);
   };
 
-  const handleCategoryDeleted = (deletedCategoryId) => {
-    setCategories(categories.filter((category) => category.id !== deletedCategoryId));
+  const handleCategoryDeleted = (id) => {
+    setCategories((prev) => prev.filter((c) => c.id !== id));
   };
 
   const handleCategoryUpdated = (updatedCategory) => {
-    setCategories(categories.map((category) =>
-      category.id === updatedCategory.id ? updatedCategory : category
-    ));
+    setCategories((prev) =>
+      prev.map((c) => (c.id === updatedCategory.id ? updatedCategory : c))
+    );
   };
 
+  // Filtering categories based on selected section and search query
+ // Modify the filter function to safely handle undefined values
+const filteredCategories = categories.filter((category) => {
+  const matchesSection =
+    selectedSection === 'All' || category.sectionName === selectedSection;
+
+  const name = category.name || ''; // Use empty string if undefined
+  const description = category.description || ''; // Use empty string if undefined
+
+  const matchesSearchQuery =
+    name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    description.toLowerCase().includes(searchQuery.toLowerCase());
+
+  return matchesSection && matchesSearchQuery; // Must match both section and search query
+});
+
+
   return (
-    <div className="p-8 w-full bg-[#F7F9EB]">
-      <h2 className="text-2xl font-bold mb-8">Categories</h2>
-      {error && <p className="text-red-500 mb-4">{error}</p>}
-      {loading ? (
-        <div className="flex justify-center items-center">
-          <ClipLoader color="#4A90E2" size={50} />  
+    <div className="p-8  w-full bg-[#F7F9EB]">
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-2xl font-bold">Categories</h2>
+        <div>
+          <select
+            onChange={(e) => setSelectedSection(e.target.value)}
+            className="px-4 py-2 border rounded"
+          >
+            <option value="All">All Sections</option>
+            {sections.map((section) => (
+              <option key={section.id} value={section.name}>
+                {section.name}
+              </option>
+            ))}
+          </select>
         </div>
+      </div>
+      {error && <p className="text-red-500">{error}</p>}
+      {loading ? (
+        <ClipLoader color="#4A90E2" size={50} />
       ) : (
         <>
           <button
             onClick={() => setIsAddCategoryOpen(true)}
-            className="bg-blue-500 text-white px-4 py-2 rounded mb-4"
+            className="bg-blue-500 text-white px-4 py-2 rounded"
           >
-            + Add New Category
+            Add New Category
           </button>
-          <div className="flex flex-wrap">
-            {categories.length === 0 ? (
-              <p>No categories available.</p>
-            ) : (
-              categories.map((category) => (
+          <div className="flex flex-wrap mt-4">
+            {filteredCategories.length > 0 ? (
+              filteredCategories.map((category) => (
                 <CategoryCard
                   key={category.id}
                   category={category}
@@ -67,6 +100,8 @@ const ContentCategories = () => {
                   onUpdate={handleCategoryUpdated}
                 />
               ))
+            ) : (
+              <p className="mt-4 text-gray-600">No categories match the selected section.</p>
             )}
           </div>
           {isAddCategoryOpen && (

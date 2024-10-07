@@ -1,5 +1,5 @@
 import axiosInstance from '../utils/axiosInstance';
-import getDecryptedToken from '../utils/decryptToken'; // Import the token decryption function
+import {getDecryptedToken} from '../utils/decryptToken'; // Import the token decryption function
 
 
 /**
@@ -19,6 +19,68 @@ export const fetchCategoriesByStoreId = async (storeId, token) => {
   } catch (error) {
     console.error('Failed to fetch categories:', error);
     throw new Error(error.response?.data?.message || 'Error fetching categories');
+  }
+};
+
+
+export const fetchUserDetailsByEmail = async (email) => {
+  const token = getDecryptedToken();
+
+  try {
+    const response = await axiosInstance.get(`/admin/user`, {
+      params: { email }, // Pass email as a query parameter
+      headers: {
+        Authorization: `Bearer ${token}`, // Send the token in Authorization header
+      },
+    });
+    return response.data; // Return the fetched user details
+  } catch (error) {
+    console.error('Failed to fetch user details:', error);
+    throw error;
+  }
+};
+
+
+/**
+ * Fetches detailed information about a user by ID, including store details if applicable.
+ * @param {number} userId - The ID of the user to fetch.
+ * @returns {Promise<Object>} Detailed user information.
+ */
+export const fetchUserDetailsById = async (userId) => {
+  try {
+    const token = getDecryptedToken();
+    if (!token) throw new Error('Authentication token is not available.');
+
+    const response = await axiosInstance.get(`/admin/user/${userId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Failed to fetch user details:', error);
+    throw new Error(error.response?.data?.message || 'Error fetching user details');
+  }
+};
+
+/**
+ * Fetches all users from the backend.
+ * @returns {Promise<Array>} List of users.
+ */
+export const fetchAllUsers = async () => {
+  try {
+    const token = getDecryptedToken(); // Decrypt the token
+    if (!token) throw new Error('Authentication token is not available.');
+
+    const response = await axiosInstance.get('/admin/all', {
+      headers: {
+        Authorization: `Bearer ${token}`, // Add the JWT token to the request header
+      },
+    });
+    return response.data; // Assuming response.data contains an array of user data
+  } catch (error) {
+    console.error('Failed to fetch users:', error);
+    throw new Error(error.response?.data?.message || 'Error fetching users');
   }
 };
 

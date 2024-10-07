@@ -112,10 +112,10 @@ const Navbar = () => {
 
             {/* Location and Sign In */}
             <div className="flex items-center space-x-10">
-              <div className="flex items-center space-x-6 text-white">
+              {/* <div className="flex items-center space-x-6 text-white">
                 <span className="text-[#ff0008] text-lg">Location</span>
                 <img src={MapIcon} alt="Map" className="h-6 w-6 text-white" />
-              </div>
+              </div> */}
               <button
                 onClick={handleSignUpButton}
                 className="text-white text-lg hover:text-[#fede00] transition-colors duration-300"

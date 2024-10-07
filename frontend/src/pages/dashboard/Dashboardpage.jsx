@@ -1,90 +1,83 @@
-// Dashboardpage.jsx
 import React, { useState, useEffect } from 'react';
-import CryptoJS from 'crypto-js'; // Import CryptoJS for decryption
+import CryptoJS from 'crypto-js';
 import Sidebar from '../../components/dashboard/Sidebar';
+import DashboardNavbar from '../../components/dashboard/DashboardNavbar';
+import { useResponsiveDesign } from '../../hooks/useResponsiveDesign';
+
+// Import content components
 import ContentDashboard from '../../components/dashboard/options/ContentDashboard';
 import ContentOrders from '../../components/dashboard/options/ContentOrders';
 import ContentAnalytics from '../../components/dashboard/options/ContentAnalytics';
 import ContentAddProduct from '../../components/dashboard/options/ContentAddProduct';
 import ContentSeeAllProducts from '../../components/dashboard/options/ContentSeeAllProducts';
+import ContentSeeAllUsers from '../../components/dashboard/superadmin/ContentSeeAllUsers';
+import ContentSeeAllStores from '../../components/dashboard/superadmin/ContentSeeAllStores';
+import ContentCategories from '../../components/dashboard/superadmin/ContentCategories';
+import ContentSections from '../../components/dashboard/superadmin/ContentSections';
 
-// Superadmin components
-import ContentSeeAllUsers from '../../components/dashboard/superadmin/ContentSeeAllUsers.jsx';
-import ContentSeeAllStores from '../../components/dashboard/superadmin/ContentSeeAllStores.jsx';
-import ContentCategories from '../../components/dashboard/superadmin/ContentCategories.jsx'; // New Component for Categories
-import ContentSections from '../../components/dashboard/superadmin/ContentSections.jsx'; // New Component for Sections
-
-// Your encryption key from environment variables
-const encryptionKey = process.env.REACT_APP_ENCRYPTION_KEY;
-
-const Dashboardpage = () => {
+const DashboardPage = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
-  const [role, setRole] = useState(''); // State to manage decrypted user role (merchant or superadmin)
+  const [role, setRole] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
+  const { isMobile } = useResponsiveDesign();
 
-  // Helper function to decrypt the encrypted role
-  const decryptRole = (encryptedRole) => {
-    if (!encryptedRole || !encryptionKey) return null;
-    try {
-      const bytes = CryptoJS.AES.decrypt(encryptedRole, encryptionKey);
-      return bytes.toString(CryptoJS.enc.Utf8); // Decrypted role as plain text
-    } catch (error) {
-      console.error("Error decrypting role:", error);
-      return null;
-    }
-  };
-
-  // Fetch and decrypt role from session storage
   useEffect(() => {
-    const encryptedRole = sessionStorage.getItem('userRole'); // Assuming encrypted role is stored in sessionStorage
-    const decryptedRole = decryptRole(encryptedRole); // Decrypt the role
-    setRole(decryptedRole); // Set the decrypted role
-    console.log("Decrypted Role: " + decryptedRole);
+    const encryptedRole = sessionStorage.getItem('userRole');
+    if (encryptedRole) {
+      try {
+        const bytes = CryptoJS.AES.decrypt(
+          encryptedRole,
+          process.env.REACT_APP_ENCRYPTION_KEY
+        );
+        const decryptedRole = bytes.toString(CryptoJS.enc.Utf8);
+        setRole(decryptedRole);
+      } catch (error) {
+        console.error('Decryption failed:', error);
+      }
+    }
   }, []);
 
-  const renderMerchantContent = () => {
-    switch (activeTab) {
-      case 'dashboard':
-        return <ContentDashboard />;
-      case 'analytics':
-        return <ContentAnalytics />;
-      case 'orders':
-        return <ContentOrders />;
-      case 'addProduct':
-        return <ContentAddProduct />;
-      case 'seeAllProducts':
-        return <ContentSeeAllProducts />;
-      default:
-        return <ContentDashboard />;
-    }
-  };
+  const handleSearch = (query) => setSearchQuery(query);
 
-  const renderSuperAdminContent = () => {
+  const renderContent = () => {
+    const commonProps = { searchQuery }; // Add searchQuery as prop
     switch (activeTab) {
-      case 'seeAllUsers':
-        return <ContentSeeAllUsers  />;
-      case 'seeAllStores':
-        return <ContentSeeAllStores />;
-      case 'categories':
-        return <ContentCategories />; // New categories content
-      case 'sections':
-        return <ContentSections  />; // New sections content
       case 'dashboard':
-        return <ContentDashboard />; // Shared component for both roles
+        return <ContentDashboard {...commonProps} />;
+      case 'analytics':
+        return <ContentAnalytics {...commonProps} />;
+      case 'orders':
+        return <ContentOrders {...commonProps} />;
+      case 'addProduct':
+        return <ContentAddProduct {...commonProps} />;
+      case 'seeAllProducts':
+        return <ContentSeeAllProducts {...commonProps} />;
+      case 'seeAllUsers':
+        return <ContentSeeAllUsers {...commonProps} />;
+      case 'seeAllStores':
+        return <ContentSeeAllStores {...commonProps} />;
+      case 'categories':
+        return <ContentCategories {...commonProps} />; // Pass searchQuery to ContentCategories
+      case 'sections':
+        return <ContentSections {...commonProps} />;
       default:
-        return <ContentDashboard />;
+        return <ContentDashboard {...commonProps} />;
     }
   };
 
   return (
-    <div className="flex ">
-      <Sidebar setActiveTab={setActiveTab} role={role} /> {/* Fixed Sidebar */}
-      <div className="ml-64 w-full h-screen overflow-auto  bg-[#F7F9EB] ">
-        {/* Conditionally render content based on decrypted user role */}
-        {role === 'merchant' && renderMerchantContent()}
-        {role === 'superadmin' && renderSuperAdminContent()}
+    <div
+      className={`flex ${
+        isMobile ? 'flex-col' : 'flex-row'
+      } w-full h-lvh  bg-[#F7F9EB]`}
+    >
+      <Sidebar  setActiveTab={setActiveTab} activeTab={activeTab} role={role} />
+      <div className="flex-grow overflow-auto">
+        <DashboardNavbar onSearch={handleSearch} /> {/* Pass handleSearch to the navbar */}
+        <div className="overflow-auto p-4">{renderContent()}</div>
       </div>
     </div>
   );
 };
 
-export default Dashboardpage;
+export default DashboardPage;

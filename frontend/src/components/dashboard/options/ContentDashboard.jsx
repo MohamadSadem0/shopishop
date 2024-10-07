@@ -1,34 +1,25 @@
-
 import React, { useState, useEffect } from 'react';
-import CryptoJS from "crypto-js";
-import Nav from "../DashboardNavbar";
 import MapComponent from '../MapComponent';
 import DashboardItemCard from '../../cards/DashboardItemCard ';
 import dummy from "../../../assets/images/back2.jpg";
+import {getDecryptedItem} from '../../../utils/decryptToken'; // Import the utility function
 
 const ContentDashboard = () => {
   const [userData, setUserData] = useState({ email: "", name: "", role: "" });
 
   useEffect(() => {
-    const encryptionKey = process.env.REACT_APP_ENCRYPTION_KEY;
+    const userEmail = getDecryptedItem('userEmail');  // Decrypt email using the utility function
+    const userName = getDecryptedItem('userName');    // Decrypt name using the utility function
+    const userRole = getDecryptedItem('userRole');    // Decrypt role using the utility function
 
-    // Decrypt data stored in sessionStorage
-    const encryptedUserEmail = sessionStorage.getItem("userEmail");
-    const encryptedUserName = sessionStorage.getItem("userName");
-    const encryptedUserRole = sessionStorage.getItem("userRole");
-
-    if (encryptedUserEmail && encryptedUserName && encryptedUserRole && encryptionKey) {
-      const userEmail = CryptoJS.AES.decrypt(encryptedUserEmail, encryptionKey).toString(CryptoJS.enc.Utf8);
-      const userName = CryptoJS.AES.decrypt(encryptedUserName, encryptionKey).toString(CryptoJS.enc.Utf8);
-      const userRole = CryptoJS.AES.decrypt(encryptedUserRole, encryptionKey).toString(CryptoJS.enc.Utf8);
-
+    if (userEmail && userName && userRole) {
       setUserData({ email: userEmail, name: userName, role: userRole });
     }
   }, []);
 
   return (
     <div className="p-8 w-full bg-[#F7F9EB] sm:p-4">
-      <Nav />
+      
       <div className="flex flex-row space-x-11 space-y-10 sm:flex-col sm:space-x-0 sm:space-y-4">
         <div className="w-2/3 sm:w-full">
           <div className="flex justify-between items-center mb-8 sm:flex-col sm:items-start sm:space-y-4 sm:mb-4">

@@ -1,5 +1,5 @@
 import axiosInstance from '../utils/axiosInstance';
-import getDecryptedToken from '../utils/decryptToken'; // Import token decryption
+import {getDecryptedToken} from '../utils/decryptToken'; // Import token decryption
 
 /**
  * Creates a new category under a specific section.

@@ -26,14 +26,70 @@ body {
 
    @media (max-width: 640px) { /* Tailwind's 'sm' breakpoint is 640px */
    
-
-  
-  /* .landingpage{
-
-    padding: 0;
-  }
-  .item-card{
-
-  } */
   }
 
+
+/* CardStyles.css */
+.card {
+  background-color: #ffffff; /* white */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.06);
+  border-radius: 0.5rem; /* 8px */
+  padding: 1.75rem; /* 28px */
+  margin-right: 0.5rem; /* 8px */
+  margin-bottom: 0.5rem; /* 8px */
+  transition: transform 200ms ease-in-out, box-shadow 200ms ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-0.25rem); /* 4px */
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.25);
+}
+
+.card-title {
+  color: #3b82f6; /* blue-500 */
+  font-weight: bold;
+}
+
+.card-text {
+  color: #4b5563; /* gray-600 */
+}
+
+.card-section {
+  color: #3b82f6; /* blue-500 */
+  font-weight: bold;
+}
+
+.card-button {
+  background-color: #3b82f6; /* blue-500 */
+  color: white;
+  padding: 0.25rem 0.75rem; /* py-1 px-3 */
+  border-radius: 0.25rem; /* rounded */
+  transition: background-color 200ms ease-in-out;
+}
+
+.card-button:hover {
+  background-color: #2563eb; /* hover:bg-blue-600 */
+}
+
+.card-delete-button {
+  background-color: #ef4444; /* red-500 */
+  color: white;
+  padding: 0.25rem 0.75rem; /* py-1 px-3 */
+  border-radius: 0.25rem; /* rounded */
+}
+
+.card-delete-button:hover {
+  background-color: #dc2626; /* hover:bg-red-600 */
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem; /* space-x-2 */
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem; /* space-y-2 */
+}

@@ -17,5 +17,18 @@ const getDecryptedToken = () => {
     return null;
   }
 };
+const getDecryptedItem = (key) => {
+  const encryptedItem = sessionStorage.getItem(key);
+  if (!encryptedItem) return null;
 
-export default getDecryptedToken;
+  const encryptionKey = process.env.REACT_APP_ENCRYPTION_KEY;
+  try {
+    const bytes = CryptoJS.AES.decrypt(encryptedItem, encryptionKey);
+    return bytes.toString(CryptoJS.enc.Utf8); // Decrypted value
+  } catch (error) {
+    console.error(`Error decrypting ${key}:`, error);
+    return null;
+  }
+};
+
+export  {getDecryptedToken,getDecryptedItem};
