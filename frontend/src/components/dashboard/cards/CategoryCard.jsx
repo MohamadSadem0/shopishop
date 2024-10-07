@@ -1,44 +1,9 @@
-import React, { useState } from 'react';
-import CategoryDetailPopup from '../forms/CategoryDetailPopup'; // Import the new popup component
-import { updateCategory } from '../../../services/categoryAPI';
+import React from 'react';
 
-const CategoryCard = ({ category, onDelete, onUpdate }) => {
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
-  const [editedCategory, setEditedCategory] = useState({ ...category });
-  const [error, setError] = useState('');
-
-  const handleOpenPopup = () => setIsPopupOpen(true);
-  const handleClosePopup = () => {
-    setIsPopupOpen(false);
-    setIsEditing(false);
-  };
-  const handleEdit = () => setIsEditing(true);
-  const handleChange = (field, value) => {
-    setEditedCategory(prev => ({ ...prev, [field]: value }));
-  };
-  const handleSave = async () => {
-    try {
-      await updateCategory(category.id, editedCategory);
-      onUpdate(editedCategory);
-      setIsEditing(false);
-      setError('');
-    } catch (err) {
-      setError('Failed to save changes');
-    }
-  };
-
-  const handleDelete = async () => {
-    try {
-      await onDelete(category.id);
-    } catch (err) {
-      setError('Failed to delete category');
-    }
-  };
-
+const CategoryCard = ({ category, onDelete, onEdit }) => {
   return (
     <div className="bg-white shadow-lg rounded-lg transition duration-200 ease-in-out transform hover:-translate-y-1 hover:shadow-xl p-7 mr-2 my-2 flex flex-col space-y-2">
-          {category.imageUrl && (
+      {category.imageUrl && (
         <div className="my-2 flex justify-center">
           <img
             src={category.imageUrl}
@@ -57,35 +22,20 @@ const CategoryCard = ({ category, onDelete, onUpdate }) => {
         <span className="text-black">{category.sectionName}</span>
       </p>
 
-      {/* Render Image if imageUrl is available */}
-
-
       <div className="flex space-x-2">
         <button
-          onClick={handleOpenPopup}
+          onClick={onEdit} // Edit handler to open popup
           className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded transition duration-200"
         >
           View Details
         </button>
         <button
-          onClick={() => onDelete(category.id)}
+          onClick={() => onDelete(category.id)} // Call onDelete with category ID
           className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded transition duration-200"
         >
           Delete
         </button>
       </div>
-
-      {isPopupOpen && (
-        <CategoryDetailPopup
-          category={editedCategory}
-          isEditing={isEditing}
-          onClose={handleClosePopup}
-          onSave={handleSave}
-          onEdit={handleEdit}
-          onChange={handleChange}
-          error={error}
-        />
-      )}
     </div>
   );
 };
