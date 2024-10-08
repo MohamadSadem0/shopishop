@@ -2,6 +2,7 @@ package com.example.ShopiShop.controllers;
 
 import com.example.ShopiShop.dto.response.UserLoginResponseDTO;
 
+import com.example.ShopiShop.dto.response.UserResponseDTO;
 import com.example.ShopiShop.models.User;
 import com.example.ShopiShop.repositories.*;
 import com.example.ShopiShop.servicesIMPL.UserService;
@@ -41,8 +42,14 @@ public class UserController {
 
         return ResponseEntity.ok(userResponses);
     }
+    @GetMapping("public/merchants-with-stores")
+    public ResponseEntity<List<UserLoginResponseDTO>> getMerchantsWithStores() {
+        // Call the service to retrieve merchants who have stores
+        List<UserLoginResponseDTO> merchantsWithStores = userService.retrieveAndCleanMerchantsWithoutStore();
 
-
+        // Return the response wrapped in ResponseEntity
+        return ResponseEntity.ok(merchantsWithStores);
+    }
 @GetMapping("/admin/user")
 public ResponseEntity<UserLoginResponseDTO> getUserByEmail(@RequestParam String email) {
     // Fetch user by email

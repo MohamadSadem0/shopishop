@@ -39,7 +39,6 @@ const App = () => {
         const encryptedRole = sessionStorage.getItem('userRole'); // Assuming the role is encrypted in sessionStorage
         const decryptedRole = decryptRole(encryptedRole); // Decrypt the role
         setUserRole(decryptedRole); // Set the decrypted role
-        console.log("Decrypted Role: " + decryptedRole); // Log the decrypted role
 
         // Only connect to WebSocket if the user is a superadmin
         if (decryptedRole === 'superadmin') {
@@ -56,7 +55,6 @@ const App = () => {
     useEffect(() => {
         if (notifications.length > 0) {
             const latestNotification = notifications[notifications.length - 1];
-            console.log('Displaying notification:', latestNotification);
 
             // Add the new notification to the visible list
             setVisibleNotifications((prevNotifications) => [...prevNotifications, latestNotification]);

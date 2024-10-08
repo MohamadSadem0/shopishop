@@ -41,8 +41,12 @@ public class StoreController {
     @GetMapping("public/stores/all")
     public ResponseEntity<List<StoreResponseDTO>> getAllStores(){
     return new ResponseEntity<>(storeService.getAllStores(), HttpStatus.OK);
-    }    @GetMapping("public/stores/{id}")
+    }
+    @GetMapping("public/stores/{id}")
     public ResponseEntity<StoreResponseDTO> getById(@PathVariable Long id){
+    return new ResponseEntity<>(StoreMapper.toDTO(storeService.getStoreById(id)), HttpStatus.OK);
+    }    @GetMapping("admin/stores/{id}")
+    public ResponseEntity<StoreResponseDTO> getStoreAdminById(@PathVariable Long id){
     return new ResponseEntity<>(StoreMapper.toDTO(storeService.getStoreById(id)), HttpStatus.OK);
     }
 

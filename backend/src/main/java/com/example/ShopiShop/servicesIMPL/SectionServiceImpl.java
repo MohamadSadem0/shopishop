@@ -83,6 +83,7 @@ public class SectionServiceImpl implements SectionService {
         Section section = sectionRepository.findById(sectionId)
                 .orElseThrow(() -> new RuntimeException("Section not found"));
 
+
         // Check if another section with the same name exists
         Optional<Section> sectionWithSameName = sectionRepository.findByName(sectionRequestDTO.getName());
 
@@ -90,11 +91,16 @@ public class SectionServiceImpl implements SectionService {
         if (sectionWithSameName.isPresent() && !sectionWithSameName.get().getId().equals(sectionId)) {
             throw new DuplicateEntityException("Section", "name", sectionRequestDTO.getName());
         }
+        if(sectionRequestDTO.getImageUrl()!=null) {
+            // Update the section fields
+            section.setName(sectionRequestDTO.getName());
 
-        // Update the section fields
-        section.setName(sectionRequestDTO.getName());
-        section.setImageUrl(sectionRequestDTO.getImageUrl());
+            section.setImageUrl(sectionRequestDTO.getImageUrl());
+        }
+        else {
+            section.setName(sectionRequestDTO.getName());
 
+        }
         // Save the updated section
         Section updatedSection = sectionRepository.save(section);
 

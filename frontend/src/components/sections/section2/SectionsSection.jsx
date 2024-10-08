@@ -130,8 +130,7 @@ const SectionsSection = () => {
     const fetchData = async () => {
       try {
         const sectionsData = await fetchSections();
-        console.log(sectionsData)
-        console.log(sectionsData.id)
+
         setSections(sectionsData); // Update state with the fetched sections
       } catch (error) {
         console.error('Error fetching sections:', error);

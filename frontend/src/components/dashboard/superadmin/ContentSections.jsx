@@ -1,25 +1,32 @@
+
 import React, { useState, useEffect } from 'react';
 import SectionCard from '../cards/SectionCard';
 import SectionForm from '../forms/SectionForm';
-import ErrorModal from '../../common/ErrorModal'; // Import the ErrorModal component
+import ErrorModal from '../../common/ErrorModal';
+import ClipLoader from 'react-spinners/ClipLoader'; // Import the ClipLoader
 import { fetchSections, createSection, updateSection, deleteSection } from '../../../services/sectionService';
 
-const ContentSections = ({ searchQuery }) => {  // Accept searchQuery as a prop
+const ContentSections = ({ searchQuery }) => {
   const [sections, setSections] = useState([]);
   const [currentSection, setCurrentSection] = useState({});
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const [error, setError] = useState(''); // State to handle errors
-  const [isErrorModalOpen, setIsErrorModalOpen] = useState(false); // State to control error modal visibility
+  const [error, setError] = useState(''); // Handle errors
+  const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
+  const [loading, setLoading] = useState(true); // Loading state
+  const [selectedSection, setSelectedSection] = useState('All'); // Section filter
 
   // Load sections when the component mounts
   useEffect(() => {
     const loadSections = async () => {
+      setLoading(true);
       try {
         const fetchedSections = await fetchSections();
         setSections(fetchedSections);
       } catch (error) {
-        setError('Failed to load sections: ' + error.message); // Set error message
-        setIsErrorModalOpen(true); // Show error modal
+        setError('Failed to load sections: ' + error.message);
+        setIsErrorModalOpen(true);
+      } finally {
+        setLoading(false); // Stop loading once data is fetched
       }
     };
     loadSections();
@@ -27,18 +34,18 @@ const ContentSections = ({ searchQuery }) => {  // Accept searchQuery as a prop
 
   // Handle section edit
   const handleEdit = (section) => {
-    setCurrentSection(section);  // Set the section to be edited
-    setIsFormOpen(true);  // Open the form as a popup
+    setCurrentSection(section);
+    setIsFormOpen(true);
   };
 
   // Handle section delete
   const handleDelete = async (id) => {
     try {
       await deleteSection(id);
-      setSections(sections.filter(section => section.id !== id)); // Remove the deleted section
+      setSections(sections.filter(section => section.id !== id));
     } catch (error) {
-      setError('Failed to delete section: ' + error.message); // Set error message
-      setIsErrorModalOpen(true); // Show error modal
+      setError('Failed to delete section: ' + error.message);
+      setIsErrorModalOpen(true);
     }
   };
 
@@ -46,66 +53,106 @@ const ContentSections = ({ searchQuery }) => {  // Accept searchQuery as a prop
   const handleSave = async (section) => {
     try {
       if (section.id) {
-        // Update existing section
+        
         const updatedSection = await updateSection(section);
-        setSections(sections.map(s => s.id === updatedSection.id ? updatedSection : s)); // Update section in the list
+        console.log(updateSection);
+        
+        setSections(sections.map(s => s.id === updatedSection.id ? updatedSection : s));
+        
       } else {
-        // Create new section
         const newSection = await createSection(section);
-        setSections([...sections, newSection]); // Add the new section to the list
+        setSections([...sections, newSection]);
       }
-      setIsFormOpen(false); // Close the form after save
+      setIsFormOpen(false);
     } catch (error) {
-      setError('Failed to save section: ' + error.message); // Set error message
-      setIsErrorModalOpen(true); // Show error modal
+      setError('Failed to save section: ' + error.message);
+      console.log(updateSection);
+
+      setIsErrorModalOpen(true);
     }
   };
 
-  // Handle adding new section
+  // Handle adding a new section
   const handleAddNew = () => {
-    setCurrentSection({}); // Reset section to an empty object
-    setIsFormOpen(true);  // Open form for new section
+    setCurrentSection({});
+    setIsFormOpen(true);
   };
 
   const handleClose = () => {
-    setIsFormOpen(false);  // Close the form
+    setIsFormOpen(false);
   };
 
-  // Filter sections based on search query
+  // Filter sections based on search query and selected section
   const filteredSections = sections.filter((section) => {
+    const matchesSection = selectedSection === 'All' || section.category === selectedSection;
     const name = section.name.toLowerCase();
-    const trimmedSearchQuery = searchQuery.trim().toLowerCase(); // Use the passed searchQuery prop
+    const trimmedSearchQuery = searchQuery.trim().toLowerCase();
 
-    return name.includes(trimmedSearchQuery); // Filter sections by name
+    return matchesSection && name.includes(trimmedSearchQuery);
   });
 
   return (
     <div className="p-8 w-full bg-[#F7F9EB]">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-2xl font-bold">Sections</h2>
-        {/* Search input is removed as it's now passed from a parent */}
+        <div>
+          <select
+            onChange={(e) => setSelectedSection(e.target.value)}
+            className="px-4 py-2 border rounded"
+          >
+            <option value="All">All Categories</option>
+            {sections.map((section) => (
+              <option key={section.id} value={section.category}>
+                {section.category}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
 
-      <button onClick={handleAddNew} className="bg-blue-500 text-white px-4 py-2 rounded mb-4">
-        Add New Section
-      </button>
+      {error && <p className="text-red-500">{error}</p>}
 
-      <div className="grid grid-cols-3 gap-4">
-        {filteredSections.length > 0 ? (
-          filteredSections.map(section => (
-            <SectionCard key={section.id} section={section} onEdit={handleEdit} onDelete={handleDelete} />
-          ))
-        ) : (
-          <p className="mt-4 text-gray-600">No sections match the search query.</p>
-        )}
-      </div>
+      {loading ? (
+        <ClipLoader color="#4A90E2" size={50} />
+      ) : (
+        <>
+          <button
+            onClick={handleAddNew}
+            className="bg-blue-500 text-white px-4 py-2 rounded"
+          >
+            Add New Section
+          </button>
 
-      {isFormOpen && <SectionForm onClose={handleClose} onSave={handleSave} initialSection={currentSection} />}
-      <ErrorModal
-        isOpen={isErrorModalOpen}
-        error={error}
-        onClose={() => setIsErrorModalOpen(false)}
-      />
+          <div className="flex flex-wrap mt-4">
+            {filteredSections.length > 0 ? (
+              filteredSections.map(section => (
+                <SectionCard
+                  key={section.id}
+                  section={section}
+                  onEdit={handleEdit}
+                  onDelete={handleDelete}
+                />
+              ))
+            ) : (
+              <p className="mt-4 text-gray-600">No sections match the search query or category.</p>
+            )}
+          </div>
+
+          {isFormOpen && (
+            <SectionForm
+              onClose={handleClose}
+              onSave={handleSave}
+              initialSection={currentSection}
+            />
+          )}
+
+          <ErrorModal
+            isOpen={isErrorModalOpen}
+            error={error}
+            onClose={() => setIsErrorModalOpen(false)}
+          />
+        </>
+      )}
     </div>
   );
 };

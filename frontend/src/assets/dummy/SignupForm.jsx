@@ -25,7 +25,6 @@ const SignupForm = () => {
 
     try {
       const user = await signup({ username, email, password });
-      console.log('Signed up user:', user.data.email);
     } catch (err) {
       setError('Failed to sign up. Please check your details.');
     } finally {

@@ -46,6 +46,8 @@ export const updateSection = async (sectionData) => {
   try {
     const token = getDecryptedToken();
     if (!token) throw new Error('Authentication token is not available.');
+console.log(sectionData);
+
 
     const response = await axiosInstance.put(`/admin/section/update/${sectionData.id}`, sectionData, {
       headers: {

@@ -12,9 +12,6 @@ const ProtectedRoute = ({ component: Component, allowedRoles }) => {
   // Normalize the role to lowercase for consistent checking
   const userRole = user?.role?.toLowerCase();
 
-  console.log("isAuthenticated:", isAuthenticated);
-  console.log("user role:", userRole);
-
   if (!isAuthenticated) {
     return <Navigate to="/login" />;
   }

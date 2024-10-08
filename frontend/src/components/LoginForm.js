@@ -20,7 +20,6 @@ const LoginForm = () => {
 
   const handleLogin = () => {
     // Handle login logic here
-    console.log('Logged in with:', values);
   };
 
   return (

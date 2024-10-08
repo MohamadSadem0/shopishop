@@ -1,8 +1,10 @@
 package com.example.ShopiShop.servicesIMPL;
 
 import com.example.ShopiShop.dto.request.UserLoginRequestDTO;
+import com.example.ShopiShop.dto.response.StoreResponseDTO;
 import com.example.ShopiShop.dto.response.UserLoginResponseDTO;
 import com.example.ShopiShop.dto.response.UserResponseDTO;
+import com.example.ShopiShop.mappers.UserLoginResponseMapper;
 import com.example.ShopiShop.mappers.UserMapper;
 import com.example.ShopiShop.dto.request.UserSignupRequestDTO;
 import com.example.ShopiShop.mappers.StoreMapper;
@@ -202,7 +204,7 @@ public class UserService {
     }
 
     public List<UserLoginResponseDTO> retrieveAndCleanMerchantsWithoutStore() {
-        // Fetch all merchants (users with MERCHANT role)
+        // Fetch all merchants (users with the MERCHANT role)
         List<User> merchants = userRepository.findByUserRole(UserRoleEnum.MERCHANT);
 
         // Filter merchants who do not have a store and delete them
@@ -215,20 +217,26 @@ public class UserService {
                         return false;  // Exclude this merchant from the result list
                     }
                     return true;  // Include this merchant in the result list
-                })
+                }
+                )
                 .collect(Collectors.toList());
 
         // Map remaining merchants (with stores) to UserLoginResponseDTO
         return merchantsWithStore.stream()
                 .map(merchant -> {
-                    String jwtToken = null;  // No token for this request
-                    Location location = merchant.getLocation();
-                    UserLoginResponseDTO.LocationDTO locationDTO = buildLocationDTO(merchant);
+                    // Convert store to StoreResponseDTO
+                    Store store = storeService.getStoreByOwnerEmail(merchant.getEmail());
+                    StoreResponseDTO storeResponseDTO = StoreMapper.toDTO(store);
 
-                    return buildMerchantLoginResponse(jwtToken, merchant);
+                    // No token needed for this response
+                    String jwtToken = null;
+
+                    // Map user and store to UserLoginResponseDTO
+                    return UserLoginResponseMapper.toDto(merchant, jwtToken, storeResponseDTO);
                 })
                 .collect(Collectors.toList());
     }
+
 
 
 

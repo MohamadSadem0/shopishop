@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { fetchAllStores, approveStore } from '../../../services/fetchingService';
 import StoreCard from '../cards/StoreCard';
-import ClipLoader from 'react-spinners/ClipLoader'; // Import ClipLoader from react-spinners
+import ClipLoader from 'react-spinners/ClipLoader';
+import StoreModal from '../forms/StoreModal'; // Import the Modal component
 
-const ContentSeeAllStores = ({ searchQuery }) => { // Accept searchQuery as a prop
+const ContentSeeAllStores = ({ searchQuery }) => {
   const [stores, setStores] = useState([]);
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false); // State to manage loading status
+  const [loading, setLoading] = useState(false);
+  const [selectedStore, setSelectedStore] = useState(null); // State to handle the selected store
 
   const fetchStores = async () => {
     setLoading(true);
@@ -27,24 +29,21 @@ const ContentSeeAllStores = ({ searchQuery }) => { // Accept searchQuery as a pr
   const handleApproveStore = async (storeId) => {
     try {
       await approveStore(storeId);
-      fetchStores(); // Refresh the list of stores after approving
+      fetchStores();
     } catch (err) {
       setError('Failed to approve store');
     }
   };
 
-  // Filter stores based on the searchQuery
-  const filteredStores = stores.filter((store) => {
-    const name = store.name || ''; // Safely handle missing names
-    const description = store.description || ''; // Safely handle missing descriptions
-    const Owner=store.Owner || ""
+  const handleViewDetails = (store) => {
+    setSelectedStore(store); // Set the selected store for the modal
+  };
 
-    // Match the store name or description with the search query
-    return (
-      name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      description.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-  });
+  const closeModal = () => {
+    setSelectedStore(null); // Reset the selected store on closing modal
+  };
+
+  const filteredStores = stores.filter((store) => store.name.toLowerCase().includes(searchQuery.toLowerCase()) || store.description.toLowerCase().includes(searchQuery.toLowerCase()));
 
   return (
     <div className="p-8 w-full overflow-y-auto bg-[#F7F9EB]">
@@ -52,7 +51,7 @@ const ContentSeeAllStores = ({ searchQuery }) => { // Accept searchQuery as a pr
       {error && <p className="text-red-500 mb-4">{error}</p>}
       {loading ? (
         <div className="flex justify-center items-center">
-          <ClipLoader color="#4A90E2" size={50} /> {/* Customize the color and size as needed */}
+          <ClipLoader color="#4A90E2" size={50} />
         </div>
       ) : (
         <div className="flex flex-wrap">
@@ -63,11 +62,20 @@ const ContentSeeAllStores = ({ searchQuery }) => { // Accept searchQuery as a pr
               <StoreCard
                 key={store.id}
                 store={store}
-                onViewDetails={() => {}}
+                onViewDetails={() => handleViewDetails(store)}
                 onApprove={handleApproveStore}
               />
             ))
           )}
+          <StoreModal isOpen={!!selectedStore} onClose={closeModal}>
+            {selectedStore && (
+              <div>
+                <h3>{selectedStore.name}</h3>
+                <p>{selectedStore.description}</p>
+                {/* Display other details as needed */}
+              </div>
+            )}
+          </StoreModal>
         </div>
       )}
     </div>

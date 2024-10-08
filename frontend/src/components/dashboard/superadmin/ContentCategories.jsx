@@ -69,7 +69,6 @@ const ContentCategories = ({ searchQuery, token }) => {
     setIsProcessing(true); // Show loading indicator during update
     try {
       await updateCategory(id, cleanCategory); // Pass the id and the clean data to the update API
-      console.log("Updated Category:", cleanCategory);
       
       setCategories((prev) =>
         prev.map((c) => (c.id === id ? { ...c, ...cleanCategory } : c))
@@ -94,14 +93,13 @@ const ContentCategories = ({ searchQuery, token }) => {
     }));
   };
 
-  const handleOpenPopup = (category) => {
+  const handleOpenPopup = (category) => { 
     if (!category || !category.id) {
       console.error('Invalid category object or missing ID');
       return;
     }
   
     // Log the category object to make sure the `id` is present
-    console.log('Selected Category:', category);
   
     setSelectedCategory(category); // Ensure the full category object is passed with the id
     setIsEditing(true);

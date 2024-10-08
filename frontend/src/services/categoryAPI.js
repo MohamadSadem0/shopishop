@@ -78,7 +78,6 @@ export const updateCategory = async (categoryId, categoryData) => {
     if (!token) throw new Error('No token found');
     
     // Log the categoryId to ensure it's a valid UUID
-    console.log('Category ID:', categoryId); 
 
     const response = await axiosInstance.put(`/admin/category/update/${categoryId}`, categoryData, {
       headers: {

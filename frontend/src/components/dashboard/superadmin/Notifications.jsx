@@ -16,11 +16,9 @@ const Notifications = () => {
 
     // Connect to WebSocket server
     stompClient.connect({}, (frame) => {
-      console.log('Connected to WebSocket:', frame);  // Log WebSocket connection
   
       // Subscribe to the notifications topic
       stompClient.subscribe('/topic/superadmin-notifications', (message) => {
-        console.log('Received notification:', message.body);  // Log received messages
         const notification = message.body;
 
         // Update local component state

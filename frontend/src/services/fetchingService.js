@@ -93,7 +93,7 @@ export const fetchAllUsers = async () => {
  */
 export const addProduct = async (product, categoryId, token) => {
   try {
-    console.log(token);
+  
     
     const response = await axiosInstance.post(`/merchant/${categoryId}/product/create`, product, {
       headers: {
@@ -129,7 +129,9 @@ export const fetchAllCategories = async () => {
  * @param {string} token - The JWT token for authentication.
  * @returns {Object} The updated category.
  */
-export const updateCategory = async (categoryId, categoryData, token) => {
+export const updateCategory = async (categoryId, categoryData) => {
+  const token = getDecryptedToken(); // Decrypt the token
+  if (!token) throw new Error('Authentication token is not available.');
   try {
     const response = await axiosInstance.put(`/admin/category/update/${categoryId}`, categoryData, {
       headers: {
@@ -140,6 +142,28 @@ export const updateCategory = async (categoryId, categoryData, token) => {
   } catch (error) {
     console.error('Failed to update category:', error);
     throw new Error(error.response?.data?.message || 'Error updating category');
+  }
+};
+
+
+/**
+ * Fetches merchants along with their stores.
+ * @returns {Array} List of merchants with their stores.
+ */
+export const fetchMerchantsWithStores = async () => {
+  const token = getDecryptedToken(); // Decrypt the token from storage
+  if (!token) throw new Error('Authentication token is not available.');
+
+  try {
+    const response = await axiosInstance.get('/admin/merchants-with-stores', {
+      headers: {
+        Authorization: `Bearer ${token}` // Include the decrypted JWT token in the request header
+      }
+    });
+    return response.data; // Assuming response.data contains the list of merchants with stores
+  } catch (error) {
+    console.error('Failed to fetch merchants with stores:', error);
+    throw new Error(error.response?.data?.message || 'Error fetching merchants with stores');
   }
 };
 
@@ -213,7 +237,7 @@ export const fetchProductsByCategory = async (categoryId) => {
  */
 export const fetchProductsByStoreId = async (storeId) => {
   try {
-    console.log(storeId);
+
     
     const response = await axiosInstance.get(`/public/product/store/${storeId}`
       // {

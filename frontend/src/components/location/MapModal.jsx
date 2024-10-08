@@ -38,7 +38,6 @@ const MapModal = ({ currentPosition, markerPosition, onClose, onMapClick, detect
             type="button"
             className="bg-yellow-500 text-white px-4 py-2 rounded"
             onClick={() => {
-              console.log("Detect Location Button Clicked");
               detectCurrentLocation(); // Call detectCurrentLocation when the button is clicked
             }}
           >

@@ -27,12 +27,9 @@ const CommonDetails = ({ userDetails, setUserDetails, error, handleNext, handleB
   };
 
   const handleNextClick = async () => {
-    console.log('Next clicked, current userDetails:', userDetails);
     const errors = validateSignup(userDetails);
-    console.log('Validation errors:', errors);
     if (Object.keys(errors).length === 0) {
         const emailIsAvailable = await checkEmailAvailability();
-        console.log('Email availability:', emailIsAvailable);
         if (!emailIsAvailable) {
             setValidationErrors({ ...errors, email: 'This email is already in use.' });
         } else {
