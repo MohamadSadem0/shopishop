@@ -52,7 +52,7 @@ public class SecurityConfiguration {
 
         // Allow all origins, headers, and methods for testing; modify as needed
         config.setAllowCredentials(true);
-        config.addAllowedOrigin("http://localhost:3000");  // Frontend origin
+        config.addAllowedOrigin("http://localhost:5500");  // Frontend origin
         config.addAllowedOrigin("https://unique-gnome-289962.netlify.app");  // Frontend origin
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
