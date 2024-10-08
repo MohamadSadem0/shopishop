@@ -1,29 +1,14 @@
 version: '3.8'
-
 services:
-  shopishop:
-    image: shopishop
-    build:
-      context: .
-      dockerfile: Dockerfile
+  app:
+    image: springboot-app:latest
+    build: .
     ports:
       - "8080:8080"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/ShopiShop
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: Root123@
-      SPRING_DATASOURCE_DRIVER-CLASS-NAME: com.mysql.cj.jdbc.Driver
-      SPRING_JPA_HIBERNATE_DDL-AUTO: update
-      SPRING_JPA_SHOW-SQL: "true"
-      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.MySQLDialect
-    depends_on:
-      - db
-
-  db:
-    image: mysql:8.0
-    restart: always
-    environment:
-      MYSQL_DATABASE: ShopiShop
-      MYSQL_ROOT_PASSWORD: Root123@
-    ports:
-      - "4306:3306"
+      - SPRING_MAIL_HOST=smtp.gmail.com
+      - SPRING_MAIL_PORT=587
+      - SPRING_MAIL_USERNAME=mohamad.sadem@gmail.com
+      - SPRING_MAIL_PASSWORD=befuxrzzhgovdump
+      - SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH=true
+      - SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE=true
