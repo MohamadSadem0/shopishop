@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import CryptoJS from 'crypto-js';
 import Sidebar from '../../components/dashboard/Sidebar';
+import SmallDeviceSidebar from '../../components/dashboard/SmallDeviceSidebar'; // Import the new sidebar
 import DashboardNavbar from '../../components/dashboard/DashboardNavbar';
 import { useResponsiveDesign } from '../../hooks/useResponsiveDesign';
 
@@ -14,12 +15,13 @@ import ContentSeeAllUsers from '../../components/dashboard/superadmin/ContentSee
 import ContentSeeAllStores from '../../components/dashboard/superadmin/ContentSeeAllStores';
 import ContentCategories from '../../components/dashboard/superadmin/ContentCategories';
 import ContentSections from '../../components/dashboard/superadmin/ContentSections';
+import styles from '../../styles/Sidebar.module.css';
 
 const DashboardPage = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
   const [role, setRole] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
-  const { isMobile } = useResponsiveDesign();
+  const { isMobile } = useResponsiveDesign(); // Responsive design hook
 
   useEffect(() => {
     const encryptedRole = sessionStorage.getItem('userRole');
@@ -71,7 +73,13 @@ const DashboardPage = () => {
         isMobile ? 'flex-col' : 'flex-row'
       } w-full h-lvh  bg-[#F7F9EB]`}
     >
-      <Sidebar  setActiveTab={setActiveTab} activeTab={activeTab} role={role} />
+      {/* Conditionally render SmallDeviceSidebar or Sidebar based on screen size */}
+      {isMobile ? (
+        <SmallDeviceSidebar setActiveTab={setActiveTab} activeTab={activeTab} role={role} />
+      ) : (
+        <Sidebar setActiveTab={setActiveTab} activeTab={activeTab} role={role} />
+      )}
+
       <div className="flex-grow overflow-auto">
         <DashboardNavbar onSearch={handleSearch} /> {/* Pass handleSearch to the navbar */}
         <div className="overflow-auto p-4">{renderContent()}</div>
