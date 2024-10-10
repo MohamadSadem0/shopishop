@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FiSun, FiBell } from 'react-icons/fi';
 import {
   faUsers, faStore, faThLarge, faBoxes, faSignOutAlt, faCog, faBars,
 } from '@fortawesome/free-solid-svg-icons';
@@ -13,7 +12,6 @@ import SeeAllProductsIcon from '../../assets/icons/see_all_products.svg';
 import ReviewIcon from '../../assets/icons/Review.svg';
 
 import styles from '../../styles/SmallSidebar.module.css'; // New CSS file for small screens
-import { useResponsiveDesign } from '../../hooks/useResponsiveDesign';
 import { getDecryptedItem } from '../../utils/decryptToken';
 
 const SmallDeviceSidebar = ({ setActiveTab, activeTab, role }) => {
@@ -21,7 +19,6 @@ const SmallDeviceSidebar = ({ setActiveTab, activeTab, role }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [userData, setUserData] = useState({ email: '', name: '' });
   const navigate = useNavigate();
-  const { isMobile } = useResponsiveDesign();
 
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 

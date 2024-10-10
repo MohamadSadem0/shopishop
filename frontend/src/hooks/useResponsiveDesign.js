@@ -7,3 +7,4 @@ export const useResponsiveDesign = () => {
 
   return { isMobile, isDesktop,isScreenSmall };
 };
+ 

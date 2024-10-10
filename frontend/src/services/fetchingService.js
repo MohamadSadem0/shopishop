@@ -122,13 +122,7 @@ export const fetchAllCategories = async () => {
   }
 };
 
-/**
- * Updates an existing category.
- * @param {string} categoryId - The ID of the category to update.
- * @param {Object} categoryData - The updated category details.
- * @param {string} token - The JWT token for authentication.
- * @returns {Object} The updated category.
- */
+
 export const updateCategory = async (categoryId, categoryData) => {
   const token = getDecryptedToken(); // Decrypt the token
   if (!token) throw new Error('Authentication token is not available.');
@@ -229,12 +223,8 @@ export const fetchProductsByCategory = async (categoryId) => {
   }
 };
 
-/**
- * Fetches all products for a specific store.
- * @param {number} storeId - The ID of the store to fetch products for.
- * @param {string} token - The Bearer token for authorization.
- * @returns {Array} List of products.
- */
+
+
 export const fetchProductsByStoreId = async (storeId) => {
   try {
 
@@ -307,3 +297,5 @@ export const approveStore = async (storeId) => {
     throw new Error(error.response?.data?.message || 'Error approving store');
   }
 };
+
+

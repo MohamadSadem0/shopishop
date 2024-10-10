@@ -8,14 +8,15 @@ import LandingPage from './pages/landingPage/LandingPage';
 import Dashboardpage from './pages/dashboard/Dashboardpage';
 import Profile from './pages/profile/Profile';
 import ProtectedRoute from './components/ProtectedRoute';
-import AllStoresPage from './pages/store/AllStoresPage'; // Import the AllStoresPage
-import StorePage from './pages/store/StorePage'; // Import the StorePage
-import ProductDetailsPage from './pages/store/ProductDetailsPage'; // Import ProductDetailsPage
 import CryptoJS from 'crypto-js'; // Import CryptoJS for decryption
 import NotificationPopup from './components/admin/NotificationPopup'; // Import reusable notification component
-import StoreDetailsPage from './pages/store/StoreDetailsPage';
+import { useResponsiveDesign } from './hooks/useResponsiveDesign';
+import LandingPageMobile from './pages/landingPage/LandingPageMobile';
+import Store from './pages/store';
 
 const App = () => {
+  const { isMobile } = useResponsiveDesign();
+
     const notifications = useSelector((state) => state.notifications.notifications);
     const [userRole, setUserRole] = useState(null); // State to store decrypted user role
     const [visibleNotifications, setVisibleNotifications] = useState([]); // State to handle multiple notifications
@@ -77,7 +78,10 @@ const App = () => {
                 <Routes>
                     <Route path="/login" element={<Login />} />
                     <Route path="/signup" element={<Signup />} />
-                    <Route path="/" element={<LandingPage />} />
+                    <Route path="/store" element={<Store />} />
+                    <Route path="/home" element= {isMobile ? <LandingPageMobile /> : <LandingPage />} />
+    
+
                     <Route
                         path="/dashboard"
                         element={<ProtectedRoute allowedRoles={['superadmin', 'merchant']} component={Dashboardpage} />}
@@ -86,9 +90,7 @@ const App = () => {
                         path="/profile"
                         element={<ProtectedRoute allowedRoles={['customer']} component={Profile} />}
                     />
-                    <Route path="/stores" element={<AllStoresPage />} /> {/* Add AllStoresPage route */}
-                    <Route path="/store/:storeId" element={<StoreDetailsPage />} /> {/* Add route for store details */}
-                    <Route path="/product/:productId" element={<ProductDetailsPage />} /> {/* Add ProductDetailsPage route */}
+
                 </Routes>
             </Router>
         </>

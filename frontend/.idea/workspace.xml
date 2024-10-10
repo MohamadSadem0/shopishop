@@ -1,10 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="c7c4aa61-2fc6-4ede-a083-11d55c2b0a2b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/components/dashboard/options/ContentAddProduct.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/options/ContentAddProduct.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/dashboard/options/ContentSeeAllProducts.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/options/ContentSeeAllProducts.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/productService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/fetchingService.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/src/main/java/com/example/ShopiShop/dto/request/CartItemRequestDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/src/main/java/com/example/ShopiShop/dto/request/DeliveryRequestDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/src/main/java/com/example/ShopiShop/dto/request/OrderRequestDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/src/main/java/com/example/ShopiShop/dto/request/PaymentRequestDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/src/main/java/com/example/ShopiShop/dto/response/CartItemResponseDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/src/main/java/com/example/ShopiShop/dto/response/DeliveryResponseDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/src/main/java/com/example/ShopiShop/dto/response/OrderResponseDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/src/main/java/com/example/ShopiShop/dto/response/PaymentResponseDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/src/main/java/com/example/ShopiShop/mappers/CartItemMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/src/main/java/com/example/ShopiShop/mappers/DeliveryMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/src/main/java/com/example/ShopiShop/mappers/OrderMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/src/main/java/com/example/ShopiShop/mappers/PaymentMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/src/main/java/com/example/ShopiShop/models/CartItem.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/src/main/java/com/example/ShopiShop/models/OrderProduct.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/src/main/java/com/example/ShopiShop/models/OrderProductId.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/src/main/java/com/example/ShopiShop/repositories/CartItemRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/src/main/java/com/example/ShopiShop/servicesIMPL/CartServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/common/QuickViewModal.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/layout/SidebarStore.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/store/CartDrawer.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/store/ProductGrid.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/store/SearchAndFilterBar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/com/example/ShopiShop/controllers/AuthenticationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/com/example/ShopiShop/controllers/AuthenticationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/com/example/ShopiShop/controllers/CartItemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/com/example/ShopiShop/controllers/CartController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/com/example/ShopiShop/controllers/DeliveryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/com/example/ShopiShop/controllers/DeliveryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/com/example/ShopiShop/controllers/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/com/example/ShopiShop/controllers/OrderController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/com/example/ShopiShop/controllers/PaymentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/com/example/ShopiShop/controllers/PaymentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/com/example/ShopiShop/dto/response/ProductResponseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/com/example/ShopiShop/dto/response/ProductResponseDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/com/example/ShopiShop/models/Delivery.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/com/example/ShopiShop/models/Delivery.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/com/example/ShopiShop/models/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/com/example/ShopiShop/models/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/com/example/ShopiShop/models/Payment.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/com/example/ShopiShop/models/Payment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/com/example/ShopiShop/models/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/com/example/ShopiShop/models/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/com/example/ShopiShop/models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/com/example/ShopiShop/models/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/com/example/ShopiShop/repositories/DeliveryRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/com/example/ShopiShop/repositories/DeliveryRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/com/example/ShopiShop/repositories/OrderRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/com/example/ShopiShop/repositories/OrderRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/com/example/ShopiShop/repositories/PaymentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/com/example/ShopiShop/repositories/PaymentRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/com/example/ShopiShop/servicesIMPL/DeliveryServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/com/example/ShopiShop/servicesIMPL/DeliveryServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/com/example/ShopiShop/servicesIMPL/OrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/com/example/ShopiShop/servicesIMPL/OrderServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/com/example/ShopiShop/servicesIMPL/PaymentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/com/example/ShopiShop/servicesIMPL/PaymentServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/dashboard/SmallDeviceSidebar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/SmallDeviceSidebar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/layout/NavBar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/layout/NavBar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hooks/useResponsiveDesign.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useResponsiveDesign.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/dashboard/Dashboardpage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/dashboard/Dashboardpage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/landingPage/LandingPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/landingPage/LandingPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/store/AllStoresPage.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/store/ProductDetailsPage.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/store/StoreDetailsPage.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/fetchingService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/fetchingService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/sectionService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/sectionService.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,6 +73,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectId" id="2mvaihXY6Eqxee0ulBy0bBU5k8n" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -28,7 +87,9 @@
     "WebServerToolWindowFactoryState": "false",
     "last_opened_file_path": "C:/webprojects/shopishop/frontend",
     "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
   }
@@ -42,6 +103,7 @@
       <option name="presentableId" value="Default" />
       <updated>1727959633065</updated>
       <workItem from="1727959634083" duration="42000" />
+      <workItem from="1728547079624" duration="1367000" />
     </task>
     <servers />
   </component>

@@ -82,3 +82,20 @@ export const deleteSection = async (sectionId) => {
     throw error; // Propagate error to handle in the caller component
   }
 };
+
+
+export const fetchDiscountItems = async () => {
+  // Simulate fetching discounts
+  return [
+    { id: 1, name: 'Discount Burger', url: 'https://via.placeholder.com/150', description: 'Get 50% OFF on Burgers!' },
+    { id: 2, name: 'Pizza Deal', url: 'https://via.placeholder.com/150', description: '25% OFF on all pizzas!' },
+  ];
+};
+
+export const fetchShopiiShopItems = async () => {
+  // Simulate fetching ShopiiShop items
+  return [
+    { id: 1, name: 'Maryool', url: 'https://via.placeholder.com/200', description: 'Daily Dish, Healthy, Lebanese' },
+    { id: 2, name: 'Socrates', url: 'https://via.placeholder.com/200', description: 'Delicious Mediterranean food' },
+  ];
+};

@@ -15,7 +15,6 @@ import ContentSeeAllUsers from '../../components/dashboard/superadmin/ContentSee
 import ContentSeeAllStores from '../../components/dashboard/superadmin/ContentSeeAllStores';
 import ContentCategories from '../../components/dashboard/superadmin/ContentCategories';
 import ContentSections from '../../components/dashboard/superadmin/ContentSections';
-import styles from '../../styles/Sidebar.module.css';
 
 const DashboardPage = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -71,7 +70,7 @@ const DashboardPage = () => {
     <div
       className={`flex ${
         isMobile ? 'flex-col' : 'flex-row'
-      } w-full h-lvh  bg-[#F7F9EB]`}
+      } w-full h-full  bg-[#F7F9EB] `}
     >
       {/* Conditionally render SmallDeviceSidebar or Sidebar based on screen size */}
       {isMobile ? (

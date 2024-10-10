@@ -18,7 +18,7 @@ import org.springframework.security.oauth2.client.authentication.OAuth2Authentic
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/public/auth")
+@RequestMapping("public/auth")
 @RequiredArgsConstructor
 public class AuthenticationController {
 

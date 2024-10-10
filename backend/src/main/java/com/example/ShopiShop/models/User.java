@@ -67,6 +67,9 @@ public class User implements UserDetails {
 
     private String confirmationToken;
 
+    @OneToMany(mappedBy = "user")
+    private List<Order> orders;
+
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
