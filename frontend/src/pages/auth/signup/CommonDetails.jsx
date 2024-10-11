@@ -107,7 +107,7 @@ const CommonDetails = ({ userDetails, setUserDetails, error, handleNext, handleB
 
       <div className="flex justify-between">
         <Button label="Back" onClick={handleBack} className="bg-gray-500 text-white py-2 rounded" />
-        <Button label="Next" onClick={handleNextClick} className="bg-yellow-400 text-black py-2 rounded" />
+        <Button label="Next" onClick={handleNextClick} className="bg-yellow1 text-black py-2 rounded" />
       </div>
     </form>
   );

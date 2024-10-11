@@ -128,7 +128,7 @@ const Signup = () => {
         <div className="mt-4 flex justify-center">
           <Button
             label="Go Back to Website"
-            onClick={() => navigate('/')}
+            onClick={() => navigate('/home')}
             className="w-full bg-gray-500 text-white text-lg py-2 rounded hover:bg-gray-600 transition"
           />
         </div>

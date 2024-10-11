@@ -36,7 +36,7 @@ const SectionMobile = () => {
   }, []);
 
   return (
-    <div className="p-4 mb-20 bg-[#fff8c0]">
+    <div className="p-4 mb-20 bg-bg">
       {/* Banner Section */}
       <Banner 
         title="We're here to help"

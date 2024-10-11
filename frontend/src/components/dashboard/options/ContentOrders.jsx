@@ -3,7 +3,7 @@ import Nav from '../DashboardNavbar';
 
 const ContentOrders = () => {
   return (
-    <div className="p-8 w-full bg-[#F7F9EB]">
+    <div className="p-8 w-full bg-color3">
       <Nav />
       <h2 className="text-2xl font-bold mb-8">Orders Overview</h2>
       <div className="w-full h-[400px] bg-white rounded-lg shadow-md p-6">

@@ -49,7 +49,7 @@ const ContentProducts = ({ searchQuery }) => { // Accept searchQuery prop from p
   });
 
   return (
-    <div className="p-8  w-full bg-[#F7F9EB]">
+    <div className="p-8  w-full bg-color3">
       <h2 className="text-2xl font-bold mb-8">Products</h2>
       {error && <p className="text-red-500">{error}</p>}
       <button onClick={() => setIsAddProductOpen(true)} className="bg-blue-500 text-white px-4 py-2 rounded mb-4">

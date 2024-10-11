@@ -9,13 +9,14 @@ import { useResponsiveDesign } from '../../hooks/useResponsiveDesign';
 const LandingPage = () => {
   return (
     <>
-    <div className="relative pl-[71px] landingpage pr-[71px] sm:p-0 lg:pr-auto w-full min-h-screen bg-[#fff8c0]">
       <Navbar />
-      <div className='flex flex-col'>
+
+    <div className=" pl-[71px] landingpage pr-[71px] sm:p-0 lg:pr-auto w-full min-h-screen bg-bg">
+      {/* <div className='flex flex-col'> */}
         <Section1 />
         <Section2 />
         <Section3/>
-      </div>
+      {/* </div> */}
     </div>
     </>
   );

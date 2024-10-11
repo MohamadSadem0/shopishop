@@ -65,7 +65,7 @@ const Login = () => {
           <Button
             label={loading ? <Spinner /> : "Sign in"}
             type="submit"
-            className="w-full bg-yellow-400 text-black text-lg py-2 rounded hover:bg-yellow-500 transition"
+            className="w-full bg-yellow1 text-black text-lg py-2 rounded hover:bg-yellow1 transition"
           />
         </form>
 

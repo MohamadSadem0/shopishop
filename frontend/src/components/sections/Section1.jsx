@@ -12,7 +12,7 @@ const Section1 = () => {
   // Your ScrollTrigger setup code can go here if needed
 
   return (
-    <section className="section-1 relative   sm:w-full min-h-screen bg-[#fff8c0] pt-[150px] sm:pt-[100px] pb-10 flex flex-col space-x-10">
+    <section className="section-1 relative   sm:w-full min-h-screen bg-bg  sm:pt-[100px] pb-10 flex flex-col space-x-10">
       <div className="relative sm:flex-col sm:p-0 flex laptop:justify-center justify-center items-center w-full px-4 md:px-16">
         <div className="text-left w-[526px] sm:w-[300px] flex justify-center items-center text-black text-5xl font-normal leading-[60px]">
           Your Trusted Partner for Swift Deliveries.
@@ -29,7 +29,7 @@ const Section1 = () => {
           <br />
           Lebanon
         </div>
-        <button className="w-[158px] h-[47px] bg-[#fede02] rounded-[10px] flex items-center justify-center mt-8">
+        <button className="w-[158px] h-[47px] bg-color2 rounded-[10px] flex items-center justify-center mt-8">
           <span className="text-black text-[15px] font-normal">Find more</span>
         </button>
         </div>

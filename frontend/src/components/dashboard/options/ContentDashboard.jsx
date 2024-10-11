@@ -18,7 +18,7 @@ const ContentDashboard = () => {
   }, []);
 
   return (
-    <div className="p-8 w-full bg-[#F7F9EB] sm:p-4">
+    <div className="p-8 w-full bg-color3 sm:p-4">
       
       <div className="flex flex-row space-x-11 space-y-10 sm:flex-col sm:space-x-0 sm:space-y-4">
         <div className="w-2/3 sm:w-full">

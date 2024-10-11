@@ -128,7 +128,7 @@ const SmallDeviceSidebar = ({ setActiveTab, activeTab, role }) => {
             <FontAwesomeIcon icon={faCog} />
             Settings
           </div>
-          <div className={styles.exitButton} onClick={() => navigate('/')}>
+          <div className={styles.exitButton} onClick={() => navigate('/home')}>
             <FontAwesomeIcon icon={faSignOutAlt} />
             Exit
           </div>

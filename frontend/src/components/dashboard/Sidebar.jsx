@@ -191,7 +191,7 @@ const Sidebar = ({ setActiveTab, activeTab, role, mobileView }) => {
             <FontAwesomeIcon icon={faCog} />
             Settings
           </button>
-          <button onClick={() => navigate('/')} className={styles.exitButton}>
+          <button onClick={() => navigate('/home')} className={styles.exitButton}>
             <FontAwesomeIcon icon={faSignOutAlt} />
             Exit
           </button>

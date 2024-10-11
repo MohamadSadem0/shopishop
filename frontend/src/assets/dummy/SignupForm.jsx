@@ -93,7 +93,7 @@ const SignupForm = () => {
             <Button
               label={loading ? <Spinner /> : 'Sign up'}
               type="submit"
-              className="w-full bg-[#FEDE02] text-black text-xl py-2 rounded w-2/4 hover:bg-[#FEDE02]"
+              className="w-full bg-color2 text-black text-xl py-2 rounded w-2/4 hover:bg-color2"
             />
           </div>
         </form>
@@ -105,7 +105,7 @@ const SignupForm = () => {
 
         {/* Login Link */}
         <p className="mt-4 text-white ml-auto mr-auto">
-          Already have an account? <Link to="/login" className="text-[#fede02]">Log in</Link>
+          Already have an account? <Link to="/login" className="text-color2">Log in</Link>
         </p>
       </div>
     </div>

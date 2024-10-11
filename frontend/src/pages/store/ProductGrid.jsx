@@ -3,7 +3,7 @@ import ProductCard from '../../components/cards/ProductCard'; // Importing the P
 
 const ProductGrid = ({ products, addToCart, setQuickViewProduct }) => {
   return (
-    <div className="flex flex-wrap justify-between gap-1 px-4 py-6 bg-[#fff8c0]">
+    <div className="pr-10 flex flex-wrap  gap-8  py-6 bg-bg">
       {products.length === 0 ? (
         <p className="text-center text-lg text-gray-600">No products available.</p>
       ) : (

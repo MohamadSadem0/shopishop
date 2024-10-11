@@ -70,7 +70,7 @@ const DashboardPage = () => {
     <div
       className={`flex ${
         isMobile ? 'flex-col' : 'flex-row'
-      } w-full h-full  bg-[#F7F9EB] `}
+      } w-full h-full  bg-color3 `}
     >
       {/* Conditionally render SmallDeviceSidebar or Sidebar based on screen size */}
       {isMobile ? (

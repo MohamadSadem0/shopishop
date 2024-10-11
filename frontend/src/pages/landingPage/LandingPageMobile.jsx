@@ -6,7 +6,7 @@ import NavbarBottom from '../mobile/NavbarBottom';
 
 const LandingPageMobile = () => {
   return (
-    <div className="min-h-screen overflow-y-auto bg-[#fff8c0]">
+    <div className="min-h-screen overflow-y-auto bg-bg">
 
 
       <NavbarMobile/>

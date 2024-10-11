@@ -12,13 +12,13 @@ const ActionButtons = ({ handleBack, handleNext, handleSignup, userType }) => (
       <Button
         label="Next"
         onClick={handleNext}
-        className="bg-yellow-400 text-black text-lg py-2 rounded hover:bg-yellow-500"
+        className="bg-yellow1 text-black text-lg py-2 rounded hover:bg-yellow1"
       />
     ) : (
       <Button
         label="Signup"
         onClick={handleSignup}
-        className="bg-yellow-400 text-black text-lg py-2 rounded hover:bg-yellow-500"
+        className="bg-yellow1 text-black text-lg py-2 rounded hover:bg-yellow1"
       />
     )}
   </div>

@@ -43,7 +43,7 @@ const ContentSeeAllProducts = () => {
   if (error) return <div>{error}</div>;
 
   return (
-    <div className="p-8 w-full bg-[#F7F9EB]">
+    <div className="p-8 w-full bg-color3">
       <h2 className="text-2xl font-bold mb-8">All Products</h2>
 
       {/* Display loading spinner or message */}

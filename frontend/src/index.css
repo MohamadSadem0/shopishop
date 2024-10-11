@@ -91,5 +91,4 @@ body {
 .flex-col {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem; /* space-y-2 */
 }
