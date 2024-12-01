@@ -4,9 +4,8 @@ const ProductCard = ({ product, addToCart, setQuickViewProduct }) => {
   const { name, category, price, imageUrl, location, storeName, available, discount } = product;
 
   return (
-    <div className="bg-white flex flex-col flex-grow max-w-[380px] sm:w-[48%] md:w-[30%] p-4 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-200 relative">
+    <div className="bg-white flex flex-col flex-grow max-w-[380px] sm:w-full md:w-[48%] lg:w-[30%] p-4 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-200 relative">
       
-
       {/* Product Image */}
       <div className="relative overflow-hidden rounded-lg mb-4 h-[200px] flex justify-center items-center bg-gray-100">
         <img
@@ -14,13 +13,12 @@ const ProductCard = ({ product, addToCart, setQuickViewProduct }) => {
           alt={name}
           className="w-auto h-auto object-contain transition-transform duration-300 transform hover:scale-105"
         />
-              {/* Discount Badge */}
-      {discount && (
-        <div className="absolute top-2 right-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full z-10">
-          {discount}% OFF
-        </div>
-      )}
-
+        {/* Discount Badge */}
+        {discount && (
+          <div className="absolute top-2 right-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full z-10">
+            {discount}% OFF
+          </div>
+        )}
       </div>
 
       {/* Product Info */}

@@ -37,6 +37,22 @@ export const createSection = async (sectionData) => {
   }
 };
 
+
+/**
+ * Fetches sections along with categories from the API.
+ * @returns {Array} List of sections with categories.
+ */
+export const fetchSectionsWithCategories = async () => {
+  try {
+    const response = await axiosInstance.get('/public/sections/with-categories');
+    return response.data; // Assuming response.data contains the list of sections with categories
+  } catch (error) {
+    console.error('Failed to fetch sections with categories:', error);
+    throw error; // Propagate error to handle in the caller component
+  }
+};
+
+
 /**
  * Updates an existing section with authorization.
  * @param {Object} sectionData - Updated data for the section.

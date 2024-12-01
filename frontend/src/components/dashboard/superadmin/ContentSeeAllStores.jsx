@@ -46,7 +46,7 @@ const ContentSeeAllStores = ({ searchQuery }) => {
   const filteredStores = stores.filter((store) => store.name.toLowerCase().includes(searchQuery.toLowerCase()) || store.description.toLowerCase().includes(searchQuery.toLowerCase()));
 
   return (
-    <div className="p-8 w-full overflow-y-auto bg-color3">
+    <div className="p-8 w-full place-self-auto overflow-y-auto bg-color3">
       <h2 className="text-2xl font-bold mb-8">All Stores</h2>
       {error && <p className="text-red-500 mb-4">{error}</p>}
       {loading ? (

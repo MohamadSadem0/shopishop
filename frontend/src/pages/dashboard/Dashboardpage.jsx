@@ -79,7 +79,7 @@ const DashboardPage = () => {
         <Sidebar setActiveTab={setActiveTab} activeTab={activeTab} role={role} />
       )}
 
-      <div className="flex-grow overflow-auto">
+      <div className="flex-grow  w-full h-lvh overflow-auto">
         <DashboardNavbar onSearch={handleSearch} /> {/* Pass handleSearch to the navbar */}
         <div className="overflow-auto p-4">{renderContent()}</div>
       </div>

@@ -71,7 +71,7 @@ const Sidebar = ({ setActiveTab, activeTab, role, mobileView }) => {
       <FontAwesomeIcon icon={faBars} className={styles.burger} onClick={toggleSidebar} />
 
       {/* Sidebar container with conditional class for small screen */}
-      <div className={`${styles.sidebar} ${isSidebarOpen ? styles.open : ''} z-10 h-dvh`}>
+      <div className={`${styles.sidebar} ${isSidebarOpen ? styles.open : ''} z-10 h-dvh sticky `}>
         <div className="p-4">
           <img src={Logo} alt="logo" className="max-w-full h-auto" />
         </div>

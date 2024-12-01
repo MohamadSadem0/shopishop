@@ -1,24 +1,21 @@
-
-
 import React from 'react';
 
-const SubNavbar = ({ categories, setSelectedCategory }) => {
+const SubNavbar = React.memo(({ sections, setSelectedSection }) => {
   return (
     <div className="w-full bg-white shadow-lg">
       <div className="flex justify-center items-center py-4">
-        {categories.map((category, index) => (
+        {sections.map((section) => (
           <button
-            key={index}
+            key={section.sectionId}
             className="mx-4 px-4 py-2 text-lg font-semibold text-gray-700 hover:text-white hover:bg-color1 rounded-md transition duration-300"
-            onClick={() => setSelectedCategory(category)}
+            onClick={() => setSelectedSection(section.sectionId)} // Trigger section product fetch
           >
-            {category}
+            {section.sectionName}
           </button>
         ))}
       </div>
     </div>
   );
-};
+});
 
 export default SubNavbar;
- 

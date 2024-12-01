@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import websocketService from './services/websocketService';
 import Login from './pages/auth/login/Login';
@@ -76,12 +76,12 @@ const App = () => {
 
             <Router>
                 <Routes>
+                    <Route path="/" element={<Navigate replace to="/home" />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/signup" element={<Signup />} />
                     <Route path="/store" element={<Store />} />
-                    <Route path="/home" element= {isMobile ? <LandingPageMobile /> : <LandingPage />} />
-    
-
+                    {/* <Route path="/home" element={isMobile ? <LandingPageMobile /> : <LandingPage />} /> */}
+                    <Route path="/home" element={<LandingPage />} />
                     <Route
                         path="/dashboard"
                         element={<ProtectedRoute allowedRoles={['superadmin', 'merchant']} component={Dashboardpage} />}
@@ -90,7 +90,6 @@ const App = () => {
                         path="/profile"
                         element={<ProtectedRoute allowedRoles={['customer']} component={Profile} />}
                     />
-
                 </Routes>
             </Router>
         </>
