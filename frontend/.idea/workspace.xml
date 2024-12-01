@@ -5,14 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c7c4aa61-2fc6-4ede-a083-11d55c2b0a2b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/components/cards/ProductCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/cards/ProductCard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/layout/NavBar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/layout/NavBar.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/layout/Subnavbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/layout/Subnavbar.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/sections/Section1.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sections/Section1.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/landingPage/LandingPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/landingPage/LandingPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/store.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/store.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/store/ProductGrid.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/store/ProductGrid.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/dashboard/cards/CategoryCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/cards/CategoryCard.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/dashboard/forms/AddCategoryForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/forms/AddCategoryForm.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/dashboard/forms/SectionForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/forms/SectionForm.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/dashboard/forms/StoreModal.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/forms/StoreModal.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/dashboard/superadmin/ContentCategories.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/superadmin/ContentCategories.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/serviceSectionsSlice.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/slices/serviceSectionsSlice.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/store.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/authService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/authService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/categoryAPI.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/categoryAPI.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/fetchingService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/fetchingService.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,6 +31,9 @@
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 5
+}]]></component>
   <component name="ProjectId" id="2mvaihXY6Eqxee0ulBy0bBU5k8n" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -37,15 +43,30 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/webprojects/shopishop/frontend",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/chawo/shopishop/frontend",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "C:\\Users\\chawo\\AppData\\Local\\Programs\\IntelliJ IDEA Ultimate 2024.1.4\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\chawo\shopishop\frontend\src\redux\slices" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.18034.62" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.18034.62" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -56,6 +77,7 @@
       <updated>1727959633065</updated>
       <workItem from="1727959634083" duration="42000" />
       <workItem from="1728547079624" duration="1968000" />
+      <workItem from="1733079343774" duration="3589000" />
     </task>
     <servers />
   </component>

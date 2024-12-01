@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { fetchAllCategories } from '../../../services/fetchingService';
+import { fetchAllCategoriesAPI } from '../../../services/fetchingService';
 import { fetchSections } from '../../../services/sectionService';
 import { deleteCategory, updateCategory } from '../../../services/categoryAPI'; // Consolidate imports
 import AddCategoryForm from '../forms/AddCategoryForm';
@@ -22,7 +22,7 @@ const ContentCategories = ({ searchQuery, token }) => {
     async function loadData() {
       setLoading(true); // Show loading indicator during data fetch
       try {
-        const fetchedCategories = await fetchAllCategories();
+        const fetchedCategories = await fetchAllCategoriesAPI();
         const fetchedSections = await fetchSections();
         setCategories(fetchedCategories);
         setSections(fetchedSections);
@@ -128,7 +128,7 @@ const ContentCategories = ({ searchQuery, token }) => {
   });
 
   return (
-    <div className="p-8 w-full bg-color3">
+    <div className="p-8 w-full bg-color3 ">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-2xl font-bold">Categories</h2>
         <div>
@@ -174,7 +174,7 @@ const ContentCategories = ({ searchQuery, token }) => {
               <p className="mt-4 text-gray-600">No categories match the selected section.</p>
             )}
           </div>
-
+            
           {isAddCategoryOpen && (
             <AddCategoryForm
               onClose={() => setIsAddCategoryOpen(false)}

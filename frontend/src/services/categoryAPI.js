@@ -49,12 +49,12 @@ export const deleteCategory = async (categoryId) => {
  * Fetches all sections available for the admin.
  * @returns {Array} List of sections.
  */
-export const fetchAllSections = async () => {
+export const fetchAllSectionsAPI = async () => {
   try {
     const token = getDecryptedToken(); // Decrypt the token
     if (!token) throw new Error('No token found');
 
-    const response = await axiosInstance.get('/admin/sections', {
+    const response = await axiosInstance.get('/public/sections', {
       headers: {
         Authorization: `Bearer ${token}` // Pass the decrypted JWT token
       }

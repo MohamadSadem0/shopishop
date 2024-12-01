@@ -112,7 +112,7 @@ export const addProduct = async (product, categoryId, token) => {
  * Fetches all categories from the public API.
  * @returns {Array} List of categories.
  */
-export const fetchAllCategories = async () => {
+export const fetchAllCategoriesAPI = async () => {
   try {
     const response = await axiosInstance.get('/public/allCategories');
     return response.data; // Assuming response.data contains an array of categories

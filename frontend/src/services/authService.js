@@ -42,6 +42,8 @@ export const fetchServiceSections = async () => {
  */
 export const signup = async (userDetails) => {
   try {
+    console.log(userDetails);
+    
     const response = await axiosInstance.post('/public/auth/signup', userDetails, {
       withCredentials: true,
     });
