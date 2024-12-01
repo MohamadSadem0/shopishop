@@ -36,8 +36,7 @@ const App = () => {
     };
 
     useEffect(() => {
-        // Get encrypted role from sessionStorage and decrypt it
-        const encryptedRole = sessionStorage.getItem('userRole'); // Assuming the role is encrypted in sessionStorage
+        const encryptedRole = sessionStorage.getItem('userRole');
         const decryptedRole = decryptRole(encryptedRole); // Decrypt the role
         setUserRole(decryptedRole); // Set the decrypted role
 

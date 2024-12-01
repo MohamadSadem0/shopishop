@@ -23,7 +23,7 @@ const ContentAddProduct = () => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
-  const { uploadImage, imageUrl, loading: imageLoading, error: imageError } = useCloudinaryUpload(); // Hook for Cloudinary upload
+  const { uploadImage, loading: imageLoading, error: imageError } = useCloudinaryUpload(); // Hook for Cloudinary upload
 
   // Helper function to decrypt the encrypted data
   const decryptData = (encryptedData) => {
@@ -43,9 +43,9 @@ const ContentAddProduct = () => {
   };
 
   // Retrieve and decrypt the store data from sessionStorage
-  const encryptedStore = sessionStorage.getItem('store');
+  const encryptedStore = sessionStorage.getItem('storeId');
   const store = encryptedStore ? decryptData(encryptedStore) : null;
-  const storeId = store?.id;
+
 
   // Retrieve and decrypt the JWT token from sessionStorage
   const encryptedToken = sessionStorage.getItem('authToken');
@@ -60,8 +60,10 @@ const ContentAddProduct = () => {
           throw new Error('JWT Token is missing or invalid');
         }
 
-        const fetchedCategories = await fetchCategoriesByStoreId(storeId, token); // Pass decrypted token here
+        const fetchedCategories = await fetchCategoriesByStoreId(store, token); // Pass decrypted token here
         setCategories(fetchedCategories);
+        console.log(fetchCategories);
+        
       } catch (error) {
         setError(error.message);
         console.error('Error fetching categories:', error);
@@ -70,10 +72,10 @@ const ContentAddProduct = () => {
       }
     };
 
-    if (storeId && token) {
+    if (store && token) {
       fetchCategories();
     }
-  }, [storeId, token]);
+  }, [store, token]);
 
   // Handle form field changes
   const handleChange = (e) => {
@@ -117,7 +119,7 @@ const ContentAddProduct = () => {
         description: product.description,
         price: parseFloat(product.price),
         imageUrl: product.imageUrl, // Ensure the image URL is sent
-        storeId: storeId, // Include the storeId in the payload
+        storeId: store, // Include the storeId in the payload
       };
 
       await addProduct(payload, product.categoryId, token); // Pass categoryId as a separate argument

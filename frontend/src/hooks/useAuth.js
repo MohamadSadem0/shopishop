@@ -37,11 +37,12 @@ export const useAuth = () => {
 
         if (normalizedRole === 'merchant' && store) {
           const encryptedStore = CryptoJS.AES.encrypt(JSON.stringify(store), encryptionKey).toString();
+          const encryptedStoreId = CryptoJS.AES.encrypt(JSON.stringify(store.id), encryptionKey).toString();
           sessionStorage.setItem('store', encryptedStore);
+          sessionStorage.setItem('storeId',encryptedStoreId )
         }
       }
-
-      // Dispatch login success action to Redux
+   // Dispatch login success action to Redux
       dispatch(loginSuccess({
         user: { email: userEmail, name: userName, role: normalizedRole, phoneNumber, location, store },
         token,

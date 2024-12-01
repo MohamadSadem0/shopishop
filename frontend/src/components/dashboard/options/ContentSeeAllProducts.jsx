@@ -15,8 +15,10 @@ const ContentSeeAllProducts = () => {
         setLoading(true); // Start loading
 
         // Decrypt the storeId from sessionStorage
-        const store = getDecryptedItem('store'); // Use utility function to decrypt store
-        const storeId = store?.id;
+        const store = getDecryptedItem('storeId'); // Use utility function to decrypt store
+        const storeId = store;
+        console.log(storeId);
+        
 
         // Decrypt the JWT token from sessionStorage (if needed in the future)
         const token = getDecryptedItem('authToken'); // Decrypt token using utility (not used currently)
