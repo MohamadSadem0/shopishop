@@ -5,7 +5,7 @@ const UserCard = ({ user, onClick }) => {
 
   return (
     <div
-      className="bg-white shadow-lg rounded-lg transition duration-200 ease-in-out transform hover:-translate-y-1 hover:shadow-xl p-7 mr-2 my-2 flex flex-col space-y-2 w-80 cursor-pointer"
+      className="bg-white sm:w-1/2 sm:flex-auto shadow-lg rounded-lg transition duration-200 ease-in-out transform hover:-translate-y-1 hover:shadow-xl p-7 mr-2 my-2 flex flex-col space-y-2 w-80 cursor-pointer"
       onClick={onClick}
     >
       <div className="flex items-center space-x-4">

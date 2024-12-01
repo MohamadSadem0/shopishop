@@ -8,6 +8,8 @@ import PopularItemsSection from "./PopularItemsSection"
 const Section2 = () => {
   return (
     <div className=' h-full w-full flex flex-col items-center gap-6 p-4 bg-bg'>
+      <CategoriesSection />
+
       <OffersSection />
       <div className='flex justify-center items-center w-full'>
         <button className='bg-color2 text-black rounded-[10px] px-4 py-2'>
@@ -16,7 +18,6 @@ const Section2 = () => {
 
  
       </div>
-      <CategoriesSection />
       <PopularItemsSection />
     </div>
   );

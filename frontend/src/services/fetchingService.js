@@ -185,7 +185,7 @@ export const deleteCategory = async (categoryId, token) => {
  */
 export const fetchAllProducts = async () => {
   try {
-    const response = await axiosInstance.get('/public');
+    const response = await axiosInstance.get('/public/AllProducts');
     return response.data; // Assuming response.data contains an array of products
   } catch (error) {
     console.error('Failed to fetch all products:', error);

@@ -92,7 +92,7 @@ const ContentSections = ({ searchQuery }) => {
   });
 
   return (
-    <div className="p-8 w-full bg-color3">
+    <div className="p-8 w-full h-full bg-color3">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-2xl font-bold">Sections</h2>
         <div>

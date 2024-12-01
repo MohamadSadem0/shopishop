@@ -55,7 +55,9 @@ const QuickViewModal = ({ product, setQuickViewProduct, addToCart }) => {
             <div className="mb-4">
               <h4 className="text-lg font-semibold text-gray-700 mb-2">Description</h4>
               <p className="text-gray-600">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius, justo nec varius congue, urna est euismod felis, eget vestibulum dolor ligula vitae neque.
+
+                {/* Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius, justo nec varius congue, urna est euismod felis, eget vestibulum dolor ligula vitae neque. */}
+              {product.description}
               </p>
             </div>
 
