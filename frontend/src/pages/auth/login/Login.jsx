@@ -1,124 +1,25 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { login } from "../../../services/authService";
-import Spinner from "../../../components/common/Spinner";
-import GoogleSignInButton from "../../../components/common/GoogleSignInButton";
-import Input from "../../../components/common/Input";
-import Button from "../../../components/common/Button";
-import { Link, useNavigate } from "react-router-dom";
-import logo from "../../../assets/icons/logo.svg";
-import CryptoJS from "crypto-js";
-import { loginSuccess } from "../../../redux/authSlice";
+import React from 'react';
+import { useForm } from '../../../hooks/useForm';
+import { useAuth } from '../../../hooks/useAuth';
+import Spinner from '../../../components/common/Spinner';
+import GoogleSignInButton from '../../../components/common/GoogleSignInButton';
+import Input from '../../../components/common/Input';
+import Button from '../../../components/common/Button';
+import { Link } from 'react-router-dom';
+import logo from '../../../assets/icons/logo.svg';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const navigate =useNavigate();
+  const { values, handleChange, loading, error, setLoading, setError } = useForm({
+    email: '',
+    password: '',
+  });
+  const { handleLogin } = useAuth();
 
-  const encryptionKey = process.env.REACT_APP_ENCRYPTION_KEY;
-
-  const handleLogin = async (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
-    setLoading(true);
-    setError("");
-
-    try {
-      const response = await login({ email, password });
-      const {
-        token,
-        email: userEmail,
-        userName,
-        role,
-        phoneNumber,
-        location, // Location object (available for all users)
-        store,    // Store object (only available for MERCHANT users)
-      } = response.data;
-
-      // Normalize the role to lowercase
-      const normalizedRole = role.toLowerCase();
-
-      // Encrypt the data and store in sessionStorage
-      if (encryptionKey) {
-        const encryptedToken = CryptoJS.AES.encrypt(token, encryptionKey).toString();
-        const encryptedUserEmail = CryptoJS.AES.encrypt(userEmail, encryptionKey).toString();
-        const encryptedUserName = CryptoJS.AES.encrypt(userName, encryptionKey).toString();
-        const encryptedUserRole = CryptoJS.AES.encrypt(normalizedRole, encryptionKey).toString();
-        const encryptedPhoneNumber = phoneNumber
-          ? CryptoJS.AES.encrypt(phoneNumber, encryptionKey).toString()
-          : null;
-
-        // Encrypt and store the location object
-        const encryptedLocation = CryptoJS.AES.encrypt(
-          JSON.stringify(location),
-          encryptionKey
-        ).toString();
-
-        // Store encrypted user data in sessionStorage
-        sessionStorage.setItem("authToken", encryptedToken);
-        sessionStorage.setItem("userEmail", encryptedUserEmail);
-        sessionStorage.setItem("userName", encryptedUserName);
-        sessionStorage.setItem("userRole", encryptedUserRole);
-        sessionStorage.setItem("phoneNumber", encryptedPhoneNumber);
-        sessionStorage.setItem("location", encryptedLocation);
-
-        // If the role is 'merchant', store the store-related details
-        if (normalizedRole === "merchant" && store) {
-          const encryptedStore = CryptoJS.AES.encrypt(
-            JSON.stringify(store),
-            encryptionKey
-          ).toString();
-          sessionStorage.setItem("store", encryptedStore);
-        }
-
-        // Log stored values for debugging
-        console.log("Stored encrypted token:", sessionStorage.getItem("authToken"));
-        console.log("Stored encrypted userRole:", sessionStorage.getItem("userRole"));
-      } else {
-        console.error("Encryption key is missing.");
-      }
-
-      // Dispatch login success action to update Redux state
-      dispatch(
-        loginSuccess({
-          user: {
-            email: userEmail,
-            name: userName,
-            role: normalizedRole,
-            phoneNumber,
-            location,
-            store: normalizedRole === "merchant" ? store : null, // Only include store if merchant
-          },
-          token: token,
-        })
-      );
-
-      // Navigate based on role and reload the page
-      if (normalizedRole === "superadmin" || normalizedRole === "merchant") {
-        navigate("/dashboard");
-        
-      } else if (normalizedRole === "customer") {
-        navigate("/profile");
-      } else {
-        navigate("/unauthorized");
-      }
-
-      // Reload the page after successful login and navigation
-      window.location.reload();
-
-    } catch (err) {
-      console.error("Login error:", err.response || err.message);
-      setError("Failed to login. Please check your credentials.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-
-  const handleBackToWebsite = () => {
-    navigate("/");
+    handleLogin(values, setError, setLoading);
   };
 
   return (
@@ -130,27 +31,25 @@ const Login = () => {
           <img className="w-20 sm:w-24" src={logo} alt="Logo" />
         </div>
 
-        <h1 className="text-black text-3xl sm:text-4xl font-bold mb-4 text-center">
-          Welcome Back
-        </h1>
-        <p className="text-gray-600 text-center mb-6">
-          Please enter your account details.
-        </p>
+        <h1 className="text-black text-3xl sm:text-4xl font-bold mb-4 text-center">Welcome Back</h1>
+        <p className="text-gray-600 text-center mb-6">Please enter your account details.</p>
 
-        <form onSubmit={handleLogin} className="flex flex-col w-full">
+        <form onSubmit={onSubmit} className="flex flex-col w-full">
           <Input
             label="Email"
             type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            name="email"
+            value={values.email}
+            onChange={handleChange}
             className="mb-4 w-full"
             required
           />
           <Input
             label="Password"
             type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            name="password"
+            value={values.password}
+            onChange={handleChange}
             className="mb-4 w-full"
             required
           />
@@ -166,25 +65,23 @@ const Login = () => {
           <Button
             label={loading ? <Spinner /> : "Sign in"}
             type="submit"
-            className="w-full bg-yellow-400 text-black text-lg py-2 rounded hover:bg-yellow-500 transition"
+            className="w-full bg-yellow1 text-black text-lg py-2 rounded hover:bg-yellow1 transition"
           />
         </form>
 
         <div className="flex mt-4 w-full">
-          <GoogleSignInButton />
+          {/* <GoogleSignInButton /> */}
         </div>
 
         <p className="mt-6 text-center text-gray-700">
           Don’t have an account?{" "}
-          <Link to="/signup" className="text-blue-500 hover:underline">
-            Sign up
-          </Link>
+          <Link to="/signup" className="text-blue-500 hover:underline">Sign up</Link>
         </p>
 
         <div className="mt-4 flex justify-center">
           <Button
             label="Go Back to Website"
-            onClick={handleBackToWebsite}
+            onClick={() => navigate("/")}
             className="w-full bg-gray-500 text-white text-lg py-2 rounded hover:bg-gray-600 transition"
           />
         </div>

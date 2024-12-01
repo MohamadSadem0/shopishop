@@ -11,7 +11,7 @@ const OffersSection = () => {
 
  
   return (
-    <div className="flex flex-wrap justify-center gap-6 p-4 bg-[#fff8c0]">
+    <div className="flex flex-wrap justify-center gap-6 p-4 bg-bg">
       <div ref={cardsRef} className="flex flex-wrap gap-6 justify-center">
         <ClickableCard src={Img1} to={"/"} style="w-full h-full object-cover" />
         <ClickableCard src={Img2} to={"/"} style="w-full h-full object-cover" />

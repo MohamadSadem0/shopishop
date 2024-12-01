@@ -1,10 +1,9 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:5000/', 
-  // baseURL: 'https://dry-temple-95599-6b8f54712ec8.herokuapp.com/', 
-  timeout: 5000, 
-  headers: {
+  baseURL: process.env.REACT_APP_API_BASE_URL, 
+  timeout: 10000, 
+  headers: { 
     'Content-Type': 'application/json',
   },
   withCredentials: true, 

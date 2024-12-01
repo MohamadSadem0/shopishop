@@ -25,7 +25,6 @@ const SignupForm = () => {
 
     try {
       const user = await signup({ username, email, password });
-      console.log('Signed up user:', user.data.email);
     } catch (err) {
       setError('Failed to sign up. Please check your details.');
     } finally {
@@ -94,19 +93,19 @@ const SignupForm = () => {
             <Button
               label={loading ? <Spinner /> : 'Sign up'}
               type="submit"
-              className="w-full bg-[#FEDE02] text-black text-xl py-2 rounded w-2/4 hover:bg-[#FEDE02]"
+              className="w-full bg-color2 text-black text-xl py-2 rounded w-2/4 hover:bg-color2"
             />
           </div>
         </form>
 
         {/* Google Sign-In Button */}
         <div className='flex mt-4 w-2/4 ml-auto mr-auto'>
-          <GoogleSignInButton />
+          {/* <GoogleSignInButton /> */}
         </div>
 
         {/* Login Link */}
         <p className="mt-4 text-white ml-auto mr-auto">
-          Already have an account? <Link to="/login" className="text-[#fede02]">Log in</Link>
+          Already have an account? <Link to="/login" className="text-color2">Log in</Link>
         </p>
       </div>
     </div>

@@ -1,7 +1,6 @@
 import axiosInstance from '../utils/axiosInstance';
-import CryptoJS from "crypto-js";
+import handleError from '../utils/errorHandler';
 
-const encryptionKey = process.env.REACT_APP_ENCRYPTION_KEY;
 
 /**
  * Handles user login.
@@ -10,16 +9,14 @@ const encryptionKey = process.env.REACT_APP_ENCRYPTION_KEY;
  */
 export const login = async (credentials) => {
   try {
-    const response = await axiosInstance.post('public/auth/login', credentials, {
+    const response = await axiosInstance.post('/public/auth/login', credentials, {
       withCredentials: true,
     });
-
-    const { user } = response.data;
-
     return response;
   } catch (error) {
-    console.error('Login failed:', error);
-    throw error;
+    const errorMessage = handleError(error);
+    console.error('Login failed:', errorMessage);
+    throw new Error(errorMessage);
   }
 };
 
@@ -32,8 +29,9 @@ export const fetchServiceSections = async () => {
     const response = await axiosInstance.get('/sections');
     return response.data.categories; // Adjust based on the actual API response
   } catch (error) {
-    console.error('Failed to fetch service categories:', error);
-    throw error;
+    const errorMessage = handleError(error);
+    console.error('Failed to fetch service categories:', errorMessage);
+    throw new Error(errorMessage);
   }
 };
 
@@ -44,18 +42,14 @@ export const fetchServiceSections = async () => {
  */
 export const signup = async (userDetails) => {
   try {
-    const response = await axiosInstance.post('auth/signup', userDetails, {
-      withCredentials: true, // Ensure cookies are sent with requests
+    const response = await axiosInstance.post('/public/auth/signup', userDetails, {
+      withCredentials: true,
     });
-
-    const { user } = response.data;
-    return { user };
+    return { user: response.data.user };
   } catch (error) {
-    console.error('Signup failed:', error);
-    if (error.response) {
-      console.error('Server responded with', error.response.status, error.response.data);
-    }
-    throw error;
+    const errorMessage = handleError(error);
+    console.error('Signup failed:', errorMessage);
+    throw new Error(errorMessage);
   }
 };
 
@@ -65,10 +59,23 @@ export const signup = async (userDetails) => {
 export const logout = async () => {
   try {
     await axiosInstance.post('/api/user/logout', {}, {
-      withCredentials: true, // Ensure cookies are sent with requests
+      withCredentials: true,
     });
     sessionStorage.clear(); // Clear sessionStorage on logout
   } catch (error) {
-    console.error('Logout failed:', error);
+    const errorMessage = handleError(error);
+    console.error('Logout failed:', errorMessage);
+    throw new Error(errorMessage);
+  }
+};
+
+export const handleGoogleAuth = async (payload) => {
+  try {
+    const response = await axiosInstance.post('/auth/google', payload); // Adjust the endpoint to match your backend
+    if (response.data.token) {
+      sessionStorage.setItem('token', response.data.token); // Store JWT for further authentication
+    }
+  } catch (error) {
+    console.error('Error during Google authentication', error);
   }
 };

@@ -1,59 +1,45 @@
-// import React from 'react';
-
-// const DashboardNavbar = () => {
-//   return (
-//     <div className="w-[90%] h-16  bg-gray-100 flex justify-between items-center px-8 shadow-lg fixed top-0">
-//       <div className="relative">
-//         <input
-//           type="text"
-//           placeholder="Search..."
-//           className="px-4 py-2 rounded border border-gray-400"
-//         />
-//       </div>
-//       <div className="flex items-center space-x-8">
-//         <div className="relative">
-//           <div className="w-10 h-10 bg-gray-300 rounded-full"></div>
-//         </div>
-//         <span className="text-lg font-medium">John Doe</span>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default DashboardNavbar;
-
 import React, { useState, useEffect } from 'react';
 import { FiSun, FiBell } from 'react-icons/fi'; // Icons for light mode and notification
-import CryptoJS from "crypto-js";
+import { getDecryptedItem } from '../../utils/decryptToken'; // Import named exports
+import { useResponsiveDesign } from '../../hooks/useResponsiveDesign'; // Hook to check if it's mobile view
 
-
-const DashboardNavbar = () => {
+const DashboardNavbar = ({ onSearch }) => {
   const [userData, setUserData] = useState({ email: "", name: "", role: "" });
+  const [searchQuery, setSearchQuery] = useState(''); // State to handle the search input
+  const { isMobile } = useResponsiveDesign(); // Use responsive design to detect mobile view
 
   useEffect(() => {
-    const encryptionKey = process.env.REACT_APP_ENCRYPTION_KEY;
+    const decryptedUserEmail = getDecryptedItem('userEmail');
+    const decryptedUserName = getDecryptedItem('userName');
+    const decryptedUserRole = getDecryptedItem('userRole');
 
-    // Decrypt data stored in sessionStorage
-    const encryptedUserEmail = sessionStorage.getItem("userEmail");
-    const encryptedUserName = sessionStorage.getItem("userName");
-    const encryptedUserRole = sessionStorage.getItem("userRole");
-
-    if (encryptedUserEmail && encryptedUserName && encryptedUserRole && encryptionKey) {
-      const userEmail = CryptoJS.AES.decrypt(encryptedUserEmail, encryptionKey).toString(CryptoJS.enc.Utf8);
-      const userName = CryptoJS.AES.decrypt(encryptedUserName, encryptionKey).toString(CryptoJS.enc.Utf8);
-      const userRole = CryptoJS.AES.decrypt(encryptedUserRole, encryptionKey).toString(CryptoJS.enc.Utf8);
-
-      setUserData({ email: userEmail, name: userName, role: userRole });
-    }
+    setUserData({
+      email: decryptedUserEmail,
+      name: decryptedUserName,
+      role: decryptedUserRole,
+    });
   }, []);
 
+  const handleSearchChange = (e) => {
+    const query = e.target.value;
+    setSearchQuery(query); // Update local state
+    onSearch(query); // Pass the search query up to the parent (DashboardPage)
+  };
+
+  // Hide navbar content on mobile view
+  if (isMobile) {
+    return null; // Do not render the navbar items on mobile
+  }
+
   return (
-    <div className=" top-0 right-0 h-16 flex justify-between items-center pr-8  w-full">
+    <div className="p-10   h-16 flex justify-between items-center w-full">
       {/* Search Input on the Left */}
       <div className="relative">
         <input
           type="text"
           placeholder="Search..."
+          value={searchQuery}
+          onChange={handleSearchChange} // Call the search handler
           className="px-4 py-2 rounded border border-gray-400"
         />
       </div>
@@ -66,11 +52,8 @@ const DashboardNavbar = () => {
         {/* Notification Icon */}
         <FiBell className="w-6 h-6 cursor-pointer" />
 
-        {/* Profile Picture and Username */}
-        <div className="flex items-center space-x-4">
-          <div className="w-10 h-10 bg-gray-300 rounded-full"></div>
-          <span className="text-lg font-medium">{userData.name}</span>
-        </div>
+        {/* Username */}
+        <div className="text-lg font-medium">{userData.name}</div>
       </div>
     </div>
   );
