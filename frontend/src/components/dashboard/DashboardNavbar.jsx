@@ -32,7 +32,7 @@ const DashboardNavbar = ({ onSearch }) => {
   }
 
   return (
-    <div className="p-10   h-16 flex justify-between items-center w-full">
+    <div className="p-10 pl-7 h-16 flex justify-between items-center w-full">
       {/* Search Input on the Left */}
       <div className="relative">
         <input

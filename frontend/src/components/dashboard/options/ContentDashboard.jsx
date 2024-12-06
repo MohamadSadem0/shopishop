@@ -18,8 +18,7 @@ const ContentDashboard = () => {
   }, []);
 
   return (
-    <div className="p-8 w-full bg-color3 overflow-auto   sm:p-6 sm:pl-7">
-      
+    <div className="p-8 w-full bg-color3 overflow-auto sm:p-6 sm:pl-7">
       <div className="flex flex-row space-x-11 space-y-10 sm:flex-col sm:space-x-0 sm:space-y-4">
         <div className="w-2/3 sm:w-full">
           <div className="flex justify-between items-center mb-8 sm:flex-col sm:items-start sm:space-y-4 sm:mb-4">

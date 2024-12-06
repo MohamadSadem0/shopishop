@@ -8,8 +8,8 @@ import ProductGrid from './store/ProductGrid';
 import CartDrawer from './store/CartDrawer';
 import QuickViewModal from '../components/common/QuickViewModal';
 import Footer from '../components/layout/Footer';
-import { fetchSectionsWithCategories } from '../services/sectionService';
-import { fetchProductsBySection } from '../services/productService';
+
+import {fetchProductsBySectionAPI, fetchSectionsWithCategoriesAPI} from "../services/fetchingService";
 
 const Store = () => {
   const [sections, setSections] = useState([]);
@@ -24,7 +24,7 @@ const Store = () => {
   useEffect(() => {
     const loadSections = async () => {
       try {
-        const fetchedSections = await fetchSectionsWithCategories();
+        const fetchedSections = await fetchSectionsWithCategoriesAPI();
         setSections(fetchedSections);
       } catch (error) {
         console.error('Error fetching sections with categories:', error);

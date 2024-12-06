@@ -1,6 +1,7 @@
 // src/hooks/useSignupForm.js
 import { useState, useEffect } from 'react';
-import { fetchSections } from '../services/sectionService'; // Import fetchSections for section fetching
+
+import {fetchSectionsAPI} from "../services/fetchingService"; // Import fetchSections for section fetching
 
 export const useSignupForm = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -28,7 +29,7 @@ export const useSignupForm = () => {
   useEffect(() => {
     if (userType === 'Merchant' && currentStep === 4) {
       setLoadingSections(true);
-      fetchSections()
+      fetchSectionsAPI()
         .then((data) => {
           setSections(data); // Store the fetched sections
           setLoadingSections(false);

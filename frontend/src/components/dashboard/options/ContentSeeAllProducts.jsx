@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { fetchProductsByStoreId } from '../../../services/fetchingService'; // Import the service function
+import { fetchProductsByStoreIdAPI } from '../../../services/fetchingService'; // Import the service function
 import {getDecryptedItem} from '../../../utils/decryptToken'; // Import the utility function
 
 
@@ -28,7 +28,7 @@ const ContentSeeAllProducts = () => {
         }
 
         // Fetch products using the decrypted storeId (and token, if necessary)
-        const productsData = await fetchProductsByStoreId(storeId);
+        const productsData = await fetchProductsByStoreIdAPI(storeId);
         setProducts(productsData); // Assume the response contains an array of products
       } catch (error) {
         setError(error.message || 'Failed to fetch products');

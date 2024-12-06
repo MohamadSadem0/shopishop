@@ -3,7 +3,8 @@ import SectionMobileCard from './SectionMobileCard';
 import SectionHeader from './SectionHeader';
 import Card from './Card';
 import Banner from './Banner';
-import { fetchSections, fetchDiscountItems, fetchShopiiShopItems } from '../../services/sectionService';
+
+import {fetchDiscountItemsAPI, fetchSectionsAPI, fetchShopiiShopItemsAPI} from "../../services/fetchingService";
 
 const SectionMobile = () => {
   const [sections, setSections] = useState([]);
@@ -12,7 +13,7 @@ const SectionMobile = () => {
 
   useEffect(() => {
     const getSections = async () => {
-      const data = await fetchSections();
+      const data = await fetchSectionsAPI();
 
       // Define priority order for specific sections
       const priorityOrder = ['Food', 'Shops', 'Market', 'Butler'];
@@ -26,7 +27,7 @@ const SectionMobile = () => {
     };
 
     const fetchAdditionalData = async () => {
-      const [discountData, shopiiData] = await Promise.all([fetchDiscountItems(), fetchShopiiShopItems()]);
+      const [discountData, shopiiData] = await Promise.all([fetchDiscountItemsAPI(), fetchShopiiShopItemsAPI()]);
       setDiscounts(discountData);
       setShopiiItems(shopiiData);
     };

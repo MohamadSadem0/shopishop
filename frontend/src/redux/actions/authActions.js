@@ -1,12 +1,14 @@
-import { LOGIN_SUCCESS, GOOGLE_LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT } from './actionTypes';
 import axiosInstance from '../../utils/axiosInstance';
-
+import {
+  GOOGLE_LOGIN_SUCCESS,
+  LOGIN_FAILURE,
+  LOGIN_SUCCESS,
+  LOGOUT,
+} from './actionTypes';
 
 export const login = (userData) => (dispatch) => {
-
   dispatch({ type: LOGIN_SUCCESS, payload: userData });
 };
-
 
 export const logout = () => (dispatch) => {
   dispatch({ type: LOGOUT });

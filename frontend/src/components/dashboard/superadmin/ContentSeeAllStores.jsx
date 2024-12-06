@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { fetchAllStores, approveStore } from '../../../services/fetchingService';
-import StoreCard from '../cards/StoreCard';
+import React, { useEffect, useState } from 'react';
 import ClipLoader from 'react-spinners/ClipLoader';
+import {
+  approveStoreAPI,
+  fetchAllStoresAPI,
+} from '../../../services/fetchingService';
+import StoreCard from '../cards/StoreCard';
 import StoreModal from '../forms/StoreModal'; // Import the Modal component
 
 const ContentSeeAllStores = ({ searchQuery }) => {
@@ -13,11 +16,11 @@ const ContentSeeAllStores = ({ searchQuery }) => {
   const fetchStores = async () => {
     setLoading(true);
     try {
-      const fetchedStores = await fetchAllStores();
+      const fetchedStores = await fetchAllStoresAPI();
       setStores(fetchedStores);
-      setLoading(false);
     } catch (err) {
-      setError('Failed to fetch stores');
+      setError(`Failed to fetch stores: ${err.message}`);
+    } finally {
       setLoading(false);
     }
   };
@@ -28,10 +31,10 @@ const ContentSeeAllStores = ({ searchQuery }) => {
 
   const handleApproveStore = async (storeId) => {
     try {
-      await approveStore(storeId);
+      await approveStoreAPI(storeId);
       fetchStores();
     } catch (err) {
-      setError('Failed to approve store');
+      setError(`Failed to approve store: ${err.message}`);
     }
   };
 
@@ -43,40 +46,62 @@ const ContentSeeAllStores = ({ searchQuery }) => {
     setSelectedStore(null); // Reset the selected store on closing modal
   };
 
-  const filteredStores = stores.filter((store) => store.name.toLowerCase().includes(searchQuery.toLowerCase()) || store.description.toLowerCase().includes(searchQuery.toLowerCase()));
+  const filteredStores = stores.filter((store) =>
+    store.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
-    <div className="p-8 w-full place-self-auto overflow-y-auto bg-color3">
-      <h2 className="text-2xl font-bold mb-8">All Stores</h2>
-      {error && <p className="text-red-500 mb-4">{error}</p>}
+    <div className="p-4 w-full bg-color3">
+      {/* Wrapper div for heading and search */}
+      <div className="mb-4 flex flex-row justify-between items-center">
+        {/* Heading */}
+        <div>
+          <h2 className="text-xl md:text-2xl font-bold">Stores</h2>
+        </div>
+
+        {/* Search Input (optional if needed) */}
+        {/* Add a dropdown or additional buttons as needed */}
+      </div>
+
+      {/* Display Error */}
+      {error && <p className="text-red-500">{error}</p>}
+
+      {/* Loading Spinner */}
       {loading ? (
-        <div className="flex justify-center items-center">
+        <div className="flex justify-center">
           <ClipLoader color="#4A90E2" size={50} />
         </div>
       ) : (
-        <div className="flex flex-wrap">
-          {filteredStores.length === 0 ? (
-            <p>No stores match the search query.</p>
-          ) : (
-            filteredStores.map((store) => (
-              <StoreCard
-                key={store.id}
-                store={store}
-                onViewDetails={() => handleViewDetails(store)}
-                onApprove={handleApproveStore}
-              />
-            ))
-          )}
+        <>
+          {/* Stores Display */}
+          <div className="w-full flex flex-wrap items-center justify-between mt-4">
+            {filteredStores.length > 0 ? (
+              filteredStores.map((store) => (
+                <StoreCard
+                  key={store.id}
+                  store={store}
+                  onViewDetails={() => handleViewDetails(store)}
+                  onApprove={handleApproveStore}
+                />
+              ))
+            ) : (
+              <p className="mt-4 text-gray-600 w-full text-center">
+                No stores match the search query.
+              </p>
+            )}
+          </div>
+
+          {/* Store Details Modal */}
           <StoreModal isOpen={!!selectedStore} onClose={closeModal}>
             {selectedStore && (
               <div>
-                <h3>{selectedStore.name}</h3>
-                <p>{selectedStore.description}</p>
-                {/* Display other details as needed */}
+                <h3 className="text-xl font-bold">{selectedStore.name}</h3>
+                <p className="text-gray-600">{selectedStore.description}</p>
+                {/* Add additional details about the store */}
               </div>
             )}
           </StoreModal>
-        </div>
+        </>
       )}
     </div>
   );

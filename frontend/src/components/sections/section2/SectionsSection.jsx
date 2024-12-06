@@ -4,8 +4,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/all';
 import SetcionCard from '../../cards/SetcionCard';
-import { fetchSections } from '../../../services/sectionService'; // Import the fetch function
+// Import the fetch function
 import '../../../styles/Section.css';
+import {fetchSectionsAPI} from "../../../services/fetchingService";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -21,7 +22,7 @@ const SectionsSection = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const sectionsData = await fetchSections();
+        const sectionsData = await fetchSectionsAPI();
 
         setSections(sectionsData); // Update state with the fetched sections
       } catch (error) {

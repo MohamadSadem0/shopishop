@@ -1,7 +1,6 @@
 
 
 import React, { useState, useEffect } from 'react';
-import { fetchSections } from '../../../services/sectionService';
 import { useSignup } from '../../../hooks/useSignup';
 import RoleSelection from './RoleSelection';
 import CommonDetails from './CommonDetails';
@@ -12,6 +11,7 @@ import SignupStatus from '../../../components/common/SignupStatus';
 import Button from '../../../components/common/Button';
 import { useNavigate, Link } from 'react-router-dom';
 import logo from '../../../assets/icons/logo.svg';
+import {fetchSectionsAPI} from "../../../services/fetchingService";
 
 const Signup = () => {
   const { handleSignup, loading, error, success } = useSignup();
@@ -41,7 +41,7 @@ const Signup = () => {
   useEffect(() => {
     if (userType === 'Merchant' && currentStep === 4) {
       setLoadingSections(true);
-      fetchSections()
+      fetchSectionsAPI()
         .then((data) => setSections(data))
         .catch(() => console.error('Failed to fetch sections'))
         .finally(() => setLoadingSections(false));

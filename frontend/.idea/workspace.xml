@@ -5,17 +5,55 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c7c4aa61-2fc6-4ede-a083-11d55c2b0a2b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../.idea/material_theme_project_new.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/prettier.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/services/addingService.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/services/deleteService.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/services/updateService.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/styles/FormCard.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/cards/ClickableCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/cards/ClickableCard.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/cards/DashboardItemCard .jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/cards/DashboardItemCard .jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/dashboard/DashboardNavbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/DashboardNavbar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/dashboard/Sidebar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/Sidebar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/dashboard/SmallDeviceSidebar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/SmallDeviceSidebar.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/dashboard/cards/CategoryCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/cards/CategoryCard.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/dashboard/cards/SectionCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/cards/SectionCard.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/dashboard/cards/StoreCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/cards/StoreCard.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/dashboard/cards/UserCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/cards/UserCard.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/dashboard/forms/AddCategoryForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/forms/AddCategoryForm.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/dashboard/forms/CategoryDetailPopup.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/forms/CategoryDetailPopup.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/dashboard/forms/SectionForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/forms/SectionForm.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/dashboard/forms/SectionFormModal.jsx" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/dashboard/forms/StoreModal.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/forms/StoreModal.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/dashboard/options/ContentAddProduct.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/options/ContentAddProduct.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/dashboard/options/ContentDashboard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/options/ContentDashboard.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/dashboard/options/ContentSeeAllProducts.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/options/ContentSeeAllProducts.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/dashboard/superadmin/ContentCategories.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/superadmin/ContentCategories.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/serviceSectionsSlice.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/slices/serviceSectionsSlice.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/dashboard/superadmin/ContentSections.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/superadmin/ContentSections.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/dashboard/superadmin/ContentSeeAllStores.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/superadmin/ContentSeeAllStores.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/dashboard/superadmin/ContentSeeAllUsers.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/superadmin/ContentSeeAllUsers.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/layout/CategoriesSidebar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/layout/CategoriesSidebar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/sections/section2/SectionsSection.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sections/section2/SectionsSection.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hooks/useResponsiveDesign.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useResponsiveDesign.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hooks/useSignupForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useSignupForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/auth/signup/Signup.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/auth/signup/Signup.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/dashboard/Dashboardpage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/dashboard/Dashboardpage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/mobile/SectionMobile.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/mobile/SectionMobile.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/store.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/store.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/store/StorePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/store/StorePage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/actions/authActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/actions/authActions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/slices/categorySlice.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/slices/categorySlice.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/slices/serviceSectionsSlice.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/slices/serviceSectionsSlice.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/redux/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/store.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/authService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/authService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/categoryAPI.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/categoryAPI.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/categoryAPI.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/services/fetchingService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/fetchingService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/productService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/productService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/sectionService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/sectionService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/Sidebar.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/Sidebar.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/SmallSidebar.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/SmallSidebar.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tailwind.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/tailwind.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,12 +66,15 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="PackageJsonUpdateNotifier">
+    <dismissed value="$PROJECT_DIR$/package.json" />
+  </component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 5
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
   <component name="ProjectId" id="2mvaihXY6Eqxee0ulBy0bBU5k8n" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -41,15 +82,21 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Node.js.categorySlice.js.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "WebServerToolWindowFactoryState": "false",
+    "dart.analysis.tool.window.visible": "false",
+    "git-widget-placeholder": "helmi",
+    "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/chawo/shopishop/frontend",
+    "last_opened_file_path": "C:/Users/chawo/shopishop/frontend/src/services/deleteService.js",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
     "ts.external.directory.path": "C:\\Users\\chawo\\AppData\\Local\\Programs\\IntelliJ IDEA Ultimate 2024.1.4\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
     "vue.rearranger.settings.migration": "true"
   }
@@ -57,6 +104,12 @@
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\chawo\shopishop\frontend\src\redux\slices" />
+    </key>
+    <key name="es6.move.members.recent.items">
+      <recent name="C:\Users\chawo\shopishop\frontend\src\services\deleteService.js" />
+      <recent name="C:\Users\chawo\shopishop\frontend\src\services\updateService.js" />
+      <recent name="C:\Users\chawo\shopishop\frontend\src\services\addingService.js" />
+      <recent name="C:\Users\chawo\shopishop\frontend\src\services\fetchingService.js" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -78,10 +131,40 @@
       <workItem from="1727959634083" duration="42000" />
       <workItem from="1728547079624" duration="1968000" />
       <workItem from="1733079343774" duration="3589000" />
+      <workItem from="1733095456353" duration="210000" />
+      <workItem from="1733131456069" duration="134000" />
+      <workItem from="1733131602349" duration="269000" />
+      <workItem from="1733131898179" duration="1655000" />
+      <workItem from="1733138450631" duration="188000" />
+      <workItem from="1733138662833" duration="80000" />
+      <workItem from="1733138760788" duration="8451000" />
+      <workItem from="1733482959906" duration="1119000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/components/cards/ClickableCard.jsx</url>
+          <line>12</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

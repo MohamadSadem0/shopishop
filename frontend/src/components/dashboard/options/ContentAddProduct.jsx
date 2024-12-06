@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import CryptoJS from 'crypto-js'; // Import CryptoJS for decryption
-import { fetchCategoriesByStoreId, addProduct } from '../../../services/fetchingService'; // Import the service functions
+import { fetchCategoriesByStoreIdAPI } from '../../../services/fetchingService'; // Import the service functions
 import Button from '../../../components/common/Button';
 import Input from '../../../components/common/Input'; // Use the new Input component
 import Spinner from '../../../components/common/Spinner';
-import useCloudinaryUpload from '../../../hooks/useCloudinaryUpload'; // Cloudinary upload hook
+import useCloudinaryUpload from '../../../hooks/useCloudinaryUpload';
+import {createProductAPI} from "../../../services/createProductAPI"; // Cloudinary upload hook
 
 // Your encryption key from environment variables
 const encryptionKey = process.env.REACT_APP_ENCRYPTION_KEY;
@@ -60,7 +61,7 @@ const ContentAddProduct = () => {
           throw new Error('JWT Token is missing or invalid');
         }
 
-        const fetchedCategories = await fetchCategoriesByStoreId(store, token); // Pass decrypted token here
+        const fetchedCategories = await fetchCategoriesByStoreIdAPI(store, token); // Pass decrypted token here
         setCategories(fetchedCategories);
         console.log(fetchCategories);
         
@@ -122,7 +123,7 @@ const ContentAddProduct = () => {
         storeId: store, // Include the storeId in the payload
       };
 
-      await addProduct(payload, product.categoryId, token); // Pass categoryId as a separate argument
+      await createProductAPI(payload, product.categoryId, token); // Pass categoryId as a separate argument
 
       setSuccess('Product added successfully!');
       // Reset the form on success

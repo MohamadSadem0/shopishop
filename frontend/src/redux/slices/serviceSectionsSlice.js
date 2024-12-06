@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { fetchAllSectionsAPI } from '../../services/categoryAPI'; // Ensure the path is correct
+
+import {fetchAllSectionsAPI} from "../../services/fetchingService";
 
 // Async thunk to fetch sections
 export const fetchAllSections = createAsyncThunk(
@@ -21,13 +22,13 @@ export const fetchAllSections = createAsyncThunk(
 const serviceSectionsSlice = createSlice({
   name: 'sections',
   initialState: {
-    sections: [], // Initialize as an empty array
-    status: 'idle', // Possible values: 'idle' | 'loading' | 'succeeded' | 'failed'
-    error: null, // For storing error messages
+    sections: [], // Ensure this is initialized as an empty array
+    status: 'idle',
+    error: null,
   },
   reducers: {
     setSections: (state, action) => {
-      state.sections = action.payload; // Manually set sections
+      state.sections = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -36,15 +37,17 @@ const serviceSectionsSlice = createSlice({
         state.status = 'loading';
       })
       .addCase(fetchAllSections.fulfilled, (state, action) => {
+        state.sections = action.payload; // Update sections state
         state.status = 'succeeded';
-        state.sections = action.payload; // Update sections with the API response
       })
       .addCase(fetchAllSections.rejected, (state, action) => {
         state.status = 'failed';
-        state.error = action.payload || action.error.message;
+        state.error = action.payload || 'Error fetching sections';
       });
   },
 });
+
+
 
 export const { setSections } = serviceSectionsSlice.actions; // Export the setSections action
 export default serviceSectionsSlice.reducer;

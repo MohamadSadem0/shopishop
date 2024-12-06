@@ -20,20 +20,6 @@ export const login = async (credentials) => {
   }
 };
 
-/**
- * Fetches service categories.
- * @returns {Array} List of service categories
- */
-export const fetchServiceSections = async () => {
-  try {
-    const response = await axiosInstance.get('/sections');
-    return response.data.categories; // Adjust based on the actual API response
-  } catch (error) {
-    const errorMessage = handleError(error);
-    console.error('Failed to fetch service categories:', errorMessage);
-    throw new Error(errorMessage);
-  }
-};
 
 /**
  * Handles user signup.

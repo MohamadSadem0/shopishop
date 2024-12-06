@@ -8,7 +8,7 @@ import {getDecryptedToken} from '../utils/decryptToken'; // Import the token dec
  * @param {string} token - The JWT token for authentication.
  * @returns {Array} List of categories.
  */
-export const fetchCategoriesByStoreId = async (storeId, token) => {
+export const fetchCategoriesByStoreIdAPI = async (storeId, token) => {
   try {
     const response = await axiosInstance.get(`/merchant/${storeId}/categories`, {
       headers: {
@@ -23,7 +23,7 @@ export const fetchCategoriesByStoreId = async (storeId, token) => {
 };
 
 
-export const fetchUserDetailsByEmail = async (email) => {
+export const fetchUserDetailsByEmailAPI = async (email) => {
   const token = getDecryptedToken();
 
   try {
@@ -46,7 +46,7 @@ export const fetchUserDetailsByEmail = async (email) => {
  * @param {number} userId - The ID of the user to fetch.
  * @returns {Promise<Object>} Detailed user information.
  */
-export const fetchUserDetailsById = async (userId) => {
+export const fetchUserDetailsByIdAPI = async (userId) => {
   try {
     const token = getDecryptedToken();
     if (!token) throw new Error('Authentication token is not available.');
@@ -67,7 +67,7 @@ export const fetchUserDetailsById = async (userId) => {
  * Fetches all users from the backend.
  * @returns {Promise<Array>} List of users.
  */
-export const fetchAllUsers = async () => {
+export const fetchAllUsersAPI = async () => {
   try {
     const token = getDecryptedToken(); // Decrypt the token
     if (!token) throw new Error('Authentication token is not available.');
@@ -81,29 +81,6 @@ export const fetchAllUsers = async () => {
   } catch (error) {
     console.error('Failed to fetch users:', error);
     throw new Error(error.response?.data?.message || 'Error fetching users');
-  }
-};
-
-/**
- * Adds a new product to the store under a specific category.
- * @param {Object} product - The product details.
- * @param {string} categoryId - The ID of the category to associate with the product.
- * @param {string} token - The JWT token for authentication.
- * @returns {Object} The created product.
- */
-export const addProduct = async (product, categoryId, token) => {
-  try {
-  
-    
-    const response = await axiosInstance.post(`/merchant/${categoryId}/product/create`, product, {
-      headers: {
-        Authorization: `Bearer ${token}` // Add the JWT token to the request header
-      }
-    });
-    return response.data; // Assuming response.data contains the newly created product
-  } catch (error) {
-    console.error('Failed to add product:', error);
-    throw new Error(error.response?.data?.message || 'Error adding product');
   }
 };
 
@@ -122,29 +99,11 @@ export const fetchAllCategoriesAPI = async () => {
   }
 };
 
-
-export const updateCategory = async (categoryId, categoryData) => {
-  const token = getDecryptedToken(); // Decrypt the token
-  if (!token) throw new Error('Authentication token is not available.');
-  try {
-    const response = await axiosInstance.put(`/admin/category/update/${categoryId}`, categoryData, {
-      headers: {
-        Authorization: `Bearer ${token}` // Add the JWT token to the request header
-      }
-    });
-    return response.data; // Assuming response.data contains the updated category
-  } catch (error) {
-    console.error('Failed to update category:', error);
-    throw new Error(error.response?.data?.message || 'Error updating category');
-  }
-};
-
-
 /**
  * Fetches merchants along with their stores.
  * @returns {Array} List of merchants with their stores.
  */
-export const fetchMerchantsWithStores = async () => {
+export const fetchMerchantsWithStoresAPI = async () => {
   const token = getDecryptedToken(); // Decrypt the token from storage
   if (!token) throw new Error('Authentication token is not available.');
 
@@ -162,28 +121,10 @@ export const fetchMerchantsWithStores = async () => {
 };
 
 /**
- * Deletes a category by ID.
- * @param {string} categoryId - The ID of the category to delete.
- * @param {string} token - The JWT token for authentication.
- * @returns {void}
- */
-export const deleteCategory = async (categoryId, token) => {
-  try {
-    await axiosInstance.delete(`/admin/category/delete/${categoryId}`, {
-      headers: {
-        Authorization: `Bearer ${token}` // Add the JWT token to the request header
-      }
-    });
-  } catch (error) {
-    console.error('Failed to delete category:', error);
-    throw new Error(error.response?.data?.message || 'Error deleting category');
-  }
-};
-/**
  * Fetches all products from the public API.
  * @returns {Array} List of products.
  */
-export const fetchAllProducts = async () => {
+export const fetchAllProductsAPI = async () => {
   try {
     const response = await axiosInstance.get('/public/AllProducts');
     return response.data; // Assuming response.data contains an array of products
@@ -198,7 +139,7 @@ export const fetchAllProducts = async () => {
  * @param {string} productId - The ID of the product to fetch.
  * @returns {Object} The product data.
  */
-export const fetchProductById = async (productId) => {
+export const fetchProductByIdAPI = async (productId) => {
   try {
     const response = await axiosInstance.get(`/public/${productId}`);
     return response.data; // Assuming response.data contains the product
@@ -213,7 +154,7 @@ export const fetchProductById = async (productId) => {
  * @param {string} categoryId - The ID of the category to fetch products for.
  * @returns {Array} List of products.
  */
-export const fetchProductsByCategory = async (categoryId) => {
+export const fetchProductsByCategoryAPI = async (categoryId) => {
   try {
     const response = await axiosInstance.get(`/public/category/${categoryId}`);
     return response.data; // Assuming response.data contains an array of products
@@ -225,7 +166,7 @@ export const fetchProductsByCategory = async (categoryId) => {
 
 
 
-export const fetchProductsByStoreId = async (storeId) => {
+export const fetchProductsByStoreIdAPI = async (storeId) => {
   try {
 
     
@@ -248,7 +189,7 @@ export const fetchProductsByStoreId = async (storeId) => {
  * Fetch all stores from the backend.
  * @returns {Array} List of stores.
  */
-export const fetchAllStores = async () => {
+export const fetchAllStoresAPI = async () => {
   try {
     const response = await axiosInstance.get('public/stores/all');
     
@@ -265,7 +206,7 @@ export const fetchAllStores = async () => {
  * @param {number} storeId - The ID of the store to fetch.
  * @returns {Object} The store data.
  */
-export const fetchStoreById = async (storeId) => {
+export const fetchStoreByIdAPI = async (storeId) => {
   try {
     const response = await axiosInstance.get(`/public/stores/${storeId}`);
     return response.data; // Assuming response.data contains the store details
@@ -280,7 +221,7 @@ export const fetchStoreById = async (storeId) => {
  * @param {number} storeId - The ID of the store to approve.
  * @returns {string} Success message.
  */
-export const approveStore = async (storeId) => {
+export const approveStoreAPI = async (storeId) => {
   try {
     const token = getDecryptedToken(); // Decrypt the token
     if (!token) throw new Error('No token found');
@@ -299,3 +240,68 @@ export const approveStore = async (storeId) => {
 };
 
 
+/**
+ * Fetches all sections available for the admin.
+ * @returns {Array} List of sections.
+ */
+export const fetchAllSectionsAPI = async () => {
+  try {
+
+
+    const response = await axiosInstance.get('/public/sections');
+    return response.data;
+  } catch (error) {
+    console.error('Failed to fetch sections:', error);
+    throw new Error(error.response?.data?.message || 'Error fetching sections');
+  }
+};
+
+export const fetchProductsBySectionAPI = async (sectionId) => {
+  try {
+    const response = await axiosInstance.get(`/public/product/section/${sectionId}`);
+    return response.data; // This is the array of products
+  } catch (error) {
+    console.error('Error fetching products by section:', error);
+    throw error;
+  }
+};
+/**
+ * Fetches all sections from the API with authorization.
+ * @returns {Array} List of sections with categories.
+ */
+export const fetchSectionsAPI = async () => {
+  try {
+    const response = await axiosInstance.get('/public/sections',)
+    return response.data; // Assuming response.data contains the store details
+  } catch (error) {
+    console.error("fdsfsdfsd");
+    throw new Error(error.response?.data?.message || 'Error fetching store');
+  }
+};
+/**
+ * Fetches sections along with categories from the API.
+ * @returns {Array} List of sections with categories.
+ */
+export const fetchSectionsWithCategoriesAPI = async () => {
+  try {
+    const response = await axiosInstance.get('/public/sections/with-categories');
+    return response.data; // Assuming response.data contains the list of sections with categories
+  } catch (error) {
+    console.error('Failed to fetch sections with categories:', error);
+    throw error; // Propagate error to handle in the caller component
+  }
+};
+export const fetchDiscountItemsAPI = async () => {
+  // Simulate fetching discounts
+  return [
+    {id: 1, name: 'Discount Burger', url: 'https://via.placeholder.com/150', description: 'Get 50% OFF on Burgers!'},
+    {id: 2, name: 'Pizza Deal', url: 'https://via.placeholder.com/150', description: '25% OFF on all pizzas!'},
+  ];
+};
+export const fetchShopiiShopItemsAPI = async () => {
+  // Simulate fetching ShopiiShop items
+  return [
+    {id: 1, name: 'Maryool', url: 'https://via.placeholder.com/200', description: 'Daily Dish, Healthy, Lebanese'},
+    {id: 2, name: 'Socrates', url: 'https://via.placeholder.com/200', description: 'Delicious Mediterranean food'},
+  ];
+};

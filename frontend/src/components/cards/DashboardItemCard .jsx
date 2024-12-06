@@ -1,5 +1,5 @@
 import React from 'react';
-import {ReactComponent  as StarIcon} from "../../assets/icons/StarIcon.svg"
+import {ReactComponent as StarIcon} from "../../assets/icons/StarIcon.svg"
 
 const DashboardItemCard = ({ image, name, rating, design = {} }) => {
   return (
@@ -17,7 +17,6 @@ const DashboardItemCard = ({ image, name, rating, design = {} }) => {
         <div className={`text-lg font-semibold ${design.text || ''}`}>
           {name}
         </div>
-
         {/* Rating */}
         <div className="flex items-center mt-2">
           {[...Array(rating)].map((_, index) => (

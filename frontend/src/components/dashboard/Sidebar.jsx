@@ -1,30 +1,42 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { FiSun, FiBell } from 'react-icons/fi'; // Light mode and notification icons
 import {
-  faUsers, faStore, faThLarge, faBoxes, faSignOutAlt, faCog, faBars,
+  faBars,
+  faBoxes,
+  faCog,
+  faSignOutAlt,
+  faStore,
+  faThLarge,
+  faUsers,
 } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { useEffect, useState } from 'react';
+import { FiBell, FiSun } from 'react-icons/fi'; // Light mode and notification icons
+import { useNavigate } from 'react-router-dom';
 
-import Logo from "../../assets/images/Logo.png";
-import DashboardIcon from "../../assets/icons/darhboard_alt.svg";
-import AnalyticIcon from "../../assets/icons/analys icon.svg";
-import OrderIcon from "../../assets/icons/Basket_alt_3_duotone.svg";
-import ProductIcon from "../../assets/icons/User_alt.svg";
-import AddProductIcon from "../../assets/icons/add_product.svg";
-import SeeAllProductsIcon from "../../assets/icons/see_all_products.svg";
-import ReviewIcon from "../../assets/icons/Review.svg";
+import AddProductIcon from '../../assets/icons/add_product.svg';
+import AnalyticIcon from '../../assets/icons/analys icon.svg';
+import OrderIcon from '../../assets/icons/Basket_alt_3_duotone.svg';
+import DashboardIcon from '../../assets/icons/darhboard_alt.svg';
+import ReviewIcon from '../../assets/icons/Review.svg';
+import SeeAllProductsIcon from '../../assets/icons/see_all_products.svg';
+import ProductIcon from '../../assets/icons/User_alt.svg';
+import Logo from '../../assets/images/Logo.png';
 
-import styles from '../../styles/Sidebar.module.css'; // Ensure this path is correct
+import styled from 'styled-components';
 import { useResponsiveDesign } from '../../hooks/useResponsiveDesign'; // Hook for screen size
-import {getDecryptedItem} from '../../utils/decryptToken'; // Import the utility function
+import styles from '../../styles/Sidebar.module.css'; // Ensure this path is correct
+import { getDecryptedItem } from '../../utils/decryptToken'; // Import the utility function
 
-const Sidebar = ({ setActiveTab, activeTab, role, mobileView }) => { 
+const Sidebar = ({ setActiveTab, activeTab, role, mobileView }) => {
   const [isProductOpen, setIsProductOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Sidebar state for small screens
-  const [userData, setUserData] = useState({ email: "", name: "" });
+  const [userData, setUserData] = useState({ email: '', name: '' });
   const navigate = useNavigate();
   const { isMobile } = useResponsiveDesign(); // Use responsive design
+  const StyledFontAwesomeIcon = styled(FontAwesomeIcon)`
+    margin-right: 15px;
+    color: #333;
+    font-size: 16px;
+  `;
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -68,15 +80,22 @@ const Sidebar = ({ setActiveTab, activeTab, role, mobileView }) => {
   return (
     <>
       {/* Burger icon for mobile screens */}
-      <FontAwesomeIcon icon={faBars} className={styles.burger} onClick={toggleSidebar} />
+      <FontAwesomeIcon
+        icon={faBars}
+        className={styles.burger}
+        onClick={toggleSidebar}
+      />
 
       {/* Sidebar container with conditional class for small screen */}
-      <div className={`${styles.sidebar} ${isSidebarOpen ? styles.open : ''} z-10 h-dvh sticky `}>
-        <div className="p-4">
-          <img src={Logo} alt="logo" className="max-w-full h-auto" />
+      <div
+        className={`${styles.sidebar} ${
+          isSidebarOpen ? styles.open : ''
+        } z-10 h-full sticky overflow-hidden flex-col`}
+      >
+        <div className="flex items-center justify-center w-full">
+          <img src={Logo} alt="logo" className="max-w-[120px] h-auto" />
         </div>
-        <div className="flex flex-col space-y-4 mt-4">
-
+        <div className="flex flex-col h-full justify-around">
           {/* Conditionally add navbar elements to sidebar on mobile view */}
           {isMobile && (
             <div className="mobile-navbar-items space-y-6 p-4 border-t border-gray-300">
@@ -104,8 +123,15 @@ const Sidebar = ({ setActiveTab, activeTab, role, mobileView }) => {
 
           <button
             onClick={() => handleButtonClick('dashboard')}
-            className={`${styles.button} ${styles.dashboard} ${activeTab === 'dashboard' ? styles.active : ''}`}>
-            <img src={DashboardIcon} alt="Dashboard" />
+            className={`${styles.button} ${styles.dashboard} ${
+              activeTab === 'dashboard' ? styles.active : ''
+            }`}
+          >
+            <img
+              src={DashboardIcon}
+              alt="Dashboard"
+              className="mr-[15px] w-6"
+            />
             Dashboard
           </button>
 
@@ -113,35 +139,66 @@ const Sidebar = ({ setActiveTab, activeTab, role, mobileView }) => {
             <>
               <button
                 onClick={() => handleButtonClick('analytics')}
-                className={`${styles.button} ${styles.analytics} ${activeTab === 'analytics' ? styles.active : ''}`}>
-                <img src={AnalyticIcon} alt="Analytics" />
+                className={`${styles.button} ${styles.analytics} ${
+                  activeTab === 'analytics' ? styles.active : ''
+                }`}
+              >
+                <img
+                  src={AnalyticIcon}
+                  alt="Analytics"
+                  className="mr-[15px] w-6"
+                />
                 Analytics
               </button>
               <button
                 onClick={() => handleButtonClick('orders')}
-                className={`${styles.button} ${styles.orders} ${activeTab === 'orders' ? styles.active : ''}`}>
-                <img src={OrderIcon} alt="Orders" />
+                className={`${styles.button} ${styles.orders} ${
+                  activeTab === 'orders' ? styles.active : ''
+                }`}
+              >
+                <img src={OrderIcon} alt="Orders" className="mr-[15px] w-6" />
                 Orders
               </button>
               <div>
                 <button
                   onClick={() => setIsProductOpen(!isProductOpen)}
-                  className={`${styles.button} ${styles.products} ${activeTab === 'products' ? styles.active : ''}`}>
-                  <img src={ProductIcon} alt="Products" />
+                  className={`${styles.button} ${styles.products} ${
+                    activeTab === 'products' ? styles.active : ''
+                  }`}
+                >
+                  <img
+                    src={ProductIcon}
+                    alt="Products"
+                    className="mr-[15px] w-6"
+                  />
                   Products
                 </button>
                 {isProductOpen && (
                   <div className="pl-4">
                     <button
                       onClick={() => handleButtonClick('addProduct')}
-                      className={`${styles.subButton} ${activeTab === 'addProduct' ? styles.active : ''}`}>
-                      <img src={AddProductIcon} alt="Add Product" />
+                      className={`${styles.subButton} ${
+                        activeTab === 'addProduct' ? styles.active : ''
+                      }`}
+                    >
+                      <img
+                        src={AddProductIcon}
+                        alt="Add Product"
+                        className="mr-[15px] w-6"
+                      />
                       Add Product
                     </button>
                     <button
                       onClick={() => handleButtonClick('seeAllProducts')}
-                      className={`${styles.subButton} ${activeTab === 'seeAllProducts' ? styles.active : ''}`}>
-                      <img src={SeeAllProductsIcon} alt="See All Products" />
+                      className={`${styles.subButton} ${
+                        activeTab === 'seeAllProducts' ? styles.active : ''
+                      }`}
+                    >
+                      <img
+                        src={SeeAllProductsIcon}
+                        alt="See All Products"
+                        className="mr-[15px] w-6"
+                      />
                       See All Products
                     </button>
                   </div>
@@ -149,8 +206,11 @@ const Sidebar = ({ setActiveTab, activeTab, role, mobileView }) => {
               </div>
               <button
                 onClick={() => handleButtonClick('reviews')}
-                className={`${styles.button} ${styles.reviews} ${activeTab === 'reviews' ? styles.active : ''}`}>
-                <img src={ReviewIcon} alt="Reviews" />
+                className={`${styles.button} ${styles.reviews} ${
+                  activeTab === 'reviews' ? styles.active : ''
+                }`}
+              >
+                <img src={ReviewIcon} alt="Reviews" className="mr-[15px] w-6" />
                 Reviews
               </button>
             </>
@@ -160,26 +220,38 @@ const Sidebar = ({ setActiveTab, activeTab, role, mobileView }) => {
             <>
               <button
                 onClick={() => handleButtonClick('seeAllUsers')}
-                className={`${styles.button} ${activeTab === 'seeAllUsers' ? styles.active : ''}`}>
-                <FontAwesomeIcon icon={faUsers} />
+                className={`${styles.button} ${
+                  activeTab === 'seeAllUsers' ? styles.active : ''
+                }`}
+              >
+                <StyledFontAwesomeIcon icon={faUsers} />
                 See All Users
               </button>
               <button
                 onClick={() => handleButtonClick('seeAllStores')}
-                className={`${styles.button} ${activeTab === 'seeAllStores' ? styles.active : ''}`}>
-                <FontAwesomeIcon icon={faStore} />
+                className={`${styles.button} ${
+                  activeTab === 'seeAllStores' ? styles.active : ''
+                }`}
+              >
+                <StyledFontAwesomeIcon icon={faStore} />
                 See All Stores
               </button>
               <button
                 onClick={() => handleButtonClick('categories')}
-                className={`${styles.button} ${activeTab === 'categories' ? styles.active : ''}`}>
-                <FontAwesomeIcon icon={faBoxes} />
+                className={`${styles.button} ${
+                  activeTab === 'categories' ? styles.active : ''
+                }`}
+              >
+                <StyledFontAwesomeIcon icon={faBoxes} />
                 Categories
               </button>
               <button
                 onClick={() => handleButtonClick('sections')}
-                className={`${styles.button} ${activeTab === 'sections' ? styles.active : ''}`}>
-                <FontAwesomeIcon icon={faThLarge} />
+                className={`${styles.button} ${
+                  activeTab === 'sections' ? styles.active : ''
+                }`}
+              >
+                <StyledFontAwesomeIcon icon={faThLarge} />
                 Sections
               </button>
             </>
@@ -187,12 +259,21 @@ const Sidebar = ({ setActiveTab, activeTab, role, mobileView }) => {
 
           <button
             onClick={() => handleButtonClick('settings')}
-            className={`${styles.button} ${activeTab === 'settings' ? styles.active : ''}`}>
-            <FontAwesomeIcon icon={faCog} />
+            className={`${styles.button} ${
+              activeTab === 'settings' ? styles.active : ''
+            }`}
+          >
+            <StyledFontAwesomeIcon icon={faCog} />
             Settings
           </button>
-          <button onClick={() => navigate('/home')} className={styles.exitButton}>
-            <FontAwesomeIcon icon={faSignOutAlt} />
+          <button
+            onClick={() => navigate('/home')}
+            className={styles.exitButton}
+          >
+            <FontAwesomeIcon
+              icon={faSignOutAlt}
+              style={{ marginRight: '15px' }}
+            />
             Exit
           </button>
         </div>

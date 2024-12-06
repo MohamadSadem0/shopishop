@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { fetchCategoriesByStoreId, fetchProductsByStoreId } from '../../services/fetchingService';
+import { fetchCategoriesByStoreIdAPI, fetchProductsByStoreIdAPI } from '../../services/fetchingService';
 
 const StorePage = () => {
   const { storeId } = useParams();
@@ -16,8 +16,8 @@ const StorePage = () => {
     const fetchStoreData = async () => {
       setLoading(true);
       try {
-        const categoriesData = await fetchCategoriesByStoreId(storeId);
-        const productsData = await fetchProductsByStoreId(storeId);
+        const categoriesData = await fetchCategoriesByStoreIdAPI(storeId);
+        const productsData = await fetchProductsByStoreIdAPI(storeId);
         setCategories(categoriesData);
         setProducts(productsData);
         setFilteredProducts(productsData); // Initially show all products

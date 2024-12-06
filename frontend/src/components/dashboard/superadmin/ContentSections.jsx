@@ -1,36 +1,27 @@
-
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import ClipLoader from 'react-spinners/ClipLoader'; // Import the ClipLoader
+import { useFetchRedux } from '../../../hooks/useFetchRedux';
+import { fetchAllSections } from '../../../redux/slices/serviceSectionsSlice';
+import ErrorModal from '../../common/ErrorModal';
 import SectionCard from '../cards/SectionCard';
 import SectionForm from '../forms/SectionForm';
-import ErrorModal from '../../common/ErrorModal';
-import ClipLoader from 'react-spinners/ClipLoader'; // Import the ClipLoader
-import { fetchSections, createSection, updateSection, deleteSection } from '../../../services/sectionService';
+import {createSectionAPI} from "../../../services/createProductAPI";
+import {updateSection} from "../../../services/updateService";
+import {deleteSection} from "../../../services/deleteService";
 
 const ContentSections = ({ searchQuery }) => {
-  const [sections, setSections] = useState([]);
+  const {
+    sections = [],
+    status,
+    error,
+  } = useFetchRedux({
+    sliceName: 'sections',
+    fetchFunction: fetchAllSections,
+  });
+
   const [currentSection, setCurrentSection] = useState({});
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const [error, setError] = useState(''); // Handle errors
   const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
-  const [loading, setLoading] = useState(true); // Loading state
-  const [selectedSection, setSelectedSection] = useState('All'); // Section filter
-
-  // Load sections when the component mounts
-  useEffect(() => {
-    const loadSections = async () => {
-      setLoading(true);
-      try {
-        const fetchedSections = await fetchSections();
-        setSections(fetchedSections);
-      } catch (error) {
-        setError('Failed to load sections: ' + error.message);
-        setIsErrorModalOpen(true);
-      } finally {
-        setLoading(false); // Stop loading once data is fetched
-      }
-    };
-    loadSections();
-  }, []);
 
   // Handle section edit
   const handleEdit = (section) => {
@@ -42,9 +33,7 @@ const ContentSections = ({ searchQuery }) => {
   const handleDelete = async (id) => {
     try {
       await deleteSection(id);
-      setSections(sections.filter(section => section.id !== id));
     } catch (error) {
-      setError('Failed to delete section: ' + error.message);
       setIsErrorModalOpen(true);
     }
   };
@@ -53,21 +42,12 @@ const ContentSections = ({ searchQuery }) => {
   const handleSave = async (section) => {
     try {
       if (section.id) {
-        
-        const updatedSection = await updateSection(section);
-        console.log(updateSection);
-        
-        setSections(sections.map(s => s.id === updatedSection.id ? updatedSection : s));
-        
+        await updateSection(section);
       } else {
-        const newSection = await createSection(section);
-        setSections([...sections, newSection]);
+        await createSectionAPI(section);
       }
       setIsFormOpen(false);
     } catch (error) {
-      setError('Failed to save section: ' + error.message);
-      console.log(updateSection);
-
       setIsErrorModalOpen(true);
     }
   };
@@ -82,50 +62,42 @@ const ContentSections = ({ searchQuery }) => {
     setIsFormOpen(false);
   };
 
-  // Filter sections based on search query and selected section
-  const filteredSections = sections.filter((section) => {
-    const matchesSection = selectedSection === 'All' || section.category === selectedSection;
-    const name = section.name.toLowerCase();
-    const trimmedSearchQuery = searchQuery.trim().toLowerCase();
-
-    return matchesSection && name.includes(trimmedSearchQuery);
-  });
+  // Filter sections based on search query
+  const filteredSections = sections.filter((section) =>
+    section.name.toLowerCase().includes(searchQuery.trim().toLowerCase())
+  );
 
   return (
-    <div className="p-8 w-full h-full bg-color3">
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-2xl font-bold">Sections</h2>
+    <div className="p-4 w-full bg-color3">
+      <div className="mb-4 flex justify-between items-center">
         <div>
-          <select
-            onChange={(e) => setSelectedSection(e.target.value)}
-            className="px-4 py-2 border rounded"
-          >
-            <option value="All">All Categories</option>
-            {sections.map((section) => (
-              <option key={section.id} value={section.category}>
-                {section.category}
-              </option>
-            ))}
-          </select>
+          <h2 className="text-xl md:text-2xl font-bold">Sections</h2>
         </div>
-      </div>
 
-      {error && <p className="text-red-500">{error}</p>}
-
-      {loading ? (
-        <ClipLoader color="#4A90E2" size={50} />
-      ) : (
-        <>
+        <div>
           <button
             onClick={handleAddNew}
             className="bg-blue-500 text-white px-4 py-2 rounded"
           >
             Add New Section
           </button>
+        </div>
+      </div>
 
-          <div className="flex flex-wrap mt-4">
+      {/* Display Error */}
+      {error && <p className="text-red-500">{error}</p>}
+
+      {/* Loading Spinner */}
+      {status === 'loading' ? (
+        <div className="flex justify-center">
+          <ClipLoader color="#4A90E2" size={50} />
+        </div>
+      ) : (
+        <>
+          {/* Sections Display */}
+          <div className="w-full flex flex-wrap items-center justify-between mt-4 ">
             {filteredSections.length > 0 ? (
-              filteredSections.map(section => (
+              filteredSections.map((section) => (
                 <SectionCard
                   key={section.id}
                   section={section}
@@ -134,10 +106,13 @@ const ContentSections = ({ searchQuery }) => {
                 />
               ))
             ) : (
-              <p className="mt-4 text-gray-600">No sections match the search query or category.</p>
+              <p className="mt-4 text-gray-600 w-full text-center">
+                No sections match the search query.
+              </p>
             )}
           </div>
 
+          {/* Add Section Form */}
           {isFormOpen && (
             <SectionForm
               onClose={handleClose}
@@ -146,6 +121,7 @@ const ContentSections = ({ searchQuery }) => {
             />
           )}
 
+          {/* Error Modal */}
           <ErrorModal
             isOpen={isErrorModalOpen}
             error={error}

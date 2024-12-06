@@ -5,7 +5,7 @@ const UserCard = ({ user, onClick }) => {
 
   return (
     <div
-      className="bg-white sm:w-1/2 sm:flex-auto shadow-lg rounded-lg transition duration-200 ease-in-out transform hover:-translate-y-1 hover:shadow-xl p-7 mr-2 my-2 flex flex-col space-y-2 w-80 cursor-pointer"
+      className="bg-white shadow-lg rounded-lg h-[400px] desktop:w-[280px] md:w-[200px] laptop:w-[230px] m-0 overflow-hidden transition duration-200 ease-in-out transform hover:-translate-y-1 hover:shadow-xl my-2 flex flex-col justify-between p-4"
       onClick={onClick}
     >
       <div className="flex items-center space-x-4">
@@ -17,7 +17,9 @@ const UserCard = ({ user, onClick }) => {
           />
         </div>
         <div className="flex-grow overflow-hidden">
-          <h3 className="text-lg font-semibold text-blue-500 truncate">{user.userName || 'No Username'}</h3>
+          <h3 className="text-lg font-semibold text-blue-500 truncate">
+            {user.userName || 'No Username'}
+          </h3>
           <p className="text-sm text-gray-600 truncate">{user.email}</p>
           <p className="text-sm text-gray-500">{user.role}</p>
         </div>
@@ -26,7 +28,9 @@ const UserCard = ({ user, onClick }) => {
       {user.location && (
         <div className="mt-4">
           <h4 className="text-sm font-bold text-gray-700">Location:</h4>
-          <p className="text-sm text-gray-600 truncate">{user.location.addressLine}</p>
+          <p className="text-sm text-gray-600 truncate">
+            {user.location.addressLine}
+          </p>
           <p className="text-sm text-gray-600 truncate">{`${user.location.city}, ${user.location.state} ${user.location.zipCode}`}</p>
           <p className="text-sm text-gray-600">{user.location.country}</p>
         </div>
@@ -37,7 +41,11 @@ const UserCard = ({ user, onClick }) => {
           <h4 className="text-sm font-bold text-gray-700">Store Details:</h4>
           <p className="text-sm text-gray-600 truncate">{user.store.name}</p>
           <p className="text-sm text-gray-600 truncate">{`Owner: ${user.store.ownerName}`}</p>
-          <p className={`text-sm ${user.store.approved ? 'text-green-600' : 'text-red-600'}`}>
+          <p
+            className={`text-sm ${
+              user.store.approved ? 'text-green-600' : 'text-red-600'
+            }`}
+          >
             {user.store.approved ? 'Approved' : 'Pending Approval'}
           </p>
         </div>

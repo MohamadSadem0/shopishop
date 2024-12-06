@@ -1,18 +1,15 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./src/**/*.{js,jsx,ts,tsx}",
-  ],
+  content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     extend: {
       // Add your custom colors
       colors: {
-        'color1': '#585649', // dark greyish
-        'color2': '#b5651d  ', 
-        'color3': '#F7F9EB', // white 
-        'bg': '#ffe08a ', // background color
-        'yellow1': '#eab308 ', // background color
-
+        color1: '#585649', // dark greyish
+        color2: '#b5651d  ',
+        color3: '#F7F9EB', // white
+        bg: '#ffe08a ', // background color
+        yellow1: '#eab308 ', // background color
       },
       // Add keyframes and animation utilities
       keyframes: {
@@ -40,11 +37,12 @@ module.exports = {
       },
     },
     screens: {
-      'tablet': '640px',
-      'laptop': '1024px',
-      'desktop': '1280px',
-      'sm': { 'max': '639px' },
+      tablet: '640px',
+      laptop: '1024px',
+      md: { min: '769px', max: '1024px' },
+      desktop: '1280px',
+      sm: { max: '639px' },
     },
   },
   plugins: [],
-}
+};

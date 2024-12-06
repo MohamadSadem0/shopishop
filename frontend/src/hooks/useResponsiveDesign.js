@@ -5,6 +5,5 @@ export const useResponsiveDesign = () => {
   const isDesktop = useMediaQuery({ query: '(min-width: 769px)' }); // For desktops or large screens
   const isScreenSmall = useMediaQuery({ query: '(max-height: 724px)' }); // For desktops or large screens
 
-  return { isMobile, isDesktop,isScreenSmall };
+  return { isMobile, isDesktop, isScreenSmall };
 };
- 

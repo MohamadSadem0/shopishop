@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { fetchProductsBySection } from '../../services/productService'; // Assuming this is the function to fetch products by section
+
+import {fetchProductsBySectionAPI} from "../../services/fetchingService"; // Assuming this is the function to fetch products by section
 
 const CategoriesSidebar = ({ sections, setSelectedCategory, setProducts, setSelectedSection }) => {
   const [expandedSection, setExpandedSection] = useState(null); // Track only the currently expanded section
@@ -13,7 +14,7 @@ const CategoriesSidebar = ({ sections, setSelectedCategory, setProducts, setSele
 
     // Fetch products for the newly expanded section
     try {
-      const fetchedProducts = await fetchProductsBySection(sectionId);
+      const fetchedProducts = await fetchProductsBySectionAPI(sectionId);
       setProducts(fetchedProducts); // Update the products in the grid
       setSelectedSection(sectionId); // Update selected section
     } catch (error) {
