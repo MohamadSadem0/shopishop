@@ -22,4 +22,5 @@ public class ProductRequestDTO {
 
     // Store and category IDs for associations
     private Long storeId;
+    private Boolean isAvailable;
 }

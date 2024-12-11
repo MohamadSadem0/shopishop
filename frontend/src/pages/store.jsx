@@ -1,18 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import Navbar from '../components/layout/NavBar';
-import HeroSection from './store/HeroSection';
-import SubNavbar from '../components/layout/Subnavbar';
+import React, { useEffect, useState } from 'react';
 import InfoCards from '../components/cards/InfoCards';
-import CategoriesSidebar from '../components/layout/CategoriesSidebar';
-import ProductGrid from './store/ProductGrid';
-import CartDrawer from './store/CartDrawer';
 import QuickViewModal from '../components/common/QuickViewModal';
+import CategoriesSidebar from '../components/layout/CategoriesSidebar';
 import Footer from '../components/layout/Footer';
+import Navbar from '../components/layout/NavBar';
+import SubNavbar from '../components/layout/Subnavbar';
+import CartDrawer from './store/CartDrawer';
+import HeroSection from './store/HeroSection';
+import ProductGrid from './store/ProductGrid';
 
-import {fetchProductsBySectionAPI, fetchSectionsWithCategoriesAPI} from "../services/fetchingService";
+import { useDispatch, useSelector } from 'react-redux';
+import { useFetchRedux } from '../hooks/reduxHooks/useFetchRedux';
+import { fetchAllSections } from '../redux/slices/sectionSlice';
+import {
+  fetchProductsBySectionAPI,
+  fetchSectionsWithCategoriesAPI,
+} from '../services/fetchingService';
 
 const Store = () => {
-  const [sections, setSections] = useState([]);
   const [selectedSection, setSelectedSection] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [products, setProducts] = useState([]);
@@ -20,23 +25,25 @@ const Store = () => {
   const [cartItems, setCartItems] = useState([]);
   const [quickViewProduct, setQuickViewProduct] = useState(null);
 
+  const dispatch = useDispatch();
+
+  const sections = useSelector((state) => state.sections.sections || []);
+  const sectionStatus = useSelector((state) => state.sections.status);
+  const sectionError = useSelector((state) => state.sections.error);
   // Fetch sections with categories on component mount
   useEffect(() => {
-    const loadSections = async () => {
-      try {
-        const fetchedSections = await fetchSectionsWithCategoriesAPI();
-        setSections(fetchedSections);
-      } catch (error) {
-        console.error('Error fetching sections with categories:', error);
-      }
-    };
-
-    loadSections();
-  }, []);
+    if (sectionStatus === 'idle') {
+      dispatch(fetchAllSections());
+    }
+    console.log(sections);
+    
+  }, [dispatch, sectionStatus]);
 
   const addToCart = (product) => setCartItems([...cartItems, product]);
-  const removeFromCart = (index) => setCartItems(cartItems.filter((_, i) => i !== index));
-  const getTotalPrice = () => cartItems.reduce((total, item) => total + item.price, 0);
+  const removeFromCart = (index) =>
+    setCartItems(cartItems.filter((_, i) => i !== index));
+  const getTotalPrice = () =>
+    cartItems.reduce((total, item) => total + item.price, 0);
 
   return (
     <div className="bg-bg min-h-screen flex flex-col">
@@ -56,7 +63,11 @@ const Store = () => {
           <h2 className="text-3xl font-bold mb-8 text-color1">
             {selectedCategory ? `${selectedCategory} Products` : 'All Products'}
           </h2>
-          <ProductGrid products={products} addToCart={addToCart} setQuickViewProduct={setQuickViewProduct} />
+          <ProductGrid
+            products={products}
+            addToCart={addToCart}
+            setQuickViewProduct={setQuickViewProduct}
+          />
         </div>
       </div>
 

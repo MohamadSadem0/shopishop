@@ -9,12 +9,13 @@ const CategoryDetailPopup = ({
   onEdit,
   onChange,
   error,
+  isProcessing,
 }) => {
   if (!category) return null;
 
   return (
     <div className="fixed w-full inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
-      <div className="bg-white w-7/12 p-6 rounded-lg shadow-lg space-y-4">
+      <div className="bg-white w-11/12 sm:w-7/12 p-6 rounded-lg shadow-lg space-y-4">
         {/* Header */}
         <div className="flex justify-between items-center">
           <h2 className="text-2xl font-semibold">
@@ -49,7 +50,7 @@ const CategoryDetailPopup = ({
             className={`mt-1 block w-full px-3 py-2 border ${
               isEditing ? 'border-gray-300' : 'border-gray-200 bg-gray-100'
             } rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500`}
-            readOnly={!isEditing}
+            readOnly={!isEditing || isProcessing}
           />
 
           {/* Description Field */}
@@ -62,8 +63,8 @@ const CategoryDetailPopup = ({
             className={`mt-1 block w-full px-3 py-2 border ${
               isEditing ? 'border-gray-300' : 'border-gray-200 bg-gray-100'
             } rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500`}
-            readOnly={!isEditing}
-          />
+            readOnly={!isEditing || isProcessing}
+          ></textarea>
 
           {/* Image Section */}
           <label className="block text-sm font-medium text-gray-700 mt-4">
@@ -74,10 +75,10 @@ const CategoryDetailPopup = ({
               <div className="flex justify-between">
                 <img
                   src={category.imageUrl}
-                  alt={category.imageUrl}
+                  alt={category.name || 'Category Image'}
                   className="max-w-sm rounded max-h-40"
                 />
-                {isEditing && (
+                {isEditing && !isProcessing && (
                   <button
                     onClick={() => onChange('imageUrl', '')}
                     className="absolute top-0 right-1 text-gray-500 hover:text-gray-700"
@@ -100,18 +101,20 @@ const CategoryDetailPopup = ({
           </div>
 
           {/* Image URL Field */}
-          <label className="block text-sm font-medium text-gray-700 mt-4">
-            Image URL
-          </label>
-          <input
-            type="text"
-            value={category.imageUrl || ''}
-            onChange={(e) => onChange('imageUrl', e.target.value)}
-            className={`mt-1 block w-full px-3 py-2 border ${
-              isEditing ? 'border-gray-300' : 'border-gray-200 bg-gray-100'
-            } rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500`}
-            readOnly={!isEditing}
-          />
+          {isEditing && (
+            <>
+              <label className="block text-sm font-medium text-gray-700 mt-4">
+                Image URL
+              </label>
+              <input
+                type="text"
+                value={category.imageUrl || ''}
+                onChange={(e) => onChange('imageUrl', e.target.value)}
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                disabled={isProcessing}
+              />
+            </>
+          )}
         </div>
 
         {/* Action Buttons */}
@@ -120,18 +123,37 @@ const CategoryDetailPopup = ({
             <>
               <button
                 onClick={() => onSave(category)}
-                className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded"
+                className={`bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded ${
+                  isProcessing ? 'opacity-50 cursor-not-allowed' : ''
+                }`}
+                disabled={isProcessing}
               >
                 Save Changes
               </button>
+              <button
+                onClick={onClose}
+                className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded"
+                disabled={isProcessing}
+              >
+                Cancel
+              </button>
             </>
           ) : (
-            <button
-              onClick={onEdit}
-              className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
-            >
-              Edit
-            </button>
+            <>
+              <button
+                onClick={onEdit}
+                className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
+                disabled={isProcessing}
+              >
+                Edit
+              </button>
+              <button
+                onClick={onClose}
+                className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded"
+              >
+                Close
+              </button>
+            </>
           )}
         </div>
       </div>

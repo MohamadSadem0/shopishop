@@ -12,7 +12,7 @@ import java.util.UUID;
 public class CategoryMapper {
 
     // Convert Category entity to CategoryResponseDTO using builder
-    public CategoryResponseDTO toResponseDTO(Category category) {
+    public static CategoryResponseDTO toResponseDTO(Category category) {
         if (category == null) {
             return null;
         }

@@ -11,8 +11,11 @@ export const useFetchRedux = ({ sliceName, fetchFunction }) => {
 
   useEffect(() => {
     if (status === 'idle') {
+      console.log(fetchedData);
       // console.log('Dispatching fetch function...');
       dispatch(fetchFunction()); // Invoke the function here
+      
+      
     }
   }, [dispatch, status, fetchFunction]);
 

@@ -1,17 +1,15 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-
-import {fetchAllSectionsAPI} from "../../services/fetchingService";
+import { fetchAllSectionsAPI } from "../../services/fetchingService";
 
 // Async thunk to fetch sections
 export const fetchAllSections = createAsyncThunk(
   'sections/fetchAllSections',
   async (_, thunkAPI) => {
     try {
-      const data = await fetchAllSectionsAPI(); // Await the API call
-      return data; // Return the resolved data
+      const data = await fetchAllSectionsAPI();
+      return data;
     } catch (error) {
       console.error('Error in fetchAllSections thunk:', error);
-      // Use thunkAPI.rejectWithValue to handle custom errors
       return thunkAPI.rejectWithValue(
         error.response?.data?.message || 'Failed to fetch sections'
       );
@@ -19,16 +17,30 @@ export const fetchAllSections = createAsyncThunk(
   }
 );
 
-const serviceSectionsSlice = createSlice({
+const sectionSlice = createSlice({
   name: 'sections',
   initialState: {
-    sections: [], // Ensure this is initialized as an empty array
+    sections: [],
     status: 'idle',
     error: null,
   },
   reducers: {
-    setSections: (state, action) => {
-      state.sections = action.payload;
+    addSection: (state, action) => {
+      state.sections.push(action.payload);
+    },
+    updateSection: (state, action) => {
+      const updatedSection = action.payload;
+      const index = state.sections.findIndex(
+        (section) => section.id === updatedSection.id
+      );
+      if (index !== -1) {
+        state.sections[index] = updatedSection;
+      }
+    },
+    deleteSection: (state, action) => {
+      state.sections = state.sections.filter(
+        (section) => section.id !== action.payload
+      );
     },
   },
   extraReducers: (builder) => {
@@ -37,7 +49,7 @@ const serviceSectionsSlice = createSlice({
         state.status = 'loading';
       })
       .addCase(fetchAllSections.fulfilled, (state, action) => {
-        state.sections = action.payload; // Update sections state
+        state.sections = action.payload;
         state.status = 'succeeded';
       })
       .addCase(fetchAllSections.rejected, (state, action) => {
@@ -47,8 +59,5 @@ const serviceSectionsSlice = createSlice({
   },
 });
 
-
-
-export const { setSections } = serviceSectionsSlice.actions; // Export the setSections action
-export default serviceSectionsSlice.reducer;
- 
+export const { addSection, updateSection, deleteSection } = sectionSlice.actions;
+export default sectionSlice.reducer;

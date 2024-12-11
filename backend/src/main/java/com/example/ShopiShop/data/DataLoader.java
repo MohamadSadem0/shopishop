@@ -138,14 +138,6 @@ public class DataLoader implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        // Check if a user with the given email already exists
-//        storeRepository.deleteAll();
-//        locationRepository.deleteAll();
-//        categoryRepository.deleteAll();
-//        sectionRepository.deleteAll();
-//        userRepository.deleteAll();
-//        productRepository.deleteAll();
-
 
 
         // Predefined sections with images
@@ -283,10 +275,6 @@ public class DataLoader implements CommandLineRunner {
 
         System.out.println("Merchant Store has been created successfully.");}
     }
-
-//    public void runData(){
-//
-//    }
 
 
 }

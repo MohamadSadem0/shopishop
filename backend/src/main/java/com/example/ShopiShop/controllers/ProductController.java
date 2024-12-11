@@ -5,6 +5,7 @@ import com.example.ShopiShop.dto.request.ProductRequestDTO;
 import com.example.ShopiShop.dto.response.ProductResponseDTO;
 import com.example.ShopiShop.servicesIMPL.ProductServiceImpl;
 import lombok.*;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -48,15 +49,19 @@ public class ProductController {
         List<ProductResponseDTO> products = productService.getProductsByStoreId(storeId);
         return ResponseEntity.ok(products);
     }
-
+    @GetMapping("/public/product/section/{sectionId}")
+    public ResponseEntity<List<ProductResponseDTO>> getProductsBySectionId(@PathVariable UUID sectionId) {
+        List<ProductResponseDTO> products = productService.getProductsBySectionId(sectionId);
+        return ResponseEntity.ok(products);
+    }
 
     @PostMapping("/merchant/{categoryid}/product/create")
     public ResponseEntity<ProductResponseDTO> createProduct(@PathVariable UUID categoryid, @RequestBody ProductRequestDTO product) {
-       ProductResponseDTO savedProduct= productService.createProduct(product,categoryid);
-        return ResponseEntity.ok(savedProduct);
+        ProductResponseDTO savedProduct= productService.createProduct(product,categoryid);
+//        return ResponseEntity.ok(savedProduct);
+        return new ResponseEntity<ProductResponseDTO>(savedProduct , HttpStatus.CREATED);
     }
-    // Delete a product by ID
-    @DeleteMapping("/merchant/{productId}")
+    @DeleteMapping("/merchant/product/delete/{productId}")
     public ResponseEntity<String> deleteProduct(@PathVariable UUID productId) {
         productService.deleteProduct(productId);
         return ResponseEntity.ok("Product deleted successfully");
@@ -68,4 +73,13 @@ public class ProductController {
         return ResponseEntity.ok(updatedProduct);
     }
 
+    @PatchMapping("/merchant/{productId}/availability")
+    public ResponseEntity<String> changeProductAvailability(@PathVariable UUID productId, @RequestParam("isAvailable") boolean isAvailable) {
+        boolean isUpdated = productService.changeProductAvailability(productId, isAvailable);
+        if (isUpdated) {
+            return ResponseEntity.ok("Product availability updated successfully.");
+        } else {
+            return ResponseEntity.badRequest().body("Failed to update product availability.");
+        }
+    }
 }

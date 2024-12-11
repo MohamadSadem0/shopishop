@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ClipLoader from 'react-spinners/ClipLoader';
-import { useFetchRedux } from '../../../hooks/useFetchRedux';
+import { useFetchRedux } from '../../../hooks/reduxHooks/useFetchRedux';
 import { fetchAllCategories } from '../../../redux/slices/categorySlice';
-import { fetchAllSections } from '../../../redux/slices/serviceSectionsSlice';
+import { fetchAllSections } from '../../../redux/slices/sectionSlice';
 import CategoryCard from '../cards/CategoryCard';
 import AddCategoryForm from '../forms/AddCategoryForm';
 import CategoryDetailPopup from '../forms/CategoryDetailPopup';

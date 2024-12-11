@@ -1,12 +1,12 @@
 package com.example.ShopiShop.models;
 
-import com.example.ShopiShop.models.Store;
-import com.example.ShopiShop.models.Category;
-import com.example.ShopiShop.models.Review;
+
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.UUID;
 
@@ -45,4 +45,9 @@ public class Product {
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviews;
+
+    private Boolean isAvailable =false;
+    @Column(name = "time_created")
+    @CreationTimestamp
+    private Timestamp createdAt;
 }

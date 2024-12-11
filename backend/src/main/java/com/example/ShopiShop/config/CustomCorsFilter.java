@@ -20,7 +20,9 @@ public class CustomCorsFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
         // Set CORS headers correctly
+
         response.setHeader("Access-Control-Allow-Origin", "http://localhost:5500");
+//        response.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
 //        response.setHeader("Access-Control-Allow-Origin", "https://unique-gnome-289962.netlify.app");
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
         response.setHeader("Access-Control-Allow-Headers", "authorization, content-type, xsrf-token");

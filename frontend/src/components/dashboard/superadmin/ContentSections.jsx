@@ -1,27 +1,29 @@
 import React, { useState } from 'react';
 import ClipLoader from 'react-spinners/ClipLoader'; // Import the ClipLoader
-import { useFetchRedux } from '../../../hooks/useFetchRedux';
-import { fetchAllSections } from '../../../redux/slices/serviceSectionsSlice';
+import { useFetchRedux } from '../../../hooks/reduxHooks/useFetchRedux';
+import { fetchAllSections } from '../../../redux/slices/sectionSlice';
 import ErrorModal from '../../common/ErrorModal';
 import SectionCard from '../cards/SectionCard';
 import SectionForm from '../forms/SectionForm';
-import {createSectionAPI} from "../../../services/createProductAPI";
-import {updateSection} from "../../../services/updateService";
-import {deleteSection} from "../../../services/deleteService";
+import { createSectionAPI } from "../../../services/createProductAPI";
+import { updateSectionAPI } from "../../../services/updateService";
+import { deleteSectionAPI } from "../../../services/deleteService";
 
 const ContentSections = ({ searchQuery }) => {
   const {
-    sections = [],
-    status,
-    error,
+    fetchedData: sections = [],
+    status: status,
+    error: fetchError,
   } = useFetchRedux({
     sliceName: 'sections',
     fetchFunction: fetchAllSections,
+    dataName: 'sections',
   });
 
   const [currentSection, setCurrentSection] = useState({});
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
+  const [modalMessage, setModalMessage] = useState('');
 
   // Handle section edit
   const handleEdit = (section) => {
@@ -32,8 +34,14 @@ const ContentSections = ({ searchQuery }) => {
   // Handle section delete
   const handleDelete = async (id) => {
     try {
-      await deleteSection(id);
+      const response = await deleteSectionAPI(id);
+      setModalMessage(response.message || 'Section deleted successfully!');
     } catch (error) {
+      setModalMessage(
+        error.response?.data?.message ||
+        'Failed to delete section. Please try again.'
+      );
+    } finally {
       setIsErrorModalOpen(true);
     }
   };
@@ -42,12 +50,16 @@ const ContentSections = ({ searchQuery }) => {
   const handleSave = async (section) => {
     try {
       if (section.id) {
-        await updateSection(section);
+        await updateSectionAPI(section);
       } else {
         await createSectionAPI(section);
       }
       setIsFormOpen(false);
     } catch (error) {
+      setModalMessage(
+        error.response?.data?.message ||
+        'Failed to save section. Please try again.'
+      );
       setIsErrorModalOpen(true);
     }
   };
@@ -85,7 +97,7 @@ const ContentSections = ({ searchQuery }) => {
       </div>
 
       {/* Display Error */}
-      {error && <p className="text-red-500">{error}</p>}
+      {fetchError && <p className="text-red-500">{fetchError}</p>}
 
       {/* Loading Spinner */}
       {status === 'loading' ? (
@@ -124,7 +136,7 @@ const ContentSections = ({ searchQuery }) => {
           {/* Error Modal */}
           <ErrorModal
             isOpen={isErrorModalOpen}
-            error={error}
+            error={modalMessage}
             onClose={() => setIsErrorModalOpen(false)}
           />
         </>

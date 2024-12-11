@@ -1,6 +1,7 @@
 package com.example.ShopiShop.servicesIMPL;
 
 import com.example.ShopiShop.dto.request.SectionRequestDTO;
+import com.example.ShopiShop.dto.response.SectionResponseWithCategoriesDTO;
 import com.example.ShopiShop.exceptions.DuplicateEntityException;
 import com.example.ShopiShop.mappers.SectionMapper;
 import com.example.ShopiShop.models.Section;
@@ -121,5 +122,13 @@ public class SectionServiceImpl implements SectionService {
 
         // Proceed to delete if no stores are related to the section
         sectionRepository.delete(section);
+    }
+
+
+    public List<SectionResponseWithCategoriesDTO> getAllSectionsWithCategories() {
+        List<Section> sections = sectionRepository.findAll();
+        return sections.stream()
+                .map(sectionMapper::toSectionResponseWithCategoriesDTO)
+                .collect(Collectors.toList());
     }
 }

@@ -39,7 +39,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public List<CategoryResponseDTO> getAllCategories() {
         return categoryRepository.findAll().stream()
-                .map(categoryMapper::toResponseDTO)
+                .map(CategoryMapper::toResponseDTO)
                 .collect(Collectors.toList());
     }
 
@@ -61,7 +61,7 @@ public class CategoryServiceImpl implements CategoryService {
 
         // Convert Category entities to CategoryResponseDTO using the mapper
         return categories.stream()
-                .map(categoryMapper::toResponseDTO)
+                .map(CategoryMapper::toResponseDTO)
                 .collect(Collectors.toList());
     }
 
@@ -69,14 +69,14 @@ public class CategoryServiceImpl implements CategoryService {
     public List<CategoryResponseDTO> getCategoriesBySectionId(UUID sectionId) {
         Section section = sectionService.getSectionById(sectionId);
         return section.getCategories().stream()
-                .map(categoryMapper::toResponseDTO)
+                .map(CategoryMapper::toResponseDTO)
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<CategoryResponseDTO> getCategoriesBySection(Section section) {
         return categoryRepository.findBySection(section).stream()
-                .map(categoryMapper::toResponseDTO)
+                .map(CategoryMapper::toResponseDTO)
                 .collect(Collectors.toList());
     }
 
@@ -88,6 +88,7 @@ public class CategoryServiceImpl implements CategoryService {
         // Update fields from request DTO
         existingCategory.setName(categoryRequest.getName());
         existingCategory.setImageUrl(categoryRequest.getImageUrl());
+//        existingCategory.set(categoryRequest.getImageUrl());
 
         Category updatedCategory = categoryRepository.save(existingCategory);
         return categoryMapper.toResponseDTO(updatedCategory);

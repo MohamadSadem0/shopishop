@@ -13,6 +13,6 @@ import java.util.UUID;
 public interface StoreRepository extends JpaRepository<Store,Long>{
     Optional<Store> findByOwnerEmail(String email); // Assuming "owner" is the User associated with the store
     List<Store> findBySectionId(UUID sectionId);
-
+    List<Store> findAllBySectionId(UUID sectionId);
 
 }

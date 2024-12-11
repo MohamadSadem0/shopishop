@@ -92,6 +92,8 @@ export const fetchAllUsersAPI = async () => {
 export const fetchAllCategoriesAPI = async () => {
   try {
     const response = await axiosInstance.get('/public/allCategories');
+    console.log(response);
+    
     return response.data; // Assuming response.data contains an array of categories
   } catch (error) {
     console.error('Failed to fetch all categories:', error);

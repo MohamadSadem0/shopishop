@@ -54,16 +54,7 @@ public class AuthenticationController {
         return ResponseEntity.ok(response);
     }
 
-//    @PostMapping("/api/auth/google")
-//    public String googleAuth(OAuth2AuthenticationToken token) {
-//        // OAuth2AuthenticationToken holds the details of the authenticated user
-//        String email = token.getPrincipal().getAttribute("email");
-//        String name = token.getPrincipal().getAttribute("name");
-//
-//        // Process the user details, check if user exists, and handle accordingly
-//        userService.processUserDetails(name, email);
-//        return "User authenticated with Google successfully";
-//    }
+
 
     @GetMapping("/confirm")
     public ResponseEntity<String> confirmUser(@RequestParam("token") String token) {

@@ -7,29 +7,34 @@ import com.example.ShopiShop.models.Store;
 import com.example.ShopiShop.models.Category;
 import org.springframework.stereotype.Component;
 
+import java.security.Timestamp;
 
 @Component
 public class ProductMapper {
 
-    // Method to map ProductRequestDTO to Product entity
     public Product toProduct(ProductRequestDTO productRequestDTO, Store store, Category category) {
+
         return Product.builder()
                 .name(productRequestDTO.getName())
                 .description(productRequestDTO.getDescription())
                 .price(productRequestDTO.getPrice())
                 .imageUrl(productRequestDTO.getImageUrl())
-                .store(store)       // Associate store with the product
-                .category(category) // Associate category with the product
+                .store(store)
+                .category(category)
+                .isAvailable(productRequestDTO.getIsAvailable())
                 .build();
     }
 
-    // Method to map Product entity to ProductResponseDTO
-    public ProductResponseDTO toResponseDTO(Product product) {
+    public ProductResponseDTO toResponseDTO(Product product, String sectionName, String categoryName) {
         return new ProductResponseDTO(
                 product.getId(),
                 product.getName(),
                 product.getPrice(),
-                product.getDescription()
+                product.getDescription(),
+                sectionName,
+                categoryName,
+                product.getImageUrl(),
+                product.getIsAvailable()
         );
     }
 }

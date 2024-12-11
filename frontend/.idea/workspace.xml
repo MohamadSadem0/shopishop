@@ -5,55 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c7c4aa61-2fc6-4ede-a083-11d55c2b0a2b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../.idea/material_theme_project_new.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/prettier.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/services/addingService.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/services/deleteService.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/services/updateService.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/styles/FormCard.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/cards/ClickableCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/cards/ClickableCard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/cards/DashboardItemCard .jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/cards/DashboardItemCard .jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/dashboard/DashboardNavbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/DashboardNavbar.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/dashboard/Sidebar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/Sidebar.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/dashboard/SmallDeviceSidebar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/SmallDeviceSidebar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/debug.log" beforeDir="false" afterPath="$PROJECT_DIR$/debug.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/dashboard/cards/CategoryCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/cards/CategoryCard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/dashboard/cards/SectionCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/cards/SectionCard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/dashboard/cards/StoreCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/cards/StoreCard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/dashboard/cards/UserCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/cards/UserCard.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/dashboard/cards/jjj.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/cards/jjj.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/dashboard/forms/AddCategoryForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/forms/AddCategoryForm.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/dashboard/forms/CategoryDetailPopup.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/forms/CategoryDetailPopup.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/dashboard/forms/SectionForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/forms/SectionForm.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/dashboard/forms/SectionFormModal.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/dashboard/forms/StoreModal.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/forms/StoreModal.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/dashboard/options/ContentAddProduct.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/options/ContentAddProduct.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/dashboard/options/ContentDashboard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/options/ContentDashboard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/dashboard/options/ContentSeeAllProducts.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/options/ContentSeeAllProducts.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/dashboard/superadmin/ContentCategories.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/superadmin/ContentCategories.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/dashboard/superadmin/ContentSections.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/superadmin/ContentSections.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/dashboard/superadmin/ContentSeeAllStores.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/superadmin/ContentSeeAllStores.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/dashboard/superadmin/ContentSeeAllUsers.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/superadmin/ContentSeeAllUsers.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/layout/CategoriesSidebar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/layout/CategoriesSidebar.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/sections/section2/SectionsSection.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sections/section2/SectionsSection.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hooks/useResponsiveDesign.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useResponsiveDesign.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hooks/useSignupForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useSignupForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/auth/signup/Signup.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/auth/signup/Signup.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/dashboard/Dashboardpage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/dashboard/Dashboardpage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/mobile/SectionMobile.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/mobile/SectionMobile.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/store.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/store.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/store/StorePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/store/StorePage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/actions/authActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/actions/authActions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hooks/useFetchRedux.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/reduxHooks/useFetchRedux.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/redux/slices/categorySlice.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/slices/categorySlice.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/slices/serviceSectionsSlice.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/slices/serviceSectionsSlice.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/slices/serviceSectionsSlice.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/slices/sectionSlice.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/redux/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/store.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/categoryAPI.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/deleteService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/deleteService.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/services/fetchingService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/fetchingService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/productService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/productService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/sectionService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/sectionService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/Sidebar.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/Sidebar.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/SmallSidebar.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/SmallSidebar.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tailwind.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/tailwind.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/updateService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/updateService.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,7 +58,7 @@
     "git-widget-placeholder": "helmi",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/chawo/shopishop/frontend/src/services/deleteService.js",
+    "last_opened_file_path": "C:/Users/chawo/shopishop/frontend",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -103,6 +71,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\chawo\shopishop\frontend\src\hooks\reduxHooks" />
       <recent name="C:\Users\chawo\shopishop\frontend\src\redux\slices" />
     </key>
     <key name="es6.move.members.recent.items">
@@ -138,7 +107,9 @@
       <workItem from="1733138450631" duration="188000" />
       <workItem from="1733138662833" duration="80000" />
       <workItem from="1733138760788" duration="8451000" />
-      <workItem from="1733482959906" duration="1119000" />
+      <workItem from="1733482959906" duration="1502000" />
+      <workItem from="1733484665761" duration="2122000" />
+      <workItem from="1733773078011" duration="1410000" />
     </task>
     <servers />
   </component>

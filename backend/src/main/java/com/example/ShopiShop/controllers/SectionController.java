@@ -2,6 +2,7 @@ package com.example.ShopiShop.controllers;
 
 import com.example.ShopiShop.dto.request.SectionRequestDTO;
 import com.example.ShopiShop.dto.response.SectionResponseDTO;
+import com.example.ShopiShop.dto.response.SectionResponseWithCategoriesDTO;
 import com.example.ShopiShop.exceptions.DuplicateEntityException;
 import com.example.ShopiShop.exceptions.EntityNotFoundException;
 import com.example.ShopiShop.servicesIMPL.SectionServiceImpl;
@@ -67,7 +68,12 @@ public class SectionController {
             sectionService.deleteSection(sectionId);
             return ResponseEntity.ok("Section deleted successfully.");
         } catch (EntityNotFoundException ex) {
-            throw new EntityNotFoundException("Section not found.");
+            throw new EntityNotFoundException("Section not found." +ex );
         }
+    }
+
+    @GetMapping("/public/sections/with-categories")
+    public ResponseEntity<List<SectionResponseWithCategoriesDTO>> getAllSectionsWithCategories() {
+        return ResponseEntity.ok(sectionService.getAllSectionsWithCategories());
     }
 }

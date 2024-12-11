@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import {fetchProductsBySectionAPI} from "../../services/fetchingService"; // Assuming this is the function to fetch products by section
 
-const CategoriesSidebar = ({ sections, setSelectedCategory, setProducts, setSelectedSection }) => {
+const CategoriesSidebar = ({ sections, setSelectedCategory, setStores, setSelectedSection }) => {
   const [expandedSection, setExpandedSection] = useState(null); // Track only the currently expanded section
 
   const toggleSection = async (sectionId) => {
@@ -15,7 +15,7 @@ const CategoriesSidebar = ({ sections, setSelectedCategory, setProducts, setSele
     // Fetch products for the newly expanded section
     try {
       const fetchedProducts = await fetchProductsBySectionAPI(sectionId);
-      setProducts(fetchedProducts); // Update the products in the grid
+      setStores(fetchedProducts); // Update the products in the grid
       setSelectedSection(sectionId); // Update selected section
     } catch (error) {
       console.error('Error fetching products by section:', error);
@@ -29,13 +29,13 @@ const CategoriesSidebar = ({ sections, setSelectedCategory, setProducts, setSele
     <div className="ml-3 w-1/6 bg-white rounded-lg shadow-lg p-6">
       <h2 className="text-xl font-bold mb-6">Categories</h2>
       {sections.map((section) => (
-        <div key={section.sectionId} className="mb-4">
+        <div key={section.id} className="mb-4">
           <button
             className="w-full text-left py-3 px-4 font-semibold bg-gray-200 rounded-lg hover:bg-gray-300 flex justify-between"
-            onClick={() => toggleSection(section.sectionId)} // Toggle current section
+            onClick={() => toggleSection(section.id)} // Toggle current section
           >
-            {section.sectionName}
-            <span>{expandedSection === section.sectionId ? '-' : '+'}</span>
+            {section.name}
+            <span>{expandedSection === section.id ? '-' : '+'}</span>
           </button>
 
           {/* Only show categories if the section is expanded */}

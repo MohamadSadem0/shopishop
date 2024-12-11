@@ -9,13 +9,15 @@ import axiosInstance from "../utils/axiosInstance";
 export const deleteCategoryAPI = async (categoryId) => {
     try {
         const token = getDecryptedToken(); // Decrypt the token
-        if (!token) throw new Error('No token found');
+      if (!token) throw new Error('No token found');
+      
 
-        await axiosInstance.delete(`/admin/category/delete/${categoryId}`, {
+      const response =    await axiosInstance.delete(`/admin/category/delete/${categoryId}`, {
             headers: {
                 Authorization: `Bearer ${token}` // Pass the decrypted JWT token
             }
-        });
+      });
+      console.log(response);
     } catch (error) {
         console.error('Failed to delete category:', error);
         throw new Error(error.response?.data?.message || 'Error deleting category');
@@ -26,7 +28,7 @@ export const deleteCategoryAPI = async (categoryId) => {
  * @param {string} sectionId - The ID of the section to delete.
  * @returns {Object} The response object indicating success or failure.
  */
-export const deleteSection = async (sectionId) => {
+export const deleteSectionAPI = async (sectionId) => {
     try {
         const token = getDecryptedToken();
         if (!token) throw new Error('Authentication token is not available.');
@@ -41,4 +43,26 @@ export const deleteSection = async (sectionId) => {
         console.error('Failed to delete section:', error);
         throw error; // Propagate error to handle in the caller component
     }
+};
+
+/**
+ * Deletes a section by its ID with authorization.
+ * @param {string} productId - The ID of the section to delete.
+ * @returns {Object} The response object indicating success or failure.
+ */
+export const deleteProductAPI = async (productId) => {
+  try {
+      const token = getDecryptedToken();
+      if (!token) throw new Error('Authentication token is not available.');
+
+      const response = await axiosInstance.delete(`/merchant/product/delete/${productId}`, {
+          headers: {
+              Authorization: `Bearer ${token}`,
+          },
+      });
+      return response.data; // Adjust based on actual API response structure
+  } catch (error) {
+      console.error('Failed to delete product:', error);
+      throw error; // Propagate error to handle in the caller component
+  }
 };

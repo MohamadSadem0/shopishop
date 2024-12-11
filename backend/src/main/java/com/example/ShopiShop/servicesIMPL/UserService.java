@@ -154,18 +154,18 @@ public class UserService {
     }
 
     public UserLoginResponseDTO buildMerchantLoginResponse(String jwtToken, User user) {
-        if (user.getUserRole() == UserRoleEnum.SUPERADMIN) {
+//        if (user.getUserRole() == UserRoleEnum.SUPERADMIN) {
             // Superadmin doesn't need a store
-            return new UserLoginResponseDTO(
-                    jwtToken,
-                    user.getEmail(),
-                    user.getUserRole(),
-                    user.getUsername(),
-//                    user.getPhoneNumber(),
-                    null,  // No location for superadmin
-                    null   // No store for superadmin
-            );
-        } else {
+//            return new UserLoginResponseDTO(
+//                    jwtToken,
+//                    user.getEmail(),
+//                    user.getUserRole(),
+//                    user.getUsername(),
+////                    user.getPhoneNumber(),
+//                    null,  // No location for superadmin
+//                    null   // No store for superadmin
+//            );
+//        } else {
             // Continue with merchant logic
             Store store = storeService.getStoreByOwnerEmail(user.getEmail());
             Location location = store.getLocation();
@@ -187,7 +187,7 @@ public class UserService {
                     ),
                     StoreMapper.toDTO(store)
             );
-        }
+//        }
     }
 
     private void sendConfirmationEmail(User user) {

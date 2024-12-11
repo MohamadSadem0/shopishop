@@ -19,7 +19,6 @@ public class JwtService {
 
     private final static String SECRET_KEY = "4a1684e3c328c385c8546fff6d46c79ef2d0581b98fff24bfd873e5c86d383d2";
 
-    // Extract email from the token
     public String extractEmail(String token) {
         return extractClaim(token, Claims::getSubject);
     }
