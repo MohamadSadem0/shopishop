@@ -8,7 +8,7 @@ import SectionForm from '../forms/SectionForm';
 import { createSectionAPI } from "../../../services/createProductAPI";
 import { updateSectionAPI } from "../../../services/updateService";
 import { deleteSectionAPI } from "../../../services/deleteService";
-
+//todo:refresh fetchind after deleting
 const ContentSections = ({ searchQuery }) => {
   const {
     fetchedData: sections = [],

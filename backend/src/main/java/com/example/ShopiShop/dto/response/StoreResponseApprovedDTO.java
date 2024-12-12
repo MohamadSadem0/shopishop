@@ -1,3 +1,4 @@
+
 package com.example.ShopiShop.dto.response;
 
 import lombok.*;
@@ -7,12 +8,11 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class StoreResponseDTO {
+public class StoreResponseApprovedDTO {
 
     private Long id;
     private String name;
     private String ownerName;
     private String sectionName;
 
-    private boolean isApproved;
 }

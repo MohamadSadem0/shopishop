@@ -5,23 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c7c4aa61-2fc6-4ede-a083-11d55c2b0a2b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug.log" beforeDir="false" afterPath="$PROJECT_DIR$/debug.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/src/main/java/com/example/ShopiShop/dto/response/StoreResponseApprovedDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/com/example/ShopiShop/controllers/StoreController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/com/example/ShopiShop/controllers/StoreController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/com/example/ShopiShop/dto/StoreMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/com/example/ShopiShop/mappers/StoreMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/com/example/ShopiShop/mappers/StoreMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/com/example/ShopiShop/servicesIMPL/StoreServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/com/example/ShopiShop/servicesIMPL/StoreServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/dashboard/cards/CategoryCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/cards/CategoryCard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/dashboard/cards/jjj.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/cards/jjj.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/dashboard/forms/AddCategoryForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/forms/AddCategoryForm.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/dashboard/forms/CategoryDetailPopup.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/forms/CategoryDetailPopup.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/dashboard/superadmin/ContentCategories.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/superadmin/ContentCategories.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/dashboard/superadmin/ContentSections.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/superadmin/ContentSections.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/dashboard/superadmin/ContentSeeAllStores.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/superadmin/ContentSeeAllStores.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/layout/CategoriesSidebar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/layout/CategoriesSidebar.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hooks/useFetchRedux.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/reduxHooks/useFetchRedux.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/slices/categorySlice.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/slices/categorySlice.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/slices/serviceSectionsSlice.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/slices/sectionSlice.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/store.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/deleteService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/deleteService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/store.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/store.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/slices/storeSlice.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/slices/storeSlice.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/services/fetchingService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/fetchingService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/updateService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/updateService.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,7 +55,7 @@
     "git-widget-placeholder": "helmi",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/chawo/shopishop/frontend",
+    "last_opened_file_path": "C:/Users/jad_ab/OneDrive/Desktop/shopishop/frontend",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -84,8 +81,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.18034.62" />
-        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.18034.62" />
+        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.22562.145" />
+        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-IU-243.22562.145" />
       </set>
     </attachedChunks>
   </component>
@@ -110,6 +107,7 @@
       <workItem from="1733482959906" duration="1502000" />
       <workItem from="1733484665761" duration="2122000" />
       <workItem from="1733773078011" duration="1410000" />
+      <workItem from="1733923544674" duration="283000" />
     </task>
     <servers />
   </component>

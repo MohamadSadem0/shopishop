@@ -173,13 +173,9 @@ export const fetchProductsByStoreIdAPI = async (storeId) => {
 
     
     const response = await axiosInstance.get(`/public/product/store/${storeId}`
-      // {
-      // headers: {
-      //   Authorization: `Bearer ${token}`, // Pass the Bearer token in the Authorization header
-      // },
-    // }
+
   );
-    return response.data; // Assuming response.data contains an array of products
+    return response.data; 
   } catch (error) {
     console.error('Failed to fetch products by store:', error);
     throw new Error(error.response?.data?.message || 'Error fetching products by store');
@@ -193,10 +189,28 @@ export const fetchProductsByStoreIdAPI = async (storeId) => {
  */
 export const fetchAllStoresAPI = async () => {
   try {
-    const response = await axiosInstance.get('public/stores/all');
-    
+    const token = getDecryptedToken(); // Decrypt the token
+    if (!token) throw new Error('Authentication token is not available.');
+
+    const response = await axiosInstance.get('/admin/stores/all', {
+      headers: {
+        Authorization: `Bearer ${token}`, // Add the JWT token to the request header
+      },
+    });
+
     return response.data; // Assuming response.data contains an array of stores
-    
+  } catch (error) {
+    console.error('Failed to fetch stores:', error);
+    throw new Error(error.response?.data?.message || 'Error fetching stores');
+  }
+};
+
+export const fetchAllApprovedStoresAPI = async () => {
+  try {
+    const response = await axiosInstance.get('public/stores/all');
+
+    return response.data; // Assuming response.data contains an array of stores
+
   } catch (error) {
     console.error('Failed to fetch stores:', error);
     throw new Error('Error fetching stores');

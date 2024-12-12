@@ -1,61 +1,52 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { fetchAllStoresAPI } from "../../services/fetchingService"; // Assuming this API fetches all approved stores
 
-import {fetchProductsBySectionAPI} from "../../services/fetchingService"; // Assuming this is the function to fetch products by section
-
-const CategoriesSidebar = ({ sections, setSelectedCategory, setStores, setSelectedSection }) => {
+const CategoriesSidebar = ({ sections, setStores, setSelectedSection }) => {
   const [expandedSection, setExpandedSection] = useState(null); // Track only the currently expanded section
+  const [allStores, setAllStores] = useState([]); // Store all approved stores
 
-  const toggleSection = async (sectionId) => {
+  useEffect(() => {
+    const fetchStores = async () => {
+      try {
+        const stores = await fetchAllStoresAPI(); // Fetch all approved stores
+        setAllStores(stores);
+      } catch (error) {
+        console.error("Error fetching stores:", error);
+      }
+    };
+    fetchStores();
+  }, []);
+
+  const toggleSection = (sectionName) => {
     // If the section is already expanded, collapse it
-    if (expandedSection === sectionId) {
+    if (expandedSection === sectionName) {
       setExpandedSection(null);
+      setStores([]); // Clear displayed stores
       return;
     }
 
-    // Fetch products for the newly expanded section
-    try {
-      const fetchedProducts = await fetchProductsBySectionAPI(sectionId);
-      setStores(fetchedProducts); // Update the products in the grid
-      setSelectedSection(sectionId); // Update selected section
-    } catch (error) {
-      console.error('Error fetching products by section:', error);
-    }
+    // Filter stores by sectionName
+    const filteredStores = allStores.filter(
+      (store) => store.sectionName === sectionName
+    );
 
-    // Expand the section
-    setExpandedSection(sectionId);
+    setStores(filteredStores); // Update the displayed stores
+    setSelectedSection(sectionName); // Update the selected section
+    setExpandedSection(sectionName); // Expand the section
   };
 
   return (
     <div className="ml-3 w-1/6 bg-white rounded-lg shadow-lg p-6">
-      <h2 className="text-xl font-bold mb-6">Categories</h2>
+      <h2 className="text-xl font-bold mb-6">Sections</h2>
       {sections.map((section) => (
         <div key={section.id} className="mb-4">
           <button
             className="w-full text-left py-3 px-4 font-semibold bg-gray-200 rounded-lg hover:bg-gray-300 flex justify-between"
-            onClick={() => toggleSection(section.id)} // Toggle current section
+            onClick={() => toggleSection(section.name)} // Use sectionName to filter stores
           >
             {section.name}
-            <span>{expandedSection === section.id ? '-' : '+'}</span>
+            <span>{expandedSection === section.name ? '-' : '+'}</span>
           </button>
-
-          {/* Only show categories if the section is expanded */}
-          {expandedSection === section.sectionId && (
-            <div className="mt-2 ml-4">
-              {section.categories.length > 0 ? (
-                section.categories.map((category) => (
-                  <button
-                    key={category.id}
-                    className="block w-full text-left py-2 px-4 font-medium hover:bg-gray-100"
-                    onClick={() => setSelectedCategory(category.name)} // Filter products by category
-                  >
-                    {category.name}
-                  </button>
-                ))
-              ) : (
-                <p className="ml-4 mt-2 text-gray-500">No categories available</p>
-              )}
-            </div>
-          )}
         </div>
       ))}
     </div>

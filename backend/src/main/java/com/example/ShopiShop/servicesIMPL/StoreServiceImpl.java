@@ -1,10 +1,11 @@
 package com.example.ShopiShop.servicesIMPL;
 
+import com.example.ShopiShop.dto.response.StoreResponseApprovedDTO;
 import com.example.ShopiShop.dto.response.StoreResponseDTO;
+import com.example.ShopiShop.mappers.StoreMapper;
 import com.example.ShopiShop.models.Location;
 import com.example.ShopiShop.models.Section;
 import com.example.ShopiShop.dto.request.StoreRequestDTO;
-import com.example.ShopiShop.dto.StoreMapper;
 import com.example.ShopiShop.models.Store;
 import com.example.ShopiShop.dto.request.UserSignupRequestDTO;
 import com.example.ShopiShop.repositories.SectionRepository;
@@ -28,7 +29,7 @@ public class StoreServiceImpl implements StoreService {
     private final StoreRepository storeRepository;
     private final UserRepository userRepository;
     private final SectionRepository sectionRepository;
-    private  StoreMapper storeMapper;
+    private StoreMapper storeMapper;
     private UUIDconvertor uuiDconvertor;
     private final NotificationServiceImpl notificationService;
 
@@ -68,7 +69,7 @@ public class StoreServiceImpl implements StoreService {
                 .orElseThrow(() -> new RuntimeException("Owner not found"));
 
         // Map the DTO to Store entity
-        Store store = StoreMapper.toEntity(storeRequestDTO, owner,section);
+        Store store = com.example.ShopiShop.mappers.StoreMapper.toEntity(storeRequestDTO, owner,section);
 
         // Save the store in the database
         return storeRepository.save(store);
@@ -88,9 +89,22 @@ public Store getStoreByOwnerEmail(String email){
 
         // Map each Store entity to StoreResponseDTO
         return stores.stream()
-                .map(StoreMapper::toDTO) // Using the StoreMapper to convert Store to StoreResponseDTO
+                .map(com.example.ShopiShop.mappers.StoreMapper::toDTO) // Using the StoreMapper to convert Store to StoreResponseDTO
                 .collect(Collectors.toList());
     }
+
+    public List<StoreResponseApprovedDTO> getAllApprovedStores() {
+        // Retrieve all stores and filter for approved ones
+        List<Store> approvedStores = storeRepository.findAll().stream()
+                .filter(Store::isApproved) // Filter stores where isApproved is true
+                .collect(Collectors.toList());
+
+        // Use StoreMapper to map each approved Store entity to StoreResponseApprovedDTO
+        return approvedStores.stream()
+                .map(StoreMapper::toApprovedDTO) // Use the mapper for conversion
+                .collect(Collectors.toList());
+    }
+
 
     public void deleteAllStores() {
         storeRepository.deleteAll();

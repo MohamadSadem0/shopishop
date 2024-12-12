@@ -1,49 +1,40 @@
 import React, { useEffect, useState } from 'react';
 import ClipLoader from 'react-spinners/ClipLoader';
-import {
-  approveStoreAPI,
-  fetchAllStoresAPI,
-} from '../../../services/fetchingService';
+import { approveStoreAPI } from '../../../services/fetchingService';
 import StoreCard from '../cards/StoreCard';
-import StoreModal from '../forms/StoreModal'; // Import the Modal component
+import StoreModal from '../forms/StoreModal';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchAllStores, resetStores } from '../../../redux/slices/storeSlice';
 
 const ContentSeeAllStores = ({ searchQuery }) => {
-  const [stores, setStores] = useState([]);
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [selectedStore, setSelectedStore] = useState(null); // State to handle the selected store
+  const { data: stores, error, status } = useSelector((state) => state.stores);
+  const loading = status === 'loading';
+  const dispatch = useDispatch();
 
-  const fetchStores = async () => {
-    setLoading(true);
-    try {
-      const fetchedStores = await fetchAllStoresAPI();
-      setStores(fetchedStores);
-    } catch (err) {
-      setError(`Failed to fetch stores: ${err.message}`);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const [selectedStore, setSelectedStore] = useState(null);
 
   useEffect(() => {
-    fetchStores();
-  }, []);
+    if (status === 'idle') {
+      dispatch(fetchAllStores());
+    }
+  }, [dispatch, status]);
 
   const handleApproveStore = async (storeId) => {
     try {
       await approveStoreAPI(storeId);
-      fetchStores();
+      dispatch(resetStores());
+      dispatch(fetchAllStores());
     } catch (err) {
-      setError(`Failed to approve store: ${err.message}`);
+      console.error(`Failed to approve store: ${err.message}`);
     }
   };
 
   const handleViewDetails = (store) => {
-    setSelectedStore(store); // Set the selected store for the modal
+    setSelectedStore(store);
   };
 
   const closeModal = () => {
-    setSelectedStore(null); // Reset the selected store on closing modal
+    setSelectedStore(null);
   };
 
   const filteredStores = stores.filter((store) =>
@@ -52,28 +43,18 @@ const ContentSeeAllStores = ({ searchQuery }) => {
 
   return (
     <div className="p-4 w-full bg-color3">
-      {/* Wrapper div for heading and search */}
       <div className="mb-4 flex flex-row justify-between items-center">
-        {/* Heading */}
-        <div>
-          <h2 className="text-xl md:text-2xl font-bold">Stores</h2>
-        </div>
-
-        {/* Search Input (optional if needed) */}
-        {/* Add a dropdown or additional buttons as needed */}
+        <h2 className="text-xl md:text-2xl font-bold">Stores</h2>
       </div>
 
-      {/* Display Error */}
       {error && <p className="text-red-500">{error}</p>}
 
-      {/* Loading Spinner */}
       {loading ? (
         <div className="flex justify-center">
           <ClipLoader color="#4A90E2" size={50} />
         </div>
       ) : (
         <>
-          {/* Stores Display */}
           <div className="w-full flex flex-wrap items-center justify-between mt-4">
             {filteredStores.length > 0 ? (
               filteredStores.map((store) => (
@@ -81,7 +62,7 @@ const ContentSeeAllStores = ({ searchQuery }) => {
                   key={store.id}
                   store={store}
                   onViewDetails={() => handleViewDetails(store)}
-                  onApprove={handleApproveStore}
+                  onApprove={() => handleApproveStore(store.id)}
                 />
               ))
             ) : (
@@ -91,13 +72,11 @@ const ContentSeeAllStores = ({ searchQuery }) => {
             )}
           </div>
 
-          {/* Store Details Modal */}
           <StoreModal isOpen={!!selectedStore} onClose={closeModal}>
             {selectedStore && (
               <div>
                 <h3 className="text-xl font-bold">{selectedStore.name}</h3>
                 <p className="text-gray-600">{selectedStore.description}</p>
-                {/* Add additional details about the store */}
               </div>
             )}
           </StoreModal>

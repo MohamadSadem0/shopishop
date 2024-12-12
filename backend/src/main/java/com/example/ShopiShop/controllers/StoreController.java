@@ -1,8 +1,9 @@
 package com.example.ShopiShop.controllers;
 
-import com.example.ShopiShop.dto.StoreMapper;
 import com.example.ShopiShop.dto.response.CategoryResponseDTO;
+import com.example.ShopiShop.dto.response.StoreResponseApprovedDTO;
 import com.example.ShopiShop.dto.response.StoreResponseDTO;
+import com.example.ShopiShop.mappers.StoreMapper;
 import com.example.ShopiShop.models.Store;
 import com.example.ShopiShop.services.CategoryService;
 import com.example.ShopiShop.servicesIMPL.StoreServiceImpl;
@@ -38,16 +39,20 @@ public class StoreController {
         return ResponseEntity.ok(categories);
     }
 
+    @GetMapping("admin/stores/all")
+    public ResponseEntity<List<StoreResponseDTO>> getAllStoresAdmin(){
+        return new ResponseEntity<>(storeService.getAllStores(), HttpStatus.OK);
+    }
     @GetMapping("public/stores/all")
-    public ResponseEntity<List<StoreResponseDTO>> getAllStores(){
-    return new ResponseEntity<>(storeService.getAllStores(), HttpStatus.OK);
+    public ResponseEntity<List<StoreResponseApprovedDTO>> getAllApprovedStores(){
+        return new ResponseEntity<>(storeService.getAllApprovedStores(), HttpStatus.OK);
     }
     @GetMapping("public/stores/{id}")
     public ResponseEntity<StoreResponseDTO> getById(@PathVariable Long id){
-    return new ResponseEntity<>(StoreMapper.toDTO(storeService.getStoreById(id)), HttpStatus.OK);
+    return new ResponseEntity<>(com.example.ShopiShop.mappers.StoreMapper.toDTO(storeService.getStoreById(id)), HttpStatus.OK);
     }    @GetMapping("admin/stores/{id}")
     public ResponseEntity<StoreResponseDTO> getStoreAdminById(@PathVariable Long id){
-    return new ResponseEntity<>(StoreMapper.toDTO(storeService.getStoreById(id)), HttpStatus.OK);
+    return new ResponseEntity<>(com.example.ShopiShop.mappers.StoreMapper.toDTO(storeService.getStoreById(id)), HttpStatus.OK);
     }
 
     //todo:delete this api

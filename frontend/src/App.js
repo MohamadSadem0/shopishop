@@ -15,7 +15,6 @@ import LandingPageMobile from './pages/landingPage/LandingPageMobile';
 import Store from './pages/store';
 
 const App = () => {
-  const { isMobile } = useResponsiveDesign();
 
     const notifications = useSelector((state) => state.notifications.notifications);
     const [userRole, setUserRole] = useState(null); // State to store decrypted user role
@@ -78,7 +77,8 @@ const App = () => {
                     <Route path="/" element={<Navigate replace to="/home" />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/signup" element={<Signup />} />
-                    <Route path="/store" element={<Store />} />
+            <Route path="/store" element={<Store />} />
+            <Route path="/store/:storename" element={<Store />} />
                     {/* <Route path="/home" element={isMobile ? <LandingPageMobile /> : <LandingPage />} /> */}
                     <Route path="/home" element={<LandingPage />} />
                     <Route

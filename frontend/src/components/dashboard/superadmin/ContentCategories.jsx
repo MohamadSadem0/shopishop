@@ -22,6 +22,17 @@ const ContentCategories = ({ searchQuery }) => {
   const categories = useSelector((state) => state.categories.categories || []);
   const categoryStatus = useSelector((state) => state.categories.status);
   const categoryError = useSelector((state) => state.categories.error);
+  // const {
+  //   data: sections,
+  //   sectionStatus,
+  //   sectionError,
+  // } = useSelector((state) => state.sections);
+
+  // const {
+  //   data: categories,
+  //   categoryStatus,
+  //   categoryError,
+  // } = useSelector((state) => state.sections);
 
   // Local state for UI behavior
   const [selectedSection, setSelectedSection] = useState('All');

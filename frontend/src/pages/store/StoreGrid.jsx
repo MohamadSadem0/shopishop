@@ -1,5 +1,5 @@
 import React from 'react';
-import ProductCard from '../../components/cards/ProductCard';
+import StoreCard from './StoreCard';
 
 const ProductGrid = ({ products, addToCart, setQuickViewProduct }) => {
   return (
@@ -10,7 +10,7 @@ const ProductGrid = ({ products, addToCart, setQuickViewProduct }) => {
         </p>
       ) : (
         products.map((product) => (
-          <ProductCard
+          <StoreCard
             key={product.id}
             product={product}
             addToCart={addToCart}
