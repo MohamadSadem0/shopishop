@@ -39,4 +39,7 @@ public class Store {
 
     @Column(name = "is_approved",  nullable = false)
     private boolean isApproved =false;
+
+    @Column(name = "image_url",  nullable = false)
+    private String ImageUrl ;
 }

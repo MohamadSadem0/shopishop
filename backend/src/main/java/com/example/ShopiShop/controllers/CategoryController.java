@@ -34,9 +34,9 @@ public class    CategoryController {
         return ResponseEntity.ok(categoryService.createCategory(sectionId, categoryRequest));
     }
 
-    @GetMapping("/merchant/{storeId}/categories")
-    public ResponseEntity<List<CategoryResponseDTO>> getCategoriesBySectionId(@PathVariable Long storeId) {
-        return ResponseEntity.ok(categoryService.getCategoriesByStoreId(storeId));
+    @GetMapping("/public/{sectionId}/categories")
+    public ResponseEntity<List<CategoryResponseDTO>> getCategoriesBySectionId(@PathVariable Long sectionId) {
+        return ResponseEntity.ok(categoryService.getCategoriesByStoreId(sectionId));
     }
 
     // Update a category

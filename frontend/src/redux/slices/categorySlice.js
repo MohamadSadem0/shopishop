@@ -1,6 +1,6 @@
 
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import {fetchAllCategoriesAPI, fetchAllSectionsAPI} from "../../services/fetchingService";
+import {fetchAllCategoriesAPI, fetchAllSectionsAPI,fetchCategoriesBySectionIdAPI} from "../../services/fetchingService";
 import {createCategoryAPI} from "../../services/createProductAPI";
 import {deleteCategoryAPI} from "../../services/deleteService";
 import {updateCategoryAPI} from "../../services/updateService";
@@ -39,6 +39,16 @@ export const updateExistingCategory = createAsyncThunk(
       return await updateCategoryAPI(categoryId, categoryData);
     } catch (error) {
       return rejectWithValue(error.message || 'Error updating category');
+    }
+  }
+);
+export const fetchCategoriesBySection = createAsyncThunk(
+  'category/fetchCategoriesBySection',
+  async (sectionName, { rejectWithValue }) => {
+    try {
+      return await fetchCategoriesBySectionIdAPI(sectionName);
+    } catch (error) {
+      return rejectWithValue(error.message || 'Error fetching categories');
     }
   }
 );
@@ -98,7 +108,19 @@ const categorySlice = createSlice({
         state.categories = state.categories.filter(
           (category) => category.id !== action.payload
         );
-      });
+      })
+      .addCase(fetchCategoriesBySection.pending, (state) => {
+        state.categoryStatus = 'loading';
+        state.categoryError = null;
+      })
+      .addCase(fetchCategoriesBySection.fulfilled, (state, action) => {
+        state.categoryStatus = 'succeeded';
+        state.categories = action.payload;
+      })
+      .addCase(fetchCategoriesBySection.rejected, (state, action) => {
+        state.categoryStatus = 'failed';
+        state.categoryError = action.payload;
+      })
   },
 });
 

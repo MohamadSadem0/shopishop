@@ -3,13 +3,14 @@ import {
   fetchAllProductsAPI,
   fetchProductByIdAPI,
   fetchProductsByCategoryAPI,
-  fetchProductByStoreId,
-  fetchProductBySectionId,
   fetchProductsByStoreIdAPI,
+
 } from '../../services/fetchingService';
-import { createProductAPI } from '../../services/createProductAPI';
-import { deleteProductAPI } from '../../services/deleteService';
-import { updateProductAPI } from '../../services/updateService';
+import {  createProductAPI} from "../../services/createProductAPI"
+import {  
+  updateProductAPI} from "../../services/updateService"
+import {    deleteProductAPI,
+} from "../../services/deleteService"
 
 // Async Thunks
 export const fetchAllProducts = createAsyncThunk(
@@ -23,9 +24,11 @@ export const fetchAllProducts = createAsyncThunk(
   }
 );
 
+
+
 export const fetchProductById = createAsyncThunk(
   'product/fetchProductById',
-  async ({ productId }, { rejectWithValue }) => {
+  async (productId, { rejectWithValue }) => {
     try {
       return await fetchProductByIdAPI(productId);
     } catch (error) {
@@ -36,46 +39,29 @@ export const fetchProductById = createAsyncThunk(
 
 export const fetchProductsByCategory = createAsyncThunk(
   'product/fetchProductsByCategory',
-  async ({ categoryId }, { rejectWithValue }) => {
+  async (categoryId, { rejectWithValue }) => {
     try {
       return await fetchProductsByCategoryAPI(categoryId);
     } catch (error) {
-      return rejectWithValue(
-        error.message || 'Error fetching products by category'
-      );
+      return rejectWithValue(error.message || 'Error fetching products by category');
     }
   }
 );
 
 export const fetchProductsByStore = createAsyncThunk(
   'product/fetchProductsByStore',
-  async ({ storeId }, { rejectWithValue }) => {
+  async (storeId, { rejectWithValue }) => {
     try {
       return await fetchProductsByStoreIdAPI(storeId);
     } catch (error) {
-      return rejectWithValue(
-        error.message || 'Error fetching products by store'
-      );
-    }
-  }
-);
-
-export const fetchProductsBySection = createAsyncThunk(
-  'product/fetchProductsBySection',
-  async ({ sectionId }, { rejectWithValue }) => {
-    try {
-      return await fetchProductsByStoreIdAPI(sectionId);
-    } catch (error) {
-      return rejectWithValue(
-        error.message || 'Error fetching products by section'
-      );
+      return rejectWithValue(error.message || 'Error fetching products by store');
     }
   }
 );
 
 export const createNewProduct = createAsyncThunk(
   'product/createNewProduct',
-  async ({ productData }, { rejectWithValue }) => {
+  async (productData, { rejectWithValue }) => {
     try {
       return await createProductAPI(productData);
     } catch (error) {
@@ -86,9 +72,10 @@ export const createNewProduct = createAsyncThunk(
 
 export const deleteExistingProduct = createAsyncThunk(
   'product/deleteExistingProduct',
-  async ({ productId }, { rejectWithValue }) => {
+  async (productId, { rejectWithValue }) => {
     try {
-      return await deleteProductAPI(productId);
+      await deleteProductAPI(productId);
+      return productId; // Return the deleted product ID
     } catch (error) {
       return rejectWithValue(error.message || 'Error deleting product');
     }
@@ -108,9 +95,10 @@ export const updateExistingProduct = createAsyncThunk(
 
 // Initial State
 const initialState = {
-  products: [], // Array of product objects
+  products: [],
+  filteredProducts: [], // For any filtered view
   status: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed'
-  error: null, // Error message if any
+  error: null,
 };
 
 // Product Slice
@@ -120,8 +108,16 @@ const productSlice = createSlice({
   reducers: {
     resetProductState: (state) => {
       state.products = [];
+      state.filteredProducts = [];
       state.status = 'idle';
       state.error = null;
+    },
+    clearProducts: (state) => {
+      state.products = []; // Clear all products
+    },
+    filterProductsByCategory: (state, action) => {
+      const category = action.payload;
+      state.filteredProducts = state.products.filter((product) => product.category === category);
     },
   },
   extraReducers: (builder) => {
@@ -129,10 +125,12 @@ const productSlice = createSlice({
       // Fetch All Products
       .addCase(fetchAllProducts.pending, (state) => {
         state.status = 'loading';
+        state.error = null;
       })
       .addCase(fetchAllProducts.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.products = action.payload;
+        state.filteredProducts = action.payload; // Initially show all products
       })
       .addCase(fetchAllProducts.rejected, (state, action) => {
         state.status = 'failed';
@@ -142,6 +140,7 @@ const productSlice = createSlice({
       // Fetch Product By ID
       .addCase(fetchProductById.pending, (state) => {
         state.status = 'loading';
+        state.error = null;
       })
       .addCase(fetchProductById.fulfilled, (state, action) => {
         state.status = 'succeeded';
@@ -161,12 +160,28 @@ const productSlice = createSlice({
       // Fetch Products By Category
       .addCase(fetchProductsByCategory.pending, (state) => {
         state.status = 'loading';
+        state.error = null;
       })
       .addCase(fetchProductsByCategory.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.products = action.payload;
+        state.filteredProducts = action.payload;
       })
       .addCase(fetchProductsByCategory.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.payload;
+      })
+
+      // Fetch Products By Store
+      .addCase(fetchProductsByStore.pending, (state) => {
+        state.status = 'loading';
+        state.error = null;
+      })
+      .addCase(fetchProductsByStore.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.products = action.payload;
+        state.filteredProducts = action.payload;
+      })
+      .addCase(fetchProductsByStore.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.payload;
       })
@@ -183,8 +198,8 @@ const productSlice = createSlice({
 
       // Delete Existing Product
       .addCase(deleteExistingProduct.fulfilled, (state, action) => {
-        const productId = action.payload;
-        state.products = state.products.filter((product) => product.id !== productId);
+        state.products = state.products.filter((product) => product.id !== action.payload);
+        state.filteredProducts = state.filteredProducts.filter((product) => product.id !== action.payload);
         state.status = 'succeeded';
       })
       .addCase(deleteExistingProduct.rejected, (state, action) => {
@@ -209,5 +224,5 @@ const productSlice = createSlice({
 });
 
 // Export Actions and Reducer
-export const { resetProductState } = productSlice.actions;
+export const { resetProductState,clearProducts, filterProductsByCategory } = productSlice.actions;
 export default productSlice.reducer;

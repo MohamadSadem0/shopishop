@@ -24,6 +24,7 @@ public class UserSignupRequestDTO {
     private String zipCode;
     private String country;
 
+
     private String sectionId;
 
     // Business-specific fields (for merchants)

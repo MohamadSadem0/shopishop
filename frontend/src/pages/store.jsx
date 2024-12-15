@@ -1,101 +1,49 @@
 import React, { useEffect, useState } from 'react';
-import InfoCards from '../components/cards/InfoCards';
-import QuickViewModal from '../components/common/QuickViewModal';
-import CategoriesSidebar from '../components/layout/CategoriesSidebar';
-import Footer from '../components/layout/Footer';
+import { useDispatch } from 'react-redux';
+import { clearProducts } from '../redux/slices/productSlice';
 import Navbar from '../components/layout/NavBar';
-import SubNavbar from '../components/layout/Subnavbar';
-import CartDrawer from './store/CartDrawer';
-import HeroSection from './store/HeroSection';
-import ProductGrid from './store/ProductGrid';
-
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchAllSections } from '../redux/slices/sectionSlice';
-import { fetchAllStores } from '../redux/slices/storeSlice';
-import StoreGrid from './store/StoreGrid';
+import StoreSidebar from './store/StoreSidebar';
+import StoreList from './store/StoreList';
+import ProductList from './store/ProductList';
+import { fetchApprovedStores } from '../redux/slices/storeSlice';
 
 const Store = () => {
-  const [selectedSection, setSelectedSection] = useState(null);
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [stores, setStores] = useState([]);
-  const [cartOpen, setCartOpen] = useState(false);
-  const [cartItems, setCartItems] = useState([]);
-  const [quickViewProduct, setQuickViewProduct] = useState(null);
-
+  const [selectedStore, setSelectedStore] = useState(null);
   const dispatch = useDispatch();
-  // const {
-  //   data: sections,
-  //   sectionStatus,
-  //   sectionError,
-  // } = useSelector((state) => state.sections);
 
-  const sections = useSelector((state) => state.sections.sections || []);
-  const sectionStatus = useSelector((state) => state.sections.status);
-  const sectionError = useSelector((state) => state.sections.error);
+  const handleStoreClick = (storeId) => {
+    setSelectedStore(storeId);
+  };
 
-  setStores(useSelector((state) => state.stores.data));
-  const storeStatus = useSelector((state) => state.stores.error);
-  const storeError = useSelector((state) => state.stores.status);
-
+  const handleBack = () => {
+    setSelectedStore(null);
+    dispatch(clearProducts());
+  };
   useEffect(() => {
-    if (sectionStatus === 'idle') {
-      dispatch(fetchAllSections());
-    }
-    // console.log(sections);
-  }, [dispatch, sectionStatus]);
-
-  useEffect(() => {
-    if (storeStatus === 'idle') {
-      dispatch(fetchAllStores());
-    }
-    // console.log(stores);
-  }, [dispatch, storeStatus]);
-
-  const addToCart = (product) => setCartItems([...cartItems, product]);
-  const removeFromCart = (index) =>
-    setCartItems(cartItems.filter((_, i) => i !== index));
-  const getTotalPrice = () =>
-    cartItems.reduce((total, item) => total + item.price, 0);
+    dispatch(fetchApprovedStores()); // Fetch approved stores
+  }, [dispatch]);
 
   return (
-    <div className="bg-bg min-h-screen flex flex-col">
+    <div className="flex flex-col h-screen bg-gray-100">
       <Navbar />
-      <HeroSection />
-      <SubNavbar sections={sections} setSelectedSection={setSelectedSection} />
-      <InfoCards />
-
-      <div className="flex justify-center mt-16 space-x-8">
-        <CategoriesSidebar
-          sections={sections}
-          setSelectedCategory={setSelectedCategory}
-          setStores={setStores} // Pass setProducts to update the product grid
-          setSelectedSection={setSelectedSection} // Pass setSelectedSection to track the selected section
-        />
-        <div className="flex-1">
-          <h2 className="text-3xl font-bold mb-8 text-color1">
-            {selectedCategory ? `${selectedCategory} stores` : 'All Products'}
-          </h2>
-          <StoreGrid stores={stores} onSelectStore={setStores} />
+      <div className="flex flex-1 overflow-hidden">
+        <StoreSidebar className="lg:w-1/4 border-r border-gray-300 shadow-md" />
+        <div className="lg:w-3/4 flex-1 p-4 overflow-y-auto">
+          {!selectedStore ? (
+            <StoreList className="bg-white shadow-lg rounded-lg p-6" onStoreClick={handleStoreClick} />
+          ) : (
+            <>
+              <button
+                onClick={handleBack}
+                className="mb-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+              >
+                Back to Stores
+              </button>
+              <ProductList className="bg-white shadow-lg rounded-lg p-6" storeId={selectedStore} />
+            </>
+          )}
         </div>
       </div>
-
-      <CartDrawer
-        cartOpen={cartOpen}
-        setCartOpen={setCartOpen}
-        cartItems={cartItems}
-        removeFromCart={removeFromCart}
-        getTotalPrice={getTotalPrice}
-      />
-
-      {quickViewProduct && (
-        <QuickViewModal
-          product={quickViewProduct}
-          setQuickViewProduct={setQuickViewProduct}
-          addToCart={addToCart}
-        />
-      )}
-
-      <Footer />
     </div>
   );
 };

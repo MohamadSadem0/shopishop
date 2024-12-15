@@ -208,7 +208,8 @@ export const fetchAllStoresAPI = async () => {
 export const fetchAllApprovedStoresAPI = async () => {
   try {
     const response = await axiosInstance.get('public/stores/all');
-
+    console.log(response);
+    
     return response.data; // Assuming response.data contains an array of stores
 
   } catch (error) {
@@ -275,6 +276,16 @@ export const fetchAllSectionsAPI = async () => {
 export const fetchProductsBySectionAPI = async (sectionId) => {
   try {
     const response = await axiosInstance.get(`/public/product/section/${sectionId}`);
+    return response.data; // This is the array of products
+  } catch (error) {
+    console.error('Error fetching products by section:', error);
+    throw error;
+  }
+};
+
+export const fetchCategoriesBySectionIdAPI = async (sectionId) => {
+  try {
+    const response = await axiosInstance.get(`/public/${sectionId}/categories}`);
     return response.data; // This is the array of products
   } catch (error) {
     console.error('Error fetching products by section:', error);
