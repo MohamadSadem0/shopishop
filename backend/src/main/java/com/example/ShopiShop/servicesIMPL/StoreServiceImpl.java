@@ -35,26 +35,20 @@ public class StoreServiceImpl implements StoreService {
 
 
 
-    Store createStore(UserSignupRequestDTO request, User user, Location location) {
-        System.out.println("-----------------------------------------------------------1");
-        System.out.println("THIS IS USER . UUID"+request.getSectionId());
+    public Store createStore(UserSignupRequestDTO request, User user, Location location) {
+        Section section = sectionRepository.findById(UUIDconvertor.stringToUUID(request.getSectionId()))
+                .orElseThrow(() -> new IllegalArgumentException("Invalid section ID"));
 
-        System.out.println("-----------------------------------------------------------2");
-        Section section = sectionRepository.findById(uuiDconvertor.convertToUUID(request.getSectionId()))
-                .orElseThrow(() -> new IllegalArgumentException("Section not found"));
-
-
-
-        Store store = Store.builder()
-                .name(request.getBusinessName() != null ? request.getBusinessName() : (request.getName() + "'s Store"))
+        return storeRepository.save(Store.builder()
+                .name(request.getBusinessName())
+                .owner(user) // Associate the persisted user
                 .location(location)
-                .owner(user)
                 .section(section)
-                .isApproved(false)
-                .build();
-
-        return storeRepository.save(store);
+                .isApproved(false) // Default to not approved
+                .imageUrl(request.getImageUrl()) // Assuming image URL is provided
+                .build());
     }
+
 
     public Store createStore(StoreRequestDTO storeRequestDTO  ) {
 

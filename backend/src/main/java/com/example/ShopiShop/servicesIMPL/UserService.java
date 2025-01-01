@@ -13,10 +13,12 @@ import com.example.ShopiShop.exceptions.UserAlreadyExistsException;
 import com.example.ShopiShop.exceptions.UserNotFoundException;
 import com.example.ShopiShop.models.User;
 import com.example.ShopiShop.models.VerificationToken;
+import com.example.ShopiShop.repositories.StoreRepository;
 import com.example.ShopiShop.repositories.UserRepository;
 import com.example.ShopiShop.models.Location;
 import com.example.ShopiShop.repositories.VerificationTokenRepository;
 import com.example.ShopiShop.security.JwtService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import com.example.ShopiShop.enums.UserRoleEnum;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,10 +32,12 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class UserService {
 
     private final UserRepository userRepository;
@@ -49,6 +53,7 @@ public class UserService {
     @Autowired
     private JavaMailSender mailSender;
 
+    private final StoreRepository storeRepository;
 
     public List<UserResponseDTO> retrieveAllUsers() {
         // Retrieve all users from the repository
@@ -63,32 +68,42 @@ public class UserService {
     public Boolean isUserAvailable(String email){
         return userRepository.findByEmail(email).isEmpty();
     }
+    @Transactional
     public User register(UserSignupRequestDTO request) {
         validateSignupRequest(request);
 
-        if (request.getRole() == UserRoleEnum.CUSTOMER) {
-            User user = createUser(request);
+        // Persist the User entity first
+        User user = createUser(request);
+        user = userRepository.save(user);
+
+        // If the user is a merchant, create related entities
+        if (request.getRole() == UserRoleEnum.MERCHANT) {
             Location location = locationService.createLocation(request);
             user.setLocation(location);
-            return userRepository.save(user);
+            userRepository.save(user); // Save user again with location
 
-        } else if (request.getRole() == UserRoleEnum.MERCHANT) {
-            User user = createUser(request);
-
-            notificationService.sendNotificationToSuperAdmin("New merchant registered: " + request.getEmail());
-            Location location = locationService.createLocation(request);
+            // Create the store
             Store store = storeService.createStore(request, user, location);
-
-            // Send notification for store creation
-            String notificationMessage = "A new store '" + store.getName() + "' has been created by merchant '"
-                    + user.getUsername() + "'. Approval is needed.";
-            notificationService.sendNotificationToSuperAdmin(notificationMessage);
-            emailService.sendVerificationEmail(request.getEmail(), "Verify Your Email", "Please verify your email by clicking here: [link]");
-
-            return userRepository.save(user);
+            storeRepository.save(store); // Save the store
         }
 
-        return null;
+        return user;
+    }
+
+
+
+    private void sendMerchantNotifications(User user, Store store) {
+        // Notify super admin for store creation
+        String notificationMessage = "A new store '" + store.getName() + "' has been created by merchant '"
+                + user.getUsername() + "'. Approval is needed.";
+        notificationService.sendNotificationToSuperAdmin(notificationMessage);
+
+        // Send verification email
+        emailService.sendVerificationEmail(
+                user.getEmail(),
+                "Verify Your Email",
+                "Please verify your email by clicking here: [verification link]"
+        );
     }
 
     private void validateSignupRequest(UserSignupRequestDTO request) {
@@ -99,16 +114,28 @@ public class UserService {
         if (userRepository.findByEmail(request.getEmail()).isPresent()) {
             throw new UserAlreadyExistsException("User with email " + request.getEmail() + " already exists.");
         }
+
+        if (request.getRole() == UserRoleEnum.MERCHANT && request.getSectionId() == null) {
+            throw new IllegalArgumentException("Merchant must belong to a valid section");
+        }
     }
 
     private User createUser(UserSignupRequestDTO request) {
+        // Map request DTO to User entity
         User user = userMapper.toEntity(request);
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        sendConfirmationEmail(user);
-        return userRepository.save(user);
 
+        // Encode password
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+
+        // Generate confirmation token
+        user.setConfirmationToken(generateConfirmationToken());
+
+        return user;
     }
 
+    private String generateConfirmationToken() {
+        return UUID.randomUUID().toString();
+    }
     public UserLoginResponseDTO authenticate(UserLoginRequestDTO request) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 request.getEmail(),

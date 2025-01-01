@@ -30,4 +30,5 @@ public class UserSignupRequestDTO {
     // Business-specific fields (for merchants)
     private String businessName;  // Optional for merchants
     private String location;      // Optional for merchants (physical store location)
+    private String imageUrl;
 }

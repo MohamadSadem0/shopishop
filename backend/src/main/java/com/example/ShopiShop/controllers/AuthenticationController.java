@@ -46,13 +46,13 @@ public class AuthenticationController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/confirm")
-    public ResponseEntity<String> confirmUser(@RequestParam("token") String token) {
-        try {
-            userService.confirmUser(token);
-            return ResponseEntity.ok("Email confirmed successfully!");
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Invalid token: " + e.getMessage());
-        }
-    }
+//    @GetMapping("/confirm")
+//    public ResponseEntity<String> confirmUser(@RequestParam("token") String token) {
+//        try {
+//            userService.confirmUser(token);
+//            return ResponseEntity.ok("Email confirmed successfully!");
+//        } catch (Exception e) {
+//            return ResponseEntity.badRequest().body("Invalid token: " + e.getMessage());
+//        }
+//    }
 }

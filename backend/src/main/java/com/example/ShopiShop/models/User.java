@@ -1,15 +1,10 @@
 package com.example.ShopiShop.models;
 
 import com.example.ShopiShop.enums.UserRoleEnum;
-import com.example.ShopiShop.models.Location;
-import com.example.ShopiShop.models.Notification;
-import com.example.ShopiShop.models.Review;
-
 import jakarta.persistence.*;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Table;
 import lombok.*;
-import org.hibernate.annotations.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -26,12 +21,10 @@ import java.util.List;
 @Table(name = "user")
 public class User implements UserDetails {
 
-
     @Id
-    @Column( name = "id" )
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
 
     @Column(name = "name", nullable = false)
     private String userName;
@@ -44,13 +37,14 @@ public class User implements UserDetails {
     private String email;
 
     @Column(name = "password", nullable = false)
-//    @NotNull(message = "Password is required")
     private String password;
 
     @OneToOne(cascade = CascadeType.ALL, optional = true)
     @JoinColumn(name = "location_id", referencedColumnName = "id", nullable = true)
     private Location location;
 
+    @OneToOne(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Store store;
 
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -67,7 +61,7 @@ public class User implements UserDetails {
 
     private String confirmationToken;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Order> orders;
 
     @UpdateTimestamp
@@ -106,6 +100,6 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return this.enabled;
     }
 }
