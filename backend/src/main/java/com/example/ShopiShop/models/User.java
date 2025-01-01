@@ -43,7 +43,7 @@ public class User implements UserDetails {
     @JoinColumn(name = "location_id", referencedColumnName = "id", nullable = true)
     private Location location;
 
-    @OneToOne(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true,optional = true)
     private Store store;
 
 

@@ -16,9 +16,7 @@ public class UUIDconvertor {
             hexString = hexString.substring(2);
         }
 
-        if (!hexString.matches("[0-9A-Fa-f]{32}")) {
-            throw new IllegalArgumentException("Invalid SectionId format");
-        }
+
 
         String formattedUUID = hexString.replaceFirst(
                 "(\\w{8})(\\w{4})(\\w{4})(\\w{4})(\\w+)",

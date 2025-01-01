@@ -47,63 +47,44 @@ public class UserService {
     private final UserMapper userMapper;
     private final LocationServiceImpl locationService;
     private final StoreServiceImpl storeService;
-    private final NotificationServiceImpl notificationService; // Inject NotificationService
+    private final NotificationServiceImpl notificationService;
     private final EmailService emailService;
     private final VerificationTokenRepository tokenRepository;
     @Autowired
     private JavaMailSender mailSender;
-
     private final StoreRepository storeRepository;
 
     public List<UserResponseDTO> retrieveAllUsers() {
-        // Retrieve all users from the repository
         List<User> users = userRepository.findAll();
-
-        // Map each User entity to UserResponseDTO
         return users.stream()
-                .map(UserMapper::toDTO) // Using the UserMapper to convert User to UserResponseDTO
+                .map(UserMapper::toDTO)
                 .collect(Collectors.toList());
     }
 
-    public Boolean isUserAvailable(String email){
+    public Boolean isUserAvailable(String email) {
         return userRepository.findByEmail(email).isEmpty();
     }
-    @Transactional
+
     public User register(UserSignupRequestDTO request) {
         validateSignupRequest(request);
 
         // Persist the User entity first
         User user = createUser(request);
-        user = userRepository.save(user);
 
-        // If the user is a merchant, create related entities
         if (request.getRole() == UserRoleEnum.MERCHANT) {
             Location location = locationService.createLocation(request);
             user.setLocation(location);
-            userRepository.save(user); // Save user again with location
+            userRepository.save(user); // Save user with location
 
-            // Create the store
             Store store = storeService.createStore(request, user, location);
-            storeRepository.save(store); // Save the store
+            storeRepository.save(store);
+            sendMerchantNotifications(user, store);
+        } else {
+            userRepository.save(user);
         }
 
+        sendConfirmationEmail(user);
         return user;
-    }
-
-
-
-    private void sendMerchantNotifications(User user, Store store) {
-        // Notify super admin for store creation
-        String notificationMessage = "A new store '" + store.getName() + "' has been created by merchant '"
-                + user.getUsername() + "'. Approval is needed.";
-        notificationService.sendNotificationToSuperAdmin(notificationMessage);
-
-        // Send verification email
-        emailService.sendVerificationEmail(
-                user.getEmail(),
-                "Verify Your Email",
-                "Please verify your email by clicking here: [verification link]"
-        );
     }
 
     private void validateSignupRequest(UserSignupRequestDTO request) {
@@ -121,21 +102,41 @@ public class UserService {
     }
 
     private User createUser(UserSignupRequestDTO request) {
-        // Map request DTO to User entity
         User user = userMapper.toEntity(request);
-
-        // Encode password
         user.setPassword(passwordEncoder.encode(request.getPassword()));
-
-        // Generate confirmation token
         user.setConfirmationToken(generateConfirmationToken());
-
         return user;
     }
 
     private String generateConfirmationToken() {
         return UUID.randomUUID().toString();
     }
+
+    private void sendMerchantNotifications(User user, Store store) {
+        String notificationMessage = "A new store '" + store.getName() + "' has been created by merchant '"
+                + user.getUsername() + "'. Approval is needed.";
+        notificationService.sendNotificationToSuperAdmin(notificationMessage);
+
+        emailService.sendVerificationEmail(
+                user.getEmail(),
+                "Verify Your Email",
+                "Please verify your email by clicking here: [verification link]"
+        );
+    }
+
+    private void sendConfirmationEmail(User user) {
+        String subject = "Confirm your email";
+        String confirmationUrl = "http://localhost:8080/confirm?token=" + user.getConfirmationToken();
+        String message = "Please confirm your email by clicking the link: " + confirmationUrl;
+
+        SimpleMailMessage email = new SimpleMailMessage();
+        email.setTo(user.getEmail());
+        email.setSubject(subject);
+        email.setText(message);
+
+        mailSender.send(email);
+    }
+
     public UserLoginResponseDTO authenticate(UserLoginRequestDTO request) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 request.getEmail(),
@@ -174,97 +175,54 @@ public class UserService {
                 user.getEmail(),
                 user.getUserRole(),
                 user.getUsername(),
-//                user.getPhoneNumber(),
                 locationDTO,
                 null
         );
     }
 
     public UserLoginResponseDTO buildMerchantLoginResponse(String jwtToken, User user) {
-//        if (user.getUserRole() == UserRoleEnum.SUPERADMIN) {
-            // Superadmin doesn't need a store
-//            return new UserLoginResponseDTO(
-//                    jwtToken,
-//                    user.getEmail(),
-//                    user.getUserRole(),
-//                    user.getUsername(),
-////                    user.getPhoneNumber(),
-//                    null,  // No location for superadmin
-//                    null   // No store for superadmin
-//            );
-//        } else {
-            // Continue with merchant logic
-            Store store = storeService.getStoreByOwnerEmail(user.getEmail());
-            Location location = store.getLocation();
+        Store store = storeService.getStoreByOwnerEmail(user.getEmail());
+        Location location = store.getLocation();
 
-            return new UserLoginResponseDTO(
-                    jwtToken,
-                    user.getEmail(),
-                    user.getUserRole(),
-                    user.getUsername(),
-//                    user.getPhoneNumber(),
-                    new UserLoginResponseDTO.LocationDTO(
-                            location.getAddressLine(),
-                            location.getCity(),
-                            location.getState(),
-                            location.getZipCode(),
-                            location.getCountry(),
-                            location.getLatitude(),
-                            location.getLongitude()
-                    ),
-                    StoreMapper.toDTO(store)
-            );
-//        }
-    }
-
-    private void sendConfirmationEmail(User user) {
-        String subject = "Confirm your email";
-        String confirmationUrl = "http://localhost:8080/confirm?token=" + user.getConfirmationToken();
-        String message = "Please confirm your email by clicking the link: " + confirmationUrl;
-
-        SimpleMailMessage email = new SimpleMailMessage();
-        email.setTo(user.getEmail());
-        email.setSubject(subject);
-        email.setText(message);
-
-        mailSender.send(email);
+        return new UserLoginResponseDTO(
+                jwtToken,
+                user.getEmail(),
+                user.getUserRole(),
+                user.getUsername(),
+                new UserLoginResponseDTO.LocationDTO(
+                        location.getAddressLine(),
+                        location.getCity(),
+                        location.getState(),
+                        location.getZipCode(),
+                        location.getCountry(),
+                        location.getLatitude(),
+                        location.getLongitude()
+                ),
+                StoreMapper.toDTO(store)
+        );
     }
 
     public List<UserLoginResponseDTO> retrieveAndCleanMerchantsWithoutStore() {
-        // Fetch all merchants (users with the MERCHANT role)
         List<User> merchants = userRepository.findByUserRole(UserRoleEnum.MERCHANT);
 
-        // Filter merchants who do not have a store and delete them
         List<User> merchantsWithStore = merchants.stream()
                 .filter(merchant -> {
                     Store store = storeService.getStoreByOwnerEmail(merchant.getEmail());
                     if (store == null) {
-                        // No store found for this merchant, delete them
                         userRepository.delete(merchant);
-                        return false;  // Exclude this merchant from the result list
+                        return false;
                     }
-                    return true;  // Include this merchant in the result list
-                }
-                )
+                    return true;
+                })
                 .collect(Collectors.toList());
 
-        // Map remaining merchants (with stores) to UserLoginResponseDTO
         return merchantsWithStore.stream()
                 .map(merchant -> {
-                    // Convert store to StoreResponseDTO
                     Store store = storeService.getStoreByOwnerEmail(merchant.getEmail());
                     StoreResponseDTO storeResponseDTO = StoreMapper.toDTO(store);
 
-                    // No token needed for this response
-                    String jwtToken = null;
-
-                    // Map user and store to UserLoginResponseDTO
-                    return UserLoginResponseMapper.toDto(merchant, jwtToken, storeResponseDTO);
+                    return UserLoginResponseMapper.toDto(merchant, null, storeResponseDTO);
                 })
                 .collect(Collectors.toList());
     }
-
-
-
-
 }

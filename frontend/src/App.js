@@ -88,7 +88,7 @@ const App = () => {
           <Route path="/signup" element={<Signup />} />
           <Route
             path="/home"
-            element={isMobile ? <LandingPageMobile /> : <LandingPage />}
+            element={<LandingPage />}
           />
 
           {/* Store routes */}

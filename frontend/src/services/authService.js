@@ -28,7 +28,10 @@ export const login = async (credentials) => {
  */
 export const signup = async (userDetails) => {
   try {
-    console.log(userDetails);
+    // Add a random image URL to userDetails
+    userDetails.imageUrl = `https://picsum.photos/200/300?random=${Math.floor(Math.random() * 1000)}`;
+
+    console.log('User details with random imageUrl:', userDetails);
     
     const response = await axiosInstance.post('/public/auth/signup', userDetails, {
       withCredentials: true,

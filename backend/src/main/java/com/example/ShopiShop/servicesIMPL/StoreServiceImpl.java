@@ -15,6 +15,8 @@ import com.example.ShopiShop.repositories.UserRepository;
 import com.example.ShopiShop.services.StoreService;
 import com.example.ShopiShop.utils.UUIDconvertor;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,9 +24,10 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
-
 @RequiredArgsConstructor
 public class StoreServiceImpl implements StoreService {
+
+    private static final Logger logger = LoggerFactory.getLogger(StoreServiceImpl.class);
 
     private final StoreRepository storeRepository;
     private final UserRepository userRepository;
@@ -33,96 +36,135 @@ public class StoreServiceImpl implements StoreService {
     private UUIDconvertor uuiDconvertor;
     private final NotificationServiceImpl notificationService;
 
-
-
     public Store createStore(UserSignupRequestDTO request, User user, Location location) {
-        Section section = sectionRepository.findById(UUIDconvertor.stringToUUID(request.getSectionId()))
-                .orElseThrow(() -> new IllegalArgumentException("Invalid section ID"));
+        System.out.println("Creating store with request: " + request.getBusinessName() +
+                ", user email: " + user.getEmail() + ", location: " + location.getAddressLine());
 
-        return storeRepository.save(Store.builder()
+        UUID sectionId = UUIDconvertor.stringToUUID("0x" + request.getSectionId());
+        System.out.println("Converted section ID: " + sectionId);
+
+        Section section = sectionRepository.findById(sectionId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid section ID"));
+        System.out.println("Fetched section: " + section.getName());
+
+        Store store = Store.builder()
                 .name(request.getBusinessName())
-                .owner(user) // Associate the persisted user
+                .owner(user)
                 .location(location)
                 .section(section)
-                .isApproved(false) // Default to not approved
-                .imageUrl(request.getImageUrl()) // Assuming image URL is provided
-                .build());
+                .isApproved(false)
+                .imageUrl(request.getImageUrl())
+                .build();
+
+        System.out.println("Saving store: " + store.getName() + ", owner email: " + user.getEmail());
+        Store savedStore = storeRepository.save(store);
+        System.out.println("Saved store ID: " + savedStore.getId());
+
+        return savedStore;
     }
 
+    public Store createStore(StoreRequestDTO storeRequestDTO) {
+        System.out.println("Creating store with request DTO: " + storeRequestDTO.getBusinessName());
 
-    public Store createStore(StoreRequestDTO storeRequestDTO  ) {
+        UUID id = uuiDconvertor.convertToUUID(storeRequestDTO.getSectionId());
+        System.out.println("Converted section ID: " + id);
 
-
-        UUID id =uuiDconvertor.convertToUUID(storeRequestDTO.getSectionId());
         Section section = sectionRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("section not found"));
+                .orElseThrow(() -> new RuntimeException("Section not found"));
+        System.out.println("Fetched section: " + section.getName());
 
-
-        // Find the user by ownerId
         User owner = userRepository.findById(storeRequestDTO.getOwnerId())
                 .orElseThrow(() -> new RuntimeException("Owner not found"));
+        System.out.println("Fetched owner email: " + owner.getEmail());
 
-        // Map the DTO to Store entity
-        Store store = com.example.ShopiShop.mappers.StoreMapper.toEntity(storeRequestDTO, owner,section);
+        Store store = StoreMapper.toEntity(storeRequestDTO, owner, section);
+        System.out.println("Mapped store entity: " + store.getName());
 
-        // Save the store in the database
-        return storeRepository.save(store);
+        Store savedStore = storeRepository.save(store);
+        System.out.println("Saved store ID: " + savedStore.getId());
+
+        return savedStore;
     }
 
-public Store getStoreById(Long id){
-        return storeRepository.findById(id).orElseThrow(()->new RuntimeException("store not found with id"+id));
-}
-public Store getStoreByOwnerEmail(String email){
-//        return storeRepository.findByOwnerEmail(email).orElseThrow(()->new RuntimeException("store not found with id"+email));
-        return storeRepository.findByOwnerEmail(email).orElse(null);
-}
+    public Store getStoreById(Long id) {
+        System.out.println("Fetching store by ID: " + id);
+
+        Store store = storeRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Store not found with ID: " + id));
+        System.out.println("Fetched store: " + store.getName());
+
+        return store;
+    }
+
+    public Store getStoreByOwnerEmail(String email) {
+        System.out.println("Fetching store by owner email: " + email);
+
+        Store store = storeRepository.findByOwnerEmail(email).orElse(null);
+        if (store != null) {
+            System.out.println("Fetched store: " + store.getName());
+        } else {
+            System.out.println("No store found for email: " + email);
+        }
+
+        return store;
+    }
 
     public List<StoreResponseDTO> getAllStores() {
-        // Retrieve all stores from the repository
-        List<Store> stores = storeRepository.findAll();
+        System.out.println("Fetching all stores");
 
-        // Map each Store entity to StoreResponseDTO
-        return stores.stream()
-                .map(com.example.ShopiShop.mappers.StoreMapper::toDTO) // Using the StoreMapper to convert Store to StoreResponseDTO
+        List<Store> stores = storeRepository.findAll();
+        System.out.println("Fetched stores count: " + stores.size());
+
+        List<StoreResponseDTO> storeResponseDTOs = stores.stream()
+                .map(StoreMapper::toDTO)
                 .collect(Collectors.toList());
+        System.out.println("Mapped store response DTOs count: " + storeResponseDTOs.size());
+
+        return storeResponseDTOs;
     }
 
     public List<StoreResponseApprovedDTO> getAllApprovedStores() {
-        // Retrieve all stores and filter for approved ones
-        List<Store> approvedStores = storeRepository.findAll().stream()
-                .filter(Store::isApproved) // Filter stores where isApproved is true
-                .collect(Collectors.toList());
+        System.out.println("Fetching all approved stores");
 
-        // Use StoreMapper to map each approved Store entity to StoreResponseApprovedDTO
-        return approvedStores.stream()
-                .map(StoreMapper::toApprovedDTO) // Use the mapper for conversion
+        List<Store> approvedStores = storeRepository.findAll().stream()
+                .filter(Store::isApproved)
                 .collect(Collectors.toList());
+        System.out.println("Filtered approved stores count: " + approvedStores.size());
+
+        List<StoreResponseApprovedDTO> approvedDTOs = approvedStores.stream()
+                .map(StoreMapper::toApprovedDTO)
+                .collect(Collectors.toList());
+        System.out.println("Mapped approved store DTOs count: " + approvedDTOs.size());
+
+        return approvedDTOs;
     }
 
-
     public void deleteAllStores() {
+        System.out.println("Deleting all stores");
         storeRepository.deleteAll();
+        System.out.println("All stores deleted");
     }
 
     @Override
     public String approveStore(Long storeId) {
-        // Fetch the store entity by ID
+        System.out.println("Approving store with ID: " + storeId);
+
         Store store = storeRepository.findById(storeId)
                 .orElseThrow(() -> new IllegalArgumentException("Store not found"));
+        System.out.println("Fetched store: " + store.getName());
 
-        // Check if the store is already approved
         if (store.isApproved()) {
+            System.out.println("Store is already approved: " + store.getName());
             throw new IllegalStateException("Store is already approved");
         }
 
-        // Set the store's approval status to true
         store.setApproved(true);
         Store updatedStore = storeRepository.save(store);
+        System.out.println("Updated store approval status: " + updatedStore.getName());
 
-        // Send real-time notification to the store owner
         notificationService.notifyMerchant(store.getOwner().getEmail(), "Your store has been approved!");
+        System.out.println("Notification sent to store owner: " + store.getOwner().getEmail());
 
-        // Return the response DTO
-        return "store " +store.getName() + "has been approved";
+        return "Store " + store.getName() + " has been approved";
     }
 }

@@ -12,7 +12,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class SectionResponseDTO {
 
-    private UUID id;
+    private String id;
     private String name;
     private String url;
 

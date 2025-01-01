@@ -42,7 +42,7 @@ public class SectionServiceImpl implements SectionService {
 
     private SectionResponseDTO mapToSectionResponseDTO(Section section) {
         return SectionResponseDTO.builder()
-                .id(section.getId())
+                .id(""+section.getId())
                 .name(section.getName())
                 .url(section.getImageUrl())
                 .build();

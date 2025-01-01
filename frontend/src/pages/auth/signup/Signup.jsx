@@ -45,6 +45,8 @@ const Signup = () => {
         .then((data) => setSections(data))
         .catch(() => console.error('Failed to fetch sections'))
         .finally(() => setLoadingSections(false));
+      console.log(sections);
+      
     }
   }, [userType, currentStep]);
 
