@@ -26,25 +26,27 @@ export const createCategoryAPI = async (category, sectionId) => {
 /**
  * Adds a new product to the store under a specific category.
  * @param {Object} product - The product details.
- * @param {string} categoryId - The ID of the category to associate with the product.
- * @param {string} token - The JWT token for authentication.
  * @returns {Object} The created product.
  */
-export const createProductAPI = async (product, categoryId, token) => {
+export const createProductAPI = async (product) => {
     try {
-
-
-        const response = await axiosInstance.post(`/merchant/${categoryId}/product/create`, product, {
-            headers: {
-                Authorization: `Bearer ${token}` // Add the JWT token to the request header
-            }
-        });
-        return response.data; // Assuming response.data contains the newly created product
+      const token = getDecryptedToken(); // Decrypt the token
+      if (!token) throw new Error('No token found');
+  
+      const { categoryId, ...productData } = product; // Extract categoryId from the product object
+      console.log(productData);
+      
+      const response = await axiosInstance.post(`/merchant/${categoryId}/product/create`, productData, {
+        headers: {
+          Authorization: `Bearer ${token}`, // Add the JWT token to the request header
+        },
+      });
+      return response.data; // Assuming response.data contains the newly created product
     } catch (error) {
-        console.error('Failed to add product:', error);
-        throw new Error(error.response?.data?.message || 'Error adding product');
+      console.error('Failed to add product:', error);
+      throw new Error(error.response?.data?.message || 'Error adding product');
     }
-};
+  };
 /**
  * Creates a new section with authorization.
  * @param {Object} sectionData - Data for creating a new section.

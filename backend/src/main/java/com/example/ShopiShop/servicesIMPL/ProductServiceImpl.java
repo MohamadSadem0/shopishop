@@ -29,6 +29,7 @@ public class ProductServiceImpl implements ProductService {
     private final ProductMapper productMapper;
 
     @Override
+    //todo : check if the product already exist with the same name
     public ProductResponseDTO createProduct(ProductRequestDTO productRequestDTO, UUID categoryId) {
         Store store = getStoreById(productRequestDTO.getStoreId());
         Category category = getCategoryById(categoryId);

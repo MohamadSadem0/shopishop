@@ -34,9 +34,13 @@ public class    CategoryController {
         return ResponseEntity.ok(categoryService.createCategory(sectionId, categoryRequest));
     }
 
-    @GetMapping("/public/{sectionId}/categories")
-    public ResponseEntity<List<CategoryResponseDTO>> getCategoriesBySectionId(@PathVariable Long sectionId) {
-        return ResponseEntity.ok(categoryService.getCategoriesByStoreId(sectionId));
+    @GetMapping("/public/store/{storeId}/categories")
+    public ResponseEntity<List<CategoryResponseDTO>> getCategoriesByStoreId(@PathVariable Long storeId) {
+        return ResponseEntity.ok(categoryService.getCategoriesByStoreId(storeId));
+    }
+    @GetMapping("/public/{sectionName}/categories")
+    public ResponseEntity<List<CategoryResponseDTO>> getCategoriesBySectionName(@PathVariable String sectionName) {
+        return ResponseEntity.ok(categoryService.getCategoriesBySectionName(sectionName));
     }
 
     // Update a category

@@ -65,6 +65,21 @@ public class CategoryServiceImpl implements CategoryService {
                 .collect(Collectors.toList());
     }
 
+    public List<CategoryResponseDTO> getCategoriesBySectionName(String sectionName) {
+
+
+        // Fetch the sections associated with the store
+        Section section = sectionService.getSectionByName(sectionName);
+
+        // Collect categories from all sections
+        List<Category> categories = section.getCategories();
+
+        // Convert Category entities to CategoryResponseDTO using the mapper
+        return categories.stream()
+                .map(CategoryMapper::toResponseDTO)
+                .collect(Collectors.toList());
+    }
+
     @Override
     public List<CategoryResponseDTO> getCategoriesBySectionId(UUID sectionId) {
         Section section = sectionService.getSectionById(sectionId);

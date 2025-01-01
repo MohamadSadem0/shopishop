@@ -71,13 +71,32 @@ public class SectionServiceImpl implements SectionService {
         return section;
     }
 
+    public Section getSectionByName(String sectionName) {
+    return sectionRepository.findByName(sectionName).orElseThrow(()->new RuntimeException("section not found"));
+    }
+
     @Override
     public SectionResponseDTO createSection(SectionRequestDTO sectionRequestDTO) {
         Section section = sectionMapper.toEntity(sectionRequestDTO);
         Section savedSection = sectionRepository.save(section);
         return sectionMapper.toResponseDTO(savedSection);
     }
+    public Section getSectionById(String sectionId) {
+        if (!isValidUUID(sectionId)) {
+            throw new IllegalArgumentException("Invalid UUID: " + sectionId);
+        }
+        return sectionRepository.findById(UUID.fromString(sectionId))
+                .orElseThrow(() -> new IllegalArgumentException("Section not found with ID: " + sectionId));
+    }
 
+    public boolean isValidUUID(String uuid) {
+        try {
+            UUID.fromString(uuid);
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
+    }
     @Override
     public SectionResponseDTO updateSection(UUID sectionId, SectionRequestDTO sectionRequestDTO) {
         // Fetch the existing section by ID

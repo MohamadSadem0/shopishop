@@ -8,13 +8,11 @@ import {getDecryptedToken} from '../utils/decryptToken'; // Import the token dec
  * @param {string} token - The JWT token for authentication.
  * @returns {Array} List of categories.
  */
-export const fetchCategoriesByStoreIdAPI = async (storeId, token) => {
+export const fetchCategoriesByStoreIdAPI = async (storeId) => {
   try {
-    const response = await axiosInstance.get(`/merchant/${storeId}/categories`, {
-      headers: {
-        Authorization: `Bearer ${token}` // Add the JWT token to the request header
-      }
-    });
+    const response = await axiosInstance.get(`/public/store/${storeId}/categories`, );
+    console.log(response);
+    
     return response.data; // Assuming response.data contains an array of categories
   } catch (error) {
     console.error('Failed to fetch categories:', error);
@@ -285,13 +283,24 @@ export const fetchProductsBySectionAPI = async (sectionId) => {
 
 export const fetchCategoriesBySectionIdAPI = async (sectionId) => {
   try {
-    const response = await axiosInstance.get(`/public/${sectionId}/categories}`);
-    return response.data; // This is the array of products
+    const response = await axiosInstance.get(`/public/${sectionId}/categories`);
+    return response.data; // This is the array of categories
   } catch (error) {
-    console.error('Error fetching products by section:', error);
-    throw error;
+    console.error('Error fetching categories by section ID:', error);
+    throw new Error(error.response?.data?.message || 'Error fetching categories by section ID');
   }
 };
+
+export const fetchCategoriesBySectionNameAPI = async (sectionName) => {
+  try {
+    const response = await axiosInstance.get(`/public/${sectionName}/categories`);
+    return response.data; // This is the array of categories
+  } catch (error) {
+    console.error('Error fetching categories by section name:', error);
+    throw new Error(error.response?.data?.message || 'Error fetching categories by section name');
+  }
+};
+
 /**
  * Fetches all sections from the API with authorization.
  * @returns {Array} List of sections with categories.

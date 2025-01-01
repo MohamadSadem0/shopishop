@@ -120,7 +120,7 @@ const Signup = () => {
         )}
 
         <SignupStatus loading={loading} error={error} success={success} />
-
+        
         <div className="flex mt-4 w-full">
           {/* <GoogleSignInButton /> */}
         </div>

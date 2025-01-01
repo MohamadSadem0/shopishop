@@ -1,5 +1,4 @@
 package com.example.ShopiShop.security;
-
 import com.example.ShopiShop.models.User;
 import com.example.ShopiShop.repositories.UserRepository;
 import jakarta.servlet.FilterChain;

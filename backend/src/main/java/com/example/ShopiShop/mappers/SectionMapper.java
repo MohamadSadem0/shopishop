@@ -14,8 +14,13 @@ import java.util.stream.Collectors;
 @Component
 public class SectionMapper {
 
+    private final CategoryMapper categoryMapper;
+
     @Autowired
-    private CategoryMapper categoryMapper;
+    public SectionMapper(CategoryMapper categoryMapper) {
+        this.categoryMapper = categoryMapper;
+    }
+
     public SectionResponseDTO toResponseDTO(Section section) {
         return SectionResponseDTO.builder()
                 .id(section.getId())
@@ -40,6 +45,4 @@ public class SectionMapper {
                         .collect(Collectors.toList()))
                 .build();
     }
-
-
 }
