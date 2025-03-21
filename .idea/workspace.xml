@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="582ad10d-ac4e-4593-bd69-c4ec4f768456" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shopishop.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/models/dto/Order.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/models/dto/ProductDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/models/dto/ProductResponseDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/models/dto/StoreApprovalRequestDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/models/dto/UserDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/core/Order/controller/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/controllers/OrderController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/core/Order/dto/Order.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/core/Order/exception/OrderNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/exceptions/OrderNotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/core/Order/model/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/models/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/core/Order/repository/OrderRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/repositories/OrderRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/core/Order/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/services/OrderService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/core/Order/service/OrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/services/IMPL/OrderServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/core/Product/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/controllers/ProductController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/core/Product/dto/ProductDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/core/Product/dto/ProductMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/models/dto/ProductMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/core/Product/dto/ProductRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/models/dto/ProductRequestDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/core/Product/exception/ProductNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/exceptions/ProductNotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/core/Product/model/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/models/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/core/Product/repository/ProductRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/repositories/ProductRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/core/Product/service/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/services/ProductService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/core/Product/service/ProductServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/services/IMPL/ProductServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/core/Store/controller/StoreController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/controllers/StoreController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/core/Store/controller/StoreWebSocketController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/controllers/StoreWebSocketController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/core/Store/dto/StoreApprovalRequestDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/core/Store/dto/StoreMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/models/dto/StoreMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/core/Store/dto/StoreRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/models/dto/StoreRequestDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/core/Store/exception/StoreNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/exceptions/StoreNotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/core/Store/model/Store.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/models/Store.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/core/Store/repository/StoreRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/repositories/StoreRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/core/Store/service/StoreService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/services/StoreService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/core/Store/service/StoreServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/services/IMPL/StoreServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/core/Store/websocket/StoreApprovalEvent.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/core/Store/websocket/StoreApprovalNotifier.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/core/User/controller/AuthenticationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/controllers/AuthenticationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/core/User/dto/UserDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/core/User/dto/UserLoginRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/models/dto/UserLoginRequestDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/core/User/dto/UserLoginResponseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/models/dto/UserLoginResponseDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/core/User/dto/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/models/dto/UserMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/core/User/dto/UserSignupRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/models/dto/UserSignupRequestDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/core/User/dto/UserSignupResponseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/models/dto/UserSignupResponseDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/core/User/exception/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/exceptions/GlobalExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/core/User/exception/InvalidCredentialsException.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/exceptions/InvalidCredentialsException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/core/User/exception/UserAlreadyExistsException.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/exceptions/UserAlreadyExistsException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/core/User/exception/UserNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/exceptions/UserNotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/core/User/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/models/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/core/User/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/repositories/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/core/User/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/services/IMPL/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/core/User/service/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/services/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/data/DataLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/data/DataLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/CartItem/controller/CartItemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/controllers/CartItemController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/CartItem/dto/DeliveryDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/CartItem/exception/DeliveryNotFoundException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/CartItem/model/Delivery.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/CartItem/repository/DeliveryRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/CartItem/service/DeliveryService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/CartItem/service/DeliveryServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/Category/controller/CategoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/controllers/CategoryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/Category/dto/CategoryDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/models/dto/CategoryDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/Category/exception/CategoryNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/exceptions/CategoryNotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/Category/model/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/models/Category.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/Category/repository/CategoryRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/repositories/CategoryRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/Category/service/CategoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/services/CategoryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/Category/service/CategoryServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/services/IMPL/CategoryServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/Category/service/StoreCategoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/services/StoreCategoryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/Delivery/controller/DeliveryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/controllers/DeliveryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/Delivery/dto/DeliveryDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/models/dto/DeliveryDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/Delivery/exception/DeliveryNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/exceptions/DeliveryNotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/Delivery/model/Delivery.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/models/Delivery.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/Delivery/repository/DeliveryRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/repositories/DeliveryRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/Delivery/service/DeliveryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/services/DeliveryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/Delivery/service/DeliveryServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/services/IMPL/DeliveryServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/Location/controller/LocationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/controllers/LocationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/Location/dto/LocationDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/models/dto/LocationDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/Location/exception/LocationNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/exceptions/LocationNotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/Location/model/Location.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/models/Location.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/Location/repository/LocationRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/repositories/LocationRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/Location/service/LocationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/services/LocationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/Location/service/LocationServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/services/IMPL/LocationServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/Notification/controller/NotificationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/controllers/NotificationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/Notification/dto/NotificationDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/models/dto/NotificationDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/Notification/exception/NotificationNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/exceptions/NotificationNotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/Notification/model/Notification.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/models/Notification.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/Notification/repository/NotificationRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/repositories/NotificationRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/Notification/service/NotificationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/services/NotificationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/Notification/service/NotificationServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/services/IMPL/NotificationServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/Payment/controller/PaymentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/controllers/PaymentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/Payment/dto/PaymentDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/models/dto/PaymentDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/Payment/exception/PaymentNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/exceptions/PaymentNotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/Payment/model/Payment.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/models/Payment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/Payment/repository/PaymentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/repositories/PaymentRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/Payment/service/PaymentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/services/PaymentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/Payment/service/PaymentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/services/IMPL/PaymentServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/Review/controller/ReviewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/controllers/ReviewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/Review/dto/ReviewDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/models/dto/ReviewDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/Review/exception/ReviewNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/exceptions/ReviewNotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/Review/model/Review.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/models/Review.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/Review/repository/ReviewRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/repositories/ReviewRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/Review/service/ReviewService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/services/service/ReviewService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/Review/service/ReviewServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/services/service/ReviewServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/Section/controller/SectionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/controllers/SectionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/Section/dto/SectionMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/models/dto/SectionMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/Section/dto/SectionRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/models/dto/SectionRequestDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/Section/dto/SectionResponseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/models/dto/SectionResponseDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/Section/exception/ServiceCategoryNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/exceptions/ServiceCategoryNotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/Section/model/Section.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/models/Section.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/Section/repository/SectionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/repositories/SectionRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/Section/service/SectionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/services/SectionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/Section/service/SectionServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/services/IMPL/SectionServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/Wishlist/controller/WishlistController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/controllers/WishlistController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/Wishlist/dto/WishlistDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/models/dto/WishlistDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/Wishlist/exception/WishlistNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/exceptions/WishlistNotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/Wishlist/model/Wishlist.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/models/Wishlist.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/Wishlist/repository/WishlistRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/repositories/WishlistRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/Wishlist/service/WishlistService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/services/WishlistService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/modules/Wishlist/service/WishlistServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/services/IMPL/WishlistServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/security/ApplicationConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/security/ApplicationConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/security/JwtAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/security/JwtAuthenticationFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/security/JwtService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/security/JwtService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/security/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/ShopiShop/security/SecurityConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/dummy/SellerDetailsForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/dummy/MerchantDetailsForm.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/dummy/SignupForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/dummy/SignupForm.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/common/GoogleSignInButton.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/common/GoogleSignInButton.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/dashboard/Content.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/dashboard/Sidebar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/dashboard/Sidebar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/layout/NavBar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/layout/NavBar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/folder_structure.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/auth/signup/RoleSelection.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/auth/signup/RoleSelection.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/auth/signup/SellerDetails.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/auth/signup/MerchantDetails.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/auth/signup/Signup.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/auth/signup/Signup.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/dashboard/Dashboardpage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/dashboard/Dashboardpage.jsx" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2mWBVxlaZRCz0ySwFP8Y305f0UH" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/webprojects/shopishop",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="582ad10d-ac4e-4593-bd69-c4ec4f768456" name="Changes" comment="" />
+      <created>1727182478653</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1727182478653</updated>
+      <workItem from="1727182479676" duration="272000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
